@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root>
+    <!-- <Page name="WindowResizer" modulePath="WindowResizer.dll"> -->
+		<!-- <ActionGroup name="查找窗口"> -->
+			<!-- <Action name="查找窗口" icon="./Images/test_icon3.png" commandID="FindWindow"/> -->
+		<!-- </ActionGroup> -->
+		<!-- <ActionGroup name="帮助"> -->
+			<!-- <Action name="使用说明" icon="./Images/help.png" commandID="UserGuid"/> -->
+		<!-- </ActionGroup> -->
+    <!-- </Page> -->
+    <Page name="代码工具" modulePath="AddCodeHeader.dll">
+		<ActionGroup name="代码工具">
+			<Action name="扫描文件" icon="./Images/test_icon5.png" commandID="AddCodeHeaderScanFile"/>
+		</ActionGroup>
+		<ActionGroup name="添加代码头">
+			<Action name="执行" icon="./Images/test_icon4.png" commandID="AddCodeHeaderExcute"/>
+		</ActionGroup>
+		<ActionGroup name="删除注释">
+			<Action name="执行" icon="./Images/test_icon4.png" commandID="RemoveCommentExcute"/>
+		</ActionGroup>
+		<ActionGroup name="帮助">
+			<Action name="使用说明" icon="./Images/help.png" commandID="AddCodeHeaderUserGuid"/>
+		</ActionGroup>
+    </Page>
+</root>

@@ -348,3 +348,11 @@ MigrationBackup/
 
 # Ionide (cross platform F# VS Code tools) working folder
 .ionide/
+/BuildLog
+qmake
+moc
+*.tlog
+x64_vc15_Unicode_Debug
+x64_vc15_Unicode_Release
+win32_vc15_Unicode_Debug
+win32_vc15_Unicode_Release

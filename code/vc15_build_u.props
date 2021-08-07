@@ -1,0 +1,45 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ImportGroup Label="PropertySheets" />
+  <PropertyGroup Label="UserMacros">
+    <ParentPath>..\..</ParentPath>
+    <BuildFolder>$(Platform)_vc15_$(CharacterSet)_$(Configuration)</BuildFolder>
+  </PropertyGroup>
+  <PropertyGroup>
+    <OutDir>$(ParentPath)\bin\$(BuildFolder)\</OutDir>
+  </PropertyGroup>
+  <PropertyGroup>
+    <IntDir>$(BuildFolder)\</IntDir>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration">
+    <BuildLogFile>$(ParentPath)\BuildLog\$(BuildFolder)\$(ProjectName).htm</BuildLogFile>
+  </PropertyGroup>
+  <ItemDefinitionGroup>
+    <ClCompile>
+      <AssemblerListingLocation>$(BuildFolder)\</AssemblerListingLocation>
+      <ObjectFileName>$(BuildFolder)\</ObjectFileName>
+      <XMLDocumentationFileName>$(BuildFolder)\</XMLDocumentationFileName>
+      <AdditionalIncludeDirectories>..\..\include;..\..\include\thirdparty;$(BOOSTDIR)\include;$(BCGDIR)\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <OutputFile>$(OutDir)$(ProjectName)$(TargetExt)</OutputFile>
+      <ImportLibrary>$(ParentPath)\library\$(BuildFolder)\$(ProjectName).lib</ImportLibrary>
+      <AdditionalLibraryDirectories>$(ParentPath)\library\$(BuildFolder);$(BOOSTDIR)\library\$(BuildFolder);$(BCGDIR)\library\$(BuildFolder)</AdditionalLibraryDirectories>
+      <ProgramDatabaseFile>$(ParentPath)\pdb\$(BuildFolder)\$(ProjectName).pdb</ProgramDatabaseFile>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+    <BuildLog>
+      <Path>$(ParentPath)\BuildLog\$(BuildFolder)\$(ProjectName).htm</Path>
+    </BuildLog>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <BuildMacro Include="ParentPath">
+      <Value>$(ParentPath)</Value>
+      <EnvironmentVariable>true</EnvironmentVariable>
+    </BuildMacro>
+    <BuildMacro Include="BuildFolder">
+      <Value>$(BuildFolder)</Value>
+      <EnvironmentVariable>true</EnvironmentVariable>
+    </BuildMacro>
+  </ItemGroup>
+</Project>
