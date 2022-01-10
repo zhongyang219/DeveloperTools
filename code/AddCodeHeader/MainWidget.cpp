@@ -1,10 +1,11 @@
-#include "MainWidget.h"
+ï»¿#include "MainWidget.h"
 #include <QVBoxLayout>
 #include <QHBoxLayout>
 #include <QLabel>
 #include <QSplitter>
 #include <QPushButton>
 #include <QFileDialog>
+#include <QTabWidget>
 
 CMainWidget::CMainWidget(QWidget *parent)
     : QWidget(parent)
@@ -15,35 +16,36 @@ CMainWidget::CMainWidget(QWidget *parent)
     pLayout->setMargin(0);
     this->setLayout(pLayout);
 
+    //åˆ›å»ºå·¦ä¾§æ§ä»¶
     QWidget* pLeftWidget = new QWidget();
-    QWidget* pRightWidget = new QWidget();
     pSpliter->addWidget(pLeftWidget);
-    pSpliter->addWidget(pRightWidget);
 
-    //´´½¨×ó²à¿Ø¼ş
     QVBoxLayout* pLeftLayout = new QVBoxLayout();
     pLeftWidget->setLayout(pLeftLayout);
-    pLeftLayout->addWidget(new QLabel(u8"ÉèÖÃÉ¨ÃèÂ·¾¶£º"));
+    pLeftLayout->addWidget(new QLabel(u8"è®¾ç½®æ‰«æè·¯å¾„ï¼š"));
     QHBoxLayout* pPathEditLayout = new QHBoxLayout();
     pPathEditLayout->addWidget(m_pFolderPathEidt = new QLineEdit());
-    QPushButton* pBrowseBtn = new QPushButton(u8"ä¯ÀÀ(&B)...");
+    QPushButton* pBrowseBtn = new QPushButton(u8"æµè§ˆ(&B)...");
     pPathEditLayout->addWidget(pBrowseBtn);
     pLeftLayout->addLayout(pPathEditLayout);
-    pLeftLayout->addWidget(new QLabel(u8"É¨ÃèÎÄ¼şµÄ¸ñÊ½£º"));
+    pLeftLayout->addWidget(new QLabel(u8"æ‰«ææ–‡ä»¶çš„æ ¼å¼ï¼š"));
     pLeftLayout->addWidget(m_pFileTypeCombo = new QComboBox());
-    pLeftLayout->addWidget(new QLabel(u8"ÎÄ¼şÁĞ±í£º"));
+    pLeftLayout->addWidget(new QLabel(u8"æ–‡ä»¶åˆ—è¡¨ï¼š"));
     pLeftLayout->addWidget(m_pFileTableView = new QTableView());
 
-    //´´½¨ÓÒ²à¿Ø¼ş
+    //åˆ›å»ºå³ä¾§æ§ä»¶
+
+    QWidget* pAddCodeHeadWidget = new QWidget();
+    pSpliter->addWidget(pAddCodeHeadWidget);
     QVBoxLayout* pRightLayout = new QVBoxLayout();
-    pRightWidget->setLayout(pRightLayout);
-    pRightLayout->addWidget(new QLabel(u8"ÊäÈëÎÄ¼şÍ·Ä£°å£º"));
+    pAddCodeHeadWidget->setLayout(pRightLayout);
+    pRightLayout->addWidget(new QLabel(u8"è¾“å…¥æ–‡ä»¶å¤´æ¨¡æ¿ï¼š"));
     pRightLayout->addWidget(m_pTemplateTextEdit = new QTextEdit());
-    QLabel* pInfoLabel = new QLabel(u8"¿ÉÓÃºêËµÃ÷£º\r\n<%file_name%>: ÎÄ¼şÃû\r\n<%time[format]%>: ÈÕÆÚ/Ê±¼ä£¬formatÎª¸ñÊ½£¬ÀıÈç¡°yyyyMMdd¡±");
+    QLabel* pInfoLabel = new QLabel(u8"å¯ç”¨å®è¯´æ˜ï¼š\r\n<%file_name%>: æ–‡ä»¶å\r\n<%time[format]%>: æ—¥æœŸ/æ—¶é—´ï¼Œformatä¸ºæ ¼å¼ï¼Œä¾‹å¦‚â€œyyyyMMddâ€");
     pInfoLabel->setWordWrap(true);
     pRightLayout->addWidget(pInfoLabel);
     QHBoxLayout* pOptionHLayout = new QHBoxLayout();
-    pOptionHLayout->addWidget(new QLabel(u8"Êä³ö±àÂë¸ñÊ½£º"));
+    pOptionHLayout->addWidget(new QLabel(u8"è¾“å‡ºç¼–ç æ ¼å¼ï¼š"));
     pOptionHLayout->addWidget(m_pOutFormatCombo = new QComboBox());
     pRightLayout->addLayout(pOptionHLayout);
 
