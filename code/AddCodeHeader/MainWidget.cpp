@@ -30,15 +30,21 @@ CMainWidget::CMainWidget(QWidget *parent)
     pLeftLayout->addLayout(pPathEditLayout);
     pLeftLayout->addWidget(new QLabel(u8"扫描文件的格式："));
     pLeftLayout->addWidget(m_pFileTypeCombo = new QComboBox());
+
+    QHBoxLayout* pOptionsLayout = new QHBoxLayout();
+    pOptionsLayout->addWidget(m_pRemoveSpace = new QCheckBox(u8"移除多余的空格"));
+    pOptionsLayout->addWidget(m_pRemoveReturn = new QCheckBox(u8"移除多余的回车符"));
+    pOptionsLayout->addStretch();
+    pLeftLayout->addLayout(pOptionsLayout);
+
     pLeftLayout->addWidget(new QLabel(u8"文件列表："));
     pLeftLayout->addWidget(m_pFileTableView = new QTableView());
 
     //创建右侧控件
-
-    QWidget* pAddCodeHeadWidget = new QWidget();
-    pSpliter->addWidget(pAddCodeHeadWidget);
+    m_pAddCodeHeadWidget = new QWidget();
+    pSpliter->addWidget(m_pAddCodeHeadWidget);
     QVBoxLayout* pRightLayout = new QVBoxLayout();
-    pAddCodeHeadWidget->setLayout(pRightLayout);
+    m_pAddCodeHeadWidget->setLayout(pRightLayout);
     pRightLayout->addWidget(new QLabel(u8"输入文件头模板："));
     pRightLayout->addWidget(m_pTemplateTextEdit = new QTextEdit());
     QLabel* pInfoLabel = new QLabel(u8"可用宏说明：\r\n<%file_name%>: 文件名\r\n<%time[format]%>: 日期/时间，format为格式，例如“yyyyMMdd”");
@@ -84,6 +90,24 @@ QTableView * CMainWidget::GetFileTableView()
 QComboBox* CMainWidget::GetOutFormatCombo()
 {
     return m_pOutFormatCombo;
+}
+
+QCheckBox* CMainWidget::GetRemoveSpaceCheck()
+{
+    return m_pRemoveSpace;
+}
+
+QCheckBox* CMainWidget::GetRemoveReturnCheck()
+{
+    return m_pRemoveReturn;
+}
+
+void CMainWidget::ShowAddCodeHeader(bool show)
+{
+    if (show)
+        m_pAddCodeHeadWidget->show();
+    else
+        m_pAddCodeHeadWidget->hide();
 }
 
 void CMainWidget::OnBrowseBtnClicked()

@@ -5,7 +5,7 @@ CRemoveCommentHelper::CRemoveCommentHelper()
 {
 }
 
-bool CRemoveCommentHelper::RemoveComment(const QString& file_path, RemoveResult& result)
+bool CRemoveCommentHelper::RemoveComment(const QString& file_path, bool bRemoveSpace, bool bRemoveReturn, RemoveResult& result)
 {
     QFile file(file_path);
     if (!file.open(QFile::ReadOnly))
@@ -13,7 +13,7 @@ bool CRemoveCommentHelper::RemoveComment(const QString& file_path, RemoveResult&
     QByteArray file_contents = file.readAll();
     file.close();
 
-    RemoveComment(file_contents, result);
+    RemoveComment(file_contents, bRemoveSpace, bRemoveReturn, result);
 
     file.setFileName(file_path);
     if (!file.open(QFile::WriteOnly))
@@ -23,7 +23,7 @@ bool CRemoveCommentHelper::RemoveComment(const QString& file_path, RemoveResult&
     return true;
 }
 
-void CRemoveCommentHelper::RemoveComment(QByteArray& file_contents, RemoveResult& result)
+void CRemoveCommentHelper::RemoveComment(QByteArray& file_contents, bool bRemoveSpace, bool bRemoveReturn, RemoveResult& result)
 {
     result = RemoveResult();
     //删除“//”
@@ -50,26 +50,32 @@ void CRemoveCommentHelper::RemoveComment(QByteArray& file_contents, RemoveResult
     }
 
     //移除多余的空格
-    while (file_contents.contains(" \r\n"))
+    if (bRemoveSpace)
     {
-        file_contents.replace(" \r\n", "\r\n");
-        result.space_removed++;
-    }
-    while (file_contents.contains(" \n"))
-    {
-        file_contents.replace(" \n", "\n");
-        result.space_removed++;
+        while (file_contents.contains(" \r\n"))
+        {
+            file_contents.replace(" \r\n", "\r\n");
+            result.space_removed++;
+        }
+        while (file_contents.contains(" \n"))
+        {
+            file_contents.replace(" \n", "\n");
+            result.space_removed++;
+        }
     }
 
     //移除多余的回车
-    while (file_contents.contains("\r\n\r\n\r\n\r\n"))
+    if (bRemoveReturn)
     {
-        file_contents.replace("\r\n\r\n\r\n\r\n", "\r\n\r\n\r\n");
-        result.return_removed++;
-    }
-    while (file_contents.contains("\n\n\n\n"))
-    {
-        file_contents.replace("\n\n\n\n", "\n\n\n");
-        result.return_removed++;
+        while (file_contents.contains("\r\n\r\n\r\n\r\n"))
+        {
+            file_contents.replace("\r\n\r\n\r\n\r\n", "\r\n\r\n\r\n");
+            result.return_removed++;
+        }
+        while (file_contents.contains("\n\n\n\n"))
+        {
+            file_contents.replace("\n\n\n\n", "\n\n\n");
+            result.return_removed++;
+        }
     }
 }

@@ -19,6 +19,8 @@ public:
     //界面关闭时执行的操作
     void ExitWidget();
 
+    void AdjustColumeWidth();
+
     //扫描文件
     void ScanFiles();
 

@@ -37,6 +37,8 @@ public:
     //checked：命令按钮是否被选中
     virtual void CommandTrigerd(const wchar_t* strCmd, bool checked) = 0;
 
+    virtual void OnTabEntered() {}
+
 };
 
 typedef std::shared_ptr<IModuleInterface> IModuleInterfacePtr;

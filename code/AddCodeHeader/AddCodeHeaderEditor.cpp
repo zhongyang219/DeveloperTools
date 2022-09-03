@@ -40,6 +40,18 @@ void CAddCodeHeaderEditor::ConnectWidget(CMainWidget* pWidget)
     int index = pWidget->GetOutFormatCombo()->findData(outputFormat);
     pWidget->GetOutFormatCombo()->setCurrentIndex(index);
 
+    pWidget->GetRemoveSpaceCheck()->setChecked(ini.value("AddCodeHeader/removeSpace", true).toBool());
+    pWidget->GetRemoveReturnCheck()->setChecked(ini.value("AddCodeHeader/removeReturn", true).toBool());
+
+    //默认不显示“添加代码头”
+    pWidget->ShowAddCodeHeader(false);
+
+    //设置列表样式
+    pWidget->GetFileTableView()->setSelectionBehavior(QAbstractItemView::SelectRows);      //设置选中行
+    pWidget->GetFileTableView()->setSelectionMode(QAbstractItemView::SingleSelection);     //设置只允许选中单行
+    pWidget->GetFileTableView()->setEditTriggers(QAbstractItemView::NoEditTriggers);       //设置不允许编辑
+    pWidget->GetFileTableView()->setHorizontalScrollMode(QAbstractItemView::ScrollPerPixel);
+
     //连接数据模型
     pWidget->GetFileTableView()->setModel(&m_fileListModel);
 
@@ -72,14 +84,30 @@ void CAddCodeHeaderEditor::ExitWidget()
     ini.setValue("AddCodeHeader/fileTypeList", strTypeList);
 
     ini.setValue("AddCodeHeader/outoputFormat", m_pWidget->GetOutFormatCombo()->currentData());
+
+    ini.setValue("AddCodeHeader/removeSpace", m_pWidget->GetRemoveSpaceCheck()->isChecked());
+    ini.setValue("AddCodeHeader/removeReturn", m_pWidget->GetRemoveReturnCheck()->isChecked());
+}
+
+void CAddCodeHeaderEditor::AdjustColumeWidth()
+{
+    if (m_pWidget != nullptr)
+    {
+        int width = m_pWidget->GetFileTableView()->width();
+        int width0 = width / 5;
+        int width2 = width0;
+        int width1 = width - width0 - width2;
+        m_pWidget->GetFileTableView()->setColumnWidth(COL_FILENAME, width0);
+        m_pWidget->GetFileTableView()->setColumnWidth(COL_FILEPATH, width1);
+        m_pWidget->GetFileTableView()->setColumnWidth(COL_EXTENSION, width2);
+    }
 }
 
 void CAddCodeHeaderEditor::ScanFiles()
 {
     QStringList filterList = m_pWidget->GetFileTypeCombo()->currentText().split(';');
     QFileInfoList fileInfoList = CCommonTools::FindFile(m_pWidget->GetFolderPathEidt()->text(), filterList);
-    m_fileListModel.clear();
-    InitFileTable();
+    m_fileListModel.removeRows(0, m_fileListModel.rowCount());
     Q_FOREACH(const QFileInfo& fileInfo, fileInfoList)
     {
         QList<QStandardItem*> itemList;
@@ -111,7 +139,7 @@ int CAddCodeHeaderEditor::RemoveComments(CRemoveCommentHelper::RemoveResult& rem
     {
         QString strFilePath = m_fileListModel.item(i, COL_FILEPATH)->text();
         CRemoveCommentHelper::RemoveResult cur_result;
-        if (CRemoveCommentHelper::RemoveComment(strFilePath, cur_result))
+        if (CRemoveCommentHelper::RemoveComment(strFilePath, m_pWidget->GetRemoveSpaceCheck()->isChecked(), m_pWidget->GetRemoveReturnCheck()->isChecked(), cur_result))
         {
             file_count++;
             remove_result += cur_result;

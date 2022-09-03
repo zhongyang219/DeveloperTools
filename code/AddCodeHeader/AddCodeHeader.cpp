@@ -47,15 +47,28 @@ void AddCodeHeader::CommandTrigerd(const wchar_t* cmd, bool checked)
         CRemoveCommentHelper::RemoveResult result;
         int file_count = m_editor.RemoveComments(result);
         QString info;
-        info = QString(u8"完成，已处理 %1 个文件。\r\n移除 %2 个单行注释，%3 个多行注释，%4 个空格，%5 个回车符").arg(file_count)
-            .arg(result.single_line_comment_removed).arg(result.multi_line_comment_removed).arg(result.space_removed).arg(result.return_removed);
+        info = QString(u8"完成，已处理 %1 个文件。\r\n移除 %2 个单行注释，%3 个多行注释").arg(file_count)
+            .arg(result.single_line_comment_removed).arg(result.multi_line_comment_removed);
+        if (m_mainWidget.GetRemoveSpaceCheck()->isChecked())
+            info += QString(u8"，%1 个空格").arg(result.space_removed);
+        if (m_mainWidget.GetRemoveReturnCheck()->isChecked())
+            info += QString(u8"，%1 个回车符").arg(result.return_removed);
         QMessageBox::information(nullptr, nullptr, info, QMessageBox::Ok);
+    }
+    else if (strCmd == "ShowAddCodeHeader")
+    {
+        m_mainWidget.ShowAddCodeHeader(checked);
     }
 }
 
 IModuleInterface::eMainWindowType AddCodeHeader::GetMainWindowType() const
 {
     return IModuleInterface::MT_QWIDGET;
+}
+
+void AddCodeHeader::OnTabEntered()
+{
+    m_editor.AdjustColumeWidth();
 }
 
 AddCodeHeader* AddCodeHeader::GetInstance()

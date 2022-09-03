@@ -19,6 +19,7 @@ public:
     virtual const wchar_t* GetModuleName() override;
     virtual void CommandTrigerd(const wchar_t* strCmd, bool checked) override;
     virtual eMainWindowType GetMainWindowType() const override;
+    virtual void OnTabEntered() override;
 
     static AddCodeHeader* GetInstance();
 

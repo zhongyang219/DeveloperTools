@@ -23,9 +23,9 @@ public:
         }
     };
 
-    static bool RemoveComment(const QString& file_path, RemoveResult& result);
+    static bool RemoveComment(const QString& file_path, bool bRemoveSpace, bool bRemoveReturn, RemoveResult& result);
 
 private:
-    static void RemoveComment(QByteArray& file_contents, RemoveResult& result);
+    static void RemoveComment(QByteArray& file_contents, bool bRemoveSpace, bool bRemoveReturn, RemoveResult& result);
 
 };

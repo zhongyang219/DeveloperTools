@@ -77,6 +77,7 @@ void MainFrame::OnTabIndexChanged(int index)
                 centralWidget()->setParent(nullptr);
             setCentralWidget(pWidget);
             pWidget->show();
+            pModule->OnTabEntered();
             return;
         }
     }
@@ -200,9 +201,12 @@ void MainFrame::LoadUIFromXml()
                                 QString strCmdName = actionNodeInfo.attribute("name");
                                 QString strIconPath = actionNodeInfo.attribute("icon");
                                 QString strCmdId = actionNodeInfo.attribute("commandID");
+                                QString strCheckable = actionNodeInfo.attribute("checkable");
+                                bool bCheckable = (strCheckable == "true" || strCheckable == "TRUE" || strCheckable == "True");
 
                                 QAction* pAction = pRibbonGroup->addAction(QIcon(strIconPath), strCmdName, Qt::ToolButtonTextUnderIcon);
                                 pAction->setData(strCmdId);     //将命令的ID作为用户数据保存到QAction对象中
+                                pAction->setCheckable(bCheckable);
 
                                 connect(pAction, SIGNAL(triggered(bool)), this, SLOT(OnActionTriggerd(bool)));
                             }

@@ -6,6 +6,7 @@
 #include <QLineEdit>
 #include <QComboBox>
 //#include <QTextBrowser>
+#include <QCheckBox>
 
 class CMainWidget : public QWidget
 {
@@ -20,6 +21,9 @@ public:
     QComboBox* GetFileTypeCombo();
     QTableView* GetFileTableView();
     QComboBox* GetOutFormatCombo();
+    QCheckBox* GetRemoveSpaceCheck();
+    QCheckBox* GetRemoveReturnCheck();
+    void ShowAddCodeHeader(bool show);
 
 private slots:
     void OnBrowseBtnClicked();
@@ -30,4 +34,7 @@ private:
     QComboBox* m_pFileTypeCombo;
     QTableView* m_pFileTableView;
     QComboBox* m_pOutFormatCombo;
+    QWidget* m_pAddCodeHeadWidget;      //ср╡Ю©ь╪Ч
+    QCheckBox* m_pRemoveSpace;
+    QCheckBox* m_pRemoveReturn;
 };

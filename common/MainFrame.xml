@@ -12,11 +12,12 @@
 		<ActionGroup name="代码工具">
 			<Action name="扫描文件" icon="./Images/test_icon5.png" commandID="AddCodeHeaderScanFile"/>
 		</ActionGroup>
-		<ActionGroup name="添加代码头">
-			<Action name="执行" icon="./Images/test_icon4.png" commandID="AddCodeHeaderExcute"/>
-		</ActionGroup>
 		<ActionGroup name="删除注释">
 			<Action name="执行" icon="./Images/test_icon4.png" commandID="RemoveCommentExcute"/>
+		</ActionGroup>
+		<ActionGroup name="添加代码头">
+			<Action name="添加代码头" icon="./Images/code.png" commandID="ShowAddCodeHeader" checkable="true" />
+			<Action name="执行" icon="./Images/test_icon4.png" commandID="AddCodeHeaderExcute"/>
 		</ActionGroup>
 		<ActionGroup name="帮助">
 			<Action name="使用说明" icon="./Images/help.png" commandID="AddCodeHeaderUserGuid"/>
