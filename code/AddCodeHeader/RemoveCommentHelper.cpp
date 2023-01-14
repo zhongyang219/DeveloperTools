@@ -1,19 +1,20 @@
 ﻿#include "RemoveCommentHelper.h"
 #include <QFile>
+#include <QRegExp>
 
 CRemoveCommentHelper::CRemoveCommentHelper()
 {
 }
 
-bool CRemoveCommentHelper::RemoveComment(const QString& file_path, bool bRemoveSpace, bool bRemoveReturn, RemoveResult& result)
+bool CRemoveCommentHelper::RemoveFileComment(const QString& file_path, bool bRemoveSpace, bool bRemoveReturn, int keepReturnNum, RemoveResult& result)
 {
     QFile file(file_path);
     if (!file.open(QFile::ReadOnly))
         return false;
-    QByteArray file_contents = file.readAll();
+    QByteArray file_contents(file.readAll());
     file.close();
 
-    RemoveComment(file_contents, bRemoveSpace, bRemoveReturn, result);
+    RemoveComment(file_contents, bRemoveSpace, bRemoveReturn, keepReturnNum, result);
 
     file.setFileName(file_path);
     if (!file.open(QFile::WriteOnly))
@@ -23,17 +24,18 @@ bool CRemoveCommentHelper::RemoveComment(const QString& file_path, bool bRemoveS
     return true;
 }
 
-void CRemoveCommentHelper::RemoveComment(QByteArray& file_contents, bool bRemoveSpace, bool bRemoveReturn, RemoveResult& result)
+void CRemoveCommentHelper::RemoveComment(QByteArray& file_contents, bool bRemoveSpace, bool bRemoveReturn, int keepReturnNum, RemoveResult& result)
 {
     result = RemoveResult();
     //删除“//”
     int index1 = -1, index2 = -1;
     while (true)
     {
-        index1 = file_contents.indexOf("//", index1 + 1);
-        index2 = file_contents.indexOf("\n", index1 + 1);
+        index1 = FindStringNotInQuotation(file_contents, "//", index1 + 1);
+        index2 = FindFirstOf(file_contents, "\r\n", index1 + 1);
         if (index1 < 0 || index2 < 0)
             break;
+
         file_contents.remove(index1, index2 - index1);
         result.single_line_comment_removed++;
     }
@@ -41,8 +43,8 @@ void CRemoveCommentHelper::RemoveComment(QByteArray& file_contents, bool bRemove
     index1 = -1, index2 = -1;
     while (true)
     {
-        index1 = file_contents.indexOf("/*", index1 + 1);
-        index2 = file_contents.indexOf("*/", index1 + 1);
+        index1 = FindStringNotInQuotation(file_contents, "/*", index1 + 1);
+        index2 = FindStringNotInQuotation(file_contents, "*/", index1 + 1);
         if (index1 < 0 || index2 < 0)
             break;
         file_contents.remove(index1, index2 - index1 + 2);
@@ -62,20 +64,69 @@ void CRemoveCommentHelper::RemoveComment(QByteArray& file_contents, bool bRemove
             file_contents.replace(" \n", "\n");
             result.space_removed++;
         }
+
+        //移除多余的制表符
+        while (file_contents.contains("\t\r\n"))
+        {
+            file_contents.replace("\t\r\n", "\r\n");
+            result.space_removed++;
+        }
+        while (file_contents.contains("\t\n"))
+        {
+            file_contents.replace("\t\n", "\n");
+            result.space_removed++;
+        }
     }
 
     //移除多余的回车
     if (bRemoveReturn)
     {
-        while (file_contents.contains("\r\n\r\n\r\n\r\n"))
+        auto createString = [](const char* str, int repeatTimes) ->QByteArray
         {
-            file_contents.replace("\r\n\r\n\r\n\r\n", "\r\n\r\n\r\n");
+            QByteArray strResult;
+            for (int i = 0; i < repeatTimes; i++)
+                strResult += str;
+            return strResult;
+        };
+        while (file_contents.contains(createString("\r\n", keepReturnNum + 2)))
+        {
+            file_contents.replace(createString("\r\n", keepReturnNum + 2), createString("\r\n", keepReturnNum + 1));
             result.return_removed++;
         }
-        while (file_contents.contains("\n\n\n\n"))
+        while (file_contents.contains(createString("\n", keepReturnNum + 2)))
         {
-            file_contents.replace("\n\n\n\n", "\n\n\n");
+            file_contents.replace(createString("\n", keepReturnNum + 2), createString("\n", keepReturnNum + 1));
             result.return_removed++;
         }
     }
+}
+
+int CRemoveCommentHelper::FindFirstOf(const QByteArray& contents, const QByteArray& strFind, int index)
+{
+    for (int i = index; i < contents.size(); i++)
+    {
+        if (strFind.contains(contents[i]))
+            return i;
+    }
+    return -1;
+}
+
+int CRemoveCommentHelper::FindStringNotInQuotation(const QByteArray& contents, const char * strFind, int index)
+{
+    index--;
+    while (true)
+    {
+        index = contents.indexOf(strFind, index + 1);
+        if (index < 0)
+            break;
+
+        int indexPreviousReturn = contents.lastIndexOf('\n', index);
+        //QByteArray curLine(contents.mid(indexPreviousReturn + 1, indexReturn));		//当前行
+
+        //判断找到的字符串是否在引号内
+        //如果找到的字符串前面的引号个数为偶数，则认为找到的字符串不在引号内
+        if (contents.mid(indexPreviousReturn, index - indexPreviousReturn).count('\"') % 2 == 0)
+            break;
+    }
+    return index;
 }

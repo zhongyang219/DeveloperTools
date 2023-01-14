@@ -4,6 +4,9 @@
 #include <QStandardItemModel>
 #include "MainWidget.h"
 #include "RemoveCommentHelper.h"
+#include "../CCommonTools/TableDataModel.h"
+#include <QFileInfo>
+#include <functional>
 
 class CAddCodeHeaderEditor : public QObject
 {
@@ -24,6 +27,10 @@ public:
     //扫描文件
     void ScanFiles();
 
+    //移除所有文件的注释
+    //remove_result：保存结果
+    //func：一个函数对象，参数为已处理的文件个数
+    //返回值：总共已处理的文件个数
     int RemoveComments(CRemoveCommentHelper::RemoveResult& remove_result);
 
     enum eOutputFormat      //输出的文本格式
@@ -42,11 +49,21 @@ public:
         COL_MAX
     };
 
-private:
-    void InitFileTable();
+signals:
+    void signalRemoveCommentProgress(double percent);
 
 private:
-    QStandardItemModel m_fileListModel;
+    void InitFileTable();
+    void AddFile(const QFileInfo& fileInfo);
+
+private slots:
+    void OnSelectionChanged(const QItemSelection& selected, const QItemSelection& deselected);
+    void OnAddFileBtnClicked();
+    void OnRemoveFileBtnClicked();
+    void OnClearFileBtnClicked();
+
+private:
+    CTableDataModel m_fileListModel;
 
     CMainWidget* m_pWidget{};
 

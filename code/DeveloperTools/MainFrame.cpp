@@ -9,11 +9,12 @@
 #include <QWindow>
 #include <QFile>
 #include <QDomDocument>
-
+#include <QIcon>
 
 MainFrame::MainFrame(QWidget *parent)
     : RibbonMainWindow(parent)
 {
+    setWindowIcon(QIcon(":/DeveloperTools/res/DeveloperTools.ico"));
     setMinimumSize(DPI(500), DPI(400));
     resize(DPI(800), DPI(600));
 
@@ -22,7 +23,7 @@ MainFrame::MainFrame(QWidget *parent)
     setMenuBar(bar);
     bar->setTitleBarVisible(false);
     RibbonStyle* ribbonStyle = new RibbonStyle;
-    ribbonStyle->setTheme(OfficeStyle::Office2013White);
+    ribbonStyle->setTheme(OfficeStyle::Office2013Gray);
     qApp->setStyle(ribbonStyle);
 
     ////初始化第一个Ribbon页面
@@ -204,11 +205,13 @@ void MainFrame::LoadUIFromXml()
                                 QString strCheckable = actionNodeInfo.attribute("checkable");
                                 bool bCheckable = (strCheckable == "true" || strCheckable == "TRUE" || strCheckable == "True");
 
-                                QAction* pAction = pRibbonGroup->addAction(QIcon(strIconPath), strCmdName, Qt::ToolButtonTextUnderIcon);
+                                QAction* pAction = pRibbonGroup->addAction(QIcon(qApp->applicationDirPath() + "/" + strIconPath), strCmdName, Qt::ToolButtonTextUnderIcon);
                                 pAction->setData(strCmdId);     //将命令的ID作为用户数据保存到QAction对象中
                                 pAction->setCheckable(bCheckable);
 
                                 connect(pAction, SIGNAL(triggered(bool)), this, SLOT(OnActionTriggerd(bool)));
+
+                                m_actionMap[strCmdId] = pAction;
                             }
                         }
                     }
@@ -232,4 +235,23 @@ QWidget* MainFrame::GetModuleMainWindow(IModuleInterfacePtr pModule)
         pWidget = (QWidget*)pModule->GetMainWindow();
     }
     return pWidget;
+}
+
+QAction * MainFrame::GetAction(const QString & strCmd) const
+{
+    auto iter = m_actionMap.find(strCmd);
+    if (iter != m_actionMap.end())
+        return iter->second;
+    else
+        return nullptr;
+}
+
+IModuleInterface * MainFrame::GetModule(const QString & strModuleName) const
+{
+    for (const auto& moduleItem : m_moduleMap)
+    {
+        if (moduleItem.second.pModule != nullptr && QString::fromWCharArray(moduleItem.second.pModule->GetModuleName()) == strModuleName)
+            return moduleItem.second.pModule.get();
+    }
+    return nullptr;
 }

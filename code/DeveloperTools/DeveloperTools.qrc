@@ -1,4 +1,6 @@
 <RCC>
-    <qresource prefix="DeveloperTools">
+    <qresource prefix="/DeveloperTools">
+        <file>res/style.qss</file>
+        <file>res/DeveloperTools.ico</file>
     </qresource>
 </RCC>

@@ -23,9 +23,10 @@ public:
         }
     };
 
-    static bool RemoveComment(const QString& file_path, bool bRemoveSpace, bool bRemoveReturn, RemoveResult& result);
+    static bool RemoveFileComment(const QString& file_path, bool bRemoveSpace, bool bRemoveReturn, int keepReturnNum, RemoveResult& result);
+    static void RemoveComment(QByteArray& file_contents, bool bRemoveSpace, bool bRemoveReturn, int keepReturnNum, RemoveResult& result);
 
 private:
-    static void RemoveComment(QByteArray& file_contents, bool bRemoveSpace, bool bRemoveReturn, RemoveResult& result);
-
+    static int FindFirstOf(const QByteArray& contents, const QByteArray& strFind, int index);
+    static int FindStringNotInQuotation(const QByteArray& contents, const char* strFind, int index);		//查找指定字符串，但是确保指定的字符串不在引号内
 };

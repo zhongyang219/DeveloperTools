@@ -4,6 +4,7 @@
 #include "moduleinterface.h"
 #include "MainWidget.h"
 #include "AddCodeHeaderEditor.h"
+#include "CRemoveCommentThread.h"
 #include <QObject>
 
 class ADDCODEHEADER_EXPORT AddCodeHeader
@@ -23,9 +24,18 @@ public:
 
     static AddCodeHeader* GetInstance();
 
+    CAddCodeHeaderEditor& GetEditor();
+    CRemoveCommentThread& GetRemoveCommentThread();
+
+    void EnableControl(bool enable);
+
+private slots:
+    void OnRemoveCommentsComplete();
+
 private:
     CMainWidget m_mainWidget;
     CAddCodeHeaderEditor m_editor;
+    CRemoveCommentThread m_removeCommentThread;
 
     static AddCodeHeader* m_pInstance;
 

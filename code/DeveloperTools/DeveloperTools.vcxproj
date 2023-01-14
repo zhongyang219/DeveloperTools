@@ -188,6 +188,12 @@
   <ItemGroup>
     <ResourceCompile Include="DeveloperTools.rc" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="res\style.qss" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="res\DeveloperTools.ico" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Condition="Exists('$(QtMsBuild)\qt.targets')">
     <Import Project="$(QtMsBuild)\qt.targets" />

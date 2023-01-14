@@ -1,0 +1,4 @@
+QPushButton:disabled
+{
+    color: #B4B4B4;
+}

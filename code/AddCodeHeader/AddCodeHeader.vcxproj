@@ -180,9 +180,13 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="AddCodeHeaderEditor.cpp" />
+    <ClCompile Include="CRemoveCommentThread.cpp" />
     <ClCompile Include="MainWidget.cpp" />
     <ClCompile Include="RemoveCommentHelper.cpp" />
+    <ClCompile Include="Test.cpp" />
+    <QtMoc Include="CRemoveCommentThread.h" />
     <ClInclude Include="RemoveCommentHelper.h" />
+    <ClInclude Include="Test.h" />
     <QtMoc Include="AddCodeHeaderEditor.h" />
     <ClInclude Include="addcodeheader_global.h" />
     <QtMoc Include="AddCodeHeader.h" />
