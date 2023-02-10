@@ -3,6 +3,9 @@
 #include <QDirIterator>
 #include <QApplication>
 #include "mainwindowinterface.h"
+#include <QApplication>
+#include <QDateTime>
+#include <QTextStream>
 
 CCommonTools::CCommonTools()
 {
@@ -56,4 +59,22 @@ void CCommonTools::SetActionEnable(const QString& strCmdId, bool enable)
     QAction* pAction = CCommonTools::GetMainFrameAction(strCmdId);
     if (pAction != nullptr)
         pAction->setEnabled(enable);
+}
+
+void CCommonTools::WriteLog(const QString& strLogInfo, const QString& strFilePath)
+{
+    QString strLogPath;
+    if (strFilePath.isEmpty())
+    {
+        strLogPath = QString("%1/%2.log").arg(qApp->applicationDirPath()).arg(qApp->applicationName());
+        QFile file(strLogPath);
+        if (file.open(QIODevice::ReadWrite | QIODevice::Append))
+        {
+            QTextStream textOutput(&file);
+            textOutput.setCodec("UTF-8");
+            QString currentTime = QDateTime::currentDateTime().toString("yyyyMMdd hh:mm:ss ");
+            textOutput << currentTime << strLogInfo << "\r\n";
+            file.close();
+        }
+    }
 }

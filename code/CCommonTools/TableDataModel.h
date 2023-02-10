@@ -5,7 +5,7 @@
 #include "ccommontools_global.h"
 #include <QTableView>
 
-class CTableDataModel : public QStandardItemModel
+class CCOMMONTOOLS_EXPORT CTableDataModel : public QStandardItemModel
 {
 public:
     CTableDataModel(int iColumeCount);

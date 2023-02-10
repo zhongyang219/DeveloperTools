@@ -1,6 +1,7 @@
 ﻿#ifndef CDATABASEOPERATOR_H
 #define CDATABASEOPERATOR_H
 
+#include "ccommontools_global.h"
 #include <QtSql/QSqlDatabase>
 #include <QMap>
 #include <QVariant>
@@ -9,7 +10,7 @@
 
 //用于数据库读写的基类
 //继承此类并重写虚函数后可以实现对数据库中一张表的读写
-class CDataBaseTool
+class CCOMMONTOOLS_EXPORT CDataBaseTool
 {
 public:
     CDataBaseTool();

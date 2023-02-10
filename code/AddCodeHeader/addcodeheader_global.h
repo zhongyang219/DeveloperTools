@@ -11,3 +11,11 @@
 #else
 # define ADDCODEHEADER_EXPORT
 #endif
+
+
+//≤Àµ•√¸¡Ó
+#define CMD_SCAN_FILE "AddCodeHeaderScanFile"
+#define CMD_REMOVE_COMMENT_EXCUTE "RemoveCommentExcute"
+#define CMD_SHOW_ADD_CODE_HEADER "ShowAddCodeHeader"
+#define CMD_ADD_CODE_HEADER_EXCUTE "AddCodeHeaderExcute"
+#define CMD_USER_GUID "AddCodeHeaderUserGuid"

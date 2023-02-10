@@ -10,6 +10,7 @@
 #include <QFile>
 #include <QDomDocument>
 #include <QIcon>
+#include "../CCommonTools/CommonTools.h"
 
 MainFrame::MainFrame(QWidget *parent)
     : RibbonMainWindow(parent)
@@ -112,7 +113,7 @@ void MainFrame::LoadUIFromXml()
     QFile file(dir + "/MainFrame.xml");
     if (!file.open(QFile::ReadOnly | QFile::Text))
     {
-        //CLog::GetInstance().WriteLog(L"打开MainFrame.xml文件失败！");
+        CCommonTools::WriteLog(u8"打开MainFrame.xml文件失败！");
         return;
     }
 
@@ -123,7 +124,7 @@ void MainFrame::LoadUIFromXml()
     QDomElement root = doc.documentElement();
     if (root.isNull())
     {
-        //CLog::GetInstance().WriteLog(L"MainFrame.xml文件找不到节点！");
+        CCommonTools::WriteLog(u8"MainFrame.xml文件找不到节点！");
         return;
     }
 
@@ -166,16 +167,12 @@ void MainFrame::LoadUIFromXml()
                 }
                 else
                 {
-                    //wchar_t buff[256];
-                    //swprintf_s(buff, L"从模块“%s”中获取“CreateInstance”的入口地址失败！", strModulePath.toStdWString());
-                    //CLog::GetInstance().WriteLog(buff);
+                    CCommonTools::WriteLog(QString(u8"从模块“%1”中获取“CreateInstance”的入口地址失败！").arg(strModulePath));
                 }
             }
             else
             {
-                //wchar_t buff[256];
-                //swprintf_s(buff, L"加载模块“%s”失败！", strModulePath.toStdWString());
-                //CLog::GetInstance().WriteLog(buff);
+                CCommonTools::WriteLog(QString(u8"加载模块“%1”失败！").arg(strModulePath));
             }
 
             //载入命令组

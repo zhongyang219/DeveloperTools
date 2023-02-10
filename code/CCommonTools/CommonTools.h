@@ -6,7 +6,7 @@
 #include <QAction>
 #include <QMainWindow>
 
-class CCommonTools
+class CCOMMONTOOLS_EXPORT CCommonTools
 {
 public:
     CCommonTools();
@@ -16,4 +16,5 @@ public:
     static QMainWindow* GetMainWindow();
     static QAction* GetMainFrameAction(const QString& strCmdId);
     static void SetActionEnable(const QString& strCmdId, bool enable);
+    static void WriteLog(const QString& strLogInfo, const QString& strFilePath = QString());
 };
