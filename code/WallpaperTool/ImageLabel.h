@@ -12,15 +12,11 @@ public:
     CImageLabel(QWidget* pParent = nullptr);
 	void SetImage(const QPixmap& image);
     QRect GetImageViewRect() const;		//获取图片显示的大小
-    void SetRect(const QRect& rect);
 
-    QRect RealRectToDisplayRect(const QRect& rect);
-    QRect DisplayRectToReadRect(const QRect& rectDisplay);
     QSize GetImageSize() const;
 
 private:
     QPixmap m_image;
-    QRect m_rect;
 
     // QObject interface
 public:

@@ -9,39 +9,12 @@ CImageLabel::CImageLabel(QWidget* pParent)
 void CImageLabel::SetImage(const QPixmap& image)
 {
 	m_image = image;
-    m_rect = QRect();
     update();
 }
 
 QRect CImageLabel::GetImageViewRect() const
 {
     return m_imageRect;
-}
-
-void CImageLabel::SetRect(const QRect &rect)
-{
-    m_rect = rect;
-    update();
-}
-
-QRect CImageLabel::RealRectToDisplayRect(const QRect &rect)
-{
-    QRect rectDisplay;
-    rectDisplay.setX(m_imageRect.x() + (rect.x() * m_imageRect.width() / m_image.width()));
-    rectDisplay.setY(m_imageRect.y() + (rect.y() * m_imageRect.height() / m_image.height()));
-    rectDisplay.setWidth(rect.width() * m_imageRect.width() / m_image.width());
-    rectDisplay.setHeight(rect.height() * m_imageRect.height() / m_image.height());
-    return rectDisplay;
-}
-
-QRect CImageLabel::DisplayRectToReadRect(const QRect &rectDisplay)
-{
-    QRect rectReal;
-    rectReal.setX(m_imageRect.width() * (rectDisplay.x() - m_imageRect.x()));
-    rectReal.setY(m_imageRect.height() * (rectDisplay.x() - m_imageRect.y()));
-    rectReal.setWidth(m_image.width() * rectDisplay.width() / m_imageRect.width());
-    rectReal.setHeight(m_image.height() * rectDisplay.height() / m_imageRect.height());
-    return rectReal;
 }
 
 QSize CImageLabel::GetImageSize() const
@@ -53,8 +26,8 @@ void CImageLabel::paintEvent(QPaintEvent *e)
 {
     QPainter painter(this);
 
-    //绘制图像
-    painter.setRenderHint(QPainter::SmoothPixmapTransform, true);
+    ////绘制图像
+    //painter.setRenderHint(QPainter::SmoothPixmapTransform, true);
 
     //使背景图片在主窗口中保持设定的比例，在这里计算背景图片的大小
     int x = 0, y = 0, w = 0, h = 0;
@@ -87,24 +60,8 @@ void CImageLabel::paintEvent(QPaintEvent *e)
 		}
 	}
     m_imageRect = QRect(x, y, w, h);
-    painter.drawPixmap(m_imageRect, m_image, QRect(0, 0, m_image.width(), m_image.height()));
-
-    //绘制矩形
-    if(!m_rect.isEmpty())
-    {
-        //计算矩形实际显示的大小
-        QRect rectDisplay = RealRectToDisplayRect(m_rect);
-
-        //绘制矩形
-        QPen mypen;
-        mypen.setWidth(4);
-        mypen.setColor(QColor(220, 76, 64));
-        painter.setPen(mypen);
-
-        painter.drawRect(rectDisplay);
-
-        //QLabel::update();
-    }
+    QPixmap drawImage = m_image.scaled(w, h, Qt::KeepAspectRatio, Qt::SmoothTransformation);
+    painter.drawPixmap(m_imageRect, drawImage, QRect(0, 0, w, h));
 
 
     QWidget::paintEvent(e);
