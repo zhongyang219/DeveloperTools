@@ -78,3 +78,10 @@ void CCommonTools::WriteLog(const QString& strLogInfo, const QString& strFilePat
         }
     }
 }
+
+QIcon CCommonTools::CreateIcon(const QString& strPath, int size)
+{
+    QPixmap image(strPath);
+    image = image.scaled(size, size, Qt::IgnoreAspectRatio, Qt::SmoothTransformation);
+    return QIcon(image);
+}

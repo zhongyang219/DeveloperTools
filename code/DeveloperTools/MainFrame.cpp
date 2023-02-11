@@ -11,6 +11,7 @@
 #include <QDomDocument>
 #include <QIcon>
 #include "../CCommonTools/CommonTools.h"
+#include <QMessageBox>
 
 MainFrame::MainFrame(QWidget *parent)
     : RibbonMainWindow(parent)
@@ -29,6 +30,10 @@ MainFrame::MainFrame(QWidget *parent)
 
     ////初始化第一个Ribbon页面
     //RibbonPage* page = bar->addPage(u8"开始");
+
+    QIcon iconAbout(CCommonTools::CreateIcon(":/DeveloperTools/res/DeveloperTools.ico", DPI(16)));
+    QAction* aboutAction = bar->addAction(iconAbout, u8"关于...", Qt::ToolButtonIconOnly);
+    connect(aboutAction, SIGNAL(triggered()), this, SLOT(OnAbout()));
 
     LoadUIFromXml();
 
@@ -105,6 +110,12 @@ void MainFrame::OnActionTriggerd(bool checked)
         }
     }
 
+}
+
+void MainFrame::OnAbout()
+{
+    QString strAboutInfo = QString(u8"%1 %2\r\n一个各种小工具合集。\r\nCopyright(C) 2023 by ZhongYang").arg(APP_NAME).arg(APP_VERSION);
+    QMessageBox::about(this, QString(u8"关于") + APP_NAME, strAboutInfo);
 }
 
 void MainFrame::LoadUIFromXml()

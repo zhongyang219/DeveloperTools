@@ -5,6 +5,7 @@
 #define DPI(x) (QApplication::desktop()->logicalDpiX() * (x) / 96)
 
 #define APP_NAME "DeveloperTools"
+#define APP_VERSION "0.1.0"
 
 ///////////////////////////////////////////////////////////////////////////
 //定义安全删除指针的宏
