@@ -27,6 +27,7 @@
 		<ActionGroup name="壁纸工具">
 			<Action name="当前壁纸另存为" icon="./Images/save_as.png" commandID="CurWallpaperSaveAs"/>
 			<Action name="删除当前壁纸" icon="./Images/delete.png" commandID="CurWallpaperDelete"/>
+			<Action name="刷新" icon="./Images/Refresh.png" commandID="CurWallpaperRefresh"/>
 		</ActionGroup>
 	</Page>
 </root>

@@ -87,6 +87,13 @@ void WallpaperTool::CommandTrigerd(const wchar_t* strCmd, bool checked)
             WriteLog(strLogInfo);
         }
     }
+
+    //Ë¢ÐÂ
+    else if (cmd == CMD_CURRENT_WALLPAPER_REFRESH)
+    {
+        m_strCurWallpaperPath = CWallpaperHelper::GetCurrentWallpaperPath();
+        m_mainWidget.SetWallpaper(m_strCurWallpaperPath);
+    }
 }
 
 void WallpaperTool::WriteLog(const QString& strLogInfo)

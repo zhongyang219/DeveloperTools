@@ -14,3 +14,4 @@
 
 #define CMD_CURRENT_WALLPAPER_SAVE_AS "CurWallpaperSaveAs"
 #define CMD_CURRENT_WALLPAPER_DELETE "CurWallpaperDelete"
+#define CMD_CURRENT_WALLPAPER_REFRESH "CurWallpaperRefresh"
