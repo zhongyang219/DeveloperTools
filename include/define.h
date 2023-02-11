@@ -4,7 +4,21 @@
 
 #define DPI(x) (QApplication::desktop()->logicalDpiX() * (x) / 96)
 
+#define APP_NAME "DeveloperTools"
+
 ///////////////////////////////////////////////////////////////////////////
+//定义安全删除指针的宏
+#ifndef SAFE_DELETE
+#define SAFE_DELETE(p) do \
+{\
+    if(p != nullptr) \
+    { \
+        delete p; \
+        p = nullptr; \
+    } \
+} while (false)
+#endif
+
 // 简单接口定义宏
 #if !defined(DECLARE_CLASS_ATTR)
 

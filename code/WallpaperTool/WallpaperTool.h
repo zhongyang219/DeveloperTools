@@ -26,6 +26,7 @@ private:
 private:
     MainWidget m_mainWidget;
     QString m_strCurWallpaperPath;
+    QString m_strLastSaveDir;       //上次壁纸的保存路径
 };
 
 #ifdef __cplusplus

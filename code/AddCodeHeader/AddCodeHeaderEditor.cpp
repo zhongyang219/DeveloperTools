@@ -1,6 +1,5 @@
 ﻿#include "AddCodeHeaderEditor.h"
 #include <QFile>
-#include <QSettings>
 #include "../CCommonTools/CommonTools.h"
 #include "RemoveCommentHelper.h"
 #include <QApplication>
@@ -8,6 +7,7 @@
 #include <QFileDialog>
 #include <QHeaderView>
 #include "AddCodeHeader.h"
+#include "../CCommonTools/Config.h"
 
 CAddCodeHeaderEditor::CAddCodeHeaderEditor(QObject *parent)
     : QObject(parent), m_fileListModel(COL_MAX)
@@ -30,24 +30,23 @@ void CAddCodeHeaderEditor::ConnectWidget(CMainWidget* pWidget)
     }
 
     //加载设置
-    QSettings ini(qApp->applicationDirPath() + "/config.ini", QSettings::IniFormat);
-    ini.setIniCodec("UTF-8");
-    pWidget->GetFolderPathEidt()->setText(ini.value("AddCodeHeader/folderPath").toString());
+    CConfig settings(QString::fromWCharArray(AddCodeHeader::GetInstance()->GetModuleName()));
+    pWidget->GetFolderPathEidt()->setText(settings.GetValue("folderPath").toString());
 
-    QString strTypeList = ini.value("AddCodeHeader/fileTypeList", "*.c;*.cpp;*.h").toString();
+    QString strTypeList = settings.GetValue("fileTypeList", "*.c;*.cpp;*.h").toString();
     QStringList typeList = strTypeList.split('|', QString::SkipEmptyParts);
     pWidget->GetFileTypeCombo()->addItems(typeList);
 
-    int outputFormat = ini.value("AddCodeHeader/outoputFormat", OF_UTF8).toInt();
+    int outputFormat = settings.GetValue("outoputFormat", OF_UTF8).toInt();
     pWidget->GetOutFormatCombo()->addItem(u8"UTF8", OF_UTF8);
     pWidget->GetOutFormatCombo()->addItem(u8"ANSI", OF_ANSI);
     pWidget->GetOutFormatCombo()->addItem(u8"UTF16", OF_UTF16);
     int index = pWidget->GetOutFormatCombo()->findData(outputFormat);
     pWidget->GetOutFormatCombo()->setCurrentIndex(index);
 
-    pWidget->GetRemoveSpaceCheck()->setChecked(ini.value("AddCodeHeader/removeSpace", true).toBool());
-    pWidget->GetRemoveReturnCheck()->setChecked(ini.value("AddCodeHeader/removeReturn", true).toBool());
-    pWidget->GetReturnNumEdit()->setValue(ini.value("AddCodeHeader/keepReturnNum", 2).toInt());
+    pWidget->GetRemoveSpaceCheck()->setChecked(settings.GetValue("removeSpace", true).toBool());
+    pWidget->GetRemoveReturnCheck()->setChecked(settings.GetValue("removeReturn", true).toBool());
+    pWidget->GetReturnNumEdit()->setValue(settings.GetValue("keepReturnNum", 2).toInt());
 
     //默认不显示“添加代码头”
     pWidget->ShowAddCodeHeader(false);
@@ -83,9 +82,8 @@ void CAddCodeHeaderEditor::ExitWidget()
     }
 
     //保存设置
-    QSettings ini(qApp->applicationDirPath() + "/config.ini", QSettings::IniFormat);
-    ini.setIniCodec("UTF-8");
-    ini.setValue("AddCodeHeader/folderPath", m_pWidget->GetFolderPathEidt()->text());
+    CConfig settings(QString::fromWCharArray(AddCodeHeader::GetInstance()->GetModuleName()));
+    settings.WriteValue("folderPath", m_pWidget->GetFolderPathEidt()->text());
 
     QString strTypeList;
     for (int i = 0; i < m_pWidget->GetFileTypeCombo()->count(); i++)
@@ -95,13 +93,13 @@ void CAddCodeHeaderEditor::ExitWidget()
     }
     if (!strTypeList.isEmpty())
         strTypeList.chop(1);
-    ini.setValue("AddCodeHeader/fileTypeList", strTypeList);
+    settings.WriteValue("fileTypeList", strTypeList);
 
-    ini.setValue("AddCodeHeader/outoputFormat", m_pWidget->GetOutFormatCombo()->currentData());
+    settings.WriteValue("outoputFormat", m_pWidget->GetOutFormatCombo()->currentData());
 
-    ini.setValue("AddCodeHeader/removeSpace", m_pWidget->GetRemoveSpaceCheck()->isChecked());
-    ini.setValue("AddCodeHeader/removeReturn", m_pWidget->GetRemoveReturnCheck()->isChecked());
-    ini.setValue("AddCodeHeader/keepReturnNum", m_pWidget->GetReturnNumEdit()->value());
+    settings.WriteValue("removeSpace", m_pWidget->GetRemoveSpaceCheck()->isChecked());
+    settings.WriteValue("removeReturn", m_pWidget->GetRemoveReturnCheck()->isChecked());
+    settings.WriteValue("keepReturnNum", m_pWidget->GetReturnNumEdit()->value());
 }
 
 void CAddCodeHeaderEditor::AdjustColumeWidth()

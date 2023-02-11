@@ -4,6 +4,7 @@
 #include <QFileInfo>
 #include <QMessageBox>
 #include "../CCommonTools/CommonTools.h"
+#include "../CCommonTools/Config.h"
 
 WallpaperTool::WallpaperTool()
 {
@@ -13,10 +14,15 @@ void WallpaperTool::InitModule()
 {
     m_strCurWallpaperPath = CWallpaperHelper::GetCurrentWallpaperPath();
     m_mainWidget.SetWallpaper(m_strCurWallpaperPath);
+
+    CConfig settings(QString::fromWCharArray(GetModuleName()));
+    m_strLastSaveDir = settings.GetValue("lastSaveDir").toString();
 }
 
 void WallpaperTool::UnInitModule()
 {
+    CConfig settings(QString::fromWCharArray(GetModuleName()));
+    settings.WriteValue("lastSaveDir", m_strLastSaveDir);
 }
 
 unsigned long long WallpaperTool::GetMainWindow()
@@ -31,7 +37,7 @@ IModuleInterface::eMainWindowType WallpaperTool::GetMainWindowType() const
 
 const wchar_t* WallpaperTool::GetModuleName()
 {
-    return nullptr;
+    return L"WallpaperTool";
 }
 
 void WallpaperTool::CommandTrigerd(const wchar_t* strCmd, bool checked)
@@ -41,7 +47,7 @@ void WallpaperTool::CommandTrigerd(const wchar_t* strCmd, bool checked)
     //当前壁纸另存为
     if (cmd == CMD_CURRENT_WALLPAPER_SAVE_AS)
     {
-        QString strDir = QFileDialog::getExistingDirectory(&m_mainWidget, QString(), QString(), QFileDialog::ShowDirsOnly | QFileDialog::DontResolveSymlinks);
+        QString strDir = QFileDialog::getExistingDirectory(&m_mainWidget, QString(), m_strLastSaveDir, QFileDialog::ShowDirsOnly | QFileDialog::DontResolveSymlinks);
         if (!strDir.isEmpty())
         {
             QString strNewPath = strDir + "/" + QFileInfo(m_strCurWallpaperPath).fileName();
@@ -52,6 +58,7 @@ void WallpaperTool::CommandTrigerd(const wchar_t* strCmd, bool checked)
                 {
                     QMessageBox::information(&m_mainWidget, QString(), u8"保存成功！");
                     strLogInfo = QString(u8"成功将壁纸 %1 保存到 %2 目录下。").arg(m_strCurWallpaperPath).arg(strDir);
+                    m_strLastSaveDir = strDir;
                 }
                 else
                 {
