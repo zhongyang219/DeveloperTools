@@ -1,14 +1,11 @@
-#pragma once
+ï»¿#pragma once
 
-#include <QtWidgets/QMainWindow>
-#include "QtitanRibbon/QtnRibbonMainWindow.h"
-#include <qt_windows.h>
+#include <QMainWindow>
 #include "moduleinterface.h"
 #include "mainwindowinterface.h"
+#include <QTabWidget>
 
-using namespace Qtitan;
-
-class MainFrame : public RibbonMainWindow, public IMainWindowInterface
+class MainFrame : public QMainWindow, public IMainWindowInterface
 {
     Q_OBJECT
 
@@ -17,25 +14,20 @@ public:
     ~MainFrame();
 
 protected slots:
-    void OnTabIndexChanged(int index);      //ÏìÓ¦Ribbon²Ëµ¥±êÇ©ÇĞ»»
-    void OnActionTriggerd(bool checked);    //ÏìÓ¦ÈÎÒâÒ»¸öRibbon²Ëµ¥ÖĞµÄ°´Å¥±»µã»÷
+    void OnTabIndexChanged(int index);      //å“åº”Ribbonèœå•æ ‡ç­¾åˆ‡æ¢
+    void OnActionTriggerd(bool checked);    //å“åº”ä»»æ„ä¸€ä¸ªRibbonèœå•ä¸­çš„æŒ‰é’®è¢«ç‚¹å‡»
     void OnAbout();
 
 private:
-    void LoadUIFromXml();           //´ÓxmlÎÄ¼ş¼ÓÔØRibbon½çÃæ
-    QWidget* GetModuleMainWindow(IModuleInterfacePtr pModule);  //»ñÈ¡Ä£¿éµÄÖ÷´°¿Ú
+    void LoadUIFromXml();           //ä»xmlæ–‡ä»¶åŠ è½½Ribbonç•Œé¢
+    QWidget* GetModuleMainWindow(IModuleInterfacePtr pModule);  //è·å–æ¨¡å—çš„ä¸»çª—å£
 
-    // Í¨¹ı IMainWindowInterface ¼Ì³Ğ
+    // é€šè¿‡ IMainWindowInterface ç»§æ‰¿
     virtual QAction * GetAction(const QString & strCmd) const override;
     virtual IModuleInterface * GetModule(const QString & strModuleName) const override;
 
 private:
-    struct SModule
-    {
-        IModuleInterfacePtr pModule;
-        HMODULE hModule;
-    };
-
-    std::map<int, SModule> m_moduleMap;     //±£´æRibbon±êÇ©Ë÷ÒıºÍIModuleInterface¶ÔÏóµÄ¶ÔÓ¦¹ØÏµ
-    std::map<QString, QAction*> m_actionMap;    //±£´æÃüÁîIdºÍActionµÄ¶ÔÓ¦¹ØÏµ
+    QTabWidget* m_pTabWidget;
+    std::map<int, IModuleInterfacePtr> m_moduleMap;     //ä¿å­˜Ribbonæ ‡ç­¾ç´¢å¼•å’ŒIModuleInterfaceå¯¹è±¡çš„å¯¹åº”å…³ç³»
+    std::map<QString, QAction*> m_actionMap;    //ä¿å­˜å‘½ä»¤Idå’ŒActionçš„å¯¹åº”å…³ç³»
 };

@@ -1,10 +1,6 @@
 ﻿#include "MainFrame.h"
-#include "QtitanRibbon/QtnRibbonBar.h"
-#include "QtitanRibbon/QtnRibbonStyle.h"
 #include <QApplication>
 #include <QFile>
-#include "QtitanRibbon/QtnRibbonPage.h"
-#include "QtitanRibbon/QtnRibbonGroup.h"
 #include "define.h"
 #include <QWindow>
 #include <QFile>
@@ -12,28 +8,25 @@
 #include <QIcon>
 #include "../CCommonTools/CommonTools.h"
 #include <QMessageBox>
+#include <QLibrary>
+#include <QToolBar>
+#include <QDebug>
+#include <QVBoxLayout>
+#include <QLabel>
+#define ICON_SIZE DPI(32)
 
 MainFrame::MainFrame(QWidget *parent)
-    : RibbonMainWindow(parent)
+    : QMainWindow(parent)
 {
     setWindowIcon(QIcon(":/DeveloperTools/res/DeveloperTools.ico"));
     setMinimumSize(DPI(500), DPI(400));
     resize(DPI(800), DPI(600));
 
-    //初始化Ribbon菜单
-    RibbonBar* bar = new RibbonBar(this);
-    setMenuBar(bar);
-    bar->setTitleBarVisible(false);
-    RibbonStyle* ribbonStyle = new RibbonStyle;
-    ribbonStyle->setTheme(OfficeStyle::Office2013Gray);
-    qApp->setStyle(ribbonStyle);
+    setCentralWidget(m_pTabWidget = new QTabWidget(this));
 
-    ////初始化第一个Ribbon页面
-    //RibbonPage* page = bar->addPage(u8"开始");
-
-    QIcon iconAbout(CCommonTools::CreateIcon(":/DeveloperTools/res/DeveloperTools.ico", DPI(16)));
-    QAction* aboutAction = bar->addAction(iconAbout, u8"关于...", Qt::ToolButtonIconOnly);
-    connect(aboutAction, SIGNAL(triggered()), this, SLOT(OnAbout()));
+    //QIcon iconAbout(CCommonTools::CreateIcon(":/DeveloperTools/res/DeveloperTools.ico", DPI(16)));
+    //QAction* aboutAction = bar->addAction(iconAbout, u8"关于...", Qt::ToolButtonIconOnly);
+    //connect(aboutAction, SIGNAL(triggered()), this, SLOT(OnAbout()));
 
     LoadUIFromXml();
 
@@ -42,12 +35,12 @@ MainFrame::MainFrame(QWidget *parent)
     //初始化插件
     for (auto iter = m_moduleMap.begin(); iter != m_moduleMap.end(); ++iter)
     {
-        if (iter->second.pModule != nullptr)
-            iter->second.pModule->InitModule();
+        if (iter->second != nullptr)
+            iter->second->InitModule();
     }
 
     //响应Ribbon标签切换消息
-    connect(bar, SIGNAL(currentPageIndexChanged(int)), this, SLOT(OnTabIndexChanged(int)));
+    connect(m_pTabWidget, SIGNAL(currentChanged(int)), this, SLOT(OnTabIndexChanged(int)));
 
     OnTabIndexChanged(0);
 
@@ -58,38 +51,30 @@ MainFrame::~MainFrame()
     //反初始化插件
     for (auto iter = m_moduleMap.begin(); iter != m_moduleMap.end(); ++iter)
     {
-        if (iter->second.pModule != nullptr)
-            iter->second.pModule->UnInitModule();
-
-        if (iter->second.hModule != NULL)
-        {
-            //if (iter->second.pModule->GetMainWindowType() == IModuleInterface::MT_HWND)
-            //    FreeLibraryAndExitThread(iter->second.hModule, 0);
-            //else
-            FreeLibrary(iter->second.hModule);
-        }
+        if (iter->second != nullptr)
+            iter->second->UnInitModule();
     }
 }
 
 void MainFrame::OnTabIndexChanged(int index)
 {
-    IModuleInterfacePtr pModule = m_moduleMap[index].pModule;
-    if (pModule != nullptr)
-    {
-        QWidget* pWidget = GetModuleMainWindow(pModule);
-        if (pWidget != nullptr)
-        {
-            //动态切换centralWidget前，需要将上次的centralWidget的parent置空
-            if (centralWidget() != nullptr)
-                centralWidget()->setParent(nullptr);
-            setCentralWidget(pWidget);
-            pWidget->show();
-            pModule->OnTabEntered();
-            return;
-        }
-    }
-    if (centralWidget() != nullptr)
-        centralWidget()->hide();
+    //IModuleInterfacePtr pModule = m_moduleMap[index];
+    //if (pModule != nullptr)
+    //{
+    //    QWidget* pWidget = GetModuleMainWindow(pModule);
+    //    if (pWidget != nullptr)
+    //    {
+    //        //动态切换centralWidget前，需要将上次的centralWidget的parent置空
+    //        if (centralWidget() != nullptr)
+    //            centralWidget()->setParent(nullptr);
+    //        setCentralWidget(pWidget);
+    //        pWidget->show();
+    //        pModule->OnTabEntered();
+    //        return;
+    //    }
+    //}
+    //if (centralWidget() != nullptr)
+    //    centralWidget()->hide();
 }
 
 void MainFrame::OnActionTriggerd(bool checked)
@@ -100,9 +85,9 @@ void MainFrame::OnActionTriggerd(bool checked)
         QString strCmdId = pSender->data().toString();
         if (!strCmdId.isEmpty())
         {
-            RibbonBar* bar = dynamic_cast<RibbonBar*>(menuBar());
-            int index = bar->currentPageIndex();
-            IModuleInterfacePtr pModule = m_moduleMap[index].pModule;
+            //RibbonBar* bar = dynamic_cast<RibbonBar*>(menuBar());
+            int index = m_pTabWidget->currentIndex();
+            IModuleInterfacePtr pModule = m_moduleMap[index];
             if (pModule != nullptr)
             {
                 pModule->CommandTrigerd(strCmdId.toStdWString().c_str(), checked);
@@ -139,10 +124,6 @@ void MainFrame::LoadUIFromXml()
         return;
     }
 
-    RibbonBar* bar = dynamic_cast<RibbonBar*>(menuBar());
-    if (bar == nullptr)
-        return;
-
     //加载页面
     QDomNodeList childNode = root.childNodes();
     for (int i = 0; i < childNode.count(); i++)
@@ -155,24 +136,38 @@ void MainFrame::LoadUIFromXml()
             QString strModulePath = nodeInfo.attribute("modulePath");
 
             //载入模块
+            QToolBar* pToolbar;
             bool bModuleLoaded = false;
             IModuleInterfacePtr pModule;
-            RibbonPage* pCurPage = nullptr;
-            HMODULE hModule = ::LoadLibraryEx(strModulePath.toStdWString().c_str(), NULL, LOAD_WITH_ALTERED_SEARCH_PATH);
-            if (hModule != NULL)
+            QLibrary libMgr(strModulePath);
+            if (libMgr.load())
             {
-                pfCreateModuleInstance fun = (pfCreateModuleInstance)::GetProcAddress(hModule, "CreateInstance");
+                pfCreateModuleInstance fun = (pfCreateModuleInstance)libMgr.resolve("CreateInstance");
                 if (fun != nullptr)
                 {
                     pModule = IModuleInterfacePtr(fun());
                     if (pModule != nullptr)
                     {
-                        int index = bar->getPageCount();
-                        SModule module;
-                        module.hModule;
-                        module.pModule = pModule;
-                        m_moduleMap[index] = module;
-                        pCurPage = bar->addPage(strTabName);
+                        qDebug() << QString(u8"载入插件 %1 成功").arg(strModulePath);
+
+                        int index = m_pTabWidget->count();
+
+                        //添加标签页
+                        QWidget* pWidget = new QWidget();
+                        m_pTabWidget->addTab(pWidget, strTabName);
+                        QVBoxLayout* pLayout = new QVBoxLayout();
+                        pLayout->setMargin(0);
+                        pWidget->setLayout(pLayout);
+                        pLayout->addWidget(pToolbar = new QToolBar());
+                        pToolbar->setToolButtonStyle(Qt::ToolButtonTextUnderIcon);
+                        pToolbar->setIconSize(QSize(ICON_SIZE, ICON_SIZE));
+                        QWidget* pModuleMainWindow = GetModuleMainWindow(pModule);
+                        if (pModuleMainWindow != nullptr)
+                            pLayout->addWidget(pModuleMainWindow);
+                        else
+                            pLayout->addWidget(new QLabel(u8"主窗口加载失败"));
+
+                        m_moduleMap[index] = pModule;
                         bModuleLoaded = true;
                     }
                 }
@@ -189,39 +184,32 @@ void MainFrame::LoadUIFromXml()
             //载入命令组
             if (bModuleLoaded)
             {
-                QDomNodeList groupList = nodeInfo.childNodes();
-                for (int j = 0; j < groupList.count(); j++)
+                QDomNodeList actionList = nodeInfo.childNodes();
+                for (int j = 0; j < actionList.count(); j++)
                 {
-                    QDomElement groupNodeInfo = groupList.at(j).toElement();
-                    QString strTagName = groupNodeInfo.tagName();
-                    if (strTagName == "ActionGroup")
+                    QDomElement actionNodeInfo = actionList.at(j).toElement();
+                    QString strTagName = actionNodeInfo.tagName();
+                    if (strTagName == "Action")
                     {
-                        QString strGroupName = groupNodeInfo.attribute("name");
-                        RibbonGroup* pRibbonGroup = pCurPage->addGroup(strGroupName);
+                        QString strCmdName = actionNodeInfo.attribute("name");
+                        QString strIconPath = actionNodeInfo.attribute("icon");
+                        QString strCmdId = actionNodeInfo.attribute("commandID");
+                        QString strCheckable = actionNodeInfo.attribute("checkable");
+                        bool bCheckable = (strCheckable == "true" || strCheckable == "TRUE" || strCheckable == "True");
+                        QString strTip = actionNodeInfo.attribute("tip");
 
-                        //载入命令
-                        QDomNodeList actionList = groupNodeInfo.childNodes();
-                        for (int k = 0; k < actionList.count(); k++)
-                        {
-                            QDomElement actionNodeInfo = actionList.at(k).toElement();
-                            QString strTagName = actionNodeInfo.tagName();
-                            if (strTagName == "Action")
-                            {
-                                QString strCmdName = actionNodeInfo.attribute("name");
-                                QString strIconPath = actionNodeInfo.attribute("icon");
-                                QString strCmdId = actionNodeInfo.attribute("commandID");
-                                QString strCheckable = actionNodeInfo.attribute("checkable");
-                                bool bCheckable = (strCheckable == "true" || strCheckable == "TRUE" || strCheckable == "True");
+                        QAction* pAction = pToolbar->addAction(CCommonTools::CreateIcon(qApp->applicationDirPath() + "/" + strIconPath, ICON_SIZE), strCmdName);
+                        pAction->setData(strCmdId);     //将命令的ID作为用户数据保存到QAction对象中
+                        pAction->setCheckable(bCheckable);
+                        pAction->setToolTip(strTip);
 
-                                QAction* pAction = pRibbonGroup->addAction(QIcon(qApp->applicationDirPath() + "/" + strIconPath), strCmdName, Qt::ToolButtonTextUnderIcon);
-                                pAction->setData(strCmdId);     //将命令的ID作为用户数据保存到QAction对象中
-                                pAction->setCheckable(bCheckable);
+                        connect(pAction, SIGNAL(triggered(bool)), this, SLOT(OnActionTriggerd(bool)));
 
-                                connect(pAction, SIGNAL(triggered(bool)), this, SLOT(OnActionTriggerd(bool)));
-
-                                m_actionMap[strCmdId] = pAction;
-                            }
-                        }
+                        m_actionMap[strCmdId] = pAction;
+                    }
+                    else if (strTagName == "Separator")
+                    {
+                        pToolbar->addSeparator();
                     }
                 }
             }
@@ -258,8 +246,8 @@ IModuleInterface * MainFrame::GetModule(const QString & strModuleName) const
 {
     for (const auto& moduleItem : m_moduleMap)
     {
-        if (moduleItem.second.pModule != nullptr && QString::fromWCharArray(moduleItem.second.pModule->GetModuleName()) == strModuleName)
-            return moduleItem.second.pModule.get();
+        if (moduleItem.second != nullptr && QString::fromWCharArray(moduleItem.second->GetModuleName()) == strModuleName)
+            return moduleItem.second.get();
     }
     return nullptr;
 }
