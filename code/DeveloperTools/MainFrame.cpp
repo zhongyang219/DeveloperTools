@@ -13,6 +13,8 @@
 #include <QDebug>
 #include <QVBoxLayout>
 #include <QLabel>
+#include "../CCommonTools/Config.h"
+
 #define ICON_SIZE DPI(32)
 
 MainFrame::MainFrame(QWidget *parent)
@@ -39,15 +41,15 @@ MainFrame::MainFrame(QWidget *parent)
             iter->second->InitModule();
     }
 
-    //响应Ribbon标签切换消息
-    connect(m_pTabWidget, SIGNAL(currentChanged(int)), this, SLOT(OnTabIndexChanged(int)));
+    ////标签切换消息
+    //connect(m_pTabWidget, SIGNAL(currentChanged(int)), this, SLOT(OnTabIndexChanged(int)));
 
-    OnTabIndexChanged(0);
-
+    LoadConfig();
 }
 
 MainFrame::~MainFrame()
 {
+    SaveConfig();
     //反初始化插件
     for (auto iter = m_moduleMap.begin(); iter != m_moduleMap.end(); ++iter)
     {
@@ -56,26 +58,26 @@ MainFrame::~MainFrame()
     }
 }
 
-void MainFrame::OnTabIndexChanged(int index)
-{
-    //IModuleInterfacePtr pModule = m_moduleMap[index];
-    //if (pModule != nullptr)
-    //{
-    //    QWidget* pWidget = GetModuleMainWindow(pModule);
-    //    if (pWidget != nullptr)
-    //    {
-    //        //动态切换centralWidget前，需要将上次的centralWidget的parent置空
-    //        if (centralWidget() != nullptr)
-    //            centralWidget()->setParent(nullptr);
-    //        setCentralWidget(pWidget);
-    //        pWidget->show();
-    //        pModule->OnTabEntered();
-    //        return;
-    //    }
-    //}
-    //if (centralWidget() != nullptr)
-    //    centralWidget()->hide();
-}
+//void MainFrame::OnTabIndexChanged(int index)
+//{
+//    //IModuleInterfacePtr pModule = m_moduleMap[index];
+//    //if (pModule != nullptr)
+//    //{
+//    //    QWidget* pWidget = GetModuleMainWindow(pModule);
+//    //    if (pWidget != nullptr)
+//    //    {
+//    //        //动态切换centralWidget前，需要将上次的centralWidget的parent置空
+//    //        if (centralWidget() != nullptr)
+//    //            centralWidget()->setParent(nullptr);
+//    //        setCentralWidget(pWidget);
+//    //        pWidget->show();
+//    //        pModule->OnTabEntered();
+//    //        return;
+//    //    }
+//    //}
+//    //if (centralWidget() != nullptr)
+//    //    centralWidget()->hide();
+//}
 
 void MainFrame::OnActionTriggerd(bool checked)
 {
@@ -231,6 +233,19 @@ QWidget* MainFrame::GetModuleMainWindow(IModuleInterfacePtr pModule)
         pWidget = (QWidget*)pModule->GetMainWindow();
     }
     return pWidget;
+}
+
+void MainFrame::LoadConfig()
+{
+    CConfig settings;
+    int tabIndex = settings.GetValue("tabIndex").toInt();
+    m_pTabWidget->setCurrentIndex(tabIndex);
+}
+
+void MainFrame::SaveConfig() const
+{
+    CConfig settings;
+    settings.WriteValue("tabIndex", m_pTabWidget->currentIndex());
 }
 
 QAction * MainFrame::GetAction(const QString & strCmd) const

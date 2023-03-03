@@ -22,6 +22,9 @@ private:
     void LoadUIFromXml();           //从xml文件加载Ribbon界面
     QWidget* GetModuleMainWindow(IModuleInterfacePtr pModule);  //获取模块的主窗口
 
+    void LoadConfig();
+    void SaveConfig() const;
+
     // 通过 IMainWindowInterface 继承
     virtual QAction * GetAction(const QString & strCmd) const override;
     virtual IModuleInterface * GetModule(const QString & strModuleName) const override;
