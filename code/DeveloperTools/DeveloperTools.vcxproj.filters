@@ -55,11 +55,6 @@
     </ResourceCompile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="res\style.qss">
-      <Filter>Resource Files</Filter>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
     <Image Include="res\DeveloperTools.ico">
       <Filter>Resource Files</Filter>
     </Image>

@@ -70,6 +70,8 @@ void CAddCodeHeaderEditor::ConnectWidget(CMainWidget* pWidget)
     connect(m_pWidget->GetAddFileBtn(), SIGNAL(clicked()), this, SLOT(OnAddFileBtnClicked()));
     connect(m_pWidget->GetRemoveFileBtn(), SIGNAL(clicked()), this, SLOT(OnRemoveFileBtnClicked()));
     connect(m_pWidget->GetClearFileBtn(), SIGNAL(clicked()), this, SLOT(OnClearFileBtnClicked()));
+
+    AdjustColumeWidth();
 }
 
 void CAddCodeHeaderEditor::ExitWidget()

@@ -13,6 +13,7 @@
 #include <QDebug>
 #include <QVBoxLayout>
 #include <QLabel>
+#include <QTabBar>
 #include "../CCommonTools/Config.h"
 
 #define ICON_SIZE DPI(32)
@@ -25,14 +26,33 @@ MainFrame::MainFrame(QWidget *parent)
     resize(DPI(800), DPI(600));
 
     setCentralWidget(m_pTabWidget = new QTabWidget(this));
+    m_pTabWidget->setObjectName("MainFrameTab");
+    m_pTabWidget->tabBar()->setObjectName("MainFrameTabBar");
 
     //QIcon iconAbout(CCommonTools::CreateIcon(":/DeveloperTools/res/DeveloperTools.ico", DPI(16)));
     //QAction* aboutAction = bar->addAction(iconAbout, u8"关于...", Qt::ToolButtonIconOnly);
     //connect(aboutAction, SIGNAL(triggered()), this, SLOT(OnAbout()));
 
+    //加载插件
     LoadUIFromXml();
 
-    //加载插件
+    //在第一个标签左边添加文件按钮
+    if (m_pTabWidget->count() == 0)
+        m_pTabWidget->addTab(new QWidget(), QString());
+    m_pFileBtn = new QPushButton(u8"文件");
+    m_pFileBtn->setObjectName("MainFrameFileBtn");
+    m_pTabWidget->tabBar()->setTabButton(0, QTabBar::LeftSide, m_pFileBtn);
+    connect(m_pFileBtn, SIGNAL(clicked()), this, SLOT(OnFileBtnClicked()));
+
+    //初始化文件菜单
+    m_pFileMenu = new QMenu(this);
+    QMenu* pStyleMenu = m_pFileMenu->addMenu(u8"主题");
+    pStyleMenu->addAction(u8"浅色", this, SLOT(OnStyleLight()));
+    pStyleMenu->addAction(u8"深色", this, SLOT(OnStyleDark()));
+    pStyleMenu->addAction(u8"默认", this, SLOT(OnStyleDefault()));
+    m_pFileMenu->addAction(u8"关于...", this, SLOT(OnAbout()));
+    m_pFileMenu->addSeparator();
+    m_pFileMenu->addAction(u8"退出", this, SLOT(close()));
 
     //初始化插件
     for (auto iter = m_moduleMap.begin(); iter != m_moduleMap.end(); ++iter)
@@ -45,6 +65,9 @@ MainFrame::MainFrame(QWidget *parent)
     //connect(m_pTabWidget, SIGNAL(currentChanged(int)), this, SLOT(OnTabIndexChanged(int)));
 
     LoadConfig();
+
+    //设置样式
+    ApplyStyle();
 }
 
 MainFrame::~MainFrame()
@@ -99,10 +122,38 @@ void MainFrame::OnActionTriggerd(bool checked)
 
 }
 
+void MainFrame::OnFileBtnClicked()
+{
+    QPoint btnPos = mapToGlobal(m_pFileBtn->rect().bottomLeft());
+    btnPos.setY(btnPos.y() + DPI(4));
+    m_pFileMenu->exec(btnPos);
+}
+
 void MainFrame::OnAbout()
 {
     QString strAboutInfo = QString(u8"%1 %2\r\n一个各种小工具合集。\r\nCopyright(C) 2023 by ZhongYang").arg(APP_NAME).arg(APP_VERSION);
     QMessageBox::about(this, QString(u8"关于") + APP_NAME, strAboutInfo);
+}
+
+void MainFrame::OnStyleLight()
+{
+    m_style = CStyleManager::S_LIGHT;
+    //ApplyStyle();
+    StyleChanged();
+}
+
+void MainFrame::OnStyleDark()
+{
+    m_style = CStyleManager::S_DARK;
+    //ApplyStyle();
+    StyleChanged();
+}
+
+void MainFrame::OnStyleDefault()
+{
+    m_style = CStyleManager::S_DEFAULT;
+    //ApplyStyle();
+    StyleChanged();
 }
 
 void MainFrame::LoadUIFromXml()
@@ -240,12 +291,24 @@ void MainFrame::LoadConfig()
     CConfig settings;
     int tabIndex = settings.GetValue("tabIndex").toInt();
     m_pTabWidget->setCurrentIndex(tabIndex);
+    m_style = static_cast<CStyleManager::Style>(settings.GetValue("style", 1).toInt());
 }
 
 void MainFrame::SaveConfig() const
 {
     CConfig settings;
     settings.WriteValue("tabIndex", m_pTabWidget->currentIndex());
+    settings.WriteValue("style", static_cast<int>(m_style));
+}
+
+void MainFrame::ApplyStyle()
+{
+    CStyleManager::Instance()->SetStyle(m_style, this);
+}
+
+void MainFrame::StyleChanged()
+{
+    QMessageBox::question(this, QString(), u8"更改主题后请重新启动程序以生效。");
 }
 
 QAction * MainFrame::GetAction(const QString & strCmd) const

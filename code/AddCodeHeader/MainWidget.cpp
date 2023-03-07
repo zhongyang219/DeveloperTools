@@ -28,6 +28,7 @@ CMainWidget::CMainWidget(QWidget *parent)
     QHBoxLayout* pPathEditLayout = new QHBoxLayout();
     pPathEditLayout->addWidget(m_pFolderPathEidt = new QLineEdit());
     m_pBrowseBtn = new QPushButton(u8"浏览(&B)...");
+    int width = DPI(65);
     pPathEditLayout->addWidget(m_pBrowseBtn);
     pLeftLayout->addLayout(pPathEditLayout);
     pLeftLayout->addWidget(new QLabel(u8"扫描文件的格式："));

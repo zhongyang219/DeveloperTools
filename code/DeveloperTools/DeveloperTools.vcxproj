@@ -114,9 +114,6 @@
     <ResourceCompile Include="DeveloperTools.rc" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="res\style.qss" />
-  </ItemGroup>
-  <ItemGroup>
     <Image Include="res\DeveloperTools.ico" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
