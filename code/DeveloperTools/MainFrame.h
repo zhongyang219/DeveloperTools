@@ -17,7 +17,7 @@ public:
     ~MainFrame();
 
 protected slots:
-    //void OnTabIndexChanged(int index);      //响应Ribbon菜单标签切换
+    void OnTabIndexChanged(int index);      //响应Tab标签切换
     void OnActionTriggerd(bool checked);    //响应任意一个Ribbon菜单中的按钮被点击
     void OnFileBtnClicked();
     void OnAbout();

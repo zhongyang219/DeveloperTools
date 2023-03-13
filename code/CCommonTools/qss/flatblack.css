@@ -160,6 +160,11 @@ QToolButton::menu-indicator{
 image:None;
 }
 
+QToolButton:checked{
+    /*border: 1px solid #666666;*/
+    background: #484848;
+}
+
 QToolButton#btnMenu,QPushButton#btnMenu_Min,QPushButton#btnMenu_Max,QPushButton#btnMenu_Close{
 border-radius:3px;
 color:#BEC0C2;
@@ -179,6 +184,7 @@ QToolBar{
 border: 0px;
 border-radius: 6px;
 margin: 4px;
+padding: 4px;
 background: #2c2c2c;
 }
 
@@ -324,6 +330,10 @@ background:#262829;
 QMenu::separator{
 height:1px;
 background:#67696B;
+}
+
+QMenu#FileMenu::item {
+    height:26px;
 }
 
 QProgressBar{
@@ -585,9 +595,9 @@ QTabBar#MainFrameTabBar::tab {
     border: none;
 }
 
-QStatusBar::item{
-border:0px solid #404244;
-border-radius:3px;
+QStatusBar::item {
+    border: 0px solid #404244;
+    border-radius: 3px;
 }
 
 QToolBox::tab,QGroupBox#gboxDevicePanel,QGroupBox#gboxDeviceTitle,QFrame#gboxDevicePanel,QFrame#gboxDeviceTitle{

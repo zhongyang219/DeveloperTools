@@ -33,26 +33,28 @@ MainFrame::MainFrame(QWidget *parent)
     //QAction* aboutAction = bar->addAction(iconAbout, u8"关于...", Qt::ToolButtonIconOnly);
     //connect(aboutAction, SIGNAL(triggered()), this, SLOT(OnAbout()));
 
-    //加载插件
-    LoadUIFromXml();
-
     //在第一个标签左边添加文件按钮
-    if (m_pTabWidget->count() == 0)
-        m_pTabWidget->addTab(new QWidget(), QString());
+    m_pTabWidget->addTab(new QWidget(), QString());
+    m_pTabWidget->setTabEnabled(0, false);
     m_pFileBtn = new QPushButton(u8"文件");
     m_pFileBtn->setObjectName("MainFrameFileBtn");
     m_pTabWidget->tabBar()->setTabButton(0, QTabBar::LeftSide, m_pFileBtn);
     connect(m_pFileBtn, SIGNAL(clicked()), this, SLOT(OnFileBtnClicked()));
 
+    //加载插件
+    LoadUIFromXml();
+
     //初始化文件菜单
     m_pFileMenu = new QMenu(this);
+    m_pFileMenu->setObjectName("FileMenu");
     QMenu* pStyleMenu = m_pFileMenu->addMenu(u8"主题");
+    pStyleMenu->setObjectName("FileMenu");
     pStyleMenu->addAction(u8"浅色", this, SLOT(OnStyleLight()));
     pStyleMenu->addAction(u8"深色", this, SLOT(OnStyleDark()));
     pStyleMenu->addAction(u8"默认", this, SLOT(OnStyleDefault()));
-    m_pFileMenu->addAction(u8"关于...", this, SLOT(OnAbout()));
+    m_pFileMenu->addAction(CCommonTools::CreateIcon(":/DeveloperTools/res/DeveloperTools.ico", DPI(16)), u8"关于...", this, SLOT(OnAbout()));
     m_pFileMenu->addSeparator();
-    m_pFileMenu->addAction(u8"退出", this, SLOT(close()));
+    m_pFileMenu->addAction(CCommonTools::CreateIcon("Images/delete.png", DPI(16)), u8"退出", this, SLOT(close()));
 
     //初始化插件
     for (auto iter = m_moduleMap.begin(); iter != m_moduleMap.end(); ++iter)
@@ -61,8 +63,8 @@ MainFrame::MainFrame(QWidget *parent)
             iter->second->InitModule();
     }
 
-    ////标签切换消息
-    //connect(m_pTabWidget, SIGNAL(currentChanged(int)), this, SLOT(OnTabIndexChanged(int)));
+    //标签切换消息
+    connect(m_pTabWidget, SIGNAL(currentChanged(int)), this, SLOT(OnTabIndexChanged(int)));
 
     LoadConfig();
 
@@ -81,26 +83,14 @@ MainFrame::~MainFrame()
     }
 }
 
-//void MainFrame::OnTabIndexChanged(int index)
-//{
-//    //IModuleInterfacePtr pModule = m_moduleMap[index];
-//    //if (pModule != nullptr)
-//    //{
-//    //    QWidget* pWidget = GetModuleMainWindow(pModule);
-//    //    if (pWidget != nullptr)
-//    //    {
-//    //        //动态切换centralWidget前，需要将上次的centralWidget的parent置空
-//    //        if (centralWidget() != nullptr)
-//    //            centralWidget()->setParent(nullptr);
-//    //        setCentralWidget(pWidget);
-//    //        pWidget->show();
-//    //        pModule->OnTabEntered();
-//    //        return;
-//    //    }
-//    //}
-//    //if (centralWidget() != nullptr)
-//    //    centralWidget()->hide();
-//}
+void MainFrame::OnTabIndexChanged(int index)
+{
+    IModuleInterfacePtr pModule = m_moduleMap[index];
+    if (pModule != nullptr)
+    {
+        pModule->OnTabEntered();
+    }
+}
 
 void MainFrame::OnActionTriggerd(bool checked)
 {

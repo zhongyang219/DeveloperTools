@@ -70,8 +70,6 @@ void CAddCodeHeaderEditor::ConnectWidget(CMainWidget* pWidget)
     connect(m_pWidget->GetAddFileBtn(), SIGNAL(clicked()), this, SLOT(OnAddFileBtnClicked()));
     connect(m_pWidget->GetRemoveFileBtn(), SIGNAL(clicked()), this, SLOT(OnRemoveFileBtnClicked()));
     connect(m_pWidget->GetClearFileBtn(), SIGNAL(clicked()), this, SLOT(OnClearFileBtnClicked()));
-
-    AdjustColumeWidth();
 }
 
 void CAddCodeHeaderEditor::ExitWidget()
@@ -108,7 +106,7 @@ void CAddCodeHeaderEditor::AdjustColumeWidth()
 {
     if (m_pWidget != nullptr)
     {
-        int width = m_pWidget->GetFileTableView()->width();
+        int width = m_pWidget->GetFileTableView()->width() - DPI(21);
         int width0 = width / 5;
         int width2 = width0;
         int width1 = width - width0 - width2;
