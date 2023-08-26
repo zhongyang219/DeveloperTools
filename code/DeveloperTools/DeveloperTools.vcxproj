@@ -53,12 +53,12 @@
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <Link>
-      <AdditionalDependencies>RibbonFrame.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>RibbonFrame.lib;CCommonTools.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <Link>
-      <AdditionalDependencies>RibbonFrame.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>RibbonFrame.lib;CCommonTools.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'" Label="QtSettings">

@@ -8,6 +8,7 @@ class MainFrame : public RibbonFrameWindow
     Q_OBJECT
 public:
     explicit MainFrame(QWidget* parent = nullptr);
+    ~MainFrame();
 
 signals:
 
