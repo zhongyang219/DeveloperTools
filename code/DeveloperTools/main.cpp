@@ -1,14 +1,11 @@
 ﻿#include "MainFrame.h"
 #include <QtWidgets/QApplication>
-#include <QFile>
+#include "define.h"
 
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
-
-    //设置字体
-    QFont font("Microsoft YaHei", 9, QFont::Normal);
-    a.setFont(font);
+    a.setApplicationName(APP_NAME);
 
     MainFrame w;
     w.show();

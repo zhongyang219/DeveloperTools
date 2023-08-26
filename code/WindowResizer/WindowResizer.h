@@ -20,8 +20,6 @@ class CWindowResizerApp : public CWinApp
 public:
 	CWindowResizerApp();
 
-    static HWND m_hMainWnd;
-
     // 重写
 public:
 	virtual BOOL InitInstance();
@@ -31,19 +29,23 @@ public:
     virtual int ExitInstance();
 };
 
-class WindowResizer : public IModuleInterface
+extern CWindowResizerApp theApp;
+
+
+/// //////////////////////////////////////////////////////////////////////////
+class WindowResizer : public IModule
 {
 public:
     WindowResizer();
 
-    //重写IModuleInterface
 public:
-    virtual void InitModule() override;
-    virtual void UnInitModule() override;
-    virtual unsigned long long GetMainWindow() override;
-    virtual const wchar_t* GetModuleName() override;
-    virtual void CommandTrigerd(const wchar_t* strCmd, bool checked) override;
+    // 通过 IModule 继承
+    virtual void InitInstance() override;
+    virtual void UnInitInstance() override;
+    virtual void* GetMainWindow() override;
     virtual eMainWindowType GetMainWindowType() const override;
+    virtual const char* GetModuleName() override;
+    virtual void OnCommand(const char* strCmd, bool checked) override;
 
 };
 
@@ -51,7 +53,7 @@ public:
 extern "C" {
 #endif
     //导出一个名为CreateInstance的函数以创建对象
-    WINDOWRISZER_API IModuleInterface* CreateInstance();
+    WINDOWRISZER_API IModule* CreateInstance();
 
 #ifdef __cplusplus
 }

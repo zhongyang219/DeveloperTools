@@ -1,7 +1,6 @@
 ﻿#include "AddCodeHeader.h"
 #include <QMessageBox>
 #include "RemoveCommentHelper.h"
-#include "../CCommonTools/CommonTools.h"
 #include "Test.h"
 
 AddCodeHeader* AddCodeHeader::m_pInstance{};
@@ -11,7 +10,7 @@ AddCodeHeader::AddCodeHeader()
     m_pInstance = this;
 }
 
-void AddCodeHeader::InitModule()
+void AddCodeHeader::InitInstance()
 {
 //#ifdef _DEBUG
 //	CTest::Test();
@@ -23,7 +22,7 @@ void AddCodeHeader::InitModule()
     connect(&m_editor, SIGNAL(signalRemoveCommentProgress(double)), &m_mainWidget, SLOT(SetProgress(double)));
 }
 
-void AddCodeHeader::UnInitModule()
+void AddCodeHeader::UnInitInstance()
 {
     m_editor.ExitWidget();
     m_removeCommentThread.Stop();
@@ -31,19 +30,25 @@ void AddCodeHeader::UnInitModule()
     m_pInstance = nullptr;
 }
 
-unsigned long long AddCodeHeader::GetMainWindow()
+void AddCodeHeader::UiInitComplete(IMainFrame* pMainFrame)
 {
-    return (unsigned long long(&m_mainWidget));
+    m_pMainFrame = pMainFrame;
+    m_pMainFrame->SetItemEnable(CMD_ADD_CODE_HEADER_EXCUTE, false);
 }
 
-const wchar_t* AddCodeHeader::GetModuleName()
+void* AddCodeHeader::GetMainWindow()
 {
-    return L"AddCodeHeader";
+    return (void*)&m_mainWidget;
 }
 
-void AddCodeHeader::CommandTrigerd(const wchar_t* cmd, bool checked)
+const char* AddCodeHeader::GetModuleName()
 {
-    QString strCmd = QString::fromWCharArray(cmd);
+    return "AddCodeHeader";
+}
+
+void AddCodeHeader::OnCommand(const char* cmd, bool checked)
+{
+    QString strCmd = QString::fromUtf8(cmd);
     if (strCmd == CMD_ADD_CODE_HEADER_EXCUTE)
     {
         QMessageBox::information(&m_mainWidget, nullptr, u8"你点击了“执行”", QMessageBox::Ok);
@@ -61,13 +66,13 @@ void AddCodeHeader::CommandTrigerd(const wchar_t* cmd, bool checked)
     else if (strCmd == CMD_SHOW_ADD_CODE_HEADER)
     {
         m_mainWidget.ShowAddCodeHeader(checked);
-        CCommonTools::SetActionEnable(CMD_ADD_CODE_HEADER_EXCUTE, checked);
+        m_pMainFrame->SetItemEnable(CMD_ADD_CODE_HEADER_EXCUTE, checked);
     }
 }
 
-IModuleInterface::eMainWindowType AddCodeHeader::GetMainWindowType() const
+IModule::eMainWindowType AddCodeHeader::GetMainWindowType() const
 {
-    return IModuleInterface::MT_QWIDGET;
+    return IModule::MT_QWIDGET;
 }
 
 void AddCodeHeader::OnTabEntered()
@@ -92,6 +97,11 @@ CRemoveCommentThread& AddCodeHeader::GetRemoveCommentThread()
     return m_removeCommentThread;
 }
 
+IMainFrame* AddCodeHeader::GetMainFrame() const
+{
+    return m_pMainFrame;
+}
+
 void AddCodeHeader::EnableControl(bool enable)
 {
     m_mainWidget.GetAddFileBtn()->setEnabled(enable);
@@ -104,8 +114,8 @@ void AddCodeHeader::EnableControl(bool enable)
     m_mainWidget.GetRemoveReturnCheck()->setEnabled(enable);
     m_mainWidget.GetRemoveSpaceCheck()->setEnabled(enable);
     m_mainWidget.GetReturnNumEdit()->setEnabled(enable);
-    CCommonTools::SetActionEnable(CMD_SCAN_FILE, enable);
-    CCommonTools::SetActionEnable(CMD_REMOVE_COMMENT_EXCUTE, enable);
+    m_pMainFrame->SetItemEnable(CMD_SCAN_FILE, enable);
+    m_pMainFrame->SetItemEnable(CMD_REMOVE_COMMENT_EXCUTE, enable);
 
 }
 
@@ -125,7 +135,7 @@ void AddCodeHeader::OnRemoveCommentsComplete()
     QMessageBox::information(&m_mainWidget, nullptr, info, QMessageBox::Ok);
 }
 
-IModuleInterface * CreateInstance()
+IModule * CreateInstance()
 {
     return new AddCodeHeader();
 }

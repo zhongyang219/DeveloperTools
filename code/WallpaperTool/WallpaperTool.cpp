@@ -1,4 +1,4 @@
-#include "WallpaperTool.h"
+ï»¿#include "WallpaperTool.h"
 #include "WallpaperHelper.h"
 #include <QFileDialog>
 #include <QFileInfo>
@@ -10,41 +10,41 @@ WallpaperTool::WallpaperTool()
 {
 }
 
-void WallpaperTool::InitModule()
+void WallpaperTool::InitInstance()
 {
     m_strCurWallpaperPath = CWallpaperHelper::GetCurrentWallpaperPath();
     m_mainWidget.SetWallpaper(m_strCurWallpaperPath);
 
-    CConfig settings(QString::fromWCharArray(GetModuleName()));
+    CConfig settings(QString::fromUtf8(GetModuleName()));
     m_strLastSaveDir = settings.GetValue("lastSaveDir").toString();
 }
 
-void WallpaperTool::UnInitModule()
+void WallpaperTool::UnInitInstance()
 {
-    CConfig settings(QString::fromWCharArray(GetModuleName()));
+    CConfig settings(QString::fromUtf8(GetModuleName()));
     settings.WriteValue("lastSaveDir", m_strLastSaveDir);
 }
 
-unsigned long long WallpaperTool::GetMainWindow()
+void* WallpaperTool::GetMainWindow()
 {
-    return (unsigned long long)&m_mainWidget;
+    return (void*)&m_mainWidget;
 }
 
-IModuleInterface::eMainWindowType WallpaperTool::GetMainWindowType() const
+IModule::eMainWindowType WallpaperTool::GetMainWindowType() const
 {
-    return IModuleInterface::MT_QWIDGET;
+    return IModule::MT_QWIDGET;
 }
 
-const wchar_t* WallpaperTool::GetModuleName()
+const char* WallpaperTool::GetModuleName()
 {
-    return L"WallpaperTool";
+    return "WallpaperTool";
 }
 
-void WallpaperTool::CommandTrigerd(const wchar_t* strCmd, bool checked)
+void WallpaperTool::OnCommand(const char* strCmd, bool checked)
 {
-    QString cmd = QString::fromWCharArray(strCmd);
+    QString cmd = QString::fromUtf8(strCmd);
 
-    //µ±Ç°±ÚÖ½Áí´æÎª
+    //å½“å‰å£çº¸å¦å­˜ä¸º
     if (cmd == CMD_CURRENT_WALLPAPER_SAVE_AS)
     {
         QString strDir = QFileDialog::getExistingDirectory(&m_mainWidget, QString(), m_strLastSaveDir, QFileDialog::ShowDirsOnly | QFileDialog::DontResolveSymlinks);
@@ -56,46 +56,46 @@ void WallpaperTool::CommandTrigerd(const wchar_t* strCmd, bool checked)
             {
                 if (QFile::copy(m_strCurWallpaperPath, strNewPath))
                 {
-                    QMessageBox::information(&m_mainWidget, QString(), u8"±£´æ³É¹¦£¡");
-                    strLogInfo = QString(u8"³É¹¦½«±ÚÖ½ %1 ±£´æµ½ %2 Ä¿Â¼ÏÂ¡£").arg(m_strCurWallpaperPath).arg(strDir);
+                    QMessageBox::information(&m_mainWidget, QString(), u8"ä¿å­˜æˆåŠŸï¼");
+                    strLogInfo = QString(u8"æˆåŠŸå°†å£çº¸ %1 ä¿å­˜åˆ° %2 ç›®å½•ä¸‹ã€‚").arg(m_strCurWallpaperPath).arg(strDir);
                     m_strLastSaveDir = strDir;
                 }
                 else
                 {
-                    QMessageBox::information(&m_mainWidget, QString(), u8"±£´æÊ§°Ü£¡");
-                    strLogInfo = QString(u8"±£´æ±ÚÖ½µ½ %1 µ½ %2 Ä¿Â¼ÏÂÊ§°Ü¡£").arg(m_strCurWallpaperPath).arg(strDir);
+                    QMessageBox::information(&m_mainWidget, QString(), u8"ä¿å­˜å¤±è´¥ï¼");
+                    strLogInfo = QString(u8"ä¿å­˜å£çº¸åˆ° %1 åˆ° %2 ç›®å½•ä¸‹å¤±è´¥ã€‚").arg(m_strCurWallpaperPath).arg(strDir);
                 }
             }
             else
             {
-                QMessageBox::warning(&m_mainWidget, QString(), QString(u8"ÎÄ¼þ %1 ÒÑ´æÔÚ£¡").arg(strNewPath));
-                strLogInfo = QString(u8"±£´æ±ÚÖ½ %1 Ê±£¬Ä¿±êÎÄ¼þ %2 ÒÑ´æÔÚ¡£").arg(m_strCurWallpaperPath).arg(strNewPath);
+                QMessageBox::warning(&m_mainWidget, QString(), QString(u8"æ–‡ä»¶ %1 å·²å­˜åœ¨ï¼").arg(strNewPath));
+                strLogInfo = QString(u8"ä¿å­˜å£çº¸ %1 æ—¶ï¼Œç›®æ ‡æ–‡ä»¶ %2 å·²å­˜åœ¨ã€‚").arg(m_strCurWallpaperPath).arg(strNewPath);
             }
             WriteLog(strLogInfo);
         }
     }
 
-    //É¾³ýµ±Ç°±ÚÖ½
+    //åˆ é™¤å½“å‰å£çº¸
     else if (cmd == CMD_CURRENT_WALLPAPER_DELETE)
     {
-        if (QMessageBox::question(&m_mainWidget, QString(), QString(u8"È·ÊµÒª´Ó´ÅÅÌÖÐÉ¾³ýÎÄ¼þ %1 Âð£¿").arg(m_strCurWallpaperPath), QMessageBox::Yes | QMessageBox::No) == QMessageBox::Yes)
+        if (QMessageBox::question(&m_mainWidget, QString(), QString(u8"ç¡®å®žè¦ä»Žç£ç›˜ä¸­åˆ é™¤æ–‡ä»¶ %1 å—ï¼Ÿ").arg(m_strCurWallpaperPath), QMessageBox::Yes | QMessageBox::No) == QMessageBox::Yes)
         {
             QString strLogInfo;
             if (QFile::remove(m_strCurWallpaperPath))
             {
-                strLogInfo = QString(u8"É¾³ý±ÚÖ½ %1 ³É¹¦¡£").arg(m_strCurWallpaperPath);
-                QMessageBox::information(&m_mainWidget, QString(), u8"É¾³ý³É¹¦£¡");
+                strLogInfo = QString(u8"åˆ é™¤å£çº¸ %1 æˆåŠŸã€‚").arg(m_strCurWallpaperPath);
+                QMessageBox::information(&m_mainWidget, QString(), u8"åˆ é™¤æˆåŠŸï¼");
             }
             else
             {
-                strLogInfo = QString(u8"É¾³ý±ÚÖ½ %1 Ê§°Ü¡£").arg(m_strCurWallpaperPath);
-                QMessageBox::information(&m_mainWidget, QString(), u8"É¾³ýÊ§°Ü£¡");
+                strLogInfo = QString(u8"åˆ é™¤å£çº¸ %1 å¤±è´¥ã€‚").arg(m_strCurWallpaperPath);
+                QMessageBox::information(&m_mainWidget, QString(), u8"åˆ é™¤å¤±è´¥ï¼");
             }
             WriteLog(strLogInfo);
         }
     }
 
-    //Ë¢ÐÂ
+    //åˆ·æ–°
     else if (cmd == CMD_CURRENT_WALLPAPER_REFRESH)
     {
         m_strCurWallpaperPath = CWallpaperHelper::GetCurrentWallpaperPath();
@@ -107,12 +107,12 @@ void WallpaperTool::WriteLog(const QString& strLogInfo)
 {
     if (!strLogInfo.isEmpty())
     {
-        QString strLogFilePath = QString("%1/%2.log").arg(qApp->applicationDirPath()).arg(QString::fromWCharArray(GetModuleName()));
+        QString strLogFilePath = QString("%1/%2.log").arg(qApp->applicationDirPath()).arg(QString::fromUtf8(GetModuleName()));
         CCommonTools::WriteLog(strLogInfo, strLogFilePath);
     }
 }
 
-IModuleInterface* CreateInstance()
+IModule* CreateInstance()
 {
     return new WallpaperTool();
 }

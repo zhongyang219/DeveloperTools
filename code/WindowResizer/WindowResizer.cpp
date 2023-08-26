@@ -55,20 +55,18 @@ CWindowResizerApp::CWindowResizerApp()
 
 CWindowResizerApp theApp;
 
-HWND CWindowResizerApp::m_hMainWnd;
-
 // CWindowResizerApp 初始化
 
 BOOL CWindowResizerApp::InitInstance()
 {
 	CWinApp::InitInstance();
 
-    CWindowResizerDlg dlg;
-    dlg.Create(IDD_WINDOWRESIZER_DIALOG);
-    //dlg.ShowWindow(SW_SHOW);
-    //INT_PTR nResponse = dlg.DoModal();
-    m_pMainWnd = &dlg;
-    m_hMainWnd = dlg.GetSafeHwnd();
+    // 激活“Windows Native”视觉管理器，以便在 MFC 控件中启用主题
+    CMFCVisualManager::SetDefaultManager(RUNTIME_CLASS(CMFCVisualManagerWindows));
+
+    CWindowResizerDlg* pDlg = new CWindowResizerDlg();
+    m_pMainWnd = pDlg;
+    pDlg->Create(IDD_WINDOWRESIZER_DIALOG);
 
 	return TRUE;
 }
@@ -87,54 +85,85 @@ WindowResizer::WindowResizer()
 {
 }
 
-
-void WindowResizer::InitModule()
+void WindowResizer::InitInstance()
 {
-}
+    int nReturnCode = -1;
+    CWinThread* pThread = AfxGetThread();
+    CWinApp* pApp = AfxGetApp();
 
-void WindowResizer::UnInitModule()
-{
-    //DWORD dwExitCode;
-    //GetExitCodeThread(m_hThread, &dwExitCode);
-    //FreeLibraryAndExitThread((HMODULE)hModule, dwExitCode);
+    // AFX internal initialization
+    if (!AfxWinInit(GetModuleHandle(_T("WindowResizer")), nullptr, _T(""), SW_SHOW))
+        return;
 
-    //AfxEndThread(dwExitCode, FALSE);
-    //::TerminateProcess(::GetCurrentProcess, 0);
-    //ExitInstance();
+    // App global initializations (rare)
+    if (pApp != NULL && !pApp->InitApplication())
+        return;
 
-}
-
-unsigned long long WindowResizer::GetMainWindow()
-{
-    return (unsigned long long)CWindowResizerApp::m_hMainWnd;
-}
-
-IModuleInterface::eMainWindowType WindowResizer::GetMainWindowType() const
-{
-    return IModuleInterface::MT_HWND;
-}
-
-
-const wchar_t* WindowResizer::GetModuleName()
-{
-    return L"WindowResizer";
-}
-
-void WindowResizer::CommandTrigerd(const wchar_t* strCmd, bool checked)
-{
-    std::wstring wcsCmd = strCmd;
-    if (wcsCmd == L"FindWindow")
+    // Perform specific initializations
+    if (pThread != nullptr && !pThread->InitInstance())
     {
-        AfxMessageBox(_T("点击了查找窗口"), MB_ICONINFORMATION | MB_OK);
+        if (pThread->m_pMainWnd != NULL)
+        {
+            TRACE(traceAppMsg, 0, "Warning: Destroying non-NULL m_pMainWnd\n");
+            pThread->m_pMainWnd->DestroyWindow();
+        }
     }
-    else if (wcsCmd == L"UserGuid")
-    {
-        AfxMessageBox(_T("点击了使用说明"), MB_ICONINFORMATION | MB_OK);
-    }
+    //nReturnCode = pThread->Run();
 }
 
+void WindowResizer::UnInitInstance()
+{
+    int nReturnCode = -1;
+    CWinThread* pThread = AfxGetThread();
+    if (pThread != nullptr)
+        nReturnCode = pThread->ExitInstance();
+#ifdef _DEBUG
+    // Check for missing AfxLockTempMap calls
+    if (AfxGetModuleThreadState()->m_nTempMapLock != 0)
+    {
+        TRACE(traceAppMsg, 0, "Warning: Temp map lock count non-zero (%ld).\n",
+            AfxGetModuleThreadState()->m_nTempMapLock);
+    }
+    AfxLockTempMaps();
+    AfxUnlockTempMaps(-1);
+#endif
 
-IModuleInterface * CreateInstance()
+    AfxWinTerm();
+}
+
+void* WindowResizer::GetMainWindow()
+{
+    HWND hWnd = theApp.m_pMainWnd->GetSafeHwnd();
+    return hWnd;
+}
+
+IModule::eMainWindowType WindowResizer::GetMainWindowType() const
+{
+    return IModule::MT_HWND;
+}
+
+const char* WindowResizer::GetModuleName()
+{
+    return "WindowResizer";
+}
+
+void WindowResizer::OnCommand(const char* strCmd, bool checked)
+{
+    std::string cmd = strCmd;
+    if (cmd == "FindWindow")
+    {
+        CWindowResizerDlg* pDlg = dynamic_cast<CWindowResizerDlg*>(theApp.m_pMainWnd);
+        pDlg->OnBnClickedFindWindowButton();
+    }
+    else if (cmd == "UserGuid")
+    {
+        CWindowResizerDlg* pDlg = dynamic_cast<CWindowResizerDlg*>(theApp.m_pMainWnd);
+        pDlg->OnBnClickedAboutButton();
+    }
+
+}
+
+IModule * CreateInstance()
 {
     AFX_MANAGE_STATE(AfxGetStaticModuleState());
     return new WindowResizer();

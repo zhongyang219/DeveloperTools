@@ -97,7 +97,6 @@
     <ClCompile Include="Config.cpp" />
     <ClCompile Include="DatabaseTool.cpp" />
     <ClCompile Include="StringHelper.cpp" />
-    <ClCompile Include="StyleManager.cpp" />
     <ClCompile Include="TableDataModel.cpp" />
     <ClInclude Include="ccommontools_global.h" />
     <ClInclude Include="CommonTools.h" />
@@ -105,15 +104,10 @@
     <ClInclude Include="Config.h" />
     <ClInclude Include="DatabaseTool.h" />
     <ClInclude Include="StringHelper.h" />
-    <ClInclude Include="StyleManager.h" />
     <ClInclude Include="TableDataModel.h" />
   </ItemGroup>
   <ItemGroup>
     <QtRcc Include="Resource.qrc" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="qss\flatblack.css" />
-    <None Include="qss\flatwhite.css" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Condition="Exists('$(QtMsBuild)\qt.targets')">

@@ -30,7 +30,7 @@ void CAddCodeHeaderEditor::ConnectWidget(CMainWidget* pWidget)
     }
 
     //加载设置
-    CConfig settings(QString::fromWCharArray(AddCodeHeader::GetInstance()->GetModuleName()));
+    CConfig settings(QString::fromUtf8(AddCodeHeader::GetInstance()->GetModuleName()));
     pWidget->GetFolderPathEidt()->setText(settings.GetValue("folderPath").toString());
 
     QString strTypeList = settings.GetValue("fileTypeList", "*.c;*.cpp;*.h").toString();
@@ -50,7 +50,6 @@ void CAddCodeHeaderEditor::ConnectWidget(CMainWidget* pWidget)
 
     //默认不显示“添加代码头”
     pWidget->ShowAddCodeHeader(false);
-    CCommonTools::SetActionEnable(CMD_ADD_CODE_HEADER_EXCUTE, false);
 
     //设置列表样式
     pWidget->GetFileTableView()->setSelectionBehavior(QAbstractItemView::SelectRows);      //设置选中行
@@ -82,7 +81,7 @@ void CAddCodeHeaderEditor::ExitWidget()
     }
 
     //保存设置
-    CConfig settings(QString::fromWCharArray(AddCodeHeader::GetInstance()->GetModuleName()));
+    CConfig settings(QString::fromUtf8(AddCodeHeader::GetInstance()->GetModuleName()));
     settings.WriteValue("folderPath", m_pWidget->GetFolderPathEidt()->text());
 
     QString strTypeList;

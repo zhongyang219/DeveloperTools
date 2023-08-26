@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 
 #include "addcodeheader_global.h"
 #include "moduleinterface.h"
@@ -6,19 +6,21 @@
 #include "AddCodeHeaderEditor.h"
 #include "CRemoveCommentThread.h"
 #include <QObject>
+#include "mainframeinterface.h"
 
 class ADDCODEHEADER_EXPORT AddCodeHeader
-    : public QObject, public IModuleInterface
+    : public QObject, public IModule
 {
     Q_OBJECT
 public:
     AddCodeHeader();
 
-    virtual void InitModule() override;
-    virtual void UnInitModule() override;
-    virtual unsigned long long GetMainWindow() override;
-    virtual const wchar_t* GetModuleName() override;
-    virtual void CommandTrigerd(const wchar_t* strCmd, bool checked) override;
+    virtual void InitInstance() override;
+    virtual void UnInitInstance() override;
+    virtual void UiInitComplete(IMainFrame* pMainFrame) override;
+    virtual void* GetMainWindow() override;
+    virtual const char* GetModuleName() override;
+    virtual void OnCommand(const char* strCmd, bool checked) override;
     virtual eMainWindowType GetMainWindowType() const override;
     virtual void OnTabEntered() override;
 
@@ -26,6 +28,7 @@ public:
 
     CAddCodeHeaderEditor& GetEditor();
     CRemoveCommentThread& GetRemoveCommentThread();
+    IMainFrame* GetMainFrame() const;
 
     void EnableControl(bool enable);
 
@@ -36,16 +39,16 @@ private:
     CMainWidget m_mainWidget;
     CAddCodeHeaderEditor m_editor;
     CRemoveCommentThread m_removeCommentThread;
+    IMainFrame* m_pMainFrame;
 
     static AddCodeHeader* m_pInstance;
-
 };
 
 #ifdef __cplusplus
 extern "C" {
 #endif
-    //µ¼³öÒ»¸öÃûÎªCreateInstanceµÄº¯ÊıÒÔ´´½¨¶ÔÏó
-    ADDCODEHEADER_EXPORT IModuleInterface* CreateInstance();
+    //å¯¼å‡ºä¸€ä¸ªåä¸ºCreateInstanceçš„å‡½æ•°ä»¥åˆ›å»ºå¯¹è±¡
+    ADDCODEHEADER_EXPORT IModule* CreateInstance();
 
 #ifdef __cplusplus
 }
