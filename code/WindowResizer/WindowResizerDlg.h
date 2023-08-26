@@ -18,6 +18,8 @@ public:
 	enum { IDD = IDD_WINDOWRESIZER_DIALOG };
 #endif
 
+    void SetWindowVisible(bool visible);
+
 protected:
 	CEdit m_handle_edit;
 	CEdit m_title_edit;
@@ -36,6 +38,7 @@ protected:
 
 	int m_scale_percentage{ 100 };		//窗口要缩放的百分比
 	bool m_user_define_scale{ false };
+    bool m_windowVisible{ false };      //窗口是否显示（初始时不显示）
 
 protected:
 	virtual void DoDataExchange(CDataExchange* pDX);	// DDX/DDV 支持
@@ -74,4 +77,5 @@ public:
 	afx_msg void OnBnClickedAboutButton();
     afx_msg void OnBnClickedAlwaysOnTopCheck();
     afx_msg void OnBnClickedShowInTaskbarCheck();
+    afx_msg void OnWindowPosChanging(WINDOWPOS* lpwndpos);
 };

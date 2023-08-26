@@ -131,6 +131,13 @@ void WindowResizer::UnInitInstance()
     AfxWinTerm();
 }
 
+void WindowResizer::UiInitComplete(IMainFrame* pMainFrame)
+{
+    //显示主窗口
+    CWindowResizerDlg* pDlg = dynamic_cast<CWindowResizerDlg*>(theApp.m_pMainWnd);
+    pDlg->SetWindowVisible(true);
+}
+
 void* WindowResizer::GetMainWindow()
 {
     HWND hWnd = theApp.m_pMainWnd->GetSafeHwnd();
@@ -158,6 +165,7 @@ void WindowResizer::OnCommand(const char* strCmd, bool checked)
     else if (cmd == "UserGuid")
     {
         CWindowResizerDlg* pDlg = dynamic_cast<CWindowResizerDlg*>(theApp.m_pMainWnd);
+        pDlg->ShowWindow(SW_SHOW);
         pDlg->OnBnClickedAboutButton();
     }
 
