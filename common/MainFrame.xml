@@ -28,10 +28,27 @@
 		<Action name="删除当前壁纸" icon="Images/delete.png" id="CurWallpaperDelete" tip="从磁盘中删除当前壁纸。"/>
 		<Action name="刷新" icon="Images/Refresh.png" id="CurWallpaperRefresh" tip="刷新当前壁纸。"/>
 	</Page>
-     <Page name="WindowResizer" modulePath="WindowResizer">
-		 <Action name="查找窗口" icon="Images/test_icon3.png" id="FindWindow"/> 
-		 <Action name="使用说明" icon="Images/help.png" id="UserGuid"/> 
-     </Page> 
+	<Page name="WindowResizer" modulePath="WindowResizer">
+		<Action name="查找窗口" icon="Images/test_icon3.png" id="FindWindow"/> 
+		<Action name="使用说明" icon="Images/help.png" id="UserGuid"/> 
+	</Page> 
+	<Page name="ColorPicker" modulePath="ColorPicker">
+		<Menu name="选项" id="Option" icon="Images/options.png">
+			<Action name="使用十六进制" id="UseHex" checkable="true"/>
+			<Action name="十六进制使用小写字母" id="HexLowerCase" checkable="true"/>
+			<Menu name="语言" id="Language">
+				<Action name="跟随系统" id="LanguageFollowingSystem" radioGroup="1"/>
+				<Action name="English" id="LanguageEnglish" radioGroup="1"/>
+				<Action name="简体中文" id="LanguageSimplifiedChinese" radioGroup="1"/>
+			</Menu>
+		</Menu>
+		<Menu name="工具" id="Tools" icon="Images/tools.png">
+			<Action name="选择系统主题色" id="SelectThemeColor"/>
+			<Action name="添加GetSysColor颜色表" id="AddGetSysColorTable"/>
+		</Menu>
+		<Separator/>
+		<Action name="关于" id="ColorPickerAppAbout" icon="Images/help.png"/>
+	</Page>
 
 	<!-- 其他插件，不关联现有标签页 -->
 	<Plugins>
