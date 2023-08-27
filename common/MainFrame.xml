@@ -30,7 +30,7 @@
 	</Page>
 	<Page name="WindowResizer" modulePath="WindowResizer">
 		<Action name="查找窗口" icon="Images/test_icon3.png" id="FindWindow"/> 
-		<Action name="使用说明" icon="Images/help.png" id="UserGuid"/> 
+		<Action name="关于" icon="Images/help.png" id="UserGuid"/>
 	</Page> 
 	<Page name="ColorPicker" modulePath="ColorPicker">
 		<Action name="使用十六进制" id="UseHex" icon="Images/hex.png" checkable="true"/>
