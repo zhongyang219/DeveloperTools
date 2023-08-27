@@ -13,7 +13,7 @@
 	</SystemMenu>
 
 	<!-- Ribbin标签 -->
-    <Page name="代码工具" modulePath="AddCodeHeader">
+    <Page name="代码工具" icon="Images/code.png" modulePath="AddCodeHeader">
 		<Action name="扫描文件" icon="Images/test_icon5.png" id="AddCodeHeaderScanFile" tip="扫描设定目录下所有指定格式的文件，并显示到文件列表中。"/>
 		<Separator/>
 		<Action name="删除注释" icon="Images/test_icon4.png" id="RemoveCommentExcute" tip="对文件列表中的所有文件执行删除注释操作。"/>
@@ -23,16 +23,16 @@
 		<Separator/>
 		<Action name="使用说明" icon="Images/help.png" id="AddCodeHeaderUserGuid"/>
     </Page>
-	<Page name="壁纸工具" modulePath="WallpaperTool">
+	<Page name="壁纸工具" icon="Images/wallpaper.png" modulePath="WallpaperTool">
 		<Action name="当前壁纸另存为" icon="Images/save_as.png" id="CurWallpaperSaveAs" tip="选择一个文件夹并将当前壁纸保存到该文件夹中。"/>
 		<Action name="删除当前壁纸" icon="Images/delete.png" id="CurWallpaperDelete" tip="从磁盘中删除当前壁纸。"/>
 		<Action name="刷新" icon="Images/Refresh.png" id="CurWallpaperRefresh" tip="刷新当前壁纸。"/>
 	</Page>
-	<Page name="WindowResizer" modulePath="WindowResizer">
+	<Page name="WindowResizer" icon="Images/WindowResizer.png" modulePath="WindowResizer">
 		<Action name="查找窗口" icon="Images/test_icon3.png" id="FindWindow"/> 
 		<Action name="关于" icon="Images/help.png" id="UserGuid"/>
 	</Page> 
-	<Page name="ColorPicker" modulePath="ColorPicker">
+	<Page name="ColorPicker" icon="Images/ColorPicker.png" modulePath="ColorPicker">
 		<Action name="使用十六进制" id="UseHex" icon="Images/hex.png" checkable="true"/>
 		<Action name="十六进制使用小写字母" id="HexLowerCase" icon="Images/comn.png" checkable="true"/>
 		<Menu name="工具" id="Tools" icon="Images/tools.png">
