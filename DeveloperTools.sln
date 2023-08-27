@@ -5,8 +5,6 @@ VisualStudioVersion = 17.4.33213.308
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "DeveloperTools", "code\DeveloperTools\DeveloperTools.vcxproj", "{07E795BA-554B-40DB-9B8D-73A1A2F1C86D}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "WindowResizer", "code\WindowResizer\WindowResizer.vcxproj", "{4630F9B6-BF68-46E6-9C78-A3D4F8F6ADFF}"
-EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "AddCodeHeader", "code\AddCodeHeader\AddCodeHeader.vcxproj", "{F51F4A14-75DD-4401-9626-B27C33638226}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "CCommonTools", "code\CCommonTools\CCommonTools.vcxproj", "{E4544EC1-FD31-49B0-A592-8F1C07D7E9FD}"
@@ -23,10 +21,6 @@ Global
 		{07E795BA-554B-40DB-9B8D-73A1A2F1C86D}.Debug|x64.Build.0 = Debug|x64
 		{07E795BA-554B-40DB-9B8D-73A1A2F1C86D}.Release|x64.ActiveCfg = Release|x64
 		{07E795BA-554B-40DB-9B8D-73A1A2F1C86D}.Release|x64.Build.0 = Release|x64
-		{4630F9B6-BF68-46E6-9C78-A3D4F8F6ADFF}.Debug|x64.ActiveCfg = Debug|x64
-		{4630F9B6-BF68-46E6-9C78-A3D4F8F6ADFF}.Debug|x64.Build.0 = Debug|x64
-		{4630F9B6-BF68-46E6-9C78-A3D4F8F6ADFF}.Release|x64.ActiveCfg = Release|x64
-		{4630F9B6-BF68-46E6-9C78-A3D4F8F6ADFF}.Release|x64.Build.0 = Release|x64
 		{F51F4A14-75DD-4401-9626-B27C33638226}.Debug|x64.ActiveCfg = Debug|x64
 		{F51F4A14-75DD-4401-9626-B27C33638226}.Debug|x64.Build.0 = Debug|x64
 		{F51F4A14-75DD-4401-9626-B27C33638226}.Release|x64.ActiveCfg = Release|x64
@@ -44,7 +38,7 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {DC2B010C-D31D-49C8-987C-670562E2A148}
 		Qt5Version = 6.0.0_msvc2019_64
+		SolutionGuid = {DC2B010C-D31D-49C8-987C-670562E2A148}
 	EndGlobalSection
 EndGlobal
