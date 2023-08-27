@@ -33,20 +33,18 @@
 		<Action name="使用说明" icon="Images/help.png" id="UserGuid"/> 
 	</Page> 
 	<Page name="ColorPicker" modulePath="ColorPicker">
-		<Menu name="选项" id="Option" icon="Images/options.png">
-			<Action name="使用十六进制" id="UseHex" checkable="true"/>
-			<Action name="十六进制使用小写字母" id="HexLowerCase" checkable="true"/>
-			<Menu name="语言" id="Language">
-				<Action name="跟随系统" id="LanguageFollowingSystem" radioGroup="1"/>
-				<Action name="English" id="LanguageEnglish" radioGroup="1"/>
-				<Action name="简体中文" id="LanguageSimplifiedChinese" radioGroup="1"/>
-			</Menu>
-		</Menu>
+		<Action name="使用十六进制" id="UseHex" icon="Images/hex.png" checkable="true"/>
+		<Action name="十六进制使用小写字母" id="HexLowerCase" icon="Images/comn.png" checkable="true"/>
 		<Menu name="工具" id="Tools" icon="Images/tools.png">
 			<Action name="选择系统主题色" id="SelectThemeColor"/>
 			<Action name="添加GetSysColor颜色表" id="AddGetSysColorTable"/>
 		</Menu>
 		<Separator/>
+		<Menu name="语言" id="Language" icon="Images/language.png">
+			<Action name="跟随系统" id="LanguageFollowingSystem" radioGroup="1"/>
+			<Action name="English" id="LanguageEnglish" radioGroup="1"/>
+			<Action name="简体中文" id="LanguageSimplifiedChinese" radioGroup="1"/>
+		</Menu>
 		<Action name="关于" id="ColorPickerAppAbout" icon="Images/help.png"/>
 	</Page>
 
