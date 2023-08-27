@@ -1,14 +1,14 @@
-#pragma once
+ï»¿#pragma once
 #include <QApplication>
 #include <QDesktopWidget>
 
 #define DPI(x) (QApplication::desktop()->logicalDpiX() * (x) / 96)
 
 #define APP_NAME "DeveloperTools"
-#define APP_VERSION "0.1.0"
+#define APP_VERSION "0.2.0"
 
 ///////////////////////////////////////////////////////////////////////////
-//¶¨Òå°²È«É¾³ıÖ¸ÕëµÄºê
+//å®šä¹‰å®‰å…¨åˆ é™¤æŒ‡é’ˆçš„å®
 #ifndef SAFE_DELETE
 #define SAFE_DELETE(p) do \
 {\
@@ -20,13 +20,13 @@
 } while (false)
 #endif
 
-// ¼òµ¥½Ó¿Ú¶¨Òåºê
+// ç®€å•æ¥å£å®šä¹‰å®
 #if !defined(DECLARE_CLASS_ATTR)
 
-//¶¨ÒåÀàµÄGetºÍSetµÄ¼òµ¥½Ó¿Ú
-//func_name: º¯ÊıÃû£¨³ıÁË¡°Get¡±»ò¡°Set¡±ÒÔÍâµÄ²¿·Ö£©
-//mem_name: ³ÉÔ±±äÁ¿Ãû
-//type: ±äÁ¿ÀàĞÍ
+//å®šä¹‰ç±»çš„Getå’ŒSetçš„ç®€å•æ¥å£
+//func_name: å‡½æ•°åï¼ˆé™¤äº†â€œGetâ€æˆ–â€œSetâ€ä»¥å¤–çš„éƒ¨åˆ†ï¼‰
+//mem_name: æˆå‘˜å˜é‡å
+//type: å˜é‡ç±»å‹
 #define DECLARE_CLASS_ATTR(func_name,mem_name,type)		\
     type Get##func_name()const					\
     {										\
@@ -40,7 +40,7 @@
 #endif
 
 #if !defined(DECLARE_CLASS_SET_ATTR)
-//¶¨ÒåÀàµÄSetµÄ¼òµ¥½Ó¿Ú
+//å®šä¹‰ç±»çš„Setçš„ç®€å•æ¥å£
 #define DECLARE_CLASS_SET_ATTR(func_name,mem_name,type)		\
     void Set##func_name(const type& input)	\
     {                                       \
@@ -50,7 +50,7 @@
 #endif
 
 #if !defined(DECLARE_CLASS_GET_ATTR)
-//¶¨ÒåÀàµÄGetµÄ¼òµ¥½Ó¿Ú
+//å®šä¹‰ç±»çš„Getçš„ç®€å•æ¥å£
 #define DECLARE_CLASS_GET_ATTR(func_name,mem_name,type)		\
     type Get##func_name()const					\
     {										\
