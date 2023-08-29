@@ -47,6 +47,12 @@
 		</Menu>
 		<Action name="关于" id="ColorPickerAppAbout" icon="Images/help.png"/>
 	</Page>
+	<Page name="密码生成器" icon="Images/password.png" modulePath="PasswordGeneratorApi">
+		<Action name="生成密码" id="PasswordGeneratorGenerate"icon="Images/test_icon4.png"/>
+		<Action name="复制密码" id="PasswordGeneratorCopy"icon="Images/copy.png"/>
+		<Separator/>
+		<Action name="关于" id="PasswordGeneratorAbout" icon="Images/help.png"/>
+	</Page>
 
 	<!-- 其他插件，不关联现有标签页 -->
 	<Plugins>

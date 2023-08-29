@@ -5,6 +5,18 @@
 
 支持模块扩展。
 
+目前集成了以下模块：
+
+| 模块名        | 语言 | 使用的框架 |
+| ------------- | ---- | ---------- |
+| 代码工具      | C++  | Qt         |
+| 壁纸工具      | C++  | Qt         |
+| WindowResizer | C++  | MFC        |
+| ColorPicker   | C++  | MFC        |
+| 密码生成器    | C#   | WinForm    |
+
+其中WindowResizer、ColorPicker和密码生成器是我以前开发的小工具，也可以单独运行。
+
 ## 界面框架
 
 界面框架使用Qt编写，实现了Ribbon风格界面，通过`MainFrame.xml`文件配置Ribbon标签中的元素以及加载的模块。
@@ -44,4 +56,12 @@ ColorPicker是一个取色工具，源代码和说明请参见以下版本库：
 <img src="images/image-20230827192705226.png" alt="image-20230827192705226" style="zoom:80%;" />
 
 要将ColorPicker作为一个模块加载到DevelperTools中，同样需要在Visual Studio菜单栏选择“项目”>“属性”，选择“常规”，将“配置类型”由“应用程序(.exe)”改成“动态库(.dll)”。
+
+## 密码生成器
+
+<img src="images/image-20230829224657246.png" alt="image-20230829224657246" style="zoom:80%;" />
+
+这是一个用于生成随机密码的小工具，源代码和说明请参见以下版本库：
+
+[zhongyang219/PasswordGenerator: 这是一个用于生成一个随机字符串的小工具。 (github.com)](https://github.com/zhongyang219/PasswordGenerator)
 

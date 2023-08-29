@@ -11,28 +11,54 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "CCommonTools", "code\CCommo
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "WallpaperTool", "code\WallpaperTool\WallpaperTool.vcxproj", "{F532AB53-2D8A-4416-96B5-4FA84237ACD4}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "PasswordGeneratorApi", "code\PasswordGeneratorApi\PasswordGeneratorApi.vcxproj", "{C0A42F4A-ABB3-4575-B4D5-CEDD8379AC26}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
+		Debug|x86 = Debug|x86
 		Release|x64 = Release|x64
+		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{07E795BA-554B-40DB-9B8D-73A1A2F1C86D}.Debug|x64.ActiveCfg = Debug|x64
 		{07E795BA-554B-40DB-9B8D-73A1A2F1C86D}.Debug|x64.Build.0 = Debug|x64
+		{07E795BA-554B-40DB-9B8D-73A1A2F1C86D}.Debug|x86.ActiveCfg = Debug|x64
+		{07E795BA-554B-40DB-9B8D-73A1A2F1C86D}.Debug|x86.Build.0 = Debug|x64
 		{07E795BA-554B-40DB-9B8D-73A1A2F1C86D}.Release|x64.ActiveCfg = Release|x64
 		{07E795BA-554B-40DB-9B8D-73A1A2F1C86D}.Release|x64.Build.0 = Release|x64
+		{07E795BA-554B-40DB-9B8D-73A1A2F1C86D}.Release|x86.ActiveCfg = Release|x64
+		{07E795BA-554B-40DB-9B8D-73A1A2F1C86D}.Release|x86.Build.0 = Release|x64
 		{F51F4A14-75DD-4401-9626-B27C33638226}.Debug|x64.ActiveCfg = Debug|x64
 		{F51F4A14-75DD-4401-9626-B27C33638226}.Debug|x64.Build.0 = Debug|x64
+		{F51F4A14-75DD-4401-9626-B27C33638226}.Debug|x86.ActiveCfg = Debug|x64
+		{F51F4A14-75DD-4401-9626-B27C33638226}.Debug|x86.Build.0 = Debug|x64
 		{F51F4A14-75DD-4401-9626-B27C33638226}.Release|x64.ActiveCfg = Release|x64
 		{F51F4A14-75DD-4401-9626-B27C33638226}.Release|x64.Build.0 = Release|x64
+		{F51F4A14-75DD-4401-9626-B27C33638226}.Release|x86.ActiveCfg = Release|x64
+		{F51F4A14-75DD-4401-9626-B27C33638226}.Release|x86.Build.0 = Release|x64
 		{E4544EC1-FD31-49B0-A592-8F1C07D7E9FD}.Debug|x64.ActiveCfg = Debug|x64
 		{E4544EC1-FD31-49B0-A592-8F1C07D7E9FD}.Debug|x64.Build.0 = Debug|x64
+		{E4544EC1-FD31-49B0-A592-8F1C07D7E9FD}.Debug|x86.ActiveCfg = Debug|x64
+		{E4544EC1-FD31-49B0-A592-8F1C07D7E9FD}.Debug|x86.Build.0 = Debug|x64
 		{E4544EC1-FD31-49B0-A592-8F1C07D7E9FD}.Release|x64.ActiveCfg = Release|x64
 		{E4544EC1-FD31-49B0-A592-8F1C07D7E9FD}.Release|x64.Build.0 = Release|x64
+		{E4544EC1-FD31-49B0-A592-8F1C07D7E9FD}.Release|x86.ActiveCfg = Release|x64
+		{E4544EC1-FD31-49B0-A592-8F1C07D7E9FD}.Release|x86.Build.0 = Release|x64
 		{F532AB53-2D8A-4416-96B5-4FA84237ACD4}.Debug|x64.ActiveCfg = Debug|x64
 		{F532AB53-2D8A-4416-96B5-4FA84237ACD4}.Debug|x64.Build.0 = Debug|x64
+		{F532AB53-2D8A-4416-96B5-4FA84237ACD4}.Debug|x86.ActiveCfg = Debug|x64
+		{F532AB53-2D8A-4416-96B5-4FA84237ACD4}.Debug|x86.Build.0 = Debug|x64
 		{F532AB53-2D8A-4416-96B5-4FA84237ACD4}.Release|x64.ActiveCfg = Release|x64
 		{F532AB53-2D8A-4416-96B5-4FA84237ACD4}.Release|x64.Build.0 = Release|x64
+		{F532AB53-2D8A-4416-96B5-4FA84237ACD4}.Release|x86.ActiveCfg = Release|x64
+		{F532AB53-2D8A-4416-96B5-4FA84237ACD4}.Release|x86.Build.0 = Release|x64
+		{C0A42F4A-ABB3-4575-B4D5-CEDD8379AC26}.Debug|x64.ActiveCfg = Debug|x64
+		{C0A42F4A-ABB3-4575-B4D5-CEDD8379AC26}.Debug|x64.Build.0 = Debug|x64
+		{C0A42F4A-ABB3-4575-B4D5-CEDD8379AC26}.Debug|x86.ActiveCfg = Debug|x64
+		{C0A42F4A-ABB3-4575-B4D5-CEDD8379AC26}.Release|x64.ActiveCfg = Release|x64
+		{C0A42F4A-ABB3-4575-B4D5-CEDD8379AC26}.Release|x64.Build.0 = Release|x64
+		{C0A42F4A-ABB3-4575-B4D5-CEDD8379AC26}.Release|x86.ActiveCfg = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
