@@ -11,12 +11,14 @@ MainFrame::MainFrame(QWidget* parent) : RibbonFrameWindow(parent)
 {
     setWindowIcon(QIcon(":/DeveloperTools/res/DeveloperTools.ico"));
     setMinimumSize(DPI(500), DPI(400));
-    resize(QSize(DPI(800), DPI(600)));
 
     //载入配置
     CConfig settings;
     int tabIndex = settings.GetValue("tabIndex").toInt();
     SetTabIndex(tabIndex);
+    int windowWidth = settings.GetValue("windowWidth", DPI(800)).toInt();
+    int windowHeight = settings.GetValue("windowHeight", DPI(600)).toInt();
+    resize(QSize(windowWidth, windowHeight));
 }
 
 MainFrame::~MainFrame()
@@ -24,6 +26,9 @@ MainFrame::~MainFrame()
     //保存配置
     CConfig settings;
     settings.WriteValue("tabIndex", GetTabIndex());
+    QSize windowSize = size();
+    settings.WriteValue("windowWidth", windowSize.width());
+    settings.WriteValue("windowHeight", windowSize.height());
 }
 
 
