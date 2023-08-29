@@ -48,6 +48,12 @@
 		<Action name="关于" id="ColorPickerAppAbout" icon="Images/help.png"/>
 	</Page>
 	<Page name="密码生成器" icon="Images/password.png" modulePath="PasswordGeneratorApi">
+		<ActionGroup name="密码位数">
+			<Action name="8位" id="PasswordGenerator8Num" smallIcon="true" radioGroup="2" />
+			<Action name="16位" id="PasswordGenerator16Num" smallIcon="true" radioGroup="2" />
+			<Action name="24位" id="PasswordGenerator24Num" smallIcon="true" radioGroup="2" />
+			<Action name="32位" id="PasswordGenerator32Num" smallIcon="true" radioGroup="2" />
+		</ActionGroup>
 		<Action name="生成密码" id="PasswordGeneratorGenerate"icon="Images/test_icon4.png"/>
 		<Action name="复制密码" id="PasswordGeneratorCopy"icon="Images/copy.png"/>
 		<Separator/>

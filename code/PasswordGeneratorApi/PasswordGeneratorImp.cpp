@@ -74,6 +74,14 @@ namespace PasswordGeneratorApi
             Program::GetForm(true)->GenerateButton_Click(nullptr, nullptr);
         else if (cmd == "PasswordGeneratorCopy")
             Program::GetForm(true)->CopyButton_Click(nullptr, nullptr);
+        else if (cmd == "PasswordGenerator8Num")
+            Program::GetForm(true)->SetPasswordLenght(8);
+        else if (cmd == "PasswordGenerator16Num")
+            Program::GetForm(true)->SetPasswordLenght(16);
+        else if (cmd == "PasswordGenerator24Num")
+            Program::GetForm(true)->SetPasswordLenght(24);
+        else if (cmd == "PasswordGenerator32Num")
+            Program::GetForm(true)->SetPasswordLenght(32);
     }
 
 }
