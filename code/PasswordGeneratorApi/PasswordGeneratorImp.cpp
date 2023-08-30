@@ -43,6 +43,7 @@ namespace PasswordGeneratorApi
 
     void CPasswordGenerator::UnInitInstance()
     {
+        Program::GetForm(true)->SaveConfig();
     }
 
     void CPasswordGenerator::UiInitComplete(IMainFrame* pMainFrame)
