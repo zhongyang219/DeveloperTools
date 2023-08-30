@@ -33,13 +33,17 @@
 		<Action name="关于" icon="Images/help.png" id="UserGuid"/>
 	</Page> 
 	<Page name="ColorPicker" icon="Images/ColorPicker.png" modulePath="ColorPicker">
-		<Action name="使用十六进制" id="UseHex" icon="Images/hex.png" checkable="true"/>
-		<Action name="十六进制使用小写字母" id="HexLowerCase" icon="Images/comn.png" checkable="true"/>
+		<Action name="屏幕取色" id="PickColor" icon="Images/pickColor.png"/>
+		<Action name="复制RGB值" id="CopyRgbValue" icon="Images/copyGRB.png" tip="将RGB颜色值复制到剪贴板。"/>
+		<Action name="复制十六进制值" id="CopyGexValue" icon="Images/copyHex.png" tip="将十六进制颜色值复制到剪贴板。"/>
+		<Separator/>
+		<Action name="使用十六进制" id="UseHex" icon="Images/hex.png" checkable="true" tip="COLORREF和RGB值都将以十六进制显示。"/>
+		<Action name="十六进制小写" id="HexLowerCase" icon="Images/comn.png" checkable="true" tip="十六进制使用小写字母。"/>
+		<Separator/>
 		<Menu name="工具" id="Tools" icon="Images/tools.png">
 			<Action name="选择系统主题色" id="SelectThemeColor"/>
 			<Action name="添加GetSysColor颜色表" id="AddGetSysColorTable"/>
 		</Menu>
-		<Separator/>
 		<Menu name="语言" id="Language" icon="Images/language.png">
 			<Action name="跟随系统" id="LanguageFollowingSystem" radioGroup="1"/>
 			<Action name="English" id="LanguageEnglish" radioGroup="1"/>
@@ -49,10 +53,10 @@
 	</Page>
 	<Page name="密码生成器" icon="Images/password.png" modulePath="PasswordGeneratorApi">
 		<ActionGroup name="密码位数">
-			<Action name="8位" id="PasswordGenerator8Num" smallIcon="true" radioGroup="2" />
-			<Action name="16位" id="PasswordGenerator16Num" smallIcon="true" radioGroup="2" />
-			<Action name="24位" id="PasswordGenerator24Num" smallIcon="true" radioGroup="2" />
-			<Action name="32位" id="PasswordGenerator32Num" smallIcon="true" radioGroup="2" />
+			<Action name="8位" id="PasswordGenerator8Num" radioGroup="2" />
+			<Action name="16位" id="PasswordGenerator16Num" radioGroup="2" />
+			<Action name="24位" id="PasswordGenerator24Num" radioGroup="2" />
+			<Action name="32位" id="PasswordGenerator32Num" radioGroup="2" />
 		</ActionGroup>
 		<Action name="生成密码" id="PasswordGeneratorGenerate"icon="Images/test_icon4.png"/>
 		<Action name="复制密码" id="PasswordGeneratorCopy"icon="Images/copy.png"/>
