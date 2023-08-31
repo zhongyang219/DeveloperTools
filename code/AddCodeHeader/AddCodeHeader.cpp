@@ -16,8 +16,6 @@ void AddCodeHeader::InitInstance()
 //	CTest::Test();
 //#endif
 
-    m_editor.ConnectWidget(&m_mainWidget);
-
     connect(&m_removeCommentThread, SIGNAL(finished()), this, SLOT(OnRemoveCommentsComplete()));
     connect(&m_editor, SIGNAL(signalRemoveCommentProgress(double)), &m_mainWidget, SLOT(SetProgress(double)));
 }
@@ -32,6 +30,7 @@ void AddCodeHeader::UnInitInstance()
 
 void AddCodeHeader::UiInitComplete(IMainFrame* pMainFrame)
 {
+    m_editor.ConnectWidget(&m_mainWidget, pMainFrame);
     m_pMainFrame = pMainFrame;
     m_pMainFrame->SetItemEnable(CMD_ADD_CODE_HEADER_EXCUTE, false);
 }
@@ -59,6 +58,15 @@ void AddCodeHeader::OnCommand(const char* cmd, bool checked)
     }
     else if (strCmd == CMD_REMOVE_COMMENT_EXCUTE)
     {
+        bool removeComment = m_pMainFrame->IsItemChecked(CMD_RemoveCommentCheck);
+        bool removeSpace = m_pMainFrame->IsItemChecked(CMD_RemoveSpaceCheck);
+        bool removeEmptyLine = m_pMainFrame->IsItemChecked(CMD_RemoveEmptyLineCheck);
+        if (!removeComment && !removeSpace && !removeEmptyLine)
+        {
+            QMessageBox::warning(&m_mainWidget, nullptr, u8"你至少应该选中“删除注释”、“移除多余的空格”和“移除多余的回车”中的一项！", QMessageBox::Ok);
+            return;
+        }
+
         AddCodeHeader::GetInstance()->EnableControl(false);
         if (!m_removeCommentThread.isRunning())
             m_removeCommentThread.start();
@@ -111,12 +119,12 @@ void AddCodeHeader::EnableControl(bool enable)
     m_mainWidget.GetFolderPathEidt()->setEnabled(enable);
     m_mainWidget.GetRemoveFileBtn()->setEnabled(enable);
     m_mainWidget.GetClearFileBtn()->setEnabled(enable);
-    m_mainWidget.GetRemoveReturnCheck()->setEnabled(enable);
-    m_mainWidget.GetRemoveSpaceCheck()->setEnabled(enable);
-    m_mainWidget.GetReturnNumEdit()->setEnabled(enable);
+    m_pMainFrame->SetItemEnable(CMD_RemoveCommentCheck, enable);
+    m_pMainFrame->SetItemEnable(CMD_RemoveSpaceCheck, enable);
+    m_pMainFrame->SetItemEnable(CMD_RemoveEmptyLineCheck, enable);
+    m_pMainFrame->SetItemEnable(CMD_KeepEmptyLineNum, enable);
     m_pMainFrame->SetItemEnable(CMD_SCAN_FILE, enable);
     m_pMainFrame->SetItemEnable(CMD_REMOVE_COMMENT_EXCUTE, enable);
-
 }
 
 
@@ -126,12 +134,13 @@ void AddCodeHeader::OnRemoveCommentsComplete()
 
     QString info;
     const auto& result{ m_removeCommentThread.m_removeResult };
-    info = QString(u8"完成，已处理 %1 个文件。\r\n移除 %2 个单行注释，%3 个多行注释").arg(m_removeCommentThread.m_fileCount)
-        .arg(result.single_line_comment_removed).arg(result.multi_line_comment_removed);
-    if (m_mainWidget.GetRemoveSpaceCheck()->isChecked())
-        info += QString(u8"，%1 个空格").arg(result.space_removed);
-    if (m_mainWidget.GetRemoveReturnCheck()->isChecked())
-        info += QString(u8"，%1 个空白行").arg(result.return_removed);
+    info = QString(u8"完成，已处理 %1 个文件。已移除：").arg(m_removeCommentThread.m_fileCount);
+    if (m_pMainFrame->IsItemChecked(CMD_RemoveCommentCheck))
+        info += QString(u8"\r\n%1 个单行注释，%2 个多行注释").arg(result.single_line_comment_removed).arg(result.multi_line_comment_removed);
+    if (m_pMainFrame->IsItemChecked(CMD_RemoveSpaceCheck))
+        info += QString(u8"\r\n%1 个空格").arg(result.space_removed);
+    if (m_pMainFrame->IsItemChecked(CMD_RemoveEmptyLineCheck))
+        info += QString(u8"\r\n%1 个空白行").arg(result.return_removed);
     QMessageBox::information(&m_mainWidget, nullptr, info, QMessageBox::Ok);
 }
 

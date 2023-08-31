@@ -1,4 +1,4 @@
-#pragma once
+Ôªø#pragma once
 
 #include <QWidget>
 #include <QTextEdit>
@@ -27,9 +27,9 @@ public:
     DECLARE_CLASS_GET_ATTR(FileTypeCombo, m_pFileTypeCombo, QComboBox*)
     DECLARE_CLASS_GET_ATTR(FileTableView, m_pFileTableView, QTableView*)
     DECLARE_CLASS_GET_ATTR(OutFormatCombo, m_pOutFormatCombo, QComboBox*)
-    DECLARE_CLASS_GET_ATTR(RemoveSpaceCheck, m_pRemoveSpace, QCheckBox*)
-    DECLARE_CLASS_GET_ATTR(RemoveReturnCheck, m_pRemoveReturn, QCheckBox*)
-    DECLARE_CLASS_GET_ATTR(ReturnNumEdit, m_pReturnNumEdit, QSpinBox*)
+    //DECLARE_CLASS_GET_ATTR(RemoveSpaceCheck, m_pRemoveSpace, QCheckBox*)
+    //DECLARE_CLASS_GET_ATTR(RemoveReturnCheck, m_pRemoveReturn, QCheckBox*)
+    //DECLARE_CLASS_GET_ATTR(ReturnNumEdit, m_pReturnNumEdit, QSpinBox*)
     DECLARE_CLASS_GET_ATTR(AddFileBtn, m_pAddFileBtn, QPushButton*)
     DECLARE_CLASS_GET_ATTR(RemoveFileBtn, m_pRemoveFileBtn, QPushButton*)
     DECLARE_CLASS_GET_ATTR(ClearFileBtn, m_pClearFileBtn, QPushButton*)
@@ -48,13 +48,13 @@ private:
     QComboBox* m_pFileTypeCombo;
     QTableView* m_pFileTableView;
     QComboBox* m_pOutFormatCombo;
-    QWidget* m_pAddCodeHeadWidget;      //”“≤‡øÿº˛
-    QCheckBox* m_pRemoveSpace;
-    QCheckBox* m_pRemoveReturn;
-    QSpinBox* m_pReturnNumEdit;
-    QPushButton* m_pAddFileBtn;			//ÃÌº”Œƒº˛∞¥≈•
-    QPushButton* m_pRemoveFileBtn;		//…æ≥˝Œƒº˛∞¥≈•
-    QPushButton* m_pClearFileBtn;		//…æ≥˝Œƒº˛∞¥≈•
+    QWidget* m_pAddCodeHeadWidget;      //Âè≥‰æßÊéß‰ª∂
+    //QCheckBox* m_pRemoveSpace;
+    //QCheckBox* m_pRemoveReturn;
+    //QSpinBox* m_pReturnNumEdit;
+    QPushButton* m_pAddFileBtn;			//Ê∑ªÂä†Êñá‰ª∂ÊåâÈíÆ
+    QPushButton* m_pRemoveFileBtn;		//Âà†Èô§Êñá‰ª∂ÊåâÈíÆ
+    QPushButton* m_pClearFileBtn;		//Âà†Èô§Êñá‰ª∂ÊåâÈíÆ
     QProgressBar* m_pProgressBar;
     QLabel* m_pProgressLabel;
 };

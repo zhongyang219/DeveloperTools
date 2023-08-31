@@ -1,4 +1,4 @@
-#pragma once
+Ôªø#pragma once
 
 #include <QtCore/qglobal.h>
 
@@ -13,9 +13,14 @@
 #endif
 
 
-//≤Àµ•√¸¡Ó
+//ËèúÂçïÂëΩ‰ª§
 #define CMD_SCAN_FILE "AddCodeHeaderScanFile"
 #define CMD_REMOVE_COMMENT_EXCUTE "RemoveCommentExcute"
 #define CMD_SHOW_ADD_CODE_HEADER "ShowAddCodeHeader"
 #define CMD_ADD_CODE_HEADER_EXCUTE "AddCodeHeaderExcute"
 #define CMD_USER_GUID "AddCodeHeaderUserGuid"
+
+#define CMD_RemoveCommentCheck "RemoveCommentCheck"
+#define CMD_RemoveSpaceCheck "RemoveSpaceCheck"
+#define CMD_RemoveEmptyLineCheck "RemoveEmptyLineCheck"
+#define CMD_KeepEmptyLineNum "KeepEmptyLineNum"

@@ -7,6 +7,7 @@
 #include "../CCommonTools/TableDataModel.h"
 #include <QFileInfo>
 #include <functional>
+#include "mainframeinterface.h"
 
 class CAddCodeHeaderEditor : public QObject
 {
@@ -17,7 +18,7 @@ public:
     ~CAddCodeHeaderEditor();
 
     //对界面进行初始化操作
-    void ConnectWidget(CMainWidget* pWidget);
+    void ConnectWidget(CMainWidget* pWidget, IMainFrame* pMainFrame);
 
     //界面关闭时执行的操作
     void ExitWidget();
@@ -66,5 +67,6 @@ private:
     CTableDataModel m_fileListModel;
 
     CMainWidget* m_pWidget{};
+    IMainFrame* m_pMainFrame{};
 
 };

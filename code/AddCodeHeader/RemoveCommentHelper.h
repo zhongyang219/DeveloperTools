@@ -23,8 +23,8 @@ public:
         }
     };
 
-    static bool RemoveFileComment(const QString& file_path, bool bRemoveSpace, bool bRemoveReturn, int keepReturnNum, RemoveResult& result);
-    static void RemoveComment(QByteArray& file_contents, bool bRemoveSpace, bool bRemoveReturn, int keepReturnNum, RemoveResult& result);
+    static bool RemoveFileComment(const QString& file_path, bool removeComment, bool bRemoveSpace, bool bRemoveReturn, int keepReturnNum, RemoveResult& result);
+    static void RemoveComment(QByteArray& file_contents, bool removeComment, bool bRemoveSpace, bool bRemoveReturn, int keepReturnNum, RemoveResult& result);
 
 private:
     static int FindFirstOf(const QByteArray& contents, const QByteArray& strFind, int index);

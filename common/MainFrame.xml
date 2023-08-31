@@ -15,9 +15,20 @@
 	<!-- Ribbin标签 -->
     <Page name="代码工具" icon="Images/code.png" modulePath="AddCodeHeader">
 		<Action name="扫描文件" icon="Images/test_icon5.png" id="AddCodeHeaderScanFile" tip="扫描设定目录下所有指定格式的文件，并显示到文件列表中。"/>
-		<Separator/>
-		<Action name="删除注释" icon="Images/test_icon4.png" id="RemoveCommentExcute" tip="对文件列表中的所有文件执行删除注释操作。"/>
-		<Separator/>
+		<ActionGroup name="代码整理">
+			<Action name="删除注释" id="RemoveCommentCheck" icon="Images/comment.png" checkable="true"/>
+			<Action name="移除多余的空格" id="RemoveSpaceCheck" icon="Images/space.png" smallIcon="true" checkable="true"/>
+			<Action name="移除多余的空白行" id="RemoveEmptyLineCheck" icon="Images/return.png" smallIcon="true"  checkable="true"/>
+			<Label name="保留连续空白行的个数"/>
+			<ComboBox id="KeepEmptyLineNum">
+				<Item name="0"/>
+				<Item name="1"/>
+				<Item name="2"/>
+				<Item name="3"/>
+				<Item name="4"/>
+			</ComboBox>
+			<Action name="执行" icon="Images/test_icon4.png" id="RemoveCommentExcute" tip="对文件列表中的所有文件执行删除注释操作。"/>
+		</ActionGroup>
 		<Action name="添加代码头" icon="Images/code.png" id="ShowAddCodeHeader" checkable="true" tip="显示/隐藏添加代码头功能。"/>
 		<Action name="执行" icon="Images/test_icon4.png" id="AddCodeHeaderExcute" tip="对文件列表中的所有文件执行添加代码头操作。"/>
 		<Separator/>

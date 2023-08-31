@@ -18,9 +18,10 @@ CAddCodeHeaderEditor::~CAddCodeHeaderEditor()
 {
 }
 
-void CAddCodeHeaderEditor::ConnectWidget(CMainWidget* pWidget)
+void CAddCodeHeaderEditor::ConnectWidget(CMainWidget* pWidget, IMainFrame* pMainFrame)
 {
     m_pWidget = pWidget;
+    m_pMainFrame = pMainFrame;
     //加载模板
     QFile file(qApp->applicationDirPath() + "/Template.txt");
     if (file.open(QIODevice::ReadOnly | QIODevice::Text))
@@ -44,9 +45,10 @@ void CAddCodeHeaderEditor::ConnectWidget(CMainWidget* pWidget)
     int index = pWidget->GetOutFormatCombo()->findData(outputFormat);
     pWidget->GetOutFormatCombo()->setCurrentIndex(index);
 
-    pWidget->GetRemoveSpaceCheck()->setChecked(settings.GetValue("removeSpace", true).toBool());
-    pWidget->GetRemoveReturnCheck()->setChecked(settings.GetValue("removeReturn", true).toBool());
-    pWidget->GetReturnNumEdit()->setValue(settings.GetValue("keepReturnNum", 2).toInt());
+    m_pMainFrame->SetItemChecked(CMD_RemoveCommentCheck, settings.GetValue("removeComment", true).toBool());
+    m_pMainFrame->SetItemChecked(CMD_RemoveSpaceCheck, settings.GetValue("removeSpace", true).toBool());
+    m_pMainFrame->SetItemChecked(CMD_RemoveEmptyLineCheck, settings.GetValue("removeReturn", true).toBool());
+    m_pMainFrame->SetItemCurIIndex(CMD_KeepEmptyLineNum, settings.GetValue("keepReturnNum", 2).toInt());
 
     //默认不显示“添加代码头”
     pWidget->ShowAddCodeHeader(false);
@@ -96,9 +98,10 @@ void CAddCodeHeaderEditor::ExitWidget()
 
     settings.WriteValue("outoputFormat", m_pWidget->GetOutFormatCombo()->currentData());
 
-    settings.WriteValue("removeSpace", m_pWidget->GetRemoveSpaceCheck()->isChecked());
-    settings.WriteValue("removeReturn", m_pWidget->GetRemoveReturnCheck()->isChecked());
-    settings.WriteValue("keepReturnNum", m_pWidget->GetReturnNumEdit()->value());
+    settings.WriteValue("removeComment", m_pMainFrame->IsItemChecked(CMD_RemoveCommentCheck));
+    settings.WriteValue("removeSpace", m_pMainFrame->IsItemChecked(CMD_RemoveSpaceCheck));
+    settings.WriteValue("removeReturn", m_pMainFrame->IsItemChecked(CMD_RemoveEmptyLineCheck));
+    settings.WriteValue("keepReturnNum", m_pMainFrame->GetItemText(CMD_KeepEmptyLineNum));
 }
 
 void CAddCodeHeaderEditor::AdjustColumeWidth()
@@ -140,7 +143,11 @@ int CAddCodeHeaderEditor::RemoveComments(CRemoveCommentHelper::RemoveResult& rem
     {
         QString strFilePath = m_fileListModel.GetItemText(i, COL_FILEPATH);
         CRemoveCommentHelper::RemoveResult cur_result;
-        if (CRemoveCommentHelper::RemoveFileComment(strFilePath, m_pWidget->GetRemoveSpaceCheck()->isChecked(), m_pWidget->GetRemoveReturnCheck()->isChecked(), m_pWidget->GetReturnNumEdit()->value(), cur_result))
+        bool removeComment = m_pMainFrame->IsItemChecked(CMD_RemoveCommentCheck);
+        bool removeSpace = m_pMainFrame->IsItemChecked(CMD_RemoveSpaceCheck);
+        bool removeEmptyLine = m_pMainFrame->IsItemChecked(CMD_RemoveEmptyLineCheck);
+        int keepEmptyLineNum = QString(m_pMainFrame->GetItemText(CMD_KeepEmptyLineNum)).toInt();
+        if (CRemoveCommentHelper::RemoveFileComment(strFilePath, removeComment, removeSpace, removeEmptyLine, keepEmptyLineNum, cur_result))
         {
             file_count++;
             remove_result += cur_result;

@@ -6,7 +6,7 @@ CRemoveCommentHelper::CRemoveCommentHelper()
 {
 }
 
-bool CRemoveCommentHelper::RemoveFileComment(const QString& file_path, bool bRemoveSpace, bool bRemoveReturn, int keepReturnNum, RemoveResult& result)
+bool CRemoveCommentHelper::RemoveFileComment(const QString& file_path, bool removeComment, bool bRemoveSpace, bool bRemoveReturn, int keepReturnNum, RemoveResult& result)
 {
     QFile file(file_path);
     if (!file.open(QFile::ReadOnly))
@@ -14,7 +14,7 @@ bool CRemoveCommentHelper::RemoveFileComment(const QString& file_path, bool bRem
     QByteArray file_contents(file.readAll());
     file.close();
 
-    RemoveComment(file_contents, bRemoveSpace, bRemoveReturn, keepReturnNum, result);
+    RemoveComment(file_contents, removeComment, bRemoveSpace, bRemoveReturn, keepReturnNum, result);
 
     file.setFileName(file_path);
     if (!file.open(QFile::WriteOnly))
@@ -24,31 +24,34 @@ bool CRemoveCommentHelper::RemoveFileComment(const QString& file_path, bool bRem
     return true;
 }
 
-void CRemoveCommentHelper::RemoveComment(QByteArray& file_contents, bool bRemoveSpace, bool bRemoveReturn, int keepReturnNum, RemoveResult& result)
+void CRemoveCommentHelper::RemoveComment(QByteArray& file_contents, bool removeComment, bool bRemoveSpace, bool bRemoveReturn, int keepReturnNum, RemoveResult& result)
 {
     result = RemoveResult();
-    //删除“//”
-    int index1 = -1, index2 = -1;
-    while (true)
+    if (removeComment)
     {
-        index1 = FindStringNotInQuotation(file_contents, "//", index1 + 1);
-        index2 = FindFirstOf(file_contents, "\r\n", index1 + 1);
-        if (index1 < 0 || index2 < 0)
-            break;
+        //删除“//”
+        int index1 = -1, index2 = -1;
+        while (true)
+        {
+            index1 = FindStringNotInQuotation(file_contents, "//", index1 + 1);
+            index2 = FindFirstOf(file_contents, "\r\n", index1 + 1);
+            if (index1 < 0 || index2 < 0)
+                break;
 
-        file_contents.remove(index1, index2 - index1);
-        result.single_line_comment_removed++;
-    }
-    //删除“/**/”
-    index1 = -1, index2 = -1;
-    while (true)
-    {
-        index1 = FindStringNotInQuotation(file_contents, "/*", index1 + 1);
-        index2 = FindStringNotInQuotation(file_contents, "*/", index1 + 1);
-        if (index1 < 0 || index2 < 0)
-            break;
-        file_contents.remove(index1, index2 - index1 + 2);
-        result.multi_line_comment_removed++;
+            file_contents.remove(index1, index2 - index1);
+            result.single_line_comment_removed++;
+        }
+        //删除“/**/”
+        index1 = -1, index2 = -1;
+        while (true)
+        {
+            index1 = FindStringNotInQuotation(file_contents, "/*", index1 + 1);
+            index2 = FindStringNotInQuotation(file_contents, "*/", index1 + 1);
+            if (index1 < 0 || index2 < 0)
+                break;
+            file_contents.remove(index1, index2 - index1 + 2);
+            result.multi_line_comment_removed++;
+        }
     }
 
     //移除多余的空格

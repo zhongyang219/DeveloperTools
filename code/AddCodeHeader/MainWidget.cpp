@@ -34,17 +34,17 @@ CMainWidget::CMainWidget(QWidget *parent)
     pLeftLayout->addWidget(new QLabel(u8"扫描文件的格式："));
     pLeftLayout->addWidget(m_pFileTypeCombo = new QComboBox());
 
-    QGroupBox* pOptionGroupBox = new QGroupBox(u8"删除注释选项");
-    QHBoxLayout* pOptionsLayout = new QHBoxLayout();
-    pOptionGroupBox->setLayout(pOptionsLayout);
-    pOptionsLayout->addWidget(m_pRemoveSpace = new QCheckBox(u8"移除多余的空格"));
-    pOptionsLayout->addWidget(m_pRemoveReturn = new QCheckBox(u8"移除多余的空白行"));
-    pOptionsLayout->addWidget(new QLabel(u8"保留连续的空白行的个数："));
-    pOptionsLayout->addWidget(m_pReturnNumEdit = new QSpinBox());
-    m_pReturnNumEdit->setMinimumWidth(DPI(40));
-    m_pReturnNumEdit->setRange(0, 4);
-    pOptionsLayout->addStretch();
-    pLeftLayout->addWidget(pOptionGroupBox);
+    //QGroupBox* pOptionGroupBox = new QGroupBox(u8"删除注释选项");
+    //QHBoxLayout* pOptionsLayout = new QHBoxLayout();
+    //pOptionGroupBox->setLayout(pOptionsLayout);
+    //pOptionsLayout->addWidget(m_pRemoveSpace = new QCheckBox(u8"移除多余的空格"));
+    //pOptionsLayout->addWidget(m_pRemoveReturn = new QCheckBox(u8"移除多余的空白行"));
+    //pOptionsLayout->addWidget(new QLabel(u8"保留连续的空白行的个数："));
+    //pOptionsLayout->addWidget(m_pReturnNumEdit = new QSpinBox());
+    //m_pReturnNumEdit->setMinimumWidth(DPI(40));
+    //m_pReturnNumEdit->setRange(0, 4);
+    //pOptionsLayout->addStretch();
+    //pLeftLayout->addWidget(pOptionGroupBox);
 
     pLeftLayout->addWidget(new QLabel(u8"文件列表："));
     QHBoxLayout* pHLayout2 = new QHBoxLayout();
