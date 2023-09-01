@@ -7,7 +7,7 @@
 	<Action name="关于" icon="Images/help.png" id="AppAbout" shortcut="F1"/>
 
 	<!-- 主菜单 -->
-	<SystemMenu name="文件" icon="Images/ballicon.png">
+	<SystemMenu name="文件">
 		<Action name="关于" icon="Images/help.png" id="AppAbout" shortcut="F1"/>
 		<Action name="退出" id="AppExit" icon="Images/Delete.png" shortcut="Ctrl+Q"/>
 	</SystemMenu>
@@ -15,11 +15,11 @@
 	<!-- Ribbin标签 -->
     <Page name="代码工具" icon="Images/code.png" modulePath="AddCodeHeader">
 		<Action name="扫描文件" icon="Images/test_icon5.png" id="AddCodeHeaderScanFile" tip="扫描设定目录下所有指定格式的文件，并显示到文件列表中。"/>
-		<ActionGroup name="代码整理">
+		<ActionGroup>
 			<Action name="删除注释" id="RemoveCommentCheck" icon="Images/comment.png" checkable="true"/>
 			<Action name="移除多余的空格" id="RemoveSpaceCheck" icon="Images/space.png" smallIcon="true" checkable="true"/>
 			<Action name="移除多余的空白行" id="RemoveEmptyLineCheck" icon="Images/return.png" smallIcon="true"  checkable="true"/>
-			<Label name="保留连续空白行的个数"/>
+			<Label name="保留连续空白行数"/>
 			<ComboBox id="KeepEmptyLineNum">
 				<Item name="0"/>
 				<Item name="1"/>

@@ -25,6 +25,8 @@
 
 [zhongyang219/RibbonUiFrame: 这是一个界面框架模块，实现了Ribbon风格的样式，使用xml文件配置Ribbon标签页。此框架可以将Qt或MFC/Win32程序集成到同一个应用程序中。 (github.com)](https://github.com/zhongyang219/RibbonUiFrame/)
 
+界面框架采用动态库的形式保存在本项目中，如果使用的Qt版本与本项目不同，请从以上版本库拉取界面框架的源代码后自行编译生成`RibbonFrame.dll`和`StylePlugin.dll`文件。
+
 ## 代码工具
 
 <img src="images/image-20230210224849338.png" alt="image-20230210224849338" style="zoom:80%;" />
