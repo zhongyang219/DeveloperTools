@@ -45,8 +45,11 @@
 	</Page> 
 	<Page name="ColorPicker" icon="Images/ColorPicker.png" modulePath="ColorPicker">
 		<Action name="屏幕取色" id="PickColor" icon="Images/pickColor.png"/>
+		<Separator/>
 		<Action name="复制RGB值" id="CopyRgbValue" icon="Images/copyGRB.png" tip="将RGB颜色值复制到剪贴板。"/>
 		<Action name="复制十六进制值" id="CopyGexValue" icon="Images/copyHex.png" tip="将十六进制颜色值复制到剪贴板。"/>
+		<Action name="粘贴RGB值" id="PasteRgbValue" icon="Images/pasteRgb.png" tip="从剪贴板获取RGB颜色值。"/>
+		<Action name="粘贴十六进制值" id="PasteHexValue" icon="Images/pasteHex.png" tip="从剪贴板获取十六进制颜色值。"/>
 		<Separator/>
 		<Action name="使用十六进制" id="UseHex" icon="Images/hex.png" checkable="true" tip="COLORREF和RGB值都将以十六进制显示。"/>
 		<Action name="十六进制小写" id="HexLowerCase" icon="Images/comn.png" checkable="true" tip="十六进制使用小写字母。"/>
