@@ -1,4 +1,4 @@
-#include "CRemoveCommentThread.h"
+﻿#include "CRemoveCommentThread.h"
 #include "AddCodeHeader.h"
 
 CRemoveCommentThread::CRemoveCommentThread(QObject *parent)
@@ -22,5 +22,6 @@ bool CRemoveCommentThread::IsStopped()
 
 void CRemoveCommentThread::run()
 {
+    m_removeResult = CRemoveCommentHelper::RemoveResult();
     m_fileCount = AddCodeHeader::GetInstance()->GetEditor().RemoveComments(m_removeResult);
 }
