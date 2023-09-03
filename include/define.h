@@ -1,8 +1,11 @@
 ﻿#pragma once
-#include <QApplication>
-#include <QDesktopWidget>
+#include <QGuiApplication>
+#include <QScreen>
 
-#define DPI(x) (QApplication::desktop()->logicalDpiX() * (x) / 96)
+inline int DPI(int x)
+{
+    return QGuiApplication::primaryScreen()->logicalDotsPerInch() * x / 96;
+}
 
 #define APP_NAME "DeveloperTools"
 #define APP_VERSION "0.2.0"

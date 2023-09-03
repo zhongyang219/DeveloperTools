@@ -1,8 +1,9 @@
 ﻿#include "RulerDrawer.h"
 #include <QApplication>
 #include "PixelRuler.h"
+#include "define.h"
 
-#define SCALE_MARGIN DPI(32)	//标尺的宽度
+const int SCALE_MARGIN = ::DPI(32);
 
 CRulerDrawer::CRulerDrawer(QPainter& painter, QRect rect, int scalePercent)
     : m_painter(painter), m_rect(rect), m_scalePercent(scalePercent)
