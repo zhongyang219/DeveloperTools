@@ -34,6 +34,9 @@ public:
     virtual void OnAppExit() override;
 
 private:
+    void EnableControl();
+
+private:
     CMainWidget m_mainWidget;
     CRulerWidget m_horizontalRuler{ Qt::Horizontal };
     CRulerWidget m_verticalRuler{ Qt::Vertical };

@@ -75,6 +75,8 @@ void PixelRuler::UiInitComplete(IMainFrame* pMainFrame)
         m_pMainFrame->SetItemChecked(CMD_ScaleUnit8Pixel, true);
     else
         m_pMainFrame->SetItemChecked(CMD_ScaleUnit10Pixel, true);
+
+    EnableControl();
 }
 
 void* PixelRuler::GetMainWindow()
@@ -97,7 +99,7 @@ void PixelRuler::OnCommand(const char* strCmd, bool checked)
     QString cmd(strCmd);
     if (cmd == CMD_SystemScaleCheck)
     {
-        m_pMainFrame->SetItemEnable(CMD_UserScaleCombo, !checked);
+        EnableControl();
         Repaint();
     }
     else if (cmd == CMD_ShowHorizontalRuler)
@@ -127,6 +129,14 @@ void PixelRuler::OnAppExit()
 {
     m_horizontalRuler.close();
     m_verticalRuler.close();
+}
+
+void PixelRuler::EnableControl()
+{
+    if (m_pMainFrame != nullptr)
+    {
+        m_pMainFrame->SetItemEnable(CMD_UserScaleCombo, !m_pMainFrame->IsItemChecked(CMD_SystemScaleCheck));
+    }
 }
 
 
