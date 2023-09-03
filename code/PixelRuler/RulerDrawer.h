@@ -26,5 +26,6 @@ private:
     QRect m_rect;
     QPainter& m_painter;
     QPalette m_palette;
+    int m_scaleUnitSize = 10;
 };
 

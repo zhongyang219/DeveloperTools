@@ -10,6 +10,8 @@
 #define CMD_UserScaleCombo "UserScaleCombo"
 #define CMD_ShowHorizontalRuler "ShowHorizontalRuler"
 #define CMD_ShowVerticalRuler "ShowVerticalRuler"
+#define CMD_ScaleUnit10Pixel "ScaleUnit10Pixel"
+#define CMD_ScaleUnit8Pixel "ScaleUnit8Pixel"
 
 class PIXELRULER_EXPORT PixelRuler : public IModule
 {
@@ -17,6 +19,7 @@ public:
     PixelRuler();
     static PixelRuler* Instance();
     int GetScalePercent();
+    int GetScaleUnitSize();
     void Repaint();
 
     // 通过 IModule 继承

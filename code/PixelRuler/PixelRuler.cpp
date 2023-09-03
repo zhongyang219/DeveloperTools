@@ -1,6 +1,7 @@
 ﻿#include "PixelRuler.h"
 #include <QScreen>
 #include <QGuiApplication>
+#include "../CCommonTools/Config.h"
 
 static PixelRuler* pIns = nullptr;
 
@@ -31,6 +32,16 @@ int PixelRuler::GetScalePercent()
     return 100;
 }
 
+int PixelRuler::GetScaleUnitSize()
+{
+    if (m_pMainFrame != nullptr)
+    {
+        if (m_pMainFrame->IsItemChecked(CMD_ScaleUnit8Pixel))
+            return 8;
+    }
+    return 10;
+}
+
 void PixelRuler::Repaint()
 {
     m_mainWidget.update();
@@ -40,16 +51,30 @@ void PixelRuler::Repaint()
 
 void PixelRuler::InitInstance()
 {
+
 }
 
 void PixelRuler::UnInitInstance()
 {
-    int a = 0;
+    //保存设置
+    CConfig settings(QString::fromUtf8(GetModuleName()));
+    settings.WriteValue("useSystemScale", m_pMainFrame->IsItemChecked(CMD_SystemScaleCheck));
+    settings.WriteValue("userScale", m_pMainFrame->GetItemCurIndex(CMD_UserScaleCombo));
+    settings.WriteValue("scaleUnit8Pixel", m_pMainFrame->IsItemChecked(CMD_ScaleUnit8Pixel));
 }
 
 void PixelRuler::UiInitComplete(IMainFrame* pMainFrame)
 {
     m_pMainFrame = pMainFrame;
+    //载入设置
+    CConfig settings(QString::fromUtf8(GetModuleName()));
+    m_pMainFrame->SetItemChecked(CMD_SystemScaleCheck, settings.GetValue("useSystemScale").toBool());
+    m_pMainFrame->SetItemCurIIndex(CMD_UserScaleCombo, settings.GetValue("userScale").toInt());
+    bool scaleUnit8Pixel = settings.GetValue("scaleUnit8Pixel").toBool();
+    if (scaleUnit8Pixel)
+        m_pMainFrame->SetItemChecked(CMD_ScaleUnit8Pixel, true);
+    else
+        m_pMainFrame->SetItemChecked(CMD_ScaleUnit10Pixel, true);
 }
 
 void* PixelRuler::GetMainWindow()
@@ -82,6 +107,10 @@ void PixelRuler::OnCommand(const char* strCmd, bool checked)
     else if (cmd == CMD_ShowVerticalRuler)
     {
         m_verticalRuler.setVisible(checked);
+    }
+    else if (cmd == CMD_ScaleUnit10Pixel || cmd == CMD_ScaleUnit8Pixel)
+    {
+        Repaint();
     }
 }
 

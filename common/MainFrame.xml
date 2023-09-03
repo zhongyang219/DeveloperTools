@@ -93,6 +93,12 @@
 				</ComboBox>
 			</WidgetGroup>
 		</ActionGroup>
+		<ActionGroup name="标尺最小刻度">
+			<WidgetGroup>
+				<RadioButton name="10像素" id="ScaleUnit10Pixel" radioGroup="3"/>
+				<RadioButton name="8像素" id="ScaleUnit8Pixel" radioGroup="3"/>
+			</WidgetGroup>
+		</ActionGroup>
 		<Action name="显示水平标尺" id="ShowHorizontalRuler" icon="Images/水平标尺.png" checkable="true"/>
 		<Action name="显示垂直标尺" id="ShowVerticalRuler" icon="Images/垂直标尺.png" checkable="true"/>
 		<Separator/>
