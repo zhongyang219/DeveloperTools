@@ -13,6 +13,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "WallpaperTool", "code\Wallp
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "PasswordGeneratorApi", "code\PasswordGeneratorApi\PasswordGeneratorApi.vcxproj", "{C0A42F4A-ABB3-4575-B4D5-CEDD8379AC26}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "PixelRuler", "code\PixelRuler\PixelRuler.vcxproj", "{66651540-B2D5-46DC-A458-8B8C35536358}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -59,12 +61,20 @@ Global
 		{C0A42F4A-ABB3-4575-B4D5-CEDD8379AC26}.Release|x64.ActiveCfg = Release|x64
 		{C0A42F4A-ABB3-4575-B4D5-CEDD8379AC26}.Release|x64.Build.0 = Release|x64
 		{C0A42F4A-ABB3-4575-B4D5-CEDD8379AC26}.Release|x86.ActiveCfg = Release|x64
+		{66651540-B2D5-46DC-A458-8B8C35536358}.Debug|x64.ActiveCfg = Debug|x64
+		{66651540-B2D5-46DC-A458-8B8C35536358}.Debug|x64.Build.0 = Debug|x64
+		{66651540-B2D5-46DC-A458-8B8C35536358}.Debug|x86.ActiveCfg = Debug|x64
+		{66651540-B2D5-46DC-A458-8B8C35536358}.Debug|x86.Build.0 = Debug|x64
+		{66651540-B2D5-46DC-A458-8B8C35536358}.Release|x64.ActiveCfg = Release|x64
+		{66651540-B2D5-46DC-A458-8B8C35536358}.Release|x64.Build.0 = Release|x64
+		{66651540-B2D5-46DC-A458-8B8C35536358}.Release|x86.ActiveCfg = Release|x64
+		{66651540-B2D5-46DC-A458-8B8C35536358}.Release|x86.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		Qt5Version = 6.0.0_msvc2019_64
 		SolutionGuid = {DC2B010C-D31D-49C8-987C-670562E2A148}
+		Qt5Version = 6.0.0_msvc2019_64
 	EndGlobalSection
 EndGlobal

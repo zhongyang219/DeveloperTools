@@ -15,4 +15,7 @@ signals:
     // MainFrameWindow interface
 private:
     virtual bool OnCommand(const QString& strCmd, bool checked) override;
+    // QWidget interface
+protected:
+    virtual void closeEvent(QCloseEvent* event) override;
 };

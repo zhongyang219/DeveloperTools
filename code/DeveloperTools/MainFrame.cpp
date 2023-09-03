@@ -31,6 +31,11 @@ MainFrame::~MainFrame()
     settings.WriteValue("windowHeight", windowSize.height());
 }
 
+void MainFrame::closeEvent(QCloseEvent* event)
+{
+    RibbonFrameWindow::closeEvent(event);
+}
+
 
 bool MainFrame::OnCommand(const QString& strCmd, bool checked)
 {

@@ -3,7 +3,7 @@
   <ImportGroup Label="PropertySheets" />
   <PropertyGroup Label="UserMacros">
     <ParentPath>..\..</ParentPath>
-    <BuildFolder>$(Platform)_vc15_$(CharacterSet)_$(Configuration)</BuildFolder>
+    <BuildFolder>$(Platform)_vc15_$(Configuration)</BuildFolder>
   </PropertyGroup>
   <PropertyGroup>
     <OutDir>$(ParentPath)\bin\$(BuildFolder)\</OutDir>

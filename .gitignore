@@ -352,8 +352,8 @@ MigrationBackup/
 qmake
 moc
 *.tlog
-x64_vc15_Unicode_Debug
-x64_vc15_Unicode_Release
-win32_vc15_Unicode_Debug
-win32_vc15_Unicode_Release
+x64_vc15_Debug
+x64_vc15_Release
+win32_vc15_Debug
+win32_vc15_Release
 /code/BuildLog
