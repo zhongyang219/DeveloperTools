@@ -1,6 +1,7 @@
 ﻿#pragma once
 
 #include <QWidget>
+#include <QTextEdit> 
 
 class CMainWidget  : public QWidget
 {
@@ -9,6 +10,8 @@ class CMainWidget  : public QWidget
 public:
     CMainWidget(QWidget* parent = nullptr);
     ~CMainWidget();
+
+    QTextEdit m_helpEdit;
 
 private:
     virtual void paintEvent(QPaintEvent* event) override;

@@ -98,6 +98,7 @@
     <ClCompile Include="DatabaseTool.cpp" />
     <ClCompile Include="StringHelper.cpp" />
     <ClCompile Include="TableDataModel.cpp" />
+    <ClCompile Include="TextEditWidget.cpp" />
     <ClInclude Include="ccommontools_global.h" />
     <ClInclude Include="CommonTools.h" />
     <ClCompile Include="CommonTools.cpp" />
@@ -105,6 +106,7 @@
     <ClInclude Include="DatabaseTool.h" />
     <ClInclude Include="StringHelper.h" />
     <ClInclude Include="TableDataModel.h" />
+    <ClInclude Include="TextEditWidget.h" />
   </ItemGroup>
   <ItemGroup>
     <QtRcc Include="Resource.qrc" />

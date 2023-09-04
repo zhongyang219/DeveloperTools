@@ -10,6 +10,12 @@
 CRulerWidget::CRulerWidget(Qt::Orientation orientation, QWidget *parent)
     : QWidget(parent), m_orientation(orientation)
 {
+    //设置窗口标题
+    if (orientation == Qt::Horizontal)
+        setWindowTitle(u8"水平标尺");
+    else
+        setWindowTitle(u8"垂直标尺");
+
     //设置无边框
     auto flags = windowFlags();
     flags |= Qt::FramelessWindowHint;       //去掉窗口边框
