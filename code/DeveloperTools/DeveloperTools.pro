@@ -6,20 +6,19 @@ QT += core gui widgets xml
 TEMPLATE = app
 TARGET = DeveloperTools
 CONFIG(debug, debug|release): {
-    DESTDIR = $$PWD/../../library/x64_vc15_Unicode_Debug
-    DLLDESTDIR = $$PWD/../../bin/x64_vc15_Unicode_Debug
-    LIBS += -L$$PWD/../../library/x64_vc15_Unicode_Debug \
-        -lCCommonTools
+    DESTDIR = $$PWD/../../bin/debug
+    LIBS += -L$$PWD/../../bin/debug \
+        -lCCommonTools -lRibbonFrame
 }
 else {
-    DESTDIR = $$PWD/../../library/x64_vc15_Unicode_Release
-    DLLDESTDIR = $$PWD/../../bin/x64_vc15_Unicode_Release
-    LIBS += -L$$PWD/../../library/x64_vc15_Unicode_Release \
-        -lCCommonTools
+    DESTDIR = $$PWD/../../bin/release
+    LIBS += -L$$PWD/../../bin/release \
+        -lCCommonTools -lRibbonFrame
 }
 DEPENDPATH += .
 win32:RC_FILE = DeveloperTools.rc
-HEADERS += ../../include/define.h \
+HEADERS += ../../include/*.h \
     ./*.h
 SOURCES += ./*.cpp
 RESOURCES += ./*.qrc
+INCLUDEPATH += $$PWD/../../include

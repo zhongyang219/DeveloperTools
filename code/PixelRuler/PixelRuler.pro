@@ -3,8 +3,9 @@
 # ------------------------------------------------------
 
 QT += core gui widgets
+
 TEMPLATE = lib
-TARGET = WallpaperTool
+TARGET = PixelRuler
 CONFIG(debug, debug|release): {
     DESTDIR = $$PWD/../../bin/debug
     LIBS += -L$$PWD/../../bin/debug \
@@ -15,9 +16,8 @@ else {
     LIBS += -L$$PWD/../../bin/release \
         -lCCommonTools
 }
-DEPENDPATH += .
+DEFINES += ADDCODEHEADER_LIB
 HEADERS += ./*.h
 SOURCES += ./*.cpp
-FORMS += ./*.ui
 
 INCLUDEPATH += $$PWD/../../include

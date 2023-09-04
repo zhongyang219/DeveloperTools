@@ -11,6 +11,7 @@ TEMPLATE = subdirs
 SUBDIRS += code/CCommonTools/CCommonTools.pro \
     code/AddCodeHeader/AddCodeHeader.pro \
     code/WallpaperTool/WallpaperTool.pro \
+    code/PixelRuler/PixelRuler.pro \
     code/DeveloperTools/DeveloperTools.pro
 
 CONFIG += ordered

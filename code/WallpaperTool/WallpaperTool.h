@@ -32,7 +32,7 @@ private:
 #ifdef __cplusplus
 extern "C" {
 #endif
-    __declspec(dllexport) IModule* CreateInstance();
+    Q_DECL_EXPORT IModule* CreateInstance();
 #ifdef __cplusplus
 }
 #endif

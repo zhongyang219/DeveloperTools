@@ -7,18 +7,17 @@ QT += core gui widgets
 TEMPLATE = lib
 TARGET = AddCodeHeader
 CONFIG(debug, debug|release): {
-    DESTDIR = $$PWD/../../library/x64_vc15_Unicode_Debug
-    DLLDESTDIR = $$PWD/../../bin/x64_vc15_Unicode_Debug
-    LIBS += -L$$PWD/../../library/x64_vc15_Unicode_Debug \
+    DESTDIR = $$PWD/../../bin/debug
+    LIBS += -L$$PWD/../../bin/debug \
         -lCCommonTools
 }
 else {
-    DESTDIR = $$PWD/../../library/x64_vc15_Unicode_Release
-    DLLDESTDIR = $$PWD/../../bin/x64_vc15_Unicode_Release
-    LIBS += -L$$PWD/../../library/x64_vc15_Unicode_Release \
+    DESTDIR = $$PWD/../../bin/release
+    LIBS += -L$$PWD/../../bin/release \
         -lCCommonTools
 }
 DEFINES += ADDCODEHEADER_LIB
 HEADERS += ./*.h
 SOURCES += ./*.cpp
 
+INCLUDEPATH += $$PWD/../../include

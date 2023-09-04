@@ -7,12 +7,10 @@ TEMPLATE = lib
 TARGET = CCommonTools
 
 CONFIG(debug, debug|release): {
-    DESTDIR = $$PWD/../../library/x64_vc15_Unicode_Debug
-    DLLDESTDIR = $$PWD/../../bin/x64_vc15_Unicode_Debug
+    DESTDIR = $$PWD/../../bin/debug
 }
 else {
-    DESTDIR = $$PWD/../../library/x64_vc15_Unicode_Release
-    DLLDESTDIR = $$PWD/../../bin/x64_vc15_Unicode_Release
+    DESTDIR = $$PWD/../../bin/release
 }
 DEFINES += CCOMMONTOOLS_LIB
 HEADERS += $$PWD/*.h
