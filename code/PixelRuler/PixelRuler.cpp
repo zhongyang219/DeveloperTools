@@ -2,6 +2,9 @@
 #include <QScreen>
 #include <QGuiApplication>
 #include "../CCommonTools/Config.h"
+#include "../CCommonTools/TextEditWidget.h"
+#include <QFile>
+#include "define.h"
 
 static PixelRuler* pIns = nullptr;
 
@@ -113,6 +116,19 @@ void PixelRuler::OnCommand(const char* strCmd, bool checked)
     else if (cmd == CMD_ScaleUnit10Pixel || cmd == CMD_ScaleUnit8Pixel)
     {
         Repaint();
+    }
+    else if (cmd == CMD_PixelRulerHelp)
+    {
+        CTextEditDialog dlg(&m_mainWidget);
+        dlg.resize(DPI(560), DPI(360));
+        dlg.setWindowTitle(u8"像素尺帮助");
+        QFile file(":/res/help.md");
+        if (file.open(QIODevice::ReadOnly))
+        {
+            QString helpContents = QString::fromUtf8(file.readAll());
+            dlg.GetEdit()->setMarkdown(helpContents);
+        }
+        dlg.exec();
     }
 }
 

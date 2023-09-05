@@ -2,8 +2,8 @@
 #include <QTextEdit>
 #include <QVBoxLayout>
 
-CTextEditWidget::CTextEditWidget(QWidget*parent)
-    : QWidget(parent)
+CTextEditDialog::CTextEditDialog(QWidget*parent)
+    : QDialog(parent)
 {
     QVBoxLayout* pLayout = new QVBoxLayout;
     setLayout(pLayout);
@@ -12,16 +12,16 @@ CTextEditWidget::CTextEditWidget(QWidget*parent)
     m_label->hide();
 }
 
-CTextEditWidget::~CTextEditWidget()
+CTextEditDialog::~CTextEditDialog()
 {}
 
-void CTextEditWidget::SetLabelText(const QString& text)
+void CTextEditDialog::SetLabelText(const QString& text)
 {
     m_label->setVisible(!text.isEmpty());
     m_label->setText(text);
 }
 
-QTextEdit* CTextEditWidget::GetEdit()
+QTextEdit* CTextEditDialog::GetEdit()
 {
     return m_edit;
 }

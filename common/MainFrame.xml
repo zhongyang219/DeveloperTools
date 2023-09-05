@@ -101,6 +101,8 @@
 		</ActionGroup>
 		<Action name="显示水平标尺" id="ShowHorizontalRuler" icon="Images/水平标尺.png" checkable="true"/>
 		<Action name="显示垂直标尺" id="ShowVerticalRuler" icon="Images/垂直标尺.png" checkable="true"/>
+		<Separator/>
+		<Action name="帮助" id="PixelRulerHelp" icon="Images/help.png"/>
 	</Page>
 
 	<!-- 其他插件，不关联现有标签页 -->

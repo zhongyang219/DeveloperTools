@@ -1,15 +1,15 @@
 ﻿#pragma once
 
 #include "ccommontools_global.h"
-#include <QWidget>
+#include <QDialog>
 #include <QTextEdit>
 #include <QLabel>
 
-class CCOMMONTOOLS_EXPORT CTextEditWidget  : public QWidget
+class CCOMMONTOOLS_EXPORT CTextEditDialog  : public QDialog
 {
 public:
-    CTextEditWidget(QWidget* parent = nullptr);
-    ~CTextEditWidget();
+    CTextEditDialog(QWidget* parent = nullptr);
+    ~CTextEditDialog();
     void SetLabelText(const QString& text);
     QTextEdit* GetEdit();
 

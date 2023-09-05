@@ -12,6 +12,7 @@
 #define CMD_ShowVerticalRuler "ShowVerticalRuler"
 #define CMD_ScaleUnit10Pixel "ScaleUnit10Pixel"
 #define CMD_ScaleUnit8Pixel "ScaleUnit8Pixel"
+#define CMD_PixelRulerHelp "PixelRulerHelp"
 
 class PIXELRULER_EXPORT PixelRuler : public IModule
 {
