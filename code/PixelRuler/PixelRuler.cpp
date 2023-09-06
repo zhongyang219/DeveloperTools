@@ -127,6 +127,7 @@ void PixelRuler::OnCommand(const char* strCmd, bool checked)
         {
             QString helpContents = QString::fromUtf8(file.readAll());
             dlg.GetEdit()->setMarkdown(helpContents);
+            dlg.GetEdit()->setReadOnly(true);
         }
         dlg.exec();
     }

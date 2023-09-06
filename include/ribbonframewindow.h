@@ -19,7 +19,7 @@ class RIBBONFRAME_EXPORT RibbonFrameWindow : public QMainWindow, public IMainFra
     Q_OBJECT
 
 public:
-    RibbonFrameWindow(QWidget *parent = nullptr);
+    RibbonFrameWindow(QWidget *parent = nullptr, const QString& xmlPath = QString());
     virtual ~RibbonFrameWindow();
 
 signals:
@@ -32,7 +32,7 @@ private slots:
     void OnEditTextChanged();    //响应TextEdit文本改变
 
 private:
-    void LoadUIFromXml();           //从xml文件加载界面
+    void LoadUIFromXml(QString xmlPath);           //从xml文件加载界面
     IModule* LoadPlugin(const QString &strModulePath);
     void LoadMainFrameUi(const QDomElement& element);   //从一个xml节点加载界面
     void LoadUiElement(const QDomElement& element, QToolBar* pToolbar);     //加载一组UI元素（用于Ribbin的Page）
@@ -77,14 +77,6 @@ protected:
     * @param[in]   text: 选中项的文本
     */
     virtual void OnItemChanged(const QString& strId, int index, const QString& text) {}
-
-    /**
-     * @brief       显示一个提示消息
-     * @param[in]	msgTitle：消息标题
-     * @param[in]	msgBody：消息体
-     * @param[in]	msgType：消息类型，同QMessageBox::Icon枚举定义
-     */
-    void ShowMessage(const QString& msgTitle, const QString& msgBody, int msgType);
 
     QAction *_GetAction(const QString& strCmd) const;
     QWidget *_GetWidget(const QString& strCmd) const;
