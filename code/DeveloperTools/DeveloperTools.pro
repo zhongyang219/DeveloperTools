@@ -18,8 +18,8 @@ else {
 }
 DEPENDPATH += .
 win32:RC_FILE = DeveloperTools.rc
-HEADERS += ../../include/*.h \
-    ./*.h
-SOURCES += ./*.cpp
-RESOURCES += ./*.qrc
+HEADERS += $$PWD/../../include/*.h \
+    $$PWD/*.h
+SOURCES += $$PWD/*.cpp
+RESOURCES += $$PWD/*.qrc
 INCLUDEPATH += $$PWD/../../include
