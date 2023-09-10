@@ -4,16 +4,28 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 17.4.33213.308
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "DeveloperTools", "code\DeveloperTools\DeveloperTools.vcxproj", "{07E795BA-554B-40DB-9B8D-73A1A2F1C86D}"
+	ProjectSection(ProjectDependencies) = postProject
+		{E4544EC1-FD31-49B0-A592-8F1C07D7E9FD} = {E4544EC1-FD31-49B0-A592-8F1C07D7E9FD}
+	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "AddCodeHeader", "code\AddCodeHeader\AddCodeHeader.vcxproj", "{F51F4A14-75DD-4401-9626-B27C33638226}"
+	ProjectSection(ProjectDependencies) = postProject
+		{E4544EC1-FD31-49B0-A592-8F1C07D7E9FD} = {E4544EC1-FD31-49B0-A592-8F1C07D7E9FD}
+	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "CCommonTools", "code\CCommonTools\CCommonTools.vcxproj", "{E4544EC1-FD31-49B0-A592-8F1C07D7E9FD}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "WallpaperTool", "code\WallpaperTool\WallpaperTool.vcxproj", "{F532AB53-2D8A-4416-96B5-4FA84237ACD4}"
+	ProjectSection(ProjectDependencies) = postProject
+		{E4544EC1-FD31-49B0-A592-8F1C07D7E9FD} = {E4544EC1-FD31-49B0-A592-8F1C07D7E9FD}
+	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "PasswordGeneratorApi", "code\PasswordGeneratorApi\PasswordGeneratorApi.vcxproj", "{C0A42F4A-ABB3-4575-B4D5-CEDD8379AC26}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "PixelRuler", "code\PixelRuler\PixelRuler.vcxproj", "{66651540-B2D5-46DC-A458-8B8C35536358}"
+	ProjectSection(ProjectDependencies) = postProject
+		{E4544EC1-FD31-49B0-A592-8F1C07D7E9FD} = {E4544EC1-FD31-49B0-A592-8F1C07D7E9FD}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -74,7 +86,7 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {DC2B010C-D31D-49C8-987C-670562E2A148}
 		Qt5Version = 6.0.0_msvc2019_64
+		SolutionGuid = {DC2B010C-D31D-49C8-987C-670562E2A148}
 	EndGlobalSection
 EndGlobal

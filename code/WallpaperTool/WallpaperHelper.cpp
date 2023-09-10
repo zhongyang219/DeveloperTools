@@ -13,6 +13,7 @@ CWallpaperHelper::CWallpaperHelper()
         m_pWallpaper = nullptr;
     }
     m_pMonitorIdBuf = (LPWSTR)GlobalAlloc(GPTR, 64);
+    m_pWallpaperPathBuf = (LPWSTR)GlobalAlloc(GPTR, 256);
 #endif
 }
 
@@ -20,6 +21,7 @@ CWallpaperHelper::~CWallpaperHelper()
 {
 #ifdef Q_OS_WIN
     GlobalFree(m_pMonitorIdBuf);
+    GlobalFree(m_pWallpaperPathBuf);
     if (m_pWallpaper != nullptr)
         m_pWallpaper->Release();
 #endif
@@ -32,11 +34,9 @@ QString CWallpaperHelper::GetCurrentWallpaperPath()
 #ifdef Q_OS_WIN
     if (m_pWallpaper != nullptr)
     {
-        LPWSTR pBuf = (LPWSTR)GlobalAlloc(GPTR, 256);
-        HRESULT hr = m_pWallpaper->GetWallpaper(m_pMonitorIdBuf, &pBuf);
+        HRESULT hr = m_pWallpaper->GetWallpaper(m_pMonitorIdBuf, &m_pWallpaperPathBuf);
         ShowResultInfo(hr);
-        strPath = QString::fromWCharArray(pBuf);
-        GlobalFree(pBuf);
+        strPath = QString::fromWCharArray(m_pWallpaperPathBuf);
     }
 #endif
 

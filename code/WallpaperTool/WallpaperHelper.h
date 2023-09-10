@@ -28,6 +28,7 @@ private:
 #ifdef Q_OS_WIN
     IDesktopWallpaper* m_pWallpaper{};
     LPWSTR m_pMonitorIdBuf;
+    LPWSTR m_pWallpaperPathBuf;
 #endif
 
 };
