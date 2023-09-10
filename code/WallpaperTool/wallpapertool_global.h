@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 
 #include <QtCore/qglobal.h>
 
@@ -15,3 +15,5 @@
 #define CMD_CURRENT_WALLPAPER_SAVE_AS "CurWallpaperSaveAs"
 #define CMD_CURRENT_WALLPAPER_DELETE "CurWallpaperDelete"
 #define CMD_CURRENT_WALLPAPER_REFRESH "CurWallpaperRefresh"
+#define CMD_PreviousWallpaper "PreviousWallpaper"
+#define CMD_NextWallpaper "NextWallpaper"

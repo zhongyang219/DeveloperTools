@@ -5,6 +5,8 @@
 #include <QApplication>
 #include <QDateTime>
 #include <QTextStream>
+#include <QEventLoop>
+#include <QTimer>
 
 CCommonTools::CCommonTools()
 {
@@ -66,4 +68,11 @@ QIcon CCommonTools::CreateIcon(const QString& strPath, int size)
     QPixmap image(strPath);
     image = image.scaled(size, size, Qt::IgnoreAspectRatio, Qt::SmoothTransformation);
     return QIcon(image);
+}
+
+void CCommonTools::DelayNotBlocked(int msec)
+{
+    QEventLoop loop;
+    QTimer::singleShot(msec, &loop, SLOT(quit()));
+    loop.exec();
 }

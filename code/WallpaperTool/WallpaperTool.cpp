@@ -1,18 +1,29 @@
 ﻿#include "WallpaperTool.h"
-#include "WallpaperHelper.h"
 #include <QFileDialog>
 #include <QFileInfo>
 #include <QMessageBox>
 #include "../CCommonTools/CommonTools.h"
 #include "../CCommonTools/Config.h"
 
+static WallpaperTool* pIns = nullptr;
+
 WallpaperTool::WallpaperTool()
 {
 }
 
+WallpaperTool* WallpaperTool::Instance()
+{
+    return pIns;
+}
+
+IMainFrame* WallpaperTool::GetMainFrame()
+{
+    return m_pMainFrame;
+}
+
 void WallpaperTool::InitInstance()
 {
-    m_strCurWallpaperPath = CWallpaperHelper::GetCurrentWallpaperPath();
+    m_strCurWallpaperPath = m_helper.GetCurrentWallpaperPath();
     m_mainWidget.SetWallpaper(m_strCurWallpaperPath);
 
     CConfig settings(QString::fromUtf8(GetModuleName()));
@@ -23,6 +34,11 @@ void WallpaperTool::UnInitInstance()
 {
     CConfig settings(QString::fromUtf8(GetModuleName()));
     settings.WriteValue("lastSaveDir", m_strLastSaveDir);
+}
+
+void WallpaperTool::UiInitComplete(IMainFrame* pMainFrame)
+{
+    m_pMainFrame = pMainFrame;
 }
 
 void* WallpaperTool::GetMainWindow()
@@ -98,8 +114,21 @@ void WallpaperTool::OnCommand(const char* strCmd, bool checked)
     //刷新
     else if (cmd == CMD_CURRENT_WALLPAPER_REFRESH)
     {
-        m_strCurWallpaperPath = CWallpaperHelper::GetCurrentWallpaperPath();
-        m_mainWidget.SetWallpaper(m_strCurWallpaperPath);
+        Refresh();
+    }
+
+    else if (cmd == CMD_PreviousWallpaper)
+    {
+        m_helper.PreviousWallPaper();
+        CCommonTools::DelayNotBlocked(200);
+        Refresh();
+    }
+
+    else if (cmd == CMD_NextWallpaper)
+    {
+        m_helper.NextWallPaper();
+        CCommonTools::DelayNotBlocked(200);
+        Refresh();
     }
 }
 
@@ -112,7 +141,14 @@ void WallpaperTool::WriteLog(const QString& strLogInfo)
     }
 }
 
+void WallpaperTool::Refresh()
+{
+    m_strCurWallpaperPath = m_helper.GetCurrentWallpaperPath();
+    m_mainWidget.SetWallpaper(m_strCurWallpaperPath);
+}
+
 IModule* CreateInstance()
 {
-    return new WallpaperTool();
+    pIns = new WallpaperTool();
+    return pIns;
 }

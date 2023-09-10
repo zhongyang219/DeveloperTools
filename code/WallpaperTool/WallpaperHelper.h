@@ -1,12 +1,34 @@
-#pragma once
+ï»¿#pragma once
 #include <QString>
+
+#ifdef Q_OS_WIN
+#include <Windows.h>
+#include <Shobjidl.h>
+#endif
+
 class CWallpaperHelper
 {
 public:
     CWallpaperHelper();
+    ~CWallpaperHelper();
 
-    //´Ó×¢²á±í½âÎöµ±Ç°×ÀÃæ±ÚÖ½µÄÂ·¾¶
-    static QString GetCurrentWallpaperPath();
+    //è·å–å½“å‰æ¡Œé¢å£çº¸çš„è·¯å¾„
+    QString GetCurrentWallpaperPath();
+
+    bool SetCurrentDeskTop(int index);
+
+    bool PreviousWallPaper();
+    bool NextWallPaper();
+
+#ifdef Q_OS_WIN
+    void ShowResultInfo(HRESULT hr);
+#endif
+
+private:
+#ifdef Q_OS_WIN
+    IDesktopWallpaper* m_pWallpaper{};
+    LPWSTR m_pMonitorIdBuf;
+#endif
 
 };
 

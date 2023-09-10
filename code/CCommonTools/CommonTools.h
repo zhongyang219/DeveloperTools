@@ -17,4 +17,6 @@ public:
     static void WriteLog(const QString& strLogInfo, const QString& strFilePath = QString());
 
     static QIcon CreateIcon(const QString& strPath, int size);
+
+    static void DelayNotBlocked(int msec);
 };
