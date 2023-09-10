@@ -126,7 +126,11 @@ void PixelRuler::OnCommand(const char* strCmd, bool checked)
         if (file.open(QIODevice::ReadOnly))
         {
             QString helpContents = QString::fromUtf8(file.readAll());
+#if (QT_VERSION >= QT_VERSION_CHECK(5,14,0))
             dlg.GetEdit()->setMarkdown(helpContents);
+#else
+            dlg.GetEdit()->setPlainText(helpContents);
+#endif
             dlg.GetEdit()->setReadOnly(true);
         }
         dlg.exec();

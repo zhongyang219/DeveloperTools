@@ -3,6 +3,7 @@
 # ------------------------------------------------------
 
 QT += core gui widgets xml
+CONFIG += c++11
 TEMPLATE = app
 TARGET = DeveloperTools
 CONFIG(debug, debug|release): {

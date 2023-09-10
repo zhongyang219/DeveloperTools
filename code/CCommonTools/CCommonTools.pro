@@ -3,6 +3,7 @@
 # ------------------------------------------------------
 
 QT += core sql widgets
+CONFIG += c++11
 TEMPLATE = lib
 TARGET = CCommonTools
 

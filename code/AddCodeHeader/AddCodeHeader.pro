@@ -3,6 +3,7 @@
 # ------------------------------------------------------
 
 QT += core gui widgets
+CONFIG += c++11 plugin
 
 TEMPLATE = lib
 TARGET = AddCodeHeader

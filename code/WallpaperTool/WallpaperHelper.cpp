@@ -2,6 +2,9 @@
 #include <QSettings>
 #include "WallpaperTool.h"
 #include "mainframeinterface.h"
+#ifndef Q_OS_WIN
+#include <QProcess>
+#endif
 
 CWallpaperHelper::CWallpaperHelper()
 {
@@ -29,18 +32,35 @@ CWallpaperHelper::~CWallpaperHelper()
 
 QString CWallpaperHelper::GetCurrentWallpaperPath()
 {
-    QString strPath;
-
 #ifdef Q_OS_WIN
     if (m_pWallpaper != nullptr)
     {
         HRESULT hr = m_pWallpaper->GetWallpaper(m_pMonitorIdBuf, &m_pWallpaperPathBuf);
         ShowResultInfo(hr);
-        strPath = QString::fromWCharArray(m_pWallpaperPathBuf);
+        return QString::fromWCharArray(m_pWallpaperPathBuf);
     }
+#else
+
+    QProcess cmdProcess;
+    //使用命令行获取当前壁纸路径
+    QString strArg = "gsettings get org.gnome.desktop.background picture-uri";
+    cmdProcess.start(strArg);
+    cmdProcess.waitForReadyRead();
+    cmdProcess.waitForFinished();
+    QString strRet = QString::fromUtf8(cmdProcess.readAll()).trimmed();
+    //去掉路径前后的引号和前面的file://
+    if (strRet.startsWith('\''))
+        strRet = strRet.mid(1);
+    if (strRet.startsWith("file://"))
+        strRet = strRet.mid(7);
+    if (strRet.endsWith('\''))
+        strRet.chop(1);
+    return strRet;
+
+//    return "/usr/share/backgrounds/1-warty-final-ubuntukylin.jpg";
 #endif
 
-    return strPath;
+    return QString();
 }
 
 bool CWallpaperHelper::SetCurrentDeskTop(int index)

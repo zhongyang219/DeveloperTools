@@ -3,6 +3,7 @@
 # ------------------------------------------------------
 
 QT += core gui widgets
+CONFIG += c++11 plugin
 
 TEMPLATE = lib
 TARGET = PixelRuler
@@ -19,5 +20,6 @@ else {
 DEFINES += ADDCODEHEADER_LIB
 HEADERS += ./*.h
 SOURCES += ./*.cpp
+RESOURCES += ./*.qrc
 
 INCLUDEPATH += $$PWD/../../include
