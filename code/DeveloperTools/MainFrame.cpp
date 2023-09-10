@@ -9,7 +9,10 @@
 
 MainFrame::MainFrame(QWidget* parent) : RibbonFrameWindow(parent)
 {
-    setWindowIcon(QIcon(":/DeveloperTools/res/DeveloperTools.ico"));
+    QIcon appIcon(":/DeveloperTools/res/DeveloperTools.ico");
+    qApp->setWindowIcon(appIcon);
+    SetItemIcon("AppAbout", appIcon);
+
     setMinimumSize(DPI(500), DPI(400));
 
     //载入配置
