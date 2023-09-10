@@ -3,6 +3,7 @@
 
 CConfig::CConfig(const QString& strModuleName)
 {
+#ifdef Q_OS_WIN
     QString strConfigPath = QString("HKEY_CURRENT_USER\\Software\\Apps By ZhongYang\\%1").arg(APP_NAME);
 #ifdef QT_DEBUG
     strConfigPath += " (Debug)";
@@ -12,8 +13,10 @@ CConfig::CConfig(const QString& strModuleName)
         strConfigPath += '\\';
         strConfigPath += strModuleName;
     }
-
     m_settings = new QSettings(strConfigPath, QSettings::NativeFormat);
+#else
+    m_settings = new QSettings("Apps By ZhongYang", qApp->applicationName());
+#endif
 }
 
 CConfig::~CConfig()
