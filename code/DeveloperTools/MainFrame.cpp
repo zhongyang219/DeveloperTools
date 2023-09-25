@@ -29,9 +29,12 @@ MainFrame::~MainFrame()
     //保存配置
     CConfig settings;
     settings.WriteValue("tabIndex", GetTabIndex());
-    QSize windowSize = size();
-    settings.WriteValue("windowWidth", windowSize.width());
-    settings.WriteValue("windowHeight", windowSize.height());
+    if (!isMaximized())
+    {
+        QSize windowSize = size();
+        settings.WriteValue("windowWidth", windowSize.width());
+        settings.WriteValue("windowHeight", windowSize.height());
+    }
 }
 
 void MainFrame::closeEvent(QCloseEvent* event)
