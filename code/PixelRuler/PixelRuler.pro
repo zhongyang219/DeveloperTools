@@ -18,8 +18,8 @@ else {
         -lCCommonTools
 }
 DEFINES += ADDCODEHEADER_LIB
-HEADERS += ./*.h
-SOURCES += ./*.cpp
-RESOURCES += ./*.qrc
+HEADERS += $$PWD/*.h
+SOURCES += $$PWD/*.cpp
+RESOURCES += PixelRuler.qrc
 
 INCLUDEPATH += $$PWD/../../include

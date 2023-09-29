@@ -18,7 +18,7 @@ else {
         -lCCommonTools
 }
 DEFINES += ADDCODEHEADER_LIB
-HEADERS += ./*.h
-SOURCES += ./*.cpp
+HEADERS += $$PWD/*.h
+SOURCES += $$PWD/*.cpp
 
 INCLUDEPATH += $$PWD/../../include

@@ -17,8 +17,8 @@ else {
         -lCCommonTools
 }
 DEPENDPATH += .
-HEADERS += ./*.h
-SOURCES += ./*.cpp
-FORMS += ./*.ui
+HEADERS += $$PWD/*.h
+SOURCES += $$PWD/*.cpp
+FORMS += $$PWD/*.ui
 
 INCLUDEPATH += $$PWD/../../include
