@@ -30,7 +30,26 @@ const char* FileRename::GetModuleName()
 void FileRename::OnCommand(const char* strCmd, bool checked)
 {
     QString cmd(QString::fromUtf8(strCmd));
-    if ()
+    if (strCmd == CMD_FileRenameAddFiles)
+    {
+
+    }
+    else if (strCmd == CMD_FileRenameAddFolder)
+    {
+
+    }
+    else if (strCmd == CMD_FileRenameDelete)
+    {
+
+    }
+    else if (strCmd == CMD_FileRenameClear)
+    {
+
+    }
+    else if (strCmd == CMD_RenameWithModifiedTime)
+    {
+
+    }
 }
 
 
