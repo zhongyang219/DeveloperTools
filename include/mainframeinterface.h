@@ -82,15 +82,33 @@ public:
 
     /**
      * @brief       向一个模块发送消息
-     * @param[in]	moduleName 模块名称
+     * @param[in]	moduleName 模块名称（如果为nullptr或空字符，则向所有模块发送）
      * @param[in]	msgType 消息类型
      * @param[in]	para1 para2 可选参数
      * @return      返回的消息
      */
     virtual void* SendModuleMessage(const char* moduleName, const char* msgType, void* para1 = nullptr, void* para2 = nullptr) = 0;
 
+    /**
+     * @brief       从主窗口Ribbin工具栏获取一个命令
+     * @param[in]	strId: 命令的ID
+     * @return      命令的QAction指针
+     */
     virtual void* GetAcion(const char* strId) = 0;
+	
+    /**
+     * @brief       从主窗口Ribbin工具栏获取一个控件
+     * @param[in]	strId: 命令的ID
+     * @return      控件的QWidget指针（如果是Action则返回QToolButton的指针）
+     */
     virtual void* GetWidget(const char* strId) = 0;
+
+    /**
+     * @brief       从主窗口Ribbin工具栏获取一个菜单
+     * @param[in]	strId: 菜单的ID
+     * @return      菜单的QMenu指针
+     */
+    virtual void* GetMenu(const char* strId) = 0;
 
     virtual void SetStatusBarText(const char* text, int timeOut) = 0;
 };

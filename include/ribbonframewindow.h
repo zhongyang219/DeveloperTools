@@ -34,10 +34,13 @@ signals:
 
 private slots:
     void OnTabIndexChanged(int index);      //响应标签切换
+    void OnTabBarClicked(int index);
+    void OnTabBarDoubleClicked(int index);
     void OnActionTriggerd(bool checked);    //响应任意一个工具栏中的按钮被点击
     void OnItemIndexChanged(int index);     //响应工具栏中ComboBox或ListWidget当前项改变
     void OnEditTextChanged(const QString& text);    //响应LineEdit文本改变
     void OnEditTextChanged();    //响应TextEdit文本改变
+    void FocusChanged(QWidget* old, QWidget* now);
 
 private:
     void LoadUIFromXml(QString xmlPath);           //从xml文件加载界面
@@ -65,6 +68,11 @@ private:
 
     QWidget* GetModuleMainWindow(IModule* pModule);  //获取模块的主窗口
 
+    void SetRibbonPin(bool pin);
+    void ShowHideRibbon(bool show);
+
+    QAction* AddRibbonContextAction(const QString& strId, const QString& strName);
+
 protected:
 
     IModule* CurrentModule() const;
@@ -89,6 +97,7 @@ protected:
 
     QAction *_GetAction(const QString& strCmd) const;
     QWidget *_GetWidget(const QString& strCmd) const;
+    QMenu *_GetMenu(const QString& strCmd) const;
     void SetItemIcon(const QString& strId, const QIcon& icon);
 
     void SetTabIndex(int index);
@@ -104,6 +113,8 @@ protected:
     /**
      * @brief       创建一个用户自定义控件
      * @note        当xml中使用了UserWidget节点时此函数会被框架调用以创建自定义控件，模块中根据id创建对应的控件，并返回其指针。
+     *              注意：默认情况下此函数是在构造函数中调用的，因此如果派生类中重写了此函数，那么重写的函数将不会被调用。要解决这个问题，
+     *              需要将构造函数中的initUiManual设置为true，然后在派生类的构造函数中调用InitUi。
      * @param[in]	strId 控件的id
      * @param[in]	pParent 控件的父窗口
      * @return      创建的控件
@@ -130,6 +141,7 @@ public:
     virtual void SetItemIcon(const char* strId, const char* iconPath, int iconSize) override;
     virtual void* GetAcion(const char* strId) override;
     virtual void* GetWidget(const char* strId) override;
+    virtual void* GetMenu(const char* strId) override;
     virtual void SetStatusBarText(const char* text, int timeOut) override;
     virtual int GetItemCurIndex(const char* strId) override;
     virtual void SetItemCurIIndex(const char* strId, int index) override;
