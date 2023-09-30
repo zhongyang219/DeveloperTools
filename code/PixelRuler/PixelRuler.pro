@@ -17,9 +17,22 @@ else {
     LIBS += -L$$PWD/../../bin/release \
         -lCCommonTools
 }
-DEFINES += ADDCODEHEADER_LIB
-HEADERS += $$PWD/*.h
-SOURCES += $$PWD/*.cpp
+DEFINES += PIXELRULER_LIB
+#HEADERS += $$PWD/*.h
+#SOURCES += $$PWD/*.cpp
 RESOURCES += PixelRuler.qrc
 
 INCLUDEPATH += $$PWD/../../include
+
+HEADERS += \
+    MainWidget.h \
+    PixelRuler.h \
+    RulerDrawer.h \
+    RulerWidget.h \
+    pixelruler_global.h
+
+SOURCES += \
+    MainWidget.cpp \
+    PixelRuler.cpp \
+    RulerDrawer.cpp \
+    RulerWidget.cpp

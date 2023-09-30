@@ -14,9 +14,21 @@ else {
         -lCCommonTools
 }
 DEFINES += FILERENAME_LIB
-HEADERS += ./*.h
-SOURCES += ./*.cpp
-RESOURCES += ./*.qrc
-FORMS += ./*.ui
+#HEADERS += ./*.h
+#SOURCES += ./*.cpp
+#RESOURCES += ./*.qrc
+#FORMS += ./*.ui
 
 INCLUDEPATH += $$PWD/../../include
+
+FORMS += \
+    MainWidget.ui
+
+HEADERS += \
+    FileRename.h \
+    MainWidget.h \
+    filerename_global.h
+
+SOURCES += \
+    FileRename.cpp \
+    MainWidget.cpp

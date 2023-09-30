@@ -6,6 +6,7 @@ QT += core gui widgets
 CONFIG += c++11 plugin
 TEMPLATE = lib
 TARGET = WallpaperTool
+DEFINES += WALLPAPERTOOL_LIB
 CONFIG(debug, debug|release): {
     DESTDIR = $$PWD/../../bin/debug
     LIBS += -L$$PWD/../../bin/debug \
@@ -16,9 +17,29 @@ else {
     LIBS += -L$$PWD/../../bin/release \
         -lCCommonTools
 }
-DEPENDPATH += .
-HEADERS += $$PWD/*.h
-SOURCES += $$PWD/*.cpp
-FORMS += $$PWD/*.ui
+
+win32{
+    LIBS += -lOle32
+}
+
+#HEADERS += $$PWD/*.h
+#SOURCES += $$PWD/*.cpp
+#FORMS += $$PWD/*.ui
 
 INCLUDEPATH += $$PWD/../../include
+
+FORMS += \
+    MainWidget.ui
+
+HEADERS += \
+    ImageLabel.h \
+    MainWidget.h \
+    WallpaperHelper.h \
+    WallpaperTool.h \
+    wallpapertool_global.h
+
+SOURCES += \
+    ImageLabel.cpp \
+    MainWidget.cpp \
+    WallpaperHelper.cpp \
+    WallpaperTool.cpp

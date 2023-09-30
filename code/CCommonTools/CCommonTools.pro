@@ -14,7 +14,27 @@ else {
     DESTDIR = $$PWD/../../bin/release
 }
 DEFINES += CCOMMONTOOLS_LIB
-HEADERS += $$PWD/*.h
-SOURCES += $$PWD/*.cpp
-RESOURCES += $$PWD/*.qrc
+#HEADERS += $$PWD/*.h
+#SOURCES += $$PWD/*.cpp
+#RESOURCES += $$PWD/*.qrc
 INCLUDEPATH += $$PWD/../../include
+
+RESOURCES += \
+    Resource.qrc
+
+HEADERS += \
+    CommonTools.h \
+    Config.h \
+    DatabaseTool.h \
+    StringHelper.h \
+    TableDataModel.h \
+    TextEditWidget.h \
+    ccommontools_global.h
+
+SOURCES += \
+    CommonTools.cpp \
+    Config.cpp \
+    DatabaseTool.cpp \
+    StringHelper.cpp \
+    TableDataModel.cpp \
+    TextEditWidget.cpp

@@ -357,3 +357,5 @@ x64_vc15_Release
 win32_vc15_Debug
 win32_vc15_Release
 /code/BuildLog
+
+bin

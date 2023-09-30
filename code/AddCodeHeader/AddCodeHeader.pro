@@ -18,7 +18,24 @@ else {
         -lCCommonTools
 }
 DEFINES += ADDCODEHEADER_LIB
-HEADERS += $$PWD/*.h
-SOURCES += $$PWD/*.cpp
+#HEADERS += $$PWD/*.h
+#SOURCES += $$PWD/*.cpp
 
 INCLUDEPATH += $$PWD/../../include
+
+HEADERS += \
+    AddCodeHeader.h \
+    AddCodeHeaderEditor.h \
+    CRemoveCommentThread.h \
+    MainWidget.h \
+    RemoveCommentHelper.h \
+    Test.h \
+    addcodeheader_global.h
+
+SOURCES += \
+    AddCodeHeader.cpp \
+    AddCodeHeaderEditor.cpp \
+    CRemoveCommentThread.cpp \
+    MainWidget.cpp \
+    RemoveCommentHelper.cpp \
+    Test.cpp
