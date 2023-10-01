@@ -15,14 +15,15 @@ CCommonTools::CCommonTools()
 QFileInfoList CCommonTools::FindFile(const QString & strFilePath, const QStringList & nameFilters)
 {
     QFileInfoList fileList;
-    if (strFilePath.isEmpty() || nameFilters.isEmpty())
+    if (strFilePath.isEmpty())
     {
         return fileList;
     }
 
     QDir dir;
     dir.setPath(strFilePath);
-    dir.setNameFilters(nameFilters);
+	if (!nameFilters.isEmpty())
+		dir.setNameFilters(nameFilters);
     QDirIterator iter(dir, QDirIterator::Subdirectories);
     while (iter.hasNext())
     {

@@ -116,7 +116,7 @@
 	<Page name="文件重命名" modulePath="FileRename">
 		<Action name="添加文件" id="FileRenameAddFiles" icon="Images/添加图片.png"/>
 		<Action name="添加文件夹" id="FileRenameAddFolder" icon="Images/添加文件夹.png"/>
-		<Action name="删除" id="FileRenameDelete" icon="Images/delete.png"/>
+		<Action name="移除" id="FileRenameDelete" icon="Images/delete.png"/>
 		<Action name="清空" id="FileRenameClear" icon="Images/清空.png"/>
 		<Separator/>
 		<Action name="使用修改时间重命名" id="RenameWithModifiedTime" icon="Images/start.png"/>

@@ -15,9 +15,12 @@ class FILERENAME_EXPORT FileRename : public IModule
 {
 public:
     FileRename();
+	static FileRename* Instance();
+	IMainFrame* GetMainFrame();
 
     // 通过 IModule 继承
     virtual void InitInstance() override;
+	virtual void UiInitComplete(IMainFrame* pMainFrame) override;
     virtual void UnInitInstance() override;
     virtual void* GetMainWindow() override;
     virtual eMainWindowType GetMainWindowType() const override;
@@ -26,6 +29,7 @@ public:
 
 private:
     MainWidget m_mainWidget;
+	IMainFrame* m_pMainFrame{};
 };
 
 #ifdef __cplusplus

@@ -11,7 +11,7 @@ class CCOMMONTOOLS_EXPORT CCommonTools
 public:
     CCommonTools();
 
-    static QFileInfoList FindFile(const QString &strFilePath, const QStringList &nameFilters);
+    static QFileInfoList FindFile(const QString &strFilePath, const QStringList &nameFilters = QStringList());
 
     static QMainWindow* GetMainWindow();
     static void WriteLog(const QString& strLogInfo, const QString& strFilePath = QString());
