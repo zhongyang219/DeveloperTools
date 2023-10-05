@@ -1,4 +1,4 @@
-#include "FileRenameHelper.h"
+Ôªø#include "FileRenameHelper.h"
 #include <QFileInfo>
 #include <QDateTime>
 #include <QDir>
@@ -43,11 +43,11 @@ bool FileRenameHelper::IsFileNameNumbered(const QString& file_name, int& number,
 	if (file_name.back() != ')')
 		return false;
 	int size{ file_name.size() };
-	index = file_name.lastIndexOf('(');		//Õ˘«∞≤È’“”“¿®∫≈
-	if (index <= 0)		//◊Û¿®∫≈≤ªƒ‹‘⁄◊÷∑˚¥Æø™Õ∑
+	index = file_name.lastIndexOf('(');		//ÂæÄÂâçÊü•ÊâæÂè≥Êã¨Âè∑
+	if (index <= 0)		//Â∑¶Êã¨Âè∑‰∏çËÉΩÂú®Â≠óÁ¨¶‰∏≤ÂºÄÂ§¥
 		return false;
-	QString number_str{ file_name.mid(index + 1, size - index - 2) };		//ªÒ»°¡Ω∏ˆ¿®∫≈÷Æº‰µƒŒƒ±æ
-	if (StrIsNumber(number_str))				//≈–∂œŒƒ±æ «∑Ò « ˝◊÷
+	QString number_str{ file_name.mid(index + 1, size - index - 2) };		//Ëé∑Âèñ‰∏§‰∏™Êã¨Âè∑‰πãÈó¥ÁöÑÊñáÊú¨
+	if (StrIsNumber(number_str))				//Âà§Êñ≠ÊñáÊú¨ÊòØÂê¶ÊòØÊï∞Â≠ó
 	{
 		number = number_str.toInt();
 		return true;
@@ -62,22 +62,22 @@ void FileRenameHelper::FileAutoRename(QString& file_path)
 {
 	while (QFileInfo(file_path).isFile())
 	{
-		//≈–∂œŒƒº˛√˚µƒƒ©Œ≤ «∑Ò∑˚∫œ°∞( ˝◊÷)°±µƒ–Œ Ω
-		QString file_name;		//Œƒº˛√˚£®≤ª∫¨¿©’π√˚£©
+		//Âà§Êñ≠Êñá‰ª∂ÂêçÁöÑÊú´Â∞æÊòØÂê¶Á¨¶Âêà‚Äú(Êï∞Â≠ó)‚ÄùÁöÑÂΩ¢Âºè
+		QString file_name;		//Êñá‰ª∂ÂêçÔºà‰∏çÂê´Êâ©Â±ïÂêçÔºâ
 		QFileInfo c_file_path(file_path);
 		file_name = c_file_path.baseName();
 		QString ext{ c_file_path.completeSuffix() };
 		int num;
 		int index;
-		bool is_numbered{ IsFileNameNumbered(file_name, num, index) };		//Œƒº˛√˚µƒƒ©Œ≤ «∑Ò∑˚∫œ°∞( ˝◊÷)°±µƒ–Œ Ω
-		if (!is_numbered)		//»Áπ˚Œƒº˛√˚ƒ©Œ≤√ª”–°∞( ˝◊÷)°±£¨‘Ú‘⁄ƒ©Œ≤ÃÌº”°∞ (1)°±
+		bool is_numbered{ IsFileNameNumbered(file_name, num, index) };		//Êñá‰ª∂ÂêçÁöÑÊú´Â∞æÊòØÂê¶Á¨¶Âêà‚Äú(Êï∞Â≠ó)‚ÄùÁöÑÂΩ¢Âºè
+		if (!is_numbered)		//Â¶ÇÊûúÊñá‰ª∂ÂêçÊú´Â∞æÊ≤°Êúâ‚Äú(Êï∞Â≠ó)‚ÄùÔºåÂàôÂú®Êú´Â∞æÊ∑ªÂä†‚Äú (1)‚Äù
 		{
 			file_name += " (1)";
 		}
-		else		//∑Ò‘Ú£¨Ω´‘≠¿¥µƒ ˝◊÷º”1
+		else		//Âê¶ÂàôÔºåÂ∞ÜÂéüÊù•ÁöÑÊï∞Â≠óÂä†1
 		{
 			file_name = file_name.mid(0, index);
-			QString num_str = QString("(%d)").arg(num + 1);
+			QString num_str = QString("(%1)").arg(num + 1);
 			file_name += num_str;
 		}
 		file_path = c_file_path.dir().filePath(file_name + '.' + ext);
