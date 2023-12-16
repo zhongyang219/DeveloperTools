@@ -17,7 +17,6 @@ MainWidget::MainWidget(QWidget *parent)
 	ui.tableView->setHorizontalScrollMode(QAbstractItemView::ScrollPerPixel);
 
 	ui.tableView->setModel(&m_model);
-	m_model.setColumnCount(COL_MAX);
 	m_model.setHeaderData(COL_FILENAME, Qt::Horizontal, u8"文件名");
 	m_model.setHeaderData(COL_FILEPATH, Qt::Horizontal, u8"文件路径");
 	m_model.setHeaderData(COL_NEW_NAME, Qt::Horizontal, u8"新文件名");
@@ -77,7 +76,7 @@ int MainWidget::RenameWithModifiedTime()
 void MainWidget::AddFile(const QString & filePath)
 {
 	QFileInfo fileInfo(filePath);
-	CTableDataModel::ColumeItemMap colMap;
+	ColumeItemMap colMap;
 	colMap[COL_FILENAME] = fileInfo.fileName();
 	colMap[COL_FILEPATH] = fileInfo.filePath();
 	m_model.AddItem(colMap);
@@ -94,7 +93,7 @@ QStringList MainWidget::GetFileList() const
 	return fileList;
 }
 
-CTableDataModel& MainWidget::GetModel()
+CTableItemModel& MainWidget::GetModel()
 {
 	return m_model;
 }

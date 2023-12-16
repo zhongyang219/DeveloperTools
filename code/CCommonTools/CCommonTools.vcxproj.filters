@@ -21,6 +21,12 @@
     <Filter Include="DatabaseTool">
       <UniqueIdentifier>{25865afb-acfb-4e18-8dbc-5ee2775d54a2}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Models">
+      <UniqueIdentifier>{0118e4c3-a7af-4528-a7c4-3a2395fccacb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Widgets">
+      <UniqueIdentifier>{fe9082a6-3e3e-474f-90f1-23ea77d246f3}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ccommontools_global.h">
@@ -35,9 +41,6 @@
     <ClInclude Include="DatabaseTool.h">
       <Filter>DatabaseTool</Filter>
     </ClInclude>
-    <ClInclude Include="TableDataModel.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Config.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -45,15 +48,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="TextEditWidget.h">
-      <Filter>Header Files</Filter>
+      <Filter>Widgets</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="DatabaseTool.cpp">
       <Filter>DatabaseTool</Filter>
-    </ClCompile>
-    <ClCompile Include="TableDataModel.cpp">
-      <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Config.cpp">
       <Filter>Source Files</Filter>
@@ -61,13 +61,27 @@
     <ClCompile Include="StringHelper.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="tableitemmodel.cpp">
+      <Filter>Models</Filter>
+    </ClCompile>
+    <ClCompile Include="LongTextEdit.cpp">
+      <Filter>Widgets</Filter>
+    </ClCompile>
     <ClCompile Include="TextEditWidget.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Widgets</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtRcc Include="Resource.qrc">
       <Filter>Resource Files</Filter>
     </QtRcc>
+  </ItemGroup>
+  <ItemGroup>
+    <QtMoc Include="tableitemmodel.h">
+      <Filter>Models</Filter>
+    </QtMoc>
+    <QtMoc Include="LongTextEdit.h">
+      <Filter>Widgets</Filter>
+    </QtMoc>
   </ItemGroup>
 </Project>

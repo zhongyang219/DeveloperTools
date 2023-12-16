@@ -103,11 +103,19 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="AddCodeHeaderEditor.cpp" />
+    <ClCompile Include="AddFileHeadThread.cpp" />
+    <ClCompile Include="CommonData.cpp" />
     <ClCompile Include="CRemoveCommentThread.cpp" />
+    <ClCompile Include="FileHeadHelper.cpp" />
+    <ClCompile Include="HeadItemTableModel.cpp" />
     <ClCompile Include="MainWidget.cpp" />
     <ClCompile Include="RemoveCommentHelper.cpp" />
     <ClCompile Include="Test.cpp" />
     <QtMoc Include="CRemoveCommentThread.h" />
+    <QtMoc Include="HeadItemTableModel.h" />
+    <QtMoc Include="AddFileHeadThread.h" />
+    <ClInclude Include="CommonData.h" />
+    <ClInclude Include="FileHeadHelper.h" />
     <ClInclude Include="RemoveCommentHelper.h" />
     <ClInclude Include="Test.h" />
     <QtMoc Include="AddCodeHeaderEditor.h" />

@@ -72,14 +72,16 @@ CMainWidget::CMainWidget(QWidget *parent)
     pSpliter->addWidget(m_pAddCodeHeadWidget);
     QVBoxLayout* pRightLayout = new QVBoxLayout();
     m_pAddCodeHeadWidget->setLayout(pRightLayout);
-    pRightLayout->addWidget(new QLabel(u8"输入文件头模板："));
-    pRightLayout->addWidget(m_pTemplateTextEdit = new QTextEdit());
-    QLabel* pInfoLabel = new QLabel(u8"可用宏说明：\r\n<%file_name%>: 文件名\r\n<%time[format]%>: 日期/时间，format为格式，例如“yyyyMMdd”");
-    pInfoLabel->setWordWrap(true);
-    pRightLayout->addWidget(pInfoLabel);
+    pRightLayout->addWidget(new QLabel(u8"添加文件头："));
+    pRightLayout->addWidget(m_pTemplateItemTable = new QTableView());
+    QHBoxLayout* pButtonLayout = new QHBoxLayout();
+    pRightLayout->addLayout(pButtonLayout);
+    pButtonLayout->addWidget(m_pTemplateMoveUpBtn = new QPushButton(u8"上移"));
+    pButtonLayout->addWidget(m_pTemplateMoveDownBtn = new QPushButton(u8"下移"));
+    pButtonLayout->addStretch();
     QHBoxLayout* pOptionHLayout = new QHBoxLayout();
     pOptionHLayout->addWidget(new QLabel(u8"输出编码格式："));
-    pOptionHLayout->addWidget(m_pOutFormatCombo = new QComboBox());
+    pOptionHLayout->addWidget(m_pOutFormatCombo = new QComboBox(), 1);
     pRightLayout->addLayout(pOptionHLayout);
 
 

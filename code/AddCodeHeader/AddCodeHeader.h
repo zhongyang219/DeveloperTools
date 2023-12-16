@@ -7,6 +7,7 @@
 #include "CRemoveCommentThread.h"
 #include <QObject>
 #include "mainframeinterface.h"
+#include "AddFileHeadThread.h"
 
 class ADDCODEHEADER_EXPORT AddCodeHeader
     : public QObject, public IModule
@@ -34,11 +35,13 @@ public:
 
 private slots:
     void OnRemoveCommentsComplete();
+    void OnAddFileHeadComplete();
 
 private:
     CMainWidget m_mainWidget;
     CAddCodeHeaderEditor m_editor;
     CRemoveCommentThread m_removeCommentThread;
+    CAddFileHeadThread m_addFileHeadThread;
     IMainFrame* m_pMainFrame;
 
     static AddCodeHeader* m_pInstance;

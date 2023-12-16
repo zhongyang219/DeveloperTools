@@ -1,4 +1,5 @@
 ﻿<RCC>
     <qresource prefix="/">
+        <file>res/more.png</file>
     </qresource>
 </RCC>

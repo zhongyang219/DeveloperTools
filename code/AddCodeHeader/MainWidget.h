@@ -21,7 +21,7 @@ public:
     CMainWidget(QWidget *parent = Q_NULLPTR);
     ~CMainWidget();
 
-    DECLARE_CLASS_GET_ATTR(TemplateTextEdit, m_pTemplateTextEdit, QTextEdit*)
+    //DECLARE_CLASS_GET_ATTR(TemplateTextEdit, m_pTemplateTextEdit, QTextEdit*)
     DECLARE_CLASS_GET_ATTR(FolderPathEidt, m_pFolderPathEidt, QLineEdit*)
     DECLARE_CLASS_GET_ATTR(BrowseBtn, m_pBrowseBtn, QPushButton*)
     DECLARE_CLASS_GET_ATTR(FileTypeCombo, m_pFileTypeCombo, QComboBox*)
@@ -34,6 +34,11 @@ public:
     DECLARE_CLASS_GET_ATTR(RemoveFileBtn, m_pRemoveFileBtn, QPushButton*)
     DECLARE_CLASS_GET_ATTR(ClearFileBtn, m_pClearFileBtn, QPushButton*)
     DECLARE_CLASS_GET_ATTR(ProgressBar, m_pProgressBar, QProgressBar*)
+    DECLARE_CLASS_GET_ATTR(TemplateItemTable, m_pTemplateItemTable, QTableView*)
+    //DECLARE_CLASS_GET_ATTR(TemplateAddBtn, m_pTemplateAddBtn, QPushButton*)
+    //DECLARE_CLASS_GET_ATTR(TemplateRemoveBtn, m_pTemplateRemoveBtn, QPushButton*)
+    DECLARE_CLASS_GET_ATTR(TemplateMoveUpBtn, m_pTemplateMoveUpBtn, QPushButton*)
+    DECLARE_CLASS_GET_ATTR(TemplateMoveDownBtn, m_pTemplateMoveDownBtn, QPushButton*)
 
     void ShowAddCodeHeader(bool show);
 
@@ -42,7 +47,7 @@ private slots:
     void SetProgress(double progress);
 
 private:
-    QTextEdit* m_pTemplateTextEdit;
+    //QTextEdit* m_pTemplateTextEdit;
     QLineEdit* m_pFolderPathEidt;
     QPushButton* m_pBrowseBtn;
     QComboBox* m_pFileTypeCombo;
@@ -57,4 +62,9 @@ private:
     QPushButton* m_pClearFileBtn;		//删除文件按钮
     QProgressBar* m_pProgressBar;
     QLabel* m_pProgressLabel;
+    QTableView* m_pTemplateItemTable;
+    //QPushButton* m_pTemplateAddBtn;
+    //QPushButton* m_pTemplateRemoveBtn;
+    QPushButton* m_pTemplateMoveUpBtn;
+    QPushButton* m_pTemplateMoveDownBtn;
 };

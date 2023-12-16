@@ -10,7 +10,8 @@
 #include "../CCommonTools/Config.h"
 
 CAddCodeHeaderEditor::CAddCodeHeaderEditor(QObject *parent)
-    : QObject(parent), m_fileListModel(COL_MAX)
+    : QObject(parent)
+    , m_fileListModel(COL_MAX)
 {
 }
 
@@ -22,13 +23,6 @@ void CAddCodeHeaderEditor::ConnectWidget(CMainWidget* pWidget, IMainFrame* pMain
 {
     m_pWidget = pWidget;
     m_pMainFrame = pMainFrame;
-    //加载模板
-    QFile file(qApp->applicationDirPath() + "/Template.txt");
-    if (file.open(QIODevice::ReadOnly | QIODevice::Text))
-    {
-        QString strTemplate = QString::fromUtf8(file.readAll());
-        pWidget->GetTemplateTextEdit()->setText(strTemplate);
-    }
 
     //加载设置
     CConfig settings(QString::fromUtf8(AddCodeHeader::GetInstance()->GetModuleName()));
@@ -49,6 +43,8 @@ void CAddCodeHeaderEditor::ConnectWidget(CMainWidget* pWidget, IMainFrame* pMain
     m_pMainFrame->SetItemChecked(CMD_RemoveSpaceCheck, settings.GetValue("removeSpace", true).toBool());
     m_pMainFrame->SetItemChecked(CMD_RemoveEmptyLineCheck, settings.GetValue("removeReturn", true).toBool());
     m_pMainFrame->SetItemCurIIndex(CMD_KeepEmptyLineNum, settings.GetValue("keepReturnNum", 2).toInt());
+
+    m_fileHeadItemModel.FromByteArray(settings.GetValue("fileHeadItem").toByteArray());
 
     //默认不显示“添加代码头”
     pWidget->ShowAddCodeHeader(false);
@@ -71,17 +67,20 @@ void CAddCodeHeaderEditor::ConnectWidget(CMainWidget* pWidget, IMainFrame* pMain
     connect(m_pWidget->GetAddFileBtn(), SIGNAL(clicked()), this, SLOT(OnAddFileBtnClicked()));
     connect(m_pWidget->GetRemoveFileBtn(), SIGNAL(clicked()), this, SLOT(OnRemoveFileBtnClicked()));
     connect(m_pWidget->GetClearFileBtn(), SIGNAL(clicked()), this, SLOT(OnClearFileBtnClicked()));
+
+    //初始化添加代码头
+    pWidget->GetTemplateItemTable()->setHorizontalScrollMode(QAbstractItemView::ScrollPerPixel);
+    m_pWidget->GetTemplateItemTable()->setModel(&m_fileHeadItemModel);
+    CHeadItemDelegate* pDelegate = new CHeadItemDelegate();
+    m_pWidget->GetTemplateItemTable()->setItemDelegate(pDelegate);
+    m_pWidget->GetTemplateItemTable()->setColumnWidth(COL_HEAD_ITEM_VALUE, DPI(180));
+
+    connect(m_pWidget->GetTemplateMoveUpBtn(), SIGNAL(clicked()), this, SLOT(OnTemplateMoveUpBtnClicked()));
+    connect(m_pWidget->GetTemplateMoveDownBtn(), SIGNAL(clicked()), this, SLOT(OnTemplateMoveDownBtnClicked()));
 }
 
 void CAddCodeHeaderEditor::ExitWidget()
 {
-    //保存模板
-    QFile file(qApp->applicationDirPath() + "/Template.txt");
-    if (file.open(QIODevice::WriteOnly | QIODevice::Text))
-    {
-        file.write(m_pWidget->GetTemplateTextEdit()->toPlainText().toUtf8());
-    }
-
     //保存设置
     CConfig settings(QString::fromUtf8(AddCodeHeader::GetInstance()->GetModuleName()));
     settings.WriteValue("folderPath", m_pWidget->GetFolderPathEidt()->text());
@@ -102,6 +101,8 @@ void CAddCodeHeaderEditor::ExitWidget()
     settings.WriteValue("removeSpace", m_pMainFrame->IsItemChecked(CMD_RemoveSpaceCheck));
     settings.WriteValue("removeReturn", m_pMainFrame->IsItemChecked(CMD_RemoveEmptyLineCheck));
     settings.WriteValue("keepReturnNum", m_pMainFrame->GetItemText(CMD_KeepEmptyLineNum));
+
+    settings.WriteValue("fileHeadItem", m_fileHeadItemModel.ToByteArray());
 }
 
 void CAddCodeHeaderEditor::AdjustColumeWidth()
@@ -127,7 +128,7 @@ void CAddCodeHeaderEditor::ScanFiles()
         return;
     }
     QFileInfoList fileInfoList = CCommonTools::FindFile(m_pWidget->GetFolderPathEidt()->text(), filterList);
-    m_fileListModel.DeleteAllItems();
+    m_fileListModel.ClearData();
     Q_FOREACH(const QFileInfo& fileInfo, fileInfoList)
     {
         AddFile(fileInfo);
@@ -159,9 +160,32 @@ int CAddCodeHeaderEditor::RemoveComments(CRemoveCommentHelper::RemoveResult& rem
     return file_count;
 }
 
+QStringList CAddCodeHeaderEditor::GetFilePathList()
+{
+    QStringList filePathList;
+    int row_count = m_fileListModel.rowCount();
+    for (int i = 0; i < row_count; i++)
+    {
+        QString strFilePath = m_fileListModel.GetItemText(i, COL_FILEPATH);
+        filePathList.push_back(strFilePath);
+    }
+    return filePathList;
+}
+
+
+eOutputFormat CAddCodeHeaderEditor::GetOutputFormat()
+{
+    return static_cast<eOutputFormat>(m_pWidget->GetOutFormatCombo()->currentData().toInt());
+}
+
+
+CHeadItemTableModel& CAddCodeHeaderEditor::GetHeadItemTableModel()
+{
+    return m_fileHeadItemModel;
+}
+
 void CAddCodeHeaderEditor::InitFileTable()
 {
-    m_fileListModel.setColumnCount(COL_MAX);
     m_fileListModel.setHeaderData(COL_FILENAME, Qt::Horizontal, u8"文件名");
     m_fileListModel.setHeaderData(COL_FILEPATH, Qt::Horizontal, u8"文件路径");
     m_fileListModel.setHeaderData(COL_EXTENSION, Qt::Horizontal, u8"扩展名");
@@ -171,7 +195,7 @@ void CAddCodeHeaderEditor::InitFileTable()
 
 void CAddCodeHeaderEditor::AddFile(const QFileInfo & fileInfo)
 {
-    CTableDataModel::ColumeItemMap colMap;
+    ColumeItemMap colMap;
     colMap[COL_FILENAME] = fileInfo.fileName();
     colMap[COL_FILEPATH] = fileInfo.filePath();
     colMap[COL_EXTENSION] = fileInfo.suffix();
@@ -227,6 +251,30 @@ void CAddCodeHeaderEditor::OnClearFileBtnClicked()
 {
     if (QMessageBox::information(m_pWidget, nullptr, u8"确实要移除所有文件吗？", QMessageBox::Yes | QMessageBox::No) == QMessageBox::Yes)
     {
-        m_fileListModel.DeleteAllItems();
+        m_fileListModel.ClearData();
+    }
+}
+
+void CAddCodeHeaderEditor::OnTemplateMoveUpBtnClicked()
+{
+    auto& data = m_fileHeadItemModel.GetData();
+    int currentRow = m_pWidget->GetTemplateItemTable()->currentIndex().row();
+    if (currentRow > 0 && currentRow < data.size())
+    {
+        std::swap(data[currentRow], data[currentRow - 1]);
+        m_pWidget->GetTemplateItemTable()->selectionModel()->setCurrentIndex(m_fileHeadItemModel.index(currentRow - 1, 0), QItemSelectionModel::SelectCurrent);
+        m_fileHeadItemModel.layoutChanged();
+    }
+}
+
+void CAddCodeHeaderEditor::OnTemplateMoveDownBtnClicked()
+{
+    auto& data = m_fileHeadItemModel.GetData();
+    int currentRow = m_pWidget->GetTemplateItemTable()->currentIndex().row();
+    if (currentRow >= 0 && currentRow < data.size() - 1)
+    {
+        std::swap(data[currentRow], data[currentRow + 1]);
+        m_pWidget->GetTemplateItemTable()->selectionModel()->setCurrentIndex(m_fileHeadItemModel.index(currentRow + 1, 0), QItemSelectionModel::SelectCurrent);
+        m_fileHeadItemModel.layoutChanged();
     }
 }

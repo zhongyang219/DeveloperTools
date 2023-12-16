@@ -8,7 +8,7 @@
 class CCOMMONTOOLS_EXPORT CTextEditDialog  : public QDialog
 {
 public:
-    CTextEditDialog(QWidget* parent = nullptr);
+    CTextEditDialog(QWidget* parent = nullptr, bool showButtons = false);
     ~CTextEditDialog();
     void SetLabelText(const QString& text);
     QTextEdit* GetEdit();

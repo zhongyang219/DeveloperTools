@@ -97,7 +97,7 @@ void FileRename::OnCommand(const char* strCmd, bool checked)
     }
     else if (cmd == CMD_FileRenameClear)
     {
-		m_mainWidget.GetModel().DeleteAllItems();
+		m_mainWidget.GetModel().ClearData();
     }
     else if (cmd == CMD_RenameWithModifiedTime)
     {

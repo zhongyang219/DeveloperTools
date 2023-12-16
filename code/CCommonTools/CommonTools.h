@@ -19,4 +19,9 @@ public:
     static QIcon CreateIcon(const QString& strPath, int size);
 
     static void DelayNotBlocked(int msec);
+
+    //判断是否为UTF8字符流
+    static bool IsUtf8Bytes(const QByteArray& data);
+
+    //static int QStringFindFirstOf(const QString& str, const char* findStr, int start);
 };

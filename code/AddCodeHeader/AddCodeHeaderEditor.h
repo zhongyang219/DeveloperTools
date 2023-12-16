@@ -4,10 +4,12 @@
 #include <QStandardItemModel>
 #include "MainWidget.h"
 #include "RemoveCommentHelper.h"
-#include "../CCommonTools/TableDataModel.h"
+#include "../CCommonTools/tableitemmodel.h"
 #include <QFileInfo>
 #include <functional>
 #include "mainframeinterface.h"
+#include "HeadItemTableModel.h"
+#include "CommonData.h"
 
 class CAddCodeHeaderEditor : public QObject
 {
@@ -34,12 +36,9 @@ public:
     //返回值：总共已处理的文件个数
     int RemoveComments(CRemoveCommentHelper::RemoveResult& remove_result);
 
-    enum eOutputFormat      //输出的文本格式
-    {
-        OF_UTF8,
-        OF_ANSI,
-        OF_UTF16
-    };
+    QStringList GetFilePathList();
+    eOutputFormat GetOutputFormat();
+    CHeadItemTableModel& GetHeadItemTableModel();
 
     enum eFileListColume
     {
@@ -48,6 +47,13 @@ public:
         COL_EXTENSION,
 
         COL_MAX
+    };
+
+    enum eFileHeadTableCol
+    {
+        COL_HEAD_ITEM_NAME,
+        COL_HEAD_ITEM_VALUE,
+        COL_HEAD_ITEM_MAX
     };
 
 signals:
@@ -63,8 +69,12 @@ private slots:
     void OnRemoveFileBtnClicked();
     void OnClearFileBtnClicked();
 
+    void OnTemplateMoveUpBtnClicked();
+    void OnTemplateMoveDownBtnClicked();
+
 private:
-    CTableDataModel m_fileListModel;
+    CTableItemModel m_fileListModel;
+    CHeadItemTableModel m_fileHeadItemModel;
 
     CMainWidget* m_pWidget{};
     IMainFrame* m_pMainFrame{};

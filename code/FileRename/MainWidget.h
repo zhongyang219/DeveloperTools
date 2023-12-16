@@ -2,7 +2,8 @@
 
 #include <QWidget>
 #include "ui_MainWidget.h"
-#include "../CCommonTools/TableDataModel.h"
+#include "../CCommonTools/tableitemmodel.h"
+
 
 class MainWidget : public QWidget
 {
@@ -27,7 +28,7 @@ public:
 
 	void AddFile(const QString& filePath);
 	QStringList GetFileList() const;
-	CTableDataModel& GetModel();
+	CTableItemModel& GetModel();
 	QTableView* GetTableView();
 
 private slots:
@@ -35,5 +36,5 @@ private slots:
 
 private:
     Ui::MainWidgetClass ui;
-	CTableDataModel m_model{ COL_MAX };
+    CTableItemModel m_model{ COL_MAX };
 };

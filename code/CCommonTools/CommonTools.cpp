@@ -77,3 +77,47 @@ void CCommonTools::DelayNotBlocked(int msec)
     QTimer::singleShot(msec, &loop, SLOT(quit()));
     loop.exec();
 }
+
+bool CCommonTools::IsUtf8Bytes(const QByteArray& data)
+{
+    int charByteCounter = 1;  //计算当前正分析的字符应还有的字节数
+    unsigned char curByte; //当前分析的字节.
+    bool ascii = true;
+    for (int i = 0; i < data.size(); i++)
+    {
+        curByte = static_cast<unsigned char>(data[i]);
+        if (charByteCounter == 1)
+        {
+            if (curByte >= 0x80)
+            {
+                ascii = false;
+                //判断当前
+                while (((curByte <<= 1) & 0x80) != 0)
+                {
+                    charByteCounter++;
+                }
+                //标记位首位若为非0 则至少以2个1开始 如:110XXXXX...........1111110X
+                if (charByteCounter == 1 || charByteCounter > 6)
+                {
+                    return false;
+                }
+            }
+        }
+        else
+        {
+            //若是UTF-8 此时第一位必须为1
+            if ((curByte & 0xC0) != 0x80)
+            {
+                return false;
+            }
+            charByteCounter--;
+        }
+    }
+    if (ascii) return false;		//如果全是ASCII字符，返回false
+    else return true;
+}
+
+//int CCommonTools::QStringFindFirstOf(const QString& str, const char* findStr, int start)
+//{
+//
+//}

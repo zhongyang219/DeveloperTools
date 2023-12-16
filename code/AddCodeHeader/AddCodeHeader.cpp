@@ -17,6 +17,7 @@ void AddCodeHeader::InitInstance()
 //#endif
 
     connect(&m_removeCommentThread, SIGNAL(finished()), this, SLOT(OnRemoveCommentsComplete()));
+    connect(&m_addFileHeadThread, SIGNAL(finished()), this, SLOT(OnAddFileHeadComplete()));
     connect(&m_editor, SIGNAL(signalRemoveCommentProgress(double)), &m_mainWidget, SLOT(SetProgress(double)));
 }
 
@@ -24,7 +25,9 @@ void AddCodeHeader::UnInitInstance()
 {
     m_editor.ExitWidget();
     m_removeCommentThread.Stop();
+    m_addFileHeadThread.Stop();
     m_removeCommentThread.wait(2000);
+    m_addFileHeadThread.wait(2000);
     m_pInstance = nullptr;
 }
 
@@ -50,7 +53,14 @@ void AddCodeHeader::OnCommand(const char* cmd, bool checked)
     QString strCmd = QString::fromUtf8(cmd);
     if (strCmd == CMD_ADD_CODE_HEADER_EXCUTE)
     {
-        QMessageBox::information(&m_mainWidget, nullptr, u8"你点击了“执行”", QMessageBox::Ok);
+        if (QMessageBox::question(&m_mainWidget, nullptr, u8"注意：所有文件的文件头将会被覆盖，且无法恢复，如果有必要的话请事先做好备份。\r\n要继续吗？", QMessageBox::Yes | QMessageBox::No) == QMessageBox::Yes)
+        {
+            if (!m_addFileHeadThread.isRunning())
+            {
+                AddCodeHeader::GetInstance()->EnableControl(false);
+                m_addFileHeadThread.start();
+            }
+        }
     }
     else if (strCmd == CMD_SCAN_FILE)
     {
@@ -67,9 +77,11 @@ void AddCodeHeader::OnCommand(const char* cmd, bool checked)
             return;
         }
 
-        AddCodeHeader::GetInstance()->EnableControl(false);
         if (!m_removeCommentThread.isRunning())
+        {
+            AddCodeHeader::GetInstance()->EnableControl(false);
             m_removeCommentThread.start();
+        }
     }
     else if (strCmd == CMD_SHOW_ADD_CODE_HEADER)
     {
@@ -141,6 +153,14 @@ void AddCodeHeader::OnRemoveCommentsComplete()
         info += QString(u8"\r\n%1 个空格").arg(result.space_removed);
     if (m_pMainFrame->IsItemChecked(CMD_RemoveEmptyLineCheck))
         info += QString(u8"\r\n%1 个空白行").arg(result.return_removed);
+    QMessageBox::information(&m_mainWidget, nullptr, info, QMessageBox::Ok);
+}
+
+
+void AddCodeHeader::OnAddFileHeadComplete()
+{
+    EnableControl(true);
+    QString info = QString(u8"完成，已处理 %1 个文件").arg(m_addFileHeadThread.m_fileCount);
     QMessageBox::information(&m_mainWidget, nullptr, info, QMessageBox::Ok);
 }
 
