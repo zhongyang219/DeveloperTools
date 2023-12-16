@@ -5,6 +5,7 @@
 #include <QObject>
 #include "MainWidget.h"
 #include "WallpaperHelper.h"
+#include "SettingsDlg.h"
 
 class WALLPAPERTOOL_EXPORT WallpaperTool
     : public QObject, public IModule
@@ -35,6 +36,7 @@ private:
     QString m_strCurWallpaperPath;
     QString m_strLastSaveDir;       //上次壁纸的保存路径
     CWallpaperHelper m_helper;
+    SettingsDlg::Data m_settings;
 };
 
 #ifdef __cplusplus

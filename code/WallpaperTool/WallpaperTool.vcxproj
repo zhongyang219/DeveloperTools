@@ -103,16 +103,19 @@
   <ItemGroup>
     <QtMoc Include="MainWidget.h" />
     <QtMoc Include="ImageLabel.h" />
+    <QtMoc Include="SettingsDlg.h" />
     <ClInclude Include="WallpaperHelper.h" />
     <ClInclude Include="wallpapertool_global.h" />
     <QtMoc Include="WallpaperTool.h" />
     <ClCompile Include="ImageLabel.cpp" />
     <ClCompile Include="MainWidget.cpp" />
+    <ClCompile Include="SettingsDlg.cpp" />
     <ClCompile Include="WallpaperHelper.cpp" />
     <ClCompile Include="WallpaperTool.cpp" />
   </ItemGroup>
   <ItemGroup>
     <QtUic Include="MainWidget.ui" />
+    <QtUic Include="SettingsDlg.ui" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Condition="Exists('$(QtMsBuild)\qt.targets')">

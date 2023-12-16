@@ -23,17 +23,21 @@ IMainFrame* WallpaperTool::GetMainFrame()
 
 void WallpaperTool::InitInstance()
 {
-    m_strCurWallpaperPath = m_helper.GetCurrentWallpaperPath();
-    m_mainWidget.SetWallpaper(m_strCurWallpaperPath);
-
+    //载入配置
     CConfig settings(QString::fromUtf8(GetModuleName()));
     m_strLastSaveDir = settings.GetValue("lastSaveDir").toString();
+    m_settings.Load();
+
+    //显示壁纸
+    m_strCurWallpaperPath = m_helper.GetCurrentWallpaperPath(m_settings.wallpaperAcquireMethod == SettingsDlg::Data::Registry);
+    m_mainWidget.SetWallpaper(m_strCurWallpaperPath);
 }
 
 void WallpaperTool::UnInitInstance()
 {
     CConfig settings(QString::fromUtf8(GetModuleName()));
     settings.WriteValue("lastSaveDir", m_strLastSaveDir);
+    m_settings.Save();
 }
 
 void WallpaperTool::UiInitComplete(IMainFrame* pMainFrame)
@@ -130,6 +134,14 @@ void WallpaperTool::OnCommand(const char* strCmd, bool checked)
         CCommonTools::DelayNotBlocked(200);
         Refresh();
     }
+
+    else if (cmd == CMD_WallpaperToolSettings)
+    {
+        SettingsDlg dlg;
+        dlg.SetData(m_settings);
+        if (dlg.exec() == QDialog::Accepted)
+            m_settings = dlg.GetData();
+    }
 }
 
 void WallpaperTool::WriteLog(const QString& strLogInfo)
@@ -143,7 +155,7 @@ void WallpaperTool::WriteLog(const QString& strLogInfo)
 
 void WallpaperTool::Refresh()
 {
-    m_strCurWallpaperPath = m_helper.GetCurrentWallpaperPath();
+    m_strCurWallpaperPath = m_helper.GetCurrentWallpaperPath(m_settings.wallpaperAcquireMethod == SettingsDlg::Data::Registry);
     m_mainWidget.SetWallpaper(m_strCurWallpaperPath);
 }
 

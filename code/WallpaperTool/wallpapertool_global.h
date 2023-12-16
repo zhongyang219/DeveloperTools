@@ -17,3 +17,4 @@
 #define CMD_CURRENT_WALLPAPER_REFRESH "CurWallpaperRefresh"
 #define CMD_PreviousWallpaper "PreviousWallpaper"
 #define CMD_NextWallpaper "NextWallpaper"
+#define CMD_WallpaperToolSettings "WallpaperToolSettings"
