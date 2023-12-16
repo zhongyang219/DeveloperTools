@@ -35,11 +35,12 @@
 			</ComboBox>
 			<Action name="执行" icon="Images/start.png" id="RemoveCommentExcute" tip="对文件列表中的所有文件执行删除注释操作。"/>
 		</ActionGroup>
-		<Action name="添加代码头" icon="Images/code.png" id="ShowAddCodeHeader" checkable="true" tip="显示/隐藏添加代码头功能。"/>
+<!--		<Action name="添加代码头" icon="Images/code.png" id="ShowAddCodeHeader" checkable="true" tip="显示/隐藏添加代码头功能。"/>
 		<Action name="执行" icon="Images/start.png" id="AddCodeHeaderExcute" tip="对文件列表中的所有文件执行添加代码头操作。"/>
 		<Separator/>
 		<Action name="使用说明" icon="Images/help.png" id="AddCodeHeaderUserGuid"/>
-    </Page>
+-->
+		</Page>
 	<Page name="壁纸工具" icon="Images/wallpaper.png" modulePath="WallpaperTool">
 		<Action name="当前壁纸另存为" icon="Images/save_as.png" id="CurWallpaperSaveAs" tip="选择一个文件夹并将当前壁纸保存到该文件夹中。"/>
 		<Action name="删除当前壁纸" icon="Images/delete.png" id="CurWallpaperDelete" tip="从磁盘中删除当前壁纸。"/>
