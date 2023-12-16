@@ -1,4 +1,4 @@
-#include "HeadItemTableModel.h"
+ï»¿#include "HeadItemTableModel.h"
 #include <QComboBox>
 #include <QDataStream>
 #include "../CCommonTools/LongTextEdit.h"
@@ -20,9 +20,9 @@ QVariant CHeadItemTableModel::headerData(int section, Qt::Orientation orientatio
         switch (section)
         {
         case COL_HEAD_ITEM_NAME:
-            return u8"Ãû³Æ";
+            return u8"åç§°";
         case COL_HEAD_ITEM_VALUE:
-            return u8"Öµ";
+            return u8"å€¼";
         }
     }
     return QAbstractTableModel::headerData(section, orientation, role);
@@ -74,7 +74,7 @@ QVariant CHeadItemTableModel::data(const QModelIndex & index, int role) const
             }
         }
 
-        //ÉèÖÃ¸´Ñ¡¿òµÄÑ¡ÖĞ×´Ì¬
+        //è®¾ç½®å¤é€‰æ¡†çš„é€‰ä¸­çŠ¶æ€
         else if (role == Qt::CheckStateRole && index.column() == 0)
         {
             const HeadItemItem& headItem = m_data.value(index.row());
@@ -143,11 +143,11 @@ QByteArray CHeadItemTableModel::ToByteArray() const
 {
     QByteArray data;
     QDataStream dataStream(&data, QIODevice::WriteOnly);
-    //Ğ´Èë°æ±¾
+    //å†™å…¥ç‰ˆæœ¬
     dataStream << 2;
-    //Ğ´Èë³¤¶È
+    //å†™å…¥é•¿åº¦
     dataStream << m_data.size();
-    //Ğ´ÈëÊı¾İ
+    //å†™å…¥æ•°æ®
     for (const auto& item : m_data)
     {
         dataStream << item.item;
@@ -160,13 +160,13 @@ QByteArray CHeadItemTableModel::ToByteArray() const
 void CHeadItemTableModel::FromByteArray(const QByteArray& byteArray)
 {
     QDataStream dataStream(byteArray);
-    //¶ÁÈ¡°æ±¾ºÅ
+    //è¯»å–ç‰ˆæœ¬å·
     int version;
     dataStream >> version;
-    //¶ÁÈ¡³¤¶È
+    //è¯»å–é•¿åº¦
     int length;
     dataStream >> length;
-    //¶ÁÈ¡Êı¾İ
+    //è¯»å–æ•°æ®
     for (int i = 0; i < length; i++)
     {
         HeadItemItem item;
@@ -178,7 +178,7 @@ void CHeadItemTableModel::FromByteArray(const QByteArray& byteArray)
             dataStream >> item.enable;
         m_data.append(item);
     }
-    //Ìí¼ÓÆäËû²»´æÔÚµÄÏî
+    //æ·»åŠ å…¶ä»–ä¸å­˜åœ¨çš„é¡¹
     AppendItemIfNotExist(HI_COPYRIGHT);
     AppendItemIfNotExist(HI_FILE);
     AppendItemIfNotExist(HI_BRIEF);
@@ -239,7 +239,7 @@ QWidget *CHeadItemDelegate::createEditor(QWidget *parent, const QStyleOptionView
 void CHeadItemDelegate::setEditorData(QWidget *editor, const QModelIndex &index) const
 {
     QVariant value = index.model()->data(index, Qt::EditRole);
-    m_curEditData = value;  //½«ÉèÖÃ¸ø¿Ø¼şµÄÊı¾İ±£´æ
+    m_curEditData = value;  //å°†è®¾ç½®ç»™æ§ä»¶çš„æ•°æ®ä¿å­˜
     switch (index.column())
     {
     //case CHeadItemTableModel::COL_HEAD_ITEM_NAME:
@@ -272,7 +272,7 @@ void CHeadItemDelegate::setModelData(QWidget *editor, QAbstractItemModel *model,
     //    QComboBox* pCombo = dynamic_cast<QComboBox*>(editor);
     //    if (pCombo != nullptr && m_curEditData.toInt() != pCombo->currentIndex())
     //    {
-    //        model->setData(index, pCombo->currentIndex(), Qt::EditRole);    //Êı¾İ·¢Éú¸Ä±ä²Åµ÷ÓÃsetData
+    //        model->setData(index, pCombo->currentIndex(), Qt::EditRole);    //æ•°æ®å‘ç”Ÿæ”¹å˜æ‰è°ƒç”¨setData
     //    }
     //}
     //break;

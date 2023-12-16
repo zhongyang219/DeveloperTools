@@ -1,4 +1,4 @@
-#include "FileHeadHelper.h"
+ï»¿#include "FileHeadHelper.h"
 #include <QFile>
 #include "../CCommonTools/CommonTools.h"
 #include <QTextStream>
@@ -25,10 +25,10 @@ bool CFileHeadHelper::AddFileHead(const QString& filePath, eOutputFormat outputF
         return false;
     QByteArray fileData = file.readAll();
     file.close();
-    //ÅÐ¶Ï±àÂëÀàÐÍ
+    //åˆ¤æ–­ç¼–ç ç±»åž‹
     bool hasBom;
     eOutputFormat codeType = JudgeCode(fileData, hasBom);
-    //ÒÆ³ýÎÄ¼þBOM
+    //ç§»é™¤æ–‡ä»¶BOM
     if (hasBom)
     {
         if (codeType == OF_UTF8)
@@ -36,7 +36,7 @@ bool CFileHeadHelper::AddFileHead(const QString& filePath, eOutputFormat outputF
         else if (codeType == OF_UTF16)
             fileData.remove(0, 2);
     }
-    //¸ù¾Ý±àÂë¸ñÊ½×ª»»ÎªQString
+    //æ ¹æ®ç¼–ç æ ¼å¼è½¬æ¢ä¸ºQString
     QString fileContents;
     if (codeType == OF_UTF8)
     {
@@ -50,12 +50,12 @@ bool CFileHeadHelper::AddFileHead(const QString& filePath, eOutputFormat outputF
     {
         fileContents = QString::fromLocal8Bit(fileData);
     }
-    //È¥µôÔ­À´µÄÎÄ¼þÍ·
+    //åŽ»æŽ‰åŽŸæ¥çš„æ–‡ä»¶å¤´
     RemoveFileHead(fileContents);
-    //Ìí¼ÓÎÄ¼þÍ·
+    //æ·»åŠ æ–‡ä»¶å¤´
     QString strFileHead = GenerateFileHeadContents(filePath);
     fileContents.push_front(strFileHead);
-    //¸ù¾ÝÊä³ö¸ñÊ½×ª»»³ÉQByteArray
+    //æ ¹æ®è¾“å‡ºæ ¼å¼è½¬æ¢æˆQByteArray
     QByteArray outputData;
     if (outputFormat == OF_UTF8)
     {
@@ -78,7 +78,7 @@ bool CFileHeadHelper::AddFileHead(const QString& filePath, eOutputFormat outputF
     {
         outputData.append(fileContents.toLocal8Bit());
     }
-    //Ð´ÈëÎÄ¼þ
+    //å†™å…¥æ–‡ä»¶
     if (!file.open(QIODevice::WriteOnly))
         return false;
     file.write(outputData);
@@ -108,14 +108,14 @@ eOutputFormat CFileHeadHelper::JudgeCode(const QByteArray& data, bool& hasBom)
 
 void CFileHeadHelper::RemoveFileHead(QString& strContents)
 {
-    //ÒÆ³ýÎÄ¼þÍ·
+    //ç§»é™¤æ–‡ä»¶å¤´
     if (strContents.startsWith(FILE_HEAD_START))
     {
         int endIndex = strContents.indexOf(FILE_HEAD_END, FILE_HEAD_START.size());
         if (endIndex > 0)
             strContents.remove(0, endIndex + FILE_HEAD_END.size());
     }
-    //É¾³ýÎÄ¼þ×îÇ°ÃæµÄÒ»¸ö»»ÐÐ·û
+    //åˆ é™¤æ–‡ä»¶æœ€å‰é¢çš„ä¸€ä¸ªæ¢è¡Œç¬¦
     if (strContents.startsWith('\r'))
         strContents = strContents.mid(1);
     if (strContents.startsWith('\n'))
@@ -129,7 +129,7 @@ QString CFileHeadHelper::GenerateFileHeadContents(const QString& filePath) const
     const auto& data = AddCodeHeader::GetInstance()->GetEditor().GetHeadItemTableModel().GetData();
     QTextStream contents(&str);
     contents << FILE_HEAD_START << endl;
-    //ÒÀ´ÎÌí¼ÓÎÄ¼þÍ·
+    //ä¾æ¬¡æ·»åŠ æ–‡ä»¶å¤´
     for (const auto& headItem : data)
     {
         if (!headItem.enable)

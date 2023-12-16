@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 
 #include <QAbstractTableModel>
 #include <QStyledItemDelegate>
@@ -40,10 +40,10 @@ public:
 
     void AddItem();
 
-    //ĞòÁĞ»¯
+    //åºåˆ—åŒ–
     QByteArray ToByteArray() const;
 
-    //·´ĞòÁĞ»¯
+    //ååºåˆ—åŒ–
     void FromByteArray(const QByteArray& byteArray);
 
 private:

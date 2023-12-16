@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 #include "CommonData.h"
 class CFileHeadHelper
 {
@@ -11,13 +11,13 @@ public:
 private:
     eOutputFormat JudgeCode(const QByteArray& data, bool& hasBom);
 
-    //ÒÆ³ıÎÄ¼şÔ­À´µÄÎÄ¼şÍ·
+    //ç§»é™¤æ–‡ä»¶åŸæ¥çš„æ–‡ä»¶å¤´
     void RemoveFileHead(QString& strContents);
 
-    //Éú³ÉÎÄ¼şÍ·µÄÄÚÈİ
+    //ç”Ÿæˆæ–‡ä»¶å¤´çš„å†…å®¹
     QString GenerateFileHeadContents(const QString& filePath) const;
 
-    //´¦ÀíÎÄ¼şÍ·µÄ×Ö·û´®£¬ÔÚÃ¿¸ö»»ĞĞ·ûÇ°ÃæÌí¼Ó¡°* ¡±
+    //å¤„ç†æ–‡ä»¶å¤´çš„å­—ç¬¦ä¸²ï¼Œåœ¨æ¯ä¸ªæ¢è¡Œç¬¦å‰é¢æ·»åŠ â€œ* â€
     static void ProcessHeadString(QString& str);
 };
 

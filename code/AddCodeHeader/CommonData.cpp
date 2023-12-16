@@ -1,4 +1,4 @@
-#include "CommonData.h"
+ï»¿#include "CommonData.h"
 
 QString HeadItemItem::name() const
 {
@@ -10,23 +10,23 @@ QString HeadItemItem::GetHeadItemName(eHeadItem item)
     switch (item)
     {
     case HI_COPYRIGHT:
-        return u8"°æÈ¨";
+        return u8"ç‰ˆæƒ";
     case HI_FILE:
-        return u8"ÎÄ¼şÃû";
+        return u8"æ–‡ä»¶å";
     case HI_BRIEF:
-        return u8"ÎÄ¼şÃèÊö";
+        return u8"æ–‡ä»¶æè¿°";
     case HI_AUTHOR:
-        return u8"×÷Õß";
+        return u8"ä½œè€…";
     case HI_EMAL:
-        return u8"ÓÊÏä";
+        return u8"é‚®ç®±";
     case HI_VERSION:
-        return u8"°æ±¾ºÅ";
+        return u8"ç‰ˆæœ¬å·";
     case HI_DATE:
-        return u8"ÈÕÆÚ";
+        return u8"æ—¥æœŸ";
     case HI_LICENSE:
-        return u8"Ğí¿ÉÖ¤";
+        return u8"è®¸å¯è¯";
     case HI_USER_DEFINE:
-        return u8"×Ô¶¨Òå";
+        return u8"è‡ªå®šä¹‰";
     }
     return QString();
 }

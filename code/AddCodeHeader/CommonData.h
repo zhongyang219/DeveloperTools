@@ -1,7 +1,7 @@
-#pragma once
+ï»¿#pragma once
 #include <QString>
 
-enum eOutputFormat      //Êä³öµÄÎÄ±¾¸ñÊ½
+enum eOutputFormat      //è¾“å‡ºçš„æ–‡æœ¬æ ¼å¼
 {
     OF_UTF8,
     OF_ANSI,
@@ -9,18 +9,18 @@ enum eOutputFormat      //Êä³öµÄÎÄ±¾¸ñÊ½
 };
 
 
-//ÎÄ¼þÍ·ÏîÄ¿
+//æ–‡ä»¶å¤´é¡¹ç›®
 enum eHeadItem
 {
-    HI_COPYRIGHT,       //°æÈ¨
-    HI_FILE,            //ÎÄ¼þÃû
-    HI_BRIEF,           //ÎÄ¼þÃèÊö
-    HI_AUTHOR,          //×÷Õß
-    HI_EMAL,            //ÓÊÏä
-    HI_VERSION,         //°æ±¾ºÅ
-    HI_DATE,            //ÈÕÆÚ
-    HI_LICENSE,         //Ðí¿ÉÖ¤
-    HI_USER_DEFINE,     //×Ô¶¨ÒåµÄ¹Ì¶¨ÄÚÈÝ£¬Í¨³£°üÀ¨°æÈ¨µÈÐÅÏ¢
+    HI_COPYRIGHT,       //ç‰ˆæƒ
+    HI_FILE,            //æ–‡ä»¶å
+    HI_BRIEF,           //æ–‡ä»¶æè¿°
+    HI_AUTHOR,          //ä½œè€…
+    HI_EMAL,            //é‚®ç®±
+    HI_VERSION,         //ç‰ˆæœ¬å·
+    HI_DATE,            //æ—¥æœŸ
+    HI_LICENSE,         //è®¸å¯è¯
+    HI_USER_DEFINE,     //è‡ªå®šä¹‰çš„å›ºå®šå†…å®¹ï¼Œé€šå¸¸åŒ…æ‹¬ç‰ˆæƒç­‰ä¿¡æ¯
     HI_MAX
 };
 
