@@ -29,11 +29,13 @@ win32{
 INCLUDEPATH += $$PWD/../../include
 
 FORMS += \
-    MainWidget.ui
+    MainWidget.ui \
+    SettingsDlg.ui
 
 HEADERS += \
     ImageLabel.h \
     MainWidget.h \
+    SettingsDlg.h \
     WallpaperHelper.h \
     WallpaperTool.h \
     wallpapertool_global.h
@@ -41,5 +43,6 @@ HEADERS += \
 SOURCES += \
     ImageLabel.cpp \
     MainWidget.cpp \
+    SettingsDlg.cpp \
     WallpaperHelper.cpp \
     WallpaperTool.cpp

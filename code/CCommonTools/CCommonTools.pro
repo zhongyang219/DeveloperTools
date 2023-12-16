@@ -26,15 +26,17 @@ HEADERS += \
     CommonTools.h \
     Config.h \
     DatabaseTool.h \
+    LongTextEdit.h \
     StringHelper.h \
-    TableDataModel.h \
     TextEditWidget.h \
-    ccommontools_global.h
+    ccommontools_global.h \
+    tableitemmodel.h
 
 SOURCES += \
     CommonTools.cpp \
     Config.cpp \
     DatabaseTool.cpp \
+    LongTextEdit.cpp \
     StringHelper.cpp \
-    TableDataModel.cpp \
-    TextEditWidget.cpp
+    TextEditWidget.cpp \
+    tableitemmodel.cpp

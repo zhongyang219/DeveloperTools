@@ -26,7 +26,11 @@ INCLUDEPATH += $$PWD/../../include
 HEADERS += \
     AddCodeHeader.h \
     AddCodeHeaderEditor.h \
+    AddFileHeadThread.h \
     CRemoveCommentThread.h \
+    CommonData.h \
+    FileHeadHelper.h \
+    HeadItemTableModel.h \
     MainWidget.h \
     RemoveCommentHelper.h \
     Test.h \
@@ -35,7 +39,11 @@ HEADERS += \
 SOURCES += \
     AddCodeHeader.cpp \
     AddCodeHeaderEditor.cpp \
+    AddFileHeadThread.cpp \
     CRemoveCommentThread.cpp \
+    CommonData.cpp \
+    FileHeadHelper.cpp \
+    HeadItemTableModel.cpp \
     MainWidget.cpp \
     RemoveCommentHelper.cpp \
     Test.cpp
