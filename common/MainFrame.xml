@@ -11,6 +11,9 @@
 
 	<!-- 主菜单 -->
 	<SystemMenu name="文件">
+		<Action name="功能区设置..." icon="Images/设置.png" id="RibbonOptions"/>
+		<Action name="模块管理..." icon="Images/module.png" id="ModuleManager"/>
+		<Separator/>
 		<Menu name="帮助" icon="Images/help.png" id="Help">
 			<Action name="关于" id="AppAbout" shortcut="F1"/>
 			<Action name="关于Qt" id="AppAboutQt"/>
