@@ -1,6 +1,7 @@
 ﻿#include "SettingsDlg.h"
 #include "../CCommonTools/Config.h"
 #include "WallpaperTool.h"
+#include "define.h"
 
 void SettingsDlg::Data::Save() const
 {
@@ -20,6 +21,11 @@ SettingsDlg::SettingsDlg(QWidget *parent)
     : QDialog(parent)
 {
     ui.setupUi(this);
+    if (layout() != nullptr)
+        layout()->setMargin(DPI(8));
+
+    resize(DPI(340), DPI(230));
+
     //非Windows下禁用壁纸获取方式选项
 #ifndef Q_OS_WIN
     ui.radioButtonReg->setEnabled(false);
