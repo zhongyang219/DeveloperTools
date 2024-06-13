@@ -50,7 +50,7 @@ IModule::eMainWindowType FileRename::GetMainWindowType() const
 
 const char* FileRename::GetModuleName()
 {
-    return nullptr;
+    return "FileRename";
 }
 
 void FileRename::OnCommand(const char* strCmd, bool checked)
