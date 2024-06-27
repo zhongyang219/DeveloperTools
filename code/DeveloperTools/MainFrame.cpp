@@ -7,7 +7,7 @@
 
 #define QSTR(str) QString::fromWCharArray(L ## str)
 
-MainFrame::MainFrame(QWidget* parent) : RibbonFrameWindow(parent)
+MainFrame::MainFrame(const QStringList& cmdLine, QWidget* parent) : RibbonFrameWindow(parent, QString(), false, cmdLine)
 {
     QIcon appIcon(":/DeveloperTools/res/DeveloperTools.ico");
     qApp->setWindowIcon(appIcon);

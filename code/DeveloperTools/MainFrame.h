@@ -7,7 +7,7 @@ class MainFrame : public RibbonFrameWindow
 {
     Q_OBJECT
 public:
-    explicit MainFrame(QWidget* parent = nullptr);
+    explicit MainFrame(const QStringList& cmdLine, QWidget* parent = nullptr);
     ~MainFrame();
 
 signals:
