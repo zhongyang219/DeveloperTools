@@ -3,6 +3,22 @@
 #include <QDateTime>
 #include <QDir>
 
+bool FileRenameHelper::FileRename(const QString& filePath, QString& newFileName, bool autoResoveConflict)
+{
+    QFileInfo fileInfo(filePath);
+    if (!fileInfo.isFile())
+        return false;
+    QString newFilePath = fileInfo.dir().filePath(newFileName);
+    if (autoResoveConflict)
+    {
+        FileAutoResoveConfict(newFilePath);
+        newFileName = QFileInfo(newFilePath).fileName();
+    }
+    if (filePath == newFilePath)
+        return true;
+    return QFile::rename(filePath, newFilePath);
+}
+
 bool FileRenameHelper::FileRenameByCreateTime(const QString& filePath, QString& newFileName, const QString& strPrefex, bool autoResoveConflict)
 {
 	QFileInfo fileInfo(filePath);
@@ -13,15 +29,36 @@ bool FileRenameHelper::FileRenameByCreateTime(const QString& filePath, QString& 
 	newFileName = strPrefex + lastModified.toString("yyyyMMdd_hhmmss");
 	newFileName += '.';
 	newFileName += fileInfo.completeSuffix();
-	QString newFilePath = fileInfo.dir().filePath(newFileName);
-	if (autoResoveConflict)
-	{
-		FileAutoRename(newFilePath);
-		newFileName = QFileInfo(newFilePath).fileName();
-	}
-	if (filePath == newFilePath)
-		return true;
-	return QFile::rename(filePath, newFilePath);
+
+    return FileRename(filePath, newFileName, autoResoveConflict);
+}
+
+bool FileRenameHelper::FileRenameByNumber(const QString& filePath, int number, int digit, QString& newFileName, const QString& strPrefex, bool autoResoveConflict)
+{
+    QFileInfo fileInfo(filePath);
+    if (!fileInfo.isFile())
+        return false;
+
+    newFileName = strPrefex;
+    newFileName += QString("%1").arg(number, digit, 10, QChar('0'));
+    newFileName += '.';
+    newFileName += fileInfo.completeSuffix();
+
+    return FileRename(filePath, newFileName, autoResoveConflict);
+}
+
+bool FileRenameHelper::FileRenameReplace(const QString& filePath, const QString& findStr, const QString& replaceStr, QString& newFileName, bool autoResoveConflict)
+{
+    QFileInfo fileInfo(filePath);
+    if (!fileInfo.isFile())
+        return false;
+
+    newFileName = fileInfo.baseName();
+    newFileName.replace(findStr, replaceStr, Qt::CaseInsensitive);
+    newFileName += '.';
+    newFileName += fileInfo.completeSuffix();
+
+    return FileRename(filePath, newFileName, autoResoveConflict);
 }
 
 bool FileRenameHelper::StrIsNumber(const QString& str)
@@ -58,7 +95,7 @@ bool FileRenameHelper::IsFileNameNumbered(const QString& file_name, int& number,
 	}
 }
 
-void FileRenameHelper::FileAutoRename(QString& file_path)
+void FileRenameHelper::FileAutoResoveConfict(QString& file_path)
 {
 	while (QFileInfo(file_path).isFile())
 	{

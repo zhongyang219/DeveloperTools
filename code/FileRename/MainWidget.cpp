@@ -43,20 +43,49 @@ MainWidget::~MainWidget()
 void MainWidget::LoadConfig()
 {
     CConfig settings(QString::fromUtf8(FileRename::Instance()->GetModuleName()));
+    int mode = settings.GetValue("renameMode").toInt();
+    switch (mode)
+    {
+    case 0: ui.renameByModifyTimeRadioBtn->click(); break;
+    case 1: ui.renameByNumberRadioBtn->click(); break;
+    case 2: ui.renameReplaceRadioBtn->click(); break;
+    }
+
     ui.addPrefixCheck->setChecked(settings.GetValue("addPrefrex").toBool());
     ui.prefixEdit->setText(settings.GetValue("prefex").toString());
     ui.autoResoveConflictCheck->setChecked(settings.GetValue("autoResoveConflict").toBool());
+
+    ui.startValueSpin->setValue(settings.GetValue("startValue").toInt());
+    ui.digitNumSpin->setValue(settings.GetValue("digitNum").toInt());
+
+    ui.findStrEdit->setText(settings.GetValue("findStr").toString());
+    ui.replaceStrEdit->setText(settings.GetValue("replaceStr").toString());
 }
 
 void MainWidget::SaveConfig() const
 {
     CConfig settings(QString::fromUtf8(FileRename::Instance()->GetModuleName()));
+    int mode = 0;
+    if (ui.renameByModifyTimeRadioBtn->isChecked())
+        mode = 0;
+    else if (ui.renameByNumberRadioBtn->isChecked())
+        mode = 1;
+    else if (ui.renameReplaceRadioBtn->isChecked())
+        mode = 2;
+    settings.WriteValue("renameMode", mode);
+
     settings.WriteValue("addPrefrex", ui.addPrefixCheck->isChecked());
     settings.WriteValue("prefex", ui.prefixEdit->text());
     settings.WriteValue("autoResoveConflict", ui.autoResoveConflictCheck->isChecked());
+
+    settings.WriteValue("startValue", ui.startValueSpin->value());
+    settings.WriteValue("digitNum", ui.digitNumSpin->value());
+
+    settings.WriteValue("findStr", ui.findStrEdit->text());
+    settings.WriteValue("replaceStr", ui.replaceStrEdit->text());
 }
 
-int MainWidget::RenameWithModifiedTime()
+int MainWidget::ExcuteFileRename()
 {
     QStringList fileList = GetFileList();
     int count = 0;
@@ -67,7 +96,17 @@ int MainWidget::RenameWithModifiedTime()
         QString strPrefix;
         if (ui.addPrefixCheck->isChecked())
             strPrefix = ui.prefixEdit->text();
-        if (FileRenameHelper::FileRenameByCreateTime(file, newName, strPrefix, ui.autoResoveConflictCheck->isChecked()))
+
+        bool rtn = false;
+        //使用修改时间重命名
+        if (ui.renameByModifyTimeRadioBtn->isChecked())
+            rtn = FileRenameHelper::FileRenameByCreateTime(file, newName, strPrefix, ui.autoResoveConflictCheck->isChecked());
+        else if (ui.renameByNumberRadioBtn->isChecked())
+            rtn = FileRenameHelper::FileRenameByNumber(file, ui.startValueSpin->value() + i, ui.digitNumSpin->value(), newName, strPrefix, ui.autoResoveConflictCheck->isChecked());
+        else if (ui.renameReplaceRadioBtn->isChecked())
+            rtn = FileRenameHelper::FileRenameReplace(file, ui.findStrEdit->text(), ui.replaceStrEdit->text(), newName, ui.autoResoveConflictCheck->isChecked());
+
+        if (rtn)
         {
             m_model.SetItemText(i, COL_NEW_NAME, newName);
             count++;

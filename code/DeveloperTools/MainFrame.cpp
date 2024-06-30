@@ -47,7 +47,12 @@ bool MainFrame::OnCommand(const QString& strCmd, bool checked)
 {
     if (strCmd == "AppAbout")
     {
-        QString strAboutInfo = QString(u8"%1 %2\r\n一个各种小工具合集。\r\nCopyright(C) 2023 by ZhongYang").arg(APP_NAME).arg(APP_VERSION);
+        QString strDebug;
+#ifdef _DEBUG
+        strDebug = u8"(Debug 模式)";
+#endif // DEBUG
+
+        QString strAboutInfo = QString(u8"%1 %2 %3\r\n一个各种小工具合集。\r\nCopyright(C) 2024 by ZhongYang").arg(APP_NAME).arg(APP_VERSION).arg(strDebug);
         QMessageBox::about(this, QString(u8"关于") + APP_NAME, strAboutInfo);
     }
     return RibbonFrameWindow::OnCommand(strCmd, checked);

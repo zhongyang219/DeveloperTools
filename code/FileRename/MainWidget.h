@@ -24,7 +24,7 @@ public:
     void LoadConfig();
     void SaveConfig() const;
 
-    int RenameWithModifiedTime();
+    int ExcuteFileRename();
 
     void AddFile(const QString& filePath);
     void AddFolder(const QString& folderPath);

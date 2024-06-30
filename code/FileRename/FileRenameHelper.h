@@ -1,22 +1,67 @@
-#pragma once
+ï»¿#pragma once
 #include <QString>
 class FileRenameHelper
 {
 public:
-	static bool FileRenameByCreateTime(const QString& filePath, QString& newFileName, const QString& strPrefex = QString(), bool autoResoveConflict = false);
+    /**
+     * @brief      ä½¿ç”¨æ–‡ä»¶åˆ›å»ºæ—¶é—´é‡å‘½å
+     * @param[in]  filePath æ–‡ä»¶è·¯å¾„
+     * @param[out] newFileName æ¥æ”¶æ–°æ–‡ä»¶å
+     * @param[in]  strPrefex æ·»åŠ çš„å‰ç¼€
+     * @param[in]  autoResoveConflict æ˜¯å¦è‡ªåŠ¨è§£å†³å‘½åå†²çª
+     * @return     æ˜¯å¦æˆåŠŸ
+     */
+	static bool FileRenameByCreateTime(const QString& filePath, QString& newFileName, const QString& strPrefex, bool autoResoveConflict);
 
-	//ÅĞ¶ÏÒ»¸ö×Ö·û´®ÊÇ·ñÊÇÊı×Ö
+    /**
+     * @brief      ä½¿ç”¨æ•°å­—ç¼–å·é‡å‘½å
+     * @param[in]  filePath æ–‡ä»¶è·¯å¾„
+     * @param[in]  nuber æ•°å­—ç¼–å·
+     * @param[in]  digit ä½æ•°
+     * @param[out] newFileName æ¥æ”¶æ–°æ–‡ä»¶å
+     * @param[in]  strPrefex æ·»åŠ çš„å‰ç¼€
+     * @param[in]  autoResoveConflict æ˜¯å¦è‡ªåŠ¨è§£å†³å‘½åå†²çª
+     * @return     æ˜¯å¦æˆåŠŸ
+     */
+    static bool FileRenameByNumber(const QString& filePath, int nuber, int digit, QString& newFileName, const QString& strPrefex, bool autoResoveConflict);
+
+    /**
+     * @brief      å¯¹æ–‡ä»¶åè¿›è¡Œæ›¿æ¢
+     * @param[in]  filePath æ–‡ä»¶è·¯å¾„
+     * @param[in]  findStr è¦æŸ¥æ‰¾çš„å­—ç¬¦ä¸²
+     * @param[in]  replaceStr æ›¿æ¢çš„å­—ç¬¦ä¸²
+     * @param[out] newFileName æ¥æ”¶æ–°æ–‡ä»¶å
+     * @param[in]  autoResoveConflict æ˜¯å¦è‡ªåŠ¨è§£å†³å‘½åå†²çª
+     * @return     æ˜¯å¦æˆåŠŸ
+     */
+    static bool FileRenameReplace(const QString& filePath, const QString& findStr, const QString& replaceStr, QString& newFileName, bool autoResoveConflict);
+
+	//åˆ¤æ–­ä¸€ä¸ªå­—ç¬¦ä¸²æ˜¯å¦æ˜¯æ•°å­—
 	static bool StrIsNumber(const QString& str);
 
-	//ÅĞ¶ÏÎÄ¼şÃûÊÇÄ©Î²ÊÇ·ñ·ûºÏ¡°(Êı×Ö)¡±µÄĞÎÊ½
-	//file_name: ÒªÅĞ¶ÏµÄÎÄ¼şÃû£¬²»°üº¬À©Õ¹Ãû
-	//number: ½ÓÊÕÀ¨ºÅÖĞµÄÊı×Ö
-	//index: ½ÓÊÕ×óÀ¨ºÅÔÚ×Ö·û´®ÖĞµÄË÷Òı
+    /**
+     * @brief      åˆ¤æ–­æ–‡ä»¶åæ˜¯æœ«å°¾æ˜¯å¦ç¬¦åˆâ€œ(æ•°å­—)â€çš„å½¢å¼
+     * @param[in]  file_name è¦åˆ¤æ–­çš„æ–‡ä»¶åï¼Œä¸åŒ…å«æ‰©å±•å
+     * @param[out] number æ¥æ”¶æ‹¬å·ä¸­çš„æ•°å­—
+     * @param[out] index æ¥æ”¶å·¦æ‹¬å·åœ¨å­—ç¬¦ä¸²ä¸­çš„ç´¢å¼•
+     * @return     æˆåŠŸè¿”å›trueï¼Œå¦åˆ™è¿”å›false
+     */
 	static bool IsFileNameNumbered(const QString& file_name, int& number, int& index);
 
-	//¶ÔÒ»¸öÎÄ¼şÂ·¾¶×Ô¶¯ÖØÃüÃû£¬Èç¹ûfile_path´æÔÚ£¬ÔòÔÚÆäºóÃæ¼ÓÉÏ¡°(1)¡±£¬Èç¹ûÎÄ¼şÃûºóÃæ´æÔÚ´øÀ¨ºÅµÄÊı×ÖµÄĞÎÊ½£¬ÔòÀ¨ºÅÄÚµÄÊı×Ö¼Ó1
-	static void FileAutoRename(QString& file_path);
+    /**
+     * @brief      æ ¹æ®ä¸€ä¸ªæ–‡ä»¶çš„è·¯å¾„è‡ªåŠ¨è§£å†³å‘½åå†²çªã€‚å¦‚æœfile_pathå­˜åœ¨ï¼Œåˆ™åœ¨å…¶åé¢åŠ ä¸Šâ€œ(1)â€ï¼Œå¦‚æœæ–‡ä»¶ååé¢å­˜åœ¨å¸¦æ‹¬å·çš„æ•°å­—çš„å½¢å¼ï¼Œåˆ™æ‹¬å·å†…çš„æ•°å­—åŠ 1
+     * @param[in][out]  file_path æ–‡ä»¶çš„è·¯å¾„
+     */
+	static void FileAutoResoveConfict(QString& file_path);
 
 private:
+    /**
+     * @brief      å¯¹ä¸€ä¸ªæ–‡ä»¶é‡å‘½å
+     * @param[in]  filePath æ–‡ä»¶è·¯å¾„
+     * @param[in]  newFileName æ–°æ–‡ä»¶åï¼ˆå«æ‰©å±•åï¼‰
+     * @param[in]  autoResoveConflict æ˜¯å¦è‡ªåŠ¨è§£å†³å‘½åå†²çª
+     * @return     
+     */
+    static bool FileRename(const QString& filePath, QString& newFileName, bool autoResoveConflict);
 };
 

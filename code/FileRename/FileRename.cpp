@@ -100,7 +100,7 @@ void FileRename::OnCommand(const char* strCmd, bool checked)
     }
     else if (cmd == CMD_RenameWithModifiedTime)
     {
-        int count = m_mainWidget.RenameWithModifiedTime();
+        int count = m_mainWidget.ExcuteFileRename();
         QString info = QString(u8"完成，已重命名 %1 个文件。").arg(count);
         QMessageBox::information(&m_mainWidget, QString(), info);
     }

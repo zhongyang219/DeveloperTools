@@ -8,7 +8,7 @@ inline int DPI(int x)
 }
 
 #define APP_NAME "DeveloperTools"
-#define APP_VERSION "0.2.0"
+#define APP_VERSION "0.3.0"
 
 ///////////////////////////////////////////////////////////////////////////
 //定义安全删除指针的宏
