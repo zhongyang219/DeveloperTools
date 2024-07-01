@@ -70,6 +70,7 @@ void WallpaperTool::OnCommand(const char* strCmd, bool checked)
         QString strDir = QFileDialog::getExistingDirectory(&m_mainWidget, QString(), m_strLastSaveDir, QFileDialog::ShowDirsOnly | QFileDialog::DontResolveSymlinks);
         if (!strDir.isEmpty())
         {
+            m_strLastSaveDir = strDir;
             QString strNewPath = strDir + "/" + QFileInfo(m_strCurWallpaperPath).fileName();
             QString strLogInfo;
             if (!QFileInfo(strNewPath).isFile())
@@ -78,7 +79,6 @@ void WallpaperTool::OnCommand(const char* strCmd, bool checked)
                 {
                     QMessageBox::information(&m_mainWidget, QString(), u8"保存成功！");
                     strLogInfo = QString(u8"成功将壁纸 %1 保存到 %2 目录下。").arg(m_strCurWallpaperPath).arg(strDir);
-                    m_strLastSaveDir = strDir;
                 }
                 else
                 {
