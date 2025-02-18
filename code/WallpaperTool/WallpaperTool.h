@@ -30,10 +30,13 @@ private:
     void WriteLog(const QString& strLogInfo);
     void Refresh();
 
+private slots:
+    void OnMainWindowLayoutChanged(bool bGrid, const QString& curWallpaperPath);     //响应窗口布局改变（在单席位查看和宫格布局中切换）
+
 private:
     MainWidget m_mainWidget;
     IMainFrame* m_pMainFrame{};
-    QList<QString> m_curWallpapersPath;
+    QString m_strCurWallpaperPath;
     QString m_strLastSaveDir;       //上次壁纸的保存路径
     CWallpaperHelper m_helper;
     SettingsDlg::Data m_settings;

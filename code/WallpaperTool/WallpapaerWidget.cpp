@@ -24,3 +24,8 @@ void CWallpapaerWidget::SetWallpaper(const QString & strPath)
     m_pathEdit.setText(strPath);
     m_imgLabel.SetImage(QPixmap(strPath));
 }
+
+QString CWallpapaerWidget::GetWallpaperPath()
+{
+    return m_pathEdit.text();
+}

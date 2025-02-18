@@ -12,6 +12,8 @@ public:
     CWallpapaerWidget(QWidget *parent);
     ~CWallpapaerWidget();
     void SetWallpaper(const QString& strPath);
+    CImageLabel& GetImageLabel() { return m_imgLabel; }
+    QString GetWallpaperPath();
 
 private:
     QLineEdit m_pathEdit;

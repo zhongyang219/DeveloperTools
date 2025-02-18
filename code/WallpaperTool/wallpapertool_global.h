@@ -18,3 +18,4 @@
 #define CMD_PreviousWallpaper "PreviousWallpaper"
 #define CMD_NextWallpaper "NextWallpaper"
 #define CMD_WallpaperToolSettings "WallpaperToolSettings"
+#define CMD_WallpaperBack "WallpaperBack"

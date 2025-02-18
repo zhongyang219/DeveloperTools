@@ -48,8 +48,43 @@ void MainWidget::SetWallpapers(QList<QString>&wallpapersPath)
         CWallpapaerWidget* pWidget = new CWallpapaerWidget(this);
         m_wallpaperWidgets.push_back(pWidget);
         pWidget->SetWallpaper(path);
+        connect(&pWidget->GetImageLabel(), SIGNAL(clicked()), this, SLOT(OnWallpapaerWidgetClicked()));
         pWidget->show();
+        pWidget->GetImageLabel().setCursor(QCursor(Qt::PointingHandCursor));
         m_pLayout->addWidget(pWidget, row, col, 1, 1);
         index++;
+    }
+    m_isGridLayout = true;
+    emit widgetLayoutChanged(m_isGridLayout, QString());
+}
+
+void MainWidget::ShowGridLayout()
+{
+    //显示所有子窗口
+    for (auto* pWidget : m_wallpaperWidgets)
+    {
+        pWidget->setVisible(true);
+        pWidget->GetImageLabel().setCursor(QCursor(Qt::PointingHandCursor));     //设置鼠标指针为手形
+    }
+    m_isGridLayout = true;
+    emit widgetLayoutChanged(m_isGridLayout, QString());
+}
+
+void MainWidget::OnWallpapaerWidgetClicked()
+{
+    CWallpapaerWidget* pClickedWidget = qobject_cast<CWallpapaerWidget*>(QObject::sender()->parent());
+    if (pClickedWidget != nullptr)
+    {
+        //显示点击的窗口，隐藏其他窗口
+        for (auto* pWidget : m_wallpaperWidgets)
+        {
+            if (pWidget == pClickedWidget)
+                pWidget->show();
+            else
+                pWidget->hide();
+        }
+        m_isGridLayout = false;
+        emit widgetLayoutChanged(m_isGridLayout, pClickedWidget->GetWallpaperPath());
+        pClickedWidget->GetImageLabel().setCursor(QCursor(Qt::ArrowCursor));
     }
 }

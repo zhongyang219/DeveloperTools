@@ -15,12 +15,18 @@ public:
 
     QSize GetImageSize() const;
 
+signals:
+    //鼠标左键点击信号
+    void clicked();
+
 private:
     QPixmap m_image;
 
     // QObject interface
 public:
     virtual void paintEvent(QPaintEvent *) override;
+protected:
+    virtual void mouseReleaseEvent(QMouseEvent* event) override;
 
 private:
     QRect m_imageRect;

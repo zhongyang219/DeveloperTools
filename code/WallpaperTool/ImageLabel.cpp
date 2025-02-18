@@ -1,6 +1,7 @@
 ﻿#include "ImageLabel.h"
 #include <QPaintEvent>
 #include <QPainter>
+#include <QMouseEvent>
 
 CImageLabel::CImageLabel(QWidget* pParent)
 {
@@ -65,4 +66,12 @@ void CImageLabel::paintEvent(QPaintEvent *e)
 
 
     QWidget::paintEvent(e);
+}
+
+void CImageLabel::mouseReleaseEvent(QMouseEvent* event)
+{
+    if (event->button() == Qt::LeftButton)
+    {
+        emit clicked();
+    }
 }
