@@ -26,9 +26,11 @@ FORMS += \
 
 HEADERS += \
     FileRename.h \
+    FileRenameHelper.h \
     MainWidget.h \
     filerename_global.h
 
 SOURCES += \
     FileRename.cpp \
+    FileRenameHelper.cpp \
     MainWidget.cpp

@@ -359,3 +359,5 @@ win32_vc15_Release
 /code/BuildLog
 
 bin
+build
+*.pro.user.*

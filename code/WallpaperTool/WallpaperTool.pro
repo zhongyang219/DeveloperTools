@@ -19,7 +19,7 @@ else {
 }
 
 win32{
-    LIBS += -lOle32
+    LIBS += -lOle32 -lAdvapi32
 }
 
 #HEADERS += $$PWD/*.h
