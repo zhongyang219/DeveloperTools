@@ -61,12 +61,4 @@
       <Filter>Header Files</Filter>
     </QtMoc>
   </ItemGroup>
-  <ItemGroup>
-    <QtUic Include="MainWidget.ui">
-      <Filter>Form Files</Filter>
-    </QtUic>
-    <QtUic Include="SettingsDlg.ui">
-      <Filter>Form Files</Filter>
-    </QtUic>
-  </ItemGroup>
 </Project>

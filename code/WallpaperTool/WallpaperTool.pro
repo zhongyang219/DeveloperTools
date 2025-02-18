@@ -28,9 +28,7 @@ win32{
 
 INCLUDEPATH += $$PWD/../../include
 
-FORMS += \
-    MainWidget.ui \
-    SettingsDlg.ui
+FORMS +=
 
 HEADERS += \
     ImageLabel.h \

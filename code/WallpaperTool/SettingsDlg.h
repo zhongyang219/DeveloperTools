@@ -1,7 +1,7 @@
 ﻿#pragma once
 
 #include <QDialog>
-#include "ui_SettingsDlg.h"
+#include <QRadioButton>
 
 class SettingsDlg : public QDialog
 {
@@ -29,5 +29,7 @@ public:
     Data GetData() const;
 
 private:
-    Ui::SettingsDlgClass ui;
+    QRadioButton* m_radioButtonReg;
+    QRadioButton* m_radioButtonWallPaperInterface;
+
 };

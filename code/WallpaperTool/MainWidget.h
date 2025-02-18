@@ -1,7 +1,8 @@
-#pragma once
+﻿#pragma once
 
 #include <QMainWindow>
-#include "ui_MainWidget.h"
+#include <QLineEdit>
+#include "ImageLabel.h"
 
 class MainWidget : public QMainWindow
 {
@@ -13,5 +14,7 @@ public:
     void SetWallpaper(const QString& strPath);
 
 private:
-    Ui::MainWidgetClass ui;
+    QLineEdit m_pathEdit;
+    CImageLabel m_imgLabel;
+
 };

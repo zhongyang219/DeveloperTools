@@ -2,6 +2,11 @@
 #include "../CCommonTools/Config.h"
 #include "WallpaperTool.h"
 #include "define.h"
+#include <QHBoxLayout>
+#include <QVBoxLayout>
+#include <QDialogButtonBox>
+#include <QLabel>
+#include <QScrollArea>
 
 void SettingsDlg::Data::Save() const
 {
@@ -20,9 +25,23 @@ void SettingsDlg::Data::Load()
 SettingsDlg::SettingsDlg(QWidget *parent)
     : QDialog(parent)
 {
-    ui.setupUi(this);
-    if (layout() != nullptr)
-        layout()->setMargin(DPI(8));
+    //ui.setupUi(this);
+    //if (layout() != nullptr)
+    //    layout()->setMargin(DPI(8));
+
+    setWindowTitle(u8"壁纸工具设置");
+
+    QVBoxLayout* pLayout = new QVBoxLayout();
+    setLayout(pLayout);
+    QScrollArea* pScrollArea = new QScrollArea();
+    pLayout->addWidget(pScrollArea);
+    pLayout->addWidget(new QDialogButtonBox(QDialogButtonBox::Ok | QDialogButtonBox::Cancel));
+
+    QVBoxLayout* pScrollLayout = new QVBoxLayout();
+    pScrollArea->setLayout(pScrollLayout);
+    pScrollLayout->addWidget(m_radioButtonReg = new QRadioButton(u8"注册表"));
+    pScrollLayout->addWidget(m_radioButtonWallPaperInterface = new QRadioButton(u8"IDesktopWallpaper接口"));
+    pScrollLayout->addStretch();
 
     resize(DPI(340), DPI(230));
 
@@ -39,14 +58,14 @@ SettingsDlg::~SettingsDlg()
 void SettingsDlg::SetData(const Data & data)
 {
     if (data.wallpaperAcquireMethod == Data::Registry)
-        ui.radioButtonReg->setChecked(true);
+        m_radioButtonReg->setChecked(true);
     else
-        ui.radioButtonWallPaperInterface->setChecked(true);
+        m_radioButtonWallPaperInterface->setChecked(true);
 }
 
 SettingsDlg::Data SettingsDlg::GetData() const
 {
     Data data;
-    data.wallpaperAcquireMethod = ui.radioButtonReg->isChecked() ? Data::Registry : Data::WallpaperInterface;
+    data.wallpaperAcquireMethod = m_radioButtonReg->isChecked() ? Data::Registry : Data::WallpaperInterface;
     return data;
 }

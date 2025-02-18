@@ -4,6 +4,7 @@
 #include <QMessageBox>
 #include "../CCommonTools/CommonTools.h"
 #include "../CCommonTools/Config.h"
+#include <QApplication>
 
 static WallpaperTool* pIns = nullptr;
 
