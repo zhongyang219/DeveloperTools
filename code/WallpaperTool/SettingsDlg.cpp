@@ -35,7 +35,10 @@ SettingsDlg::SettingsDlg(QWidget *parent)
     setLayout(pLayout);
     QScrollArea* pScrollArea = new QScrollArea();
     pLayout->addWidget(pScrollArea);
-    pLayout->addWidget(new QDialogButtonBox(QDialogButtonBox::Ok | QDialogButtonBox::Cancel));
+    QDialogButtonBox* buttonBox = new QDialogButtonBox(QDialogButtonBox::Ok | QDialogButtonBox::Cancel);
+    pLayout->addWidget(buttonBox);
+    connect(buttonBox, &QDialogButtonBox::accepted, this, &QDialog::accept);
+    connect(buttonBox, &QDialogButtonBox::rejected, this, &QDialog::reject);
 
     QVBoxLayout* pScrollLayout = new QVBoxLayout();
     pScrollArea->setLayout(pScrollLayout);

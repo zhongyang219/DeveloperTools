@@ -21,6 +21,12 @@
       <UniqueIdentifier>{639EADAA-A684-42e4-A9AD-28FC9BCB8F7C}</UniqueIdentifier>
       <Extensions>ts</Extensions>
     </Filter>
+    <Filter Include="Widgets">
+      <UniqueIdentifier>{9bbf64ad-36ba-48ce-947c-d7e779750507}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SettingsDlg">
+      <UniqueIdentifier>{3ddd2786-4308-4578-9307-04382bb9a1d8}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="wallpapertool_global.h">
@@ -34,31 +40,37 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="ImageLabel.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="MainWidget.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="WallpaperHelper.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="ImageLabel.cpp">
+      <Filter>Widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="MainWidget.cpp">
+      <Filter>Widgets</Filter>
+    </ClCompile>
     <ClCompile Include="SettingsDlg.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>SettingsDlg</Filter>
+    </ClCompile>
+    <ClCompile Include="WallpapaerWidget.cpp">
+      <Filter>Widgets</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <QtMoc Include="MainWidget.h">
-      <Filter>Header Files</Filter>
-    </QtMoc>
-    <QtMoc Include="ImageLabel.h">
-      <Filter>Header Files</Filter>
-    </QtMoc>
     <QtMoc Include="WallpaperTool.h">
       <Filter>Header Files</Filter>
     </QtMoc>
+    <QtMoc Include="ImageLabel.h">
+      <Filter>Widgets</Filter>
+    </QtMoc>
+    <QtMoc Include="MainWidget.h">
+      <Filter>Widgets</Filter>
+    </QtMoc>
     <QtMoc Include="SettingsDlg.h">
-      <Filter>Header Files</Filter>
+      <Filter>SettingsDlg</Filter>
+    </QtMoc>
+    <QtMoc Include="WallpapaerWidget.h">
+      <Filter>Widgets</Filter>
     </QtMoc>
   </ItemGroup>
 </Project>

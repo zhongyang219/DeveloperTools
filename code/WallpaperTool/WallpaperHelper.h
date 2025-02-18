@@ -13,9 +13,7 @@ public:
     ~CWallpaperHelper();
 
     //获取当前桌面壁纸的路径
-    QString GetCurrentWallpaperPath(bool fromRegistry);
-
-    bool SetCurrentDeskTop(int index);
+    QList<QString> GetCurrentWallpaperPath(bool fromRegistry);
 
     bool PreviousWallPaper();
     bool NextWallPaper();
@@ -27,8 +25,6 @@ public:
 private:
 #ifdef Q_OS_WIN
     IDesktopWallpaper* m_pWallpaper{};
-    LPWSTR m_pMonitorIdBuf;
-    LPWSTR m_pWallpaperPathBuf;
 #endif
 
 };

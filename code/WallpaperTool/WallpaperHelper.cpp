@@ -47,6 +47,26 @@ static QByteArray GetRegBinaryData(HKEY hKey, const wchar_t* keyName, const wcha
 
     return binData;
 }
+
+static int UnsignedCharToInt(char ch)
+{
+    return static_cast<int>(static_cast<unsigned char>(ch));
+}
+
+static int GetRegInt(HKEY hKey, const wchar_t* keyName, const wchar_t* valueName)
+{
+    int value = 0;
+    QByteArray data = GetRegBinaryData(hKey, keyName, valueName);
+    if (data.size() >= 1)
+        value += UnsignedCharToInt(data[0]);
+    if (data.size() >= 2)
+        value += UnsignedCharToInt(data[1]) * 256;
+    if (data.size() >= 3)
+        value += UnsignedCharToInt(data[2]) * 256 * 256;
+    if (data.size() >= 4)
+        value += UnsignedCharToInt(data[3]) * 256 * 256 * 256;
+    return value;
+}
 #endif
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -59,39 +79,88 @@ CWallpaperHelper::CWallpaperHelper()
     {
         m_pWallpaper = nullptr;
     }
-    m_pMonitorIdBuf = (LPWSTR)GlobalAlloc(GPTR, 64);
-    m_pWallpaperPathBuf = (LPWSTR)GlobalAlloc(GPTR, 256);
 #endif
 }
 
 CWallpaperHelper::~CWallpaperHelper()
 {
 #ifdef Q_OS_WIN
-    GlobalFree(m_pMonitorIdBuf);
-    GlobalFree(m_pWallpaperPathBuf);
     if (m_pWallpaper != nullptr)
         m_pWallpaper->Release();
 #endif
 }
 
-QString CWallpaperHelper::GetCurrentWallpaperPath(bool fromRegistry)
+#ifdef Q_OS_WIN
+//从“\HKEY_CURRENT_USER\Control Panel\Desktop”下的一个键获取壁纸路径
+static QString GetWallpapaerFromReg(const wchar_t* regKey)
+{
+    QString strPath;
+    //使用QSettings读取注册表无法获取原始的二进制数据，QSettings内部会将其转换成QString，因此使用WindowsAPI读取
+    QByteArray pathData = GetRegBinaryData(HKEY_CURRENT_USER, L"Control Panel\\Desktop", regKey);
+    pathData = pathData.mid(0x18);      //去掉前面0x18个字节
+    if (!pathData.isEmpty())
+        strPath = QString::fromWCharArray((const wchar_t*)pathData.constData());
+    return strPath;
+}
+#endif
+
+QList<QString> CWallpaperHelper::GetCurrentWallpaperPath(bool fromRegistry)
 {
 #ifdef Q_OS_WIN
+    QList<QString> wallpapaersPath;
+    //通过IDesktopWallpaper获取壁纸
     if (m_pWallpaper != nullptr && !fromRegistry)
     {
-        HRESULT hr = m_pWallpaper->GetWallpaper(m_pMonitorIdBuf, &m_pWallpaperPathBuf);
+        HRESULT hr;
+        // 获取显示器数量
+        UINT monitorCount = 0;
+        hr = m_pWallpaper->GetMonitorDevicePathCount(&monitorCount);
+
+        // 遍历每个显示器，获取壁纸路径
+        for (UINT i = 0; i < monitorCount; i++)
+        {
+            // 获取显示器的设备路径
+            PWSTR monitorId = nullptr;
+            hr = m_pWallpaper->GetMonitorDevicePathAt(i, &monitorId);
+            if (FAILED(hr))
+                continue;
+
+            // 获取该显示器的壁纸路径
+            PWSTR wallpaperPath = nullptr;
+            hr = m_pWallpaper->GetWallpaper(monitorId, &wallpaperPath);
+            if (SUCCEEDED(hr))
+            {
+                QString strPath = QString::fromWCharArray(wallpaperPath);
+                CoTaskMemFree(wallpaperPath);  // 释放壁纸路径内存
+                if (!strPath.isEmpty() && !wallpapaersPath.contains(strPath))
+                    wallpapaersPath.push_back(strPath);
+
+            }
+
+            CoTaskMemFree(monitorId);  // 释放显示器设备路径内存
+        }
+
         ShowResultInfo(hr);
-        return QString::fromWCharArray(m_pWallpaperPathBuf);
+        return wallpapaersPath;
     }
+    //通过注册表获取壁纸
     else
     {
-        QString strPath;
-        //使用QSettings读取注册表无法获取原始的二进制数据，QSettings内部会将其转换成QString，因此使用WindowsAPI读取
-        QByteArray pathData = GetRegBinaryData(HKEY_CURRENT_USER, L"Control Panel\\Desktop", L"TranscodedImageCache");
-        pathData = pathData.mid(0x18);      //去掉前面0x18个字节
-        if (!pathData.isEmpty())
-            strPath = QString::fromWCharArray((const wchar_t*)pathData.constData());
-        return strPath;
+        QString wallpaperPath = GetWallpapaerFromReg(L"TranscodedImageCache");
+        if (!wallpaperPath.isEmpty())
+            wallpapaersPath.push_back(wallpaperPath);
+        //壁纸数量
+        int wallpaperCount = GetRegInt(HKEY_CURRENT_USER, L"Control Panel\\Desktop", L"TranscodedImageCount");
+        //获取所有壁纸
+        for (int i = 0; i < wallpaperCount; i++)
+        {
+            wchar_t buff[64];
+            swprintf_s(buff, L"TranscodedImageCache_%.3d", i);
+            QString wallpaperPath = GetWallpapaerFromReg(buff);
+            if (!wallpaperPath.isEmpty() && !wallpapaersPath.contains(wallpaperPath))
+                wallpapaersPath.push_back(wallpaperPath);
+        }
+        return wallpapaersPath;
     }
 #else
 
@@ -109,30 +178,14 @@ QString CWallpaperHelper::GetCurrentWallpaperPath(bool fromRegistry)
         strRet = strRet.mid(7);
     if (strRet.endsWith('\''))
         strRet.chop(1);
-    return strRet;
+    return QList<QString>() << strRet;
 
 //    return "/usr/share/backgrounds/1-warty-final-ubuntukylin.jpg";
 #endif
 
-    return QString();
+    return QList<QString>();
 }
 
-bool CWallpaperHelper::SetCurrentDeskTop(int index)
-{
-#ifdef Q_OS_WIN
-    if (m_pWallpaper != nullptr)
-    {
-        UINT desktCount = 0;
-        m_pWallpaper->GetMonitorDevicePathCount(&desktCount);
-        if (index >= 0 && index < desktCount)
-        {
-            m_pWallpaper->GetMonitorDevicePathAt(index, &m_pMonitorIdBuf);
-            return true;
-        }
-    }
-#endif
-    return false;
-}
 
 bool CWallpaperHelper::PreviousWallPaper()
 {

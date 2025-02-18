@@ -104,12 +104,14 @@
     <QtMoc Include="MainWidget.h" />
     <QtMoc Include="ImageLabel.h" />
     <QtMoc Include="SettingsDlg.h" />
+    <QtMoc Include="WallpapaerWidget.h" />
     <ClInclude Include="WallpaperHelper.h" />
     <ClInclude Include="wallpapertool_global.h" />
     <QtMoc Include="WallpaperTool.h" />
     <ClCompile Include="ImageLabel.cpp" />
     <ClCompile Include="MainWidget.cpp" />
     <ClCompile Include="SettingsDlg.cpp" />
+    <ClCompile Include="WallpapaerWidget.cpp" />
     <ClCompile Include="WallpaperHelper.cpp" />
     <ClCompile Include="WallpaperTool.cpp" />
   </ItemGroup>

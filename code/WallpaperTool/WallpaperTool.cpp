@@ -30,8 +30,8 @@ void WallpaperTool::InitInstance()
     m_settings.Load();
 
     //显示壁纸
-    m_strCurWallpaperPath = m_helper.GetCurrentWallpaperPath(m_settings.wallpaperAcquireMethod == SettingsDlg::Data::Registry);
-    m_mainWidget.SetWallpaper(m_strCurWallpaperPath);
+    m_curWallpapersPath = m_helper.GetCurrentWallpaperPath(m_settings.wallpaperAcquireMethod == SettingsDlg::Data::Registry);
+    m_mainWidget.SetWallpapers(m_curWallpapersPath);
 }
 
 void WallpaperTool::UnInitInstance()
@@ -65,6 +65,9 @@ void WallpaperTool::OnCommand(const char* strCmd, bool checked)
 {
     QString cmd = QString::fromUtf8(strCmd);
 
+    QString m_strCurWallpaperPath;
+    if (!m_curWallpapersPath.isEmpty())
+        m_strCurWallpaperPath = m_curWallpapersPath.front();
     //当前壁纸另存为
     if (cmd == CMD_CURRENT_WALLPAPER_SAVE_AS)
     {
@@ -156,8 +159,8 @@ void WallpaperTool::WriteLog(const QString& strLogInfo)
 
 void WallpaperTool::Refresh()
 {
-    m_strCurWallpaperPath = m_helper.GetCurrentWallpaperPath(m_settings.wallpaperAcquireMethod == SettingsDlg::Data::Registry);
-    m_mainWidget.SetWallpaper(m_strCurWallpaperPath);
+    m_curWallpapersPath = m_helper.GetCurrentWallpaperPath(m_settings.wallpaperAcquireMethod == SettingsDlg::Data::Registry);
+    m_mainWidget.SetWallpapers(m_curWallpapersPath);
 }
 
 IModule* CreateInstance()

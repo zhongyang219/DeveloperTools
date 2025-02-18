@@ -1,8 +1,9 @@
 ﻿#pragma once
 
 #include <QMainWindow>
-#include <QLineEdit>
-#include "ImageLabel.h"
+#include <QList>
+#include "WallpapaerWidget.h"
+#include <QGridLayout>
 
 class MainWidget : public QMainWindow
 {
@@ -11,10 +12,10 @@ class MainWidget : public QMainWindow
 public:
     MainWidget(QWidget *parent = nullptr);
     ~MainWidget();
-    void SetWallpaper(const QString& strPath);
+    //设置所有壁纸的路径
+    void SetWallpapers(QList<QString>& wallpapersPath);
 
 private:
-    QLineEdit m_pathEdit;
-    CImageLabel m_imgLabel;
-
+    QList<CWallpapaerWidget*> m_wallpaperWidgets;
+    QGridLayout* m_pLayout;
 };

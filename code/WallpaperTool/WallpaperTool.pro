@@ -34,6 +34,7 @@ HEADERS += \
     ImageLabel.h \
     MainWidget.h \
     SettingsDlg.h \
+    WallpapaerWidget.h \
     WallpaperHelper.h \
     WallpaperTool.h \
     wallpapertool_global.h
@@ -42,5 +43,6 @@ SOURCES += \
     ImageLabel.cpp \
     MainWidget.cpp \
     SettingsDlg.cpp \
+    WallpapaerWidget.cpp \
     WallpaperHelper.cpp \
     WallpaperTool.cpp
