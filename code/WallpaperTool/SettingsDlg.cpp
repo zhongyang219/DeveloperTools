@@ -50,8 +50,8 @@ SettingsDlg::SettingsDlg(QWidget *parent)
 
     //非Windows下禁用壁纸获取方式选项
 #ifndef Q_OS_WIN
-    ui.radioButtonReg->setEnabled(false);
-    ui.radioButtonWallPaperInterface->setEnabled(false);
+    m_radioButtonReg->setEnabled(false);
+    m_radioButtonWallPaperInterface->setEnabled(false);
 #endif
 }
 
