@@ -45,8 +45,7 @@ void WallpaperTool::UiInitComplete(IMainFrame* pMainFrame)
     m_pMainFrame = pMainFrame;
 
     //显示壁纸
-    auto curWallpapersPath = m_helper.GetCurrentWallpaperPath(m_settings.wallpaperAcquireMethod == SettingsDlg::Data::Registry);
-    m_mainWidget.SetWallpapers(curWallpapersPath);
+    Refresh();
 }
 
 void* WallpaperTool::GetMainWindow()
@@ -165,15 +164,27 @@ void WallpaperTool::WriteLog(const QString& strLogInfo)
 void WallpaperTool::Refresh()
 {
     auto curWallpapersPath = m_helper.GetCurrentWallpaperPath(m_settings.wallpaperAcquireMethod == SettingsDlg::Data::Registry);
+    if (curWallpapersPath.size() == 1)
+        m_strCurWallpaperPath = curWallpapersPath.front();
     m_mainWidget.SetWallpapers(curWallpapersPath);
 }
 
 void WallpaperTool::OnMainWindowLayoutChanged(bool bGrid, const QString& curWallpaperPath)
 {
-    m_strCurWallpaperPath = curWallpaperPath;
-    m_pMainFrame->SetItemEnable(CMD_WallpaperBack, !bGrid);
-    m_pMainFrame->SetItemEnable(CMD_CURRENT_WALLPAPER_SAVE_AS, !bGrid);
-    m_pMainFrame->SetItemEnable(CMD_CURRENT_WALLPAPER_DELETE, !bGrid);
+    //只有一张壁纸的情况
+    if (m_mainWidget.GetWallpaperNum() == 1)
+    {
+        m_pMainFrame->SetItemEnable(CMD_WallpaperBack, false);
+        m_pMainFrame->SetItemEnable(CMD_CURRENT_WALLPAPER_SAVE_AS, true);
+        m_pMainFrame->SetItemEnable(CMD_CURRENT_WALLPAPER_DELETE, true);
+    }
+    else
+    {
+        m_strCurWallpaperPath = curWallpaperPath;
+        m_pMainFrame->SetItemEnable(CMD_WallpaperBack, !bGrid);
+        m_pMainFrame->SetItemEnable(CMD_CURRENT_WALLPAPER_SAVE_AS, !bGrid);
+        m_pMainFrame->SetItemEnable(CMD_CURRENT_WALLPAPER_DELETE, !bGrid);
+    }
 }
 
 IModule* CreateInstance()

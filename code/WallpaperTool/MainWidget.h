@@ -18,6 +18,8 @@ public:
     //回到宫格布局
     void ShowGridLayout();
 
+    int GetWallpaperNum();
+
 signals:
     //布局在单窗口布局和宫格布局间发生了变化。
     //bGrid: 如果改变后的布局为宫格布局，则为true，否则为false

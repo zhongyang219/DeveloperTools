@@ -50,7 +50,10 @@ void MainWidget::SetWallpapers(QList<QString>&wallpapersPath)
         pWidget->SetWallpaper(path);
         connect(&pWidget->GetImageLabel(), SIGNAL(clicked()), this, SLOT(OnWallpapaerWidgetClicked()));
         pWidget->show();
-        pWidget->GetImageLabel().setCursor(QCursor(Qt::PointingHandCursor));
+        if (wallpapersPath.size() > 1)
+            pWidget->GetImageLabel().setCursor(QCursor(Qt::PointingHandCursor));
+        else
+            pWidget->GetImageLabel().setCursor(QCursor(Qt::ArrowCursor));
         m_pLayout->addWidget(pWidget, row, col, 1, 1);
         index++;
     }
@@ -70,8 +73,15 @@ void MainWidget::ShowGridLayout()
     emit widgetLayoutChanged(m_isGridLayout, QString());
 }
 
+int MainWidget::GetWallpaperNum()
+{
+    return m_wallpaperWidgets.size();
+}
+
 void MainWidget::OnWallpapaerWidgetClicked()
 {
+    if (GetWallpaperNum() <= 1)
+        return;
     CWallpapaerWidget* pClickedWidget = qobject_cast<CWallpapaerWidget*>(QObject::sender()->parent());
     if (pClickedWidget != nullptr)
     {
