@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <root>
 	<!-- 右上角命令 -->
-	<Menu name="主题" icon="Images/theme.png" id="Theme" btnStyle="compact">
+	<Action name="功能区设置..." icon="Images/设置.png" id="RibbonOptions"/>
+	<Menu name="主题" icon="Images/theme.png" id="Theme">
 		<Action name="默认主题" id="DefaultStyle" checkable="true"/>
 	</Menu>
 	<Menu name="帮助" icon="Images/help.png" id="Help">
@@ -10,7 +11,7 @@
 	</Menu>
 
 	<!-- 主菜单 -->
-	<SystemMenu name="文件">
+	<SystemMenu name="文件" icon="Images/菜单.png">
 		<Action name="功能区设置..." icon="Images/设置.png" id="RibbonOptions"/>
 		<Action name="模块管理..." icon="Images/module.png" id="ModuleManager"/>
 		<Separator/>
