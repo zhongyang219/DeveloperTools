@@ -1,0 +1,1644 @@
+<!DOCTYPE html>
+<!-- saved from url=(0044)https://www.zfrontier.com/lab/keyboardTester -->
+<html style=""
+    class="mod-svg mod-flexbox mod-csstransitions mod-inlinesvg mod-filereader mod-placeholder mod-localstorage mod-no-touchevents mod-history not-login"
+    data-redeviation-bs-uid="88ge62g8pxv">
+
+<head id="doimbnaiiklnibbddollbnabcgjdpapj">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+    <title>键盘测试</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="theme-color" content="#000000">
+
+    <link type="text/css" rel="stylesheet" href="./index_files/kb_test-09cf3d8fcd.css">
+    <script type="text/javascript" src="./index_files/kb_test-695ee2b450.js"></script>
+    <script>
+        var URL_GA_PROXY = getHttpScheme() + "api.zfrontier.com";
+        zfGaStat.init('UA-78125205-1', zfLogin.getUid());
+    </script>
+    </style>
+    <style type="text/css">
+        /* Copyright 2014-present Evernote Corporation. All rights reserved. */
+        .skitchToastBoxContainer {
+            position: absolute;
+            width: 100%;
+            text-align: center;
+            top: 30px;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            pointer-events: none;
+        }
+
+        .skitchToastBox {
+            width: 200px;
+            height: 16px;
+            padding: 12px;
+            background-color: rgba(47, 55, 61, 0.95);
+            border-radius: 4px;
+            color: white;
+            cursor: default;
+            font-size: 10pt;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.32);
+            font-family: 'Soleil', Helvetica, Arial, sans-serif;
+            border: 2px rgba(255, 255, 255, 0.38) solid;
+        }
+
+        .lang-zh-cn .skitchToastBox {
+            font-family: '微软雅黑', 'Microsoft YaHei', SimSun,
+                '&#x30E1;&#x30A4;&#x30EA;&#x30AA;', Meiryo, 'MS PGothic', 'Soleil',
+                Helvetica, Arial, sans-serif;
+        }
+
+        .lang-ja-jp .skitchToastBox {
+            font-family: '&#x30E1;&#x30A4;&#x30EA;&#x30AA;', Meiryo, 'MS PGothic',
+                '微软雅黑', 'Microsoft YaHei', SimSun, 'Soleil', Helvetica, Arial,
+                sans-serif;
+        }
+
+        .skitchToast {
+            padding-left: 20px;
+            padding-right: 20px;
+            display: inline-block;
+            height: 10px;
+            color: #f1f5f8;
+            text-align: center;
+        }
+
+        .skitchVisible {
+            /* Don't remove this class it's a hack used by the Evernote Clipper */
+        }
+    </style>
+    <style type="text/css">
+        /* Copyright 2014-present Evernote Corporation. All rights reserved. */
+
+        #en-markup-disabled {
+            position: fixed;
+            z-index: 9999;
+            width: 100%;
+            height: 100%;
+            top: 0px;
+            left: 0px;
+            cursor: default;
+            -webkit-user-select: none;
+        }
+
+        #en-markup-alert-container {
+            position: absolute;
+            z-index: 9999;
+            width: 450px;
+            left: calc(50% - 225px);
+            top: calc(50% - 85px);
+            background-color: white;
+            box-shadow: 0 2px 7px 1px rgba(0, 0, 0, 0.35);
+            -webkit-user-select: none;
+        }
+
+        #en-markup-alert-container .cell-1 {
+            position: relative;
+            height: 110px;
+            width: 105px;
+            float: left;
+            text-align: center;
+            background-position: 65% 50%;
+            background-repeat: no-repeat;
+        }
+
+        #en-markup-alert-container .cell-2 {
+            position: relative;
+            float: left;
+            width: 345px;
+            margin-top: 29px;
+            margin-bottom: 20px;
+        }
+
+        #en-markup-alert-container .cell-2 .cell-2-title {
+            margin-bottom: 5px;
+            padding-right: 30px;
+            font-size: 12pt;
+            font-family: Tahoma, Arial;
+        }
+
+        #en-markup-alert-container .cell-2 .cell-2-message {
+            padding-right: 30px;
+            font-size: 9.5pt;
+            font-family: Tahoma, Arial;
+        }
+
+        #en-markup-alert-container .cell-3 {
+            position: relative;
+            width: 450px;
+            height: 60px;
+            float: left;
+            background-color: rgb(240, 240, 240);
+        }
+
+        #en-markup-alert-container .cell-3 button {
+            position: absolute;
+            top: 12px;
+            right: 15px;
+            width: 110px;
+            height: 36px;
+        }
+
+        #en-markup-alert-container .cell-3 button.alt-button {
+            position: absolute;
+            top: 12px;
+            right: 140px;
+            width: 110px;
+            height: 36px;
+        }
+    </style>
+    <style class="redeviation-bs-style" data-name="content">
+        /*! (c) Philipp Koenig under MS-RSL */
+        body>div#redeviation-bs-indicator>div {
+            opacity: 0;
+            pointer-events: none
+        }
+
+        body>#redeviation-bs-overlay.redeviation-bs-visible,
+        body>#redeviation-bs-sidebar.redeviation-bs-visible {
+            opacity: 1;
+            pointer-events: auto
+        }
+
+        body.redeviation-bs-noscroll {
+            overflow: hidden !important
+        }
+
+        body>div#redeviation-bs-indicator>div {
+            position: absolute;
+            transform: translate3d(-40px, 0, 0);
+            top: 0;
+            left: 0;
+            width: 40px !important;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            border-radius: 0 10px 10px 0;
+            transition: opacity .3s, transform .3s;
+            z-index: 2
+        }
+
+        body>div#redeviation-bs-indicator>div>span {
+            -webkit-mask: no-repeat center/32px;
+            -webkit-mask-image: url(chrome-extension://lmjefbghkfeppnpofmbfmhgodpclipbl/img/icon-bookmark.svg);
+            background-color: #ffffff;
+            position: absolute;
+            display: block;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%
+        }
+
+        body>div#redeviation-bs-indicator[data-pos=right] {
+            left: auto;
+            right: 0
+        }
+
+        body>div#redeviation-bs-indicator[data-pos=right]>div {
+            transform: translate3d(40px, 0, 0);
+            left: auto;
+            right: 0;
+            border-radius: 10px 0 0 10px
+        }
+
+        body>div#redeviation-bs-indicator.redeviation-bs-fullHeight>div {
+            border-radius: 0
+        }
+
+        body>div#redeviation-bs-indicator.redeviation-bs-hover>div {
+            transform: translate3d(0, 0, 0);
+            opacity: 1
+        }
+
+        body>div#redeviation-bs-indicator[data-pos=left].redeviation-bs-has-lsb {
+            height: 100% !important;
+            top: 0 !important
+        }
+
+        body>div#redeviation-bs-indicator[data-pos=left].redeviation-bs-has-lsb>div {
+            background: rgba(0, 0, 0, 0)
+        }
+
+        body>div#redeviation-bs-indicator[data-pos=left].redeviation-bs-has-lsb>div>span {
+            -webkit-mask-position-y: 20px
+        }
+
+        body>#redeviation-bs-sidebar {
+            width: 350px;
+            max-width: none;
+            height: 0;
+            z-index: 2147483646;
+            background-color: rgba(0, 0, 0, 0.6) !important;
+            color-scheme: auto !important;
+            speak: none;
+            border: none;
+            display: block !important;
+            transform: translate3d(-350px, 0, 0);
+            transition: width 0s .3s, height 0s .3s, opacity .3s, transform .3s
+        }
+
+        body>#redeviation-bs-sidebar[data-pos=right] {
+            left: auto;
+            right: 0;
+            transform: translate3d(350px, 0, 0)
+        }
+
+        body>#redeviation-bs-sidebar.redeviation-bs-visible {
+            width: calc(100% + 350px);
+            height: 100%;
+            transform: translate3d(0, 0, 0);
+            transition: opacity .3s, transform .3s
+        }
+
+        body>#redeviation-bs-sidebar.sidepanel {
+            width: 100% !important
+        }
+
+        body>#redeviation-bs-sidebar.redeviation-bs-hideMask {
+            background: none !important
+        }
+
+        body>#redeviation-bs-sidebar.redeviation-bs-hideMask:not(.redeviation-bs-hover) {
+            width: calc(350px + 50px)
+        }
+
+        body>#redeviation-bs-overlay {
+            width: 100%;
+            max-width: none;
+            height: 100%;
+            z-index: 2147483647;
+            border: none;
+            speak: none;
+            background: rgba(0, 0, 0, 0.5) !important;
+            color-scheme: auto !important;
+            transition: opacity .3s
+        }
+    </style>
+</head><fatkun-drop-panel style="display: none;"><template shadowrootmode="open">
+        <style>
+            .fatkun-drop-area {
+                user-select: none;
+                font-family: "PingFang SC", "Hiragino Sans GB", "WenQuanYi Micro Hei", "Microsoft Yahei", "å¾®è½¯é›…é»‘", "Helvetica Neue", Helvetica, Arial, Arial, sans-serif;
+                font-weight: 400;
+                z-index: 2147483647;
+                position: fixed;
+                top: -999999px;
+                left: -999999px;
+                width: 400px;
+                text-align: center;
+                transition: background 0.1s ease-in-out, opacity 0.1s ease-in-out, transform 0.2s ease-in-out, border 0.1s ease-in-out, box-shadow 0.1s ease-in-out;
+                opacity: 0;
+                padding: 0;
+                transform: translateY(10px);
+                border-radius: 10px;
+                box-sizing: border-box;
+                opacity: 1;
+                background: #fff;
+                box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.20);
+                border-radius: 8px;
+                overflow: hidden;
+                border: 1px solid rgba(0, 0, 0, 0.5);
+            }
+
+            .fatkun-drop-area.show {
+                transition: transform 50ms ease;
+                transform: translateY(0px);
+            }
+
+            #fatkun-drop-area-overlay {
+                z-index: 1147483646;
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                opacity: 0;
+                background: rgba(33, 33, 33, 0.5);
+                user-select: none;
+                pointer-events: none;
+                transition: opacity 50ms ease;
+            }
+
+            #fatkun-drop-area-overlay.show {
+                opacity: 1;
+            }
+
+            .fatkun-drop-area .fatkun-drop-area-content {
+                display: flex;
+                text-align: left;
+                flex-direction: row;
+                flex-shrink: initial;
+            }
+
+            .fatkun-drop-area .fatkun-drop-area-content .fatkun-left-panel {
+                position: relative;
+                min-width: 200px;
+                width: 200px;
+                min-height: 200px;
+                align-items: center;
+            }
+
+            .fatkun-drop-area .fatkun-drop-area-content .fatkun-left-panel .fatkun-drop-area-item {
+                text-align: center;
+                display: flex;
+                flex-shrink: initial;
+                flex-direction: row;
+                align-items: center;
+                background-color: #f1f2f4;
+                border-radius: 0;
+                padding: 0 16px;
+                position: absolute;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                height: auto !important;
+            }
+
+            .fatkun-drop-area .fatkun-drop-area-content .fatkun-left-panel .fatkun-drop-area-item.dragenter {
+                background-color: #e1e2e4;
+            }
+
+            .fatkun-drop-area .fatkun-drop-area-content .fatkun-left-panel .fatkun-drop-area-item .title {
+                font-size: 14px !important;
+                overflow: initial !important;
+            }
+
+            .fatkun-drop-area .fatkun-drop-area-content .fatkun-right-panel {
+                padding: 5px;
+                flex: 1;
+                max-width: calc(100% - 200px);
+            }
+
+            .fatkun-drop-area.old-version {
+                width: 200px;
+            }
+
+            .fatkun-drop-area.old-version .fatkun-drop-area-content .fatkun-left-panel .fatkun-drop-area-item {
+                right: 0;
+            }
+
+            .fatkun-drop-area.old-version .fatkun-drop-area-content .fatkun-right-panel {
+                display: none;
+            }
+
+            .fatkun-drop-area .fatkun-drop-area-content .fatkun-drop-area-item {
+                height: 32px;
+                display: flex !important;
+                align-items: center !important;
+                border-radius: 5px;
+                padding: 0 12px;
+                transition: all 80ms ease;
+            }
+
+            .fatkun-drop-area .fatkun-drop-area-content .fatkun-right-panel .fatkun-drop-area-item .title {
+                align-self: flex-start !important;
+            }
+
+            .fatkun-drop-area .fatkun-drop-area-content .fatkun-drop-area-item.all {
+                /*padding: 20px 12px;*/
+            }
+
+            .fatkun-drop-area .fatkun-drop-area-content .fatkun-drop-area-item.dragenter {
+                background-color: #f1f2f4;
+            }
+
+            .fatkun-drop-area .fatkun-drop-area-content .fatkun-drop-area-item * {
+                pointer-events: none;
+                flex-shrink: initial;
+                max-width: 100%;
+            }
+
+            .fatkun-drop-area .fatkun-drop-area-content hr {
+                border: 0 !important;
+                height: 1px !important;
+                margin: 5px 0 !important;
+                background-color: #e9e9e9 !important;
+                display: block !important;
+            }
+
+            .fatkun-drop-area .fatkun-drop-area-content .icon {
+                height: 32px;
+                width: 32px;
+                line-height: 32px;
+                text-align: center;
+                margin: 0 auto 20px !important;
+                background: rgba(128, 128, 128, 0.20);
+                border-radius: 50%;
+                transition: all 0.3s ease-in-out;
+            }
+
+            .fatkun-drop-area .fatkun-drop-area-content .icon .fake-svg {
+                -webkit-mask: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz48c3ZnIHdpZHRoPSIxM3B4IiBoZWlnaHQ9IjE1cHgiIHZpZXdCb3g9IjAgMCAxMyAxNSIgdmVyc2lvbj0iMS4xIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIj4gICAgICAgIDx0aXRsZT5pY19kb3dubG9hZF9ub3JtYWw8L3RpdGxlPiAgICA8ZGVzYz5DcmVhdGVkIHdpdGggU2tldGNoLjwvZGVzYz4gICAgPGcgaWQ9IlBhZ2UtMSIgc3Ryb2tlPSJub25lIiBzdHJva2Utd2lkdGg9IjEiIGZpbGw9Im5vbmUiIGZpbGwtcnVsZT0iZXZlbm9kZCI+ICAgICAgICA8ZyBpZD0i5paw54mI5pys5ouW5ou95qaC5b+1LS0t5ouW5ou96Kem5Y+RIiB0cmFuc2Zvcm09InRyYW5zbGF0ZSgtODE0LjAwMDAwMCwgLTM2Mi4wMDAwMDApIiBmaWxsPSIjMzMzMzMzIj4gICAgICAgICAgICA8ZyBpZD0iR3JvdXAtMyIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoNzA5LjAwMDAwMCwgMjg5LjAwMDAwMCkiPiAgICAgICAgICAgICAgICA8ZyBpZD0iR3JvdXAtNyIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoMjUuMDAwMDAwLCA2MS4wMDAwMDApIj4gICAgICAgICAgICAgICAgICAgIDxnIGlkPSJHcm91cC02IiB0cmFuc2Zvcm09InRyYW5zbGF0ZSg2Ny40NTAwMDAsIDAuMDAwMDAwKSI+ICAgICAgICAgICAgICAgICAgICAgICAgPGcgaWQ9ImFycm93LWRvd24iIHRyYW5zZm9ybT0idHJhbnNsYXRlKDEyLjM1MDAwMCwgMTIuMzUwMDAwKSI+ICAgICAgICAgICAgICAgICAgICAgICAgICAgIDxwb2x5Z29uIGlkPSJpY19kb3dubG9hZF9ub3JtYWwiIHBvaW50cz0iNi42NSAxMy43NzUgMC40NzUgNy42IDMuOCA3LjYgMy44IDAgOS41IDAgOS41IDcuNiAxMi44MjUgNy42Ij48L3BvbHlnb24+ICAgICAgICAgICAgICAgICAgICAgICAgPC9nPiAgICAgICAgICAgICAgICAgICAgPC9nPiAgICAgICAgICAgICAgICA8L2c+ICAgICAgICAgICAgPC9nPiAgICAgICAgPC9nPiAgICA8L2c+PC9zdmc+) no-repeat center center;
+                /*background: #333;*/
+                height: 32px;
+                width: 32px;
+                background: #666;
+                transition: all 0.3s ease-in-out;
+                animation: icon-jump 1.5s ease 0s infinite normal;
+            }
+
+            .fatkun-drop-area .fatkun-drop-area-content .title {
+                font-family: "PingFang SC", "Hiragino Sans GB", "WenQuanYi Micro Hei", "Microsoft Yahei", "å¾®è½¯é›…é»‘", "Helvetica Neue", Helvetica, Arial, Arial, sans-serif;
+                font-size: 12px !important;
+                font-weight: 400 !important;
+                line-height: 32px !important;
+                overflow: hidden !important;
+                white-space: nowrap !important;
+                text-overflow: ellipsis !important;
+                -webkit-font-smoothing: antialiased !important;
+                -moz-osx-font-smoothing: grayscale !important;
+                color: #111 !important;
+                margin: 0 !important;
+                display: block !important;
+                transition: all 0.3s ease-in-out;
+                max-width: 100%;
+            }
+
+            .fatkun-drop-area .fatkun-drop-area-content .description {
+                font-family: "PingFang SC", "Hiragino Sans GB", "WenQuanYi Micro Hei", "Microsoft Yahei", "å¾®è½¯é›…é»‘", "Helvetica Neue", Helvetica, Arial, Arial, sans-serif;
+                font-size: 12px !important;
+                font-weight: 400 !important;
+                -webkit-font-smoothing: antialiased !important;
+                -moz-osx-font-smoothing: grayscale !important;
+                margin-top: 12px !important;
+                margin-bottom: 0 !important;
+                line-height: 1.5 !important;
+                color: #111 !important;
+                opacity: 0.6;
+                transition: all 0.3s ease-in-out;
+                max-width: 100%;
+            }
+
+            .fatkun-drop-area.dragover {
+                opacity: 1;
+            }
+
+            @media (prefers-color-scheme: dark) {
+
+                .fatkun-drop-area {
+                    background: rgba(37, 37, 40, 0.98);
+                    box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.20);
+                    border: none;
+                }
+
+                #fatkun-drop-area-overlay {
+                    background: rgba(72, 72, 72, 0.3);
+                }
+
+                .fatkun-drop-area .fatkun-drop-area-content .fatkun-right-panel {
+                    background-color: rgba(255, 255, 255, 0.05);
+                }
+
+                .fatkun-drop-area .fatkun-drop-area-content .fatkun-right-panel .fatkun-drop-area-item.dragenter {
+                    background-color: rgba(255, 255, 255, 0.10);
+                }
+
+                .fatkun-drop-area .fatkun-drop-area-content .fatkun-left-panel .fatkun-drop-area-item {
+                    background-color: rgba(0, 0, 0, 0.05);
+                }
+
+                .fatkun-drop-area .fatkun-drop-area-content .fatkun-left-panel .fatkun-drop-area-item.dragenter {
+                    background-color: rgba(255, 255, 255, 0.10);
+                }
+
+                .fatkun-drop-area .fatkun-drop-area-content hr {
+                    background-color: rgba(255, 255, 255, 0.1) !important;
+                }
+
+                .fatkun-drop-area .fatkun-drop-area-content .title {
+                    color: #fff !important;
+                }
+
+                .fatkun-drop-area .fatkun-drop-area-content .description {
+                    color: #fff !important;
+                    opacity: 0.7;
+                }
+
+                .fatkun-drop-area .fatkun-drop-area-content .icon {
+                    background: rgba(255, 255, 255, 0.10);
+                }
+
+                .fatkun-drop-area .fatkun-drop-area-content .icon .fake-svg {
+                    background: #fff;
+                }
+
+            }
+
+            @keyframes icon-jump {
+                0% {
+                    transform: translateY(0);
+                }
+
+                20% {
+                    transform: translateY(0);
+                }
+
+                40% {
+                    transform: translateY(-20px);
+                }
+
+                50% {
+                    transform: translateY(0);
+                }
+
+                60% {
+                    transform: translateY(-7px);
+                }
+
+                80% {
+                    transform: translateY(0);
+                }
+
+                100% {
+                    transform: translateY(0);
+                }
+            }
+
+            .fatkun-drop-bottom-area {
+                font-family: "PingFang SC", "Hiragino Sans GB", "WenQuanYi Micro Hei", "Microsoft Yahei", "å¾®è½¯é›…é»‘", "Helvetica Neue", Helvetica, Arial, Arial, sans-serif;
+                font-weight: 400;
+                z-index: 2147483647;
+                position: fixed;
+                right: 0;
+                left: 0;
+                bottom: 0;
+                height: 120px;
+                text-align: center;
+                transition: opacity 0.3s ease-in-out, transform 0.2s ease-in-out, border 0.3s ease-in-out, box-shadow 0.2s ease-in-out;
+                -webkit-perspective: 1000;
+                transform: translateY(100%);
+                background: #303034;
+                border-top: 1px solid rgba(255, 255, 255, 0.07);
+                box-sizing: border-box;
+            }
+
+            .fatkun-drop-bottom-area .fatkun-drop-area-content {
+                position: absolute;
+                top: 50%;
+                width: 100%;
+                transform: translateY(-50%);
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+                justify-content: center;
+            }
+
+            .fatkun-drop-bottom-area .fatkun-drop-area-content .icon {
+                height: 44px;
+                width: 44px;
+                line-height: 44px;
+                text-align: center;
+                background: rgba(255, 255, 255, 0.20);
+                border-radius: 50%;
+                transition: all 0.3s ease-in-out;
+                margin-right: 24px;
+            }
+
+            .fatkun-drop-bottom-area .fatkun-drop-area-content .icon .fake-svg {
+                -webkit-mask: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz48c3ZnIHdpZHRoPSIxM3B4IiBoZWlnaHQ9IjE1cHgiIHZpZXdCb3g9IjAgMCAxMyAxNSIgdmVyc2lvbj0iMS4xIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIj4gICAgICAgIDx0aXRsZT5pY19kb3dubG9hZF9ub3JtYWw8L3RpdGxlPiAgICA8ZGVzYz5DcmVhdGVkIHdpdGggU2tldGNoLjwvZGVzYz4gICAgPGcgaWQ9IlBhZ2UtMSIgc3Ryb2tlPSJub25lIiBzdHJva2Utd2lkdGg9IjEiIGZpbGw9Im5vbmUiIGZpbGwtcnVsZT0iZXZlbm9kZCI+ICAgICAgICA8ZyBpZD0i5paw54mI5pys5ouW5ou95qaC5b+1LS0t5ouW5ou96Kem5Y+RIiB0cmFuc2Zvcm09InRyYW5zbGF0ZSgtODE0LjAwMDAwMCwgLTM2Mi4wMDAwMDApIiBmaWxsPSIjMzMzMzMzIj4gICAgICAgICAgICA8ZyBpZD0iR3JvdXAtMyIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoNzA5LjAwMDAwMCwgMjg5LjAwMDAwMCkiPiAgICAgICAgICAgICAgICA8ZyBpZD0iR3JvdXAtNyIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoMjUuMDAwMDAwLCA2MS4wMDAwMDApIj4gICAgICAgICAgICAgICAgICAgIDxnIGlkPSJHcm91cC02IiB0cmFuc2Zvcm09InRyYW5zbGF0ZSg2Ny40NTAwMDAsIDAuMDAwMDAwKSI+ICAgICAgICAgICAgICAgICAgICAgICAgPGcgaWQ9ImFycm93LWRvd24iIHRyYW5zZm9ybT0idHJhbnNsYXRlKDEyLjM1MDAwMCwgMTIuMzUwMDAwKSI+ICAgICAgICAgICAgICAgICAgICAgICAgICAgIDxwb2x5Z29uIGlkPSJpY19kb3dubG9hZF9ub3JtYWwiIHBvaW50cz0iNi42NSAxMy43NzUgMC40NzUgNy42IDMuOCA3LjYgMy44IDAgOS41IDAgOS41IDcuNiAxMi44MjUgNy42Ij48L3BvbHlnb24+ICAgICAgICAgICAgICAgICAgICAgICAgPC9nPiAgICAgICAgICAgICAgICAgICAgPC9nPiAgICAgICAgICAgICAgICA8L2c+ICAgICAgICAgICAgPC9nPiAgICAgICAgPC9nPiAgICA8L2c+PC9zdmc+) no-repeat center center;
+                height: 44px;
+                width: 44px;
+                background: #fff;
+                transition: all 0.3s ease-in-out;
+                animation: icon-jump 1s ease 0s infinite normal;
+            }
+
+            .fatkun-drop-bottom-area .fatkun-drop-area-content .title {
+                font-family: "PingFang SC", "Hiragino Sans GB", "WenQuanYi Micro Hei", "Microsoft Yahei", "å¾®è½¯é›…é»‘", "Helvetica Neue", Helvetica, Arial, Arial, sans-serif;
+                font-size: 18px !important;
+                font-weight: 500 !important;
+                -webkit-font-smoothing: antialiased !important;
+                -moz-osx-font-smoothing: grayscale !important;
+                color: #fff !important;
+                transition: all 0.3s ease-in-out;
+            }
+
+            .fatkun-drop-bottom-area.show {
+                opacity: 0.8;
+                transform: translateY(0) scale3d(1, 1, 1);
+            }
+
+            .fatkun-drop-bottom-area.dragover {
+                opacity: 0.95;
+            }
+
+            #fatkun-drop-panel-close-btn {
+                z-index: 1;
+                display: block;
+                width: 24px;
+                height: 24px;
+                position: absolute;
+                right: 0px;
+                top: 0px;
+                font-size: 24px;
+                color: #000;
+                text-align: center;
+                text-decoration: none;
+                line-height: 24px;
+            }
+        </style>
+
+        <div id="fatkun-drop-area" class="fatkun-drop-area old-version" style="left: 7px;top: 0;">
+            <div id="fatkun-drop-panel-close-btn">×</div>
+            <div class="fatkun-drop-area-content">
+                <div class="fatkun-left-panel">
+                    <div class="fatkun-drop-area-item" folder-id="">
+                        <div>
+                            <div class="icon">
+                                <div class="fake-svg"></div>
+                            </div>
+                            <div class="title">Drag and drop</div>
+                            <div class="description">The image dropped here will be downloaded by Fatkun</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="fatkun-right-panel">
+                    <div id="fatkun-drop-area-folders">
+                    </div>
+                    <div class="fatkun-drop-area-item" folder-id="choose">
+                        <div class="title">Choose folder...</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="fatkun-drop-area-overlay" class="" style="opacity: 1;"></div>
+    </template>
+</fatkun-drop-panel>
+
+<body>
+    <div class="header">
+        <div class="inner">
+            <a href="https://www.zfrontier.com/post/detail/15347"><img src="./index_files/white-icon.png" width="31px"
+                    height="26px"></a>
+            <span style="margin-left: 12px;">
+                <a href="https://www.zfrontier.com/">zFrontier</a> Lab <span
+                    style="font-size:19px;margin-left: 18px;">在线键盘测试</span>
+            </span>
+            <span style="position:absolute;right:9999px">键盘测试工具，在线使用，无需下载，快速检测键盘好坏，兼容各种配列机械键盘、客制化键盘、薄膜键盘</span>
+        </div>
+    </div>
+    <div class="row main">
+        <div class="keyboard-wrap">
+            <div id="app-root" class="keyboard"><svg version="1.1" xmlns="http://www.w3.org/2000/svg"
+                    xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="210 20 1000 400" xml:space="preserve"
+                    width="1120px" height="325px" class="kb-preview">
+                    <g id="kb" transform="translate(50,50)">
+                        <g transform="translate(0,0)" id="68949">
+                            <rect x="-25.8" y="-25.8" rx="1.5" width="51.85826" height="51.85826" class="key-base-color"
+                                style="stroke: none;"></rect>
+                            <use href="#keyside-1u"></use>
+                            <g clip-path="url(#dsa-top-mask-1)"><text x="-13.92913" y="0" dy="0"
+                                    alignment-baseline="central" font-family="zfArial" font-size="10"
+                                    class="key-top-color">ESC</text></g>
+                        </g>
+                        <g transform="translate(107.71652,0)" id="2219">
+                            <rect x="-25.8" y="-25.8" rx="1.5" width="51.85826" height="51.85826" class="key-base-color"
+                                style="stroke: none;"></rect>
+                            <use href="#keyside-1u"></use>
+                            <g clip-path="url(#dsa-top-mask-1)"><text x="-13.92913" y="0" dy="0"
+                                    alignment-baseline="central" font-family="zfArial" font-size="12"
+                                    class="key-top-color">F1</text></g>
+                        </g>
+                        <g transform="translate(161.57478,0)" id="2220">
+                            <rect x="-25.8" y="-25.8" rx="1.5" width="51.85826" height="51.85826" class="key-base-color"
+                                style="stroke: none;"></rect>
+                            <use href="#keyside-1u"></use>
+                            <g clip-path="url(#dsa-top-mask-1)"><text x="-13.92913" y="0" dy="0"
+                                    alignment-baseline="central" font-family="zfArial" font-size="12"
+                                    class="key-top-color">F2</text></g>
+                        </g>
+                        <g transform="translate(215.43304,0)" id="2221">
+                            <rect x="-25.8" y="-25.8" rx="1.5" width="51.85826" height="51.85826" class="key-base-color"
+                                style="stroke: none;"></rect>
+                            <use href="#keyside-1u"></use>
+                            <g clip-path="url(#dsa-top-mask-1)"><text x="-13.92913" y="0" dy="0"
+                                    alignment-baseline="central" font-family="zfArial" font-size="12"
+                                    class="key-top-color">F3</text></g>
+                        </g>
+                        <g transform="translate(269.2913,0)" id="2222">
+                            <rect x="-25.8" y="-25.8" rx="1.5" width="51.85826" height="51.85826" class="key-base-color"
+                                style="stroke: none;"></rect>
+                            <use href="#keyside-1u"></use>
+                            <g clip-path="url(#dsa-top-mask-1)"><text x="-13.92913" y="0" dy="0"
+                                    alignment-baseline="central" font-family="zfArial" font-size="12"
+                                    class="key-top-color">F4</text></g>
+                        </g>
+                        <g transform="translate(350.07869,0)" id="2223">
+                            <rect x="-25.8" y="-25.8" rx="1.5" width="51.85826" height="51.85826" class="key-base-color"
+                                style="stroke: none;"></rect>
+                            <use href="#keyside-1u"></use>
+                            <g clip-path="url(#dsa-top-mask-1)"><text x="-13.92913" y="0" dy="0"
+                                    alignment-baseline="central" font-family="zfArial" font-size="12"
+                                    class="key-top-color">F5</text></g>
+                        </g>
+                        <g transform="translate(403.93695,0)" id="2224">
+                            <rect x="-25.8" y="-25.8" rx="1.5" width="51.85826" height="51.85826" class="key-base-color"
+                                style="stroke: none;"></rect>
+                            <use href="#keyside-1u"></use>
+                            <g clip-path="url(#dsa-top-mask-1)"><text x="-13.92913" y="0" dy="0"
+                                    alignment-baseline="central" font-family="zfArial" font-size="12"
+                                    class="key-top-color">F6</text></g>
+                        </g>
+                        <g transform="translate(457.79521,0)" id="2225">
+                            <rect x="-25.8" y="-25.8" rx="1.5" width="51.85826" height="51.85826" class="key-base-color"
+                                style="stroke: none;"></rect>
+                            <use href="#keyside-1u"></use>
+                            <g clip-path="url(#dsa-top-mask-1)"><text x="-13.92913" y="0" dy="0"
+                                    alignment-baseline="central" font-family="zfArial" font-size="12"
+                                    class="key-top-color">F7</text></g>
+                        </g>
+                        <g transform="translate(511.65347,0)" id="2226">
+                            <rect x="-25.8" y="-25.8" rx="1.5" width="51.85826" height="51.85826" class="key-base-color"
+                                style="stroke: none;"></rect>
+                            <use href="#keyside-1u"></use>
+                            <g clip-path="url(#dsa-top-mask-1)"><text x="-13.92913" y="0" dy="0"
+                                    alignment-baseline="central" font-family="zfArial" font-size="12"
+                                    class="key-top-color">F8</text></g>
+                        </g>
+                        <g transform="translate(592.44086,0)" id="2227">
+                            <rect x="-25.8" y="-25.8" rx="1.5" width="51.85826" height="51.85826" class="key-base-color"
+                                style="stroke: none;"></rect>
+                            <use href="#keyside-1u"></use>
+                            <g clip-path="url(#dsa-top-mask-1)"><text x="-13.92913" y="0" dy="0"
+                                    alignment-baseline="central" font-family="zfArial" font-size="12"
+                                    class="key-top-color">F9</text></g>
+                        </g>
+                        <g transform="translate(646.29912,0)" id="68837">
+                            <rect x="-25.8" y="-25.8" rx="1.5" width="51.85826" height="51.85826" class="key-base-color"
+                                style="stroke: none;"></rect>
+                            <use href="#keyside-1u"></use>
+                            <g clip-path="url(#dsa-top-mask-1)"><text x="-13.92913" y="0" dy="0"
+                                    alignment-baseline="central" font-family="zfArial" font-size="12"
+                                    class="key-top-color">F10</text></g>
+                        </g>
+                        <g transform="translate(700.15738,0)" id="68838">
+                            <rect x="-25.8" y="-25.8" rx="1.5" width="51.85826" height="51.85826" class="key-base-color"
+                                style="stroke: none;"></rect>
+                            <use href="#keyside-1u"></use>
+                            <g clip-path="url(#dsa-top-mask-1)"><text x="-13.92913" y="0" dy="0"
+                                    alignment-baseline="central" font-family="zfArial" font-size="12"
+                                    class="key-top-color">F11</text></g>
+                        </g>
+                        <g transform="translate(754.0156400000001,0)" id="68839">
+                            <rect x="-25.8" y="-25.8" rx="1.5" width="51.85826" height="51.85826" class="key-base-color"
+                                style="stroke: none;"></rect>
+                            <use href="#keyside-1u"></use>
+                            <g clip-path="url(#dsa-top-mask-1)"><text x="-13.92913" y="0" dy="0"
+                                    alignment-baseline="central" font-family="zfArial" font-size="12"
+                                    class="key-top-color">F12</text></g>
+                        </g>
+                        <g transform="translate(821.338465,0)" id="76407906">
+                            <rect x="-25.8" y="-25.8" rx="1.5" width="51.85826" height="51.85826" class="key-base-color"
+                                style="stroke: none;"></rect>
+                            <use href="#keyside-1u"></use>
+                            <g clip-path="url(#dsa-top-mask-1)"><text x="-13.92913" y="0" dy="0"
+                                    alignment-baseline="central" font-family="zfArial" font-size="9"
+                                    class="key-top-color">PRTSC</text></g>
+                        </g>
+                        <g transform="translate(875.196725,0)" id="552102264">
+                            <rect x="-25.8" y="-25.8" rx="1.5" width="51.85826" height="51.85826" class="key-base-color"
+                                style="stroke: none;"></rect>
+                            <use href="#keyside-1u"></use>
+                            <g clip-path="url(#dsa-top-mask-1)"><text x="-13.92913" y="0" dy="0"
+                                    alignment-baseline="central" font-family="zfArial" font-size="10"
+                                    class="key-top-color">LOCK</text></g>
+                        </g>
+                        <g transform="translate(929.054985,0)" id="75902422">
+                            <rect x="-25.8" y="-25.8" rx="1.5" width="51.85826" height="51.85826" class="key-base-color"
+                                style="stroke: none;"></rect>
+                            <use href="#keyside-1u"></use>
+                            <g clip-path="url(#dsa-top-mask-1)"><text x="-13.92913" y="0" dy="0"
+                                    alignment-baseline="central" font-family="zfArial" font-size="9"
+                                    class="key-top-color">PAUSE</text></g>
+                        </g>
+                        <g transform="translate(0,80.78739)" id="96">
+                            <rect x="-25.8" y="-25.8" rx="1.5" width="51.85826" height="51.85826" class="key-base-color"
+                                style="stroke: none;"></rect>
+                            <use href="#keyside-1u"></use>
+                            <g clip-path="url(#dsa-top-mask-1)"><text x="-13.92913" y="13.92913" dy="0"
+                                    alignment-baseline="baseline" font-family="zfArial" font-size="15"
+                                    class="key-top-color">`</text><text x="-13.92913" y="-13.92913" dy="0"
+                                    alignment-baseline="hanging" font-family="zfArial" font-size="14"
+                                    class="key-top-color">~</text></g>
+                        </g>
+                        <g transform="translate(53.85826,80.78739)" id="49">
+                            <rect x="-25.8" y="-25.8" rx="1.5" width="51.85826" height="51.85826" class="key-base-color"
+                                style="stroke: none;"></rect>
+                            <use href="#keyside-1u"></use>
+                            <g clip-path="url(#dsa-top-mask-1)"><text x="-13.92913" y="13.92913" dy="0"
+                                    alignment-baseline="baseline" font-family="zfArial" font-size="15"
+                                    class="key-top-color">1</text><text x="-11.92913" y="-13.92913" dy="0"
+                                    alignment-baseline="hanging" font-family="zfArial" font-size="14"
+                                    class="key-top-color">!</text></g>
+                        </g>
+                        <g transform="translate(107.71652,80.78739)" id="50">
+                            <rect x="-25.8" y="-25.8" rx="1.5" width="51.85826" height="51.85826" class="key-base-color"
+                                style="stroke: none;"></rect>
+                            <use href="#keyside-1u"></use>
+                            <g clip-path="url(#dsa-top-mask-1)"><text x="-13.92913" y="13.92913" dy="0"
+                                    alignment-baseline="baseline" font-family="zfArial" font-size="15"
+                                    class="key-top-color">2</text><text x="-15.92913" y="-13.92913" dy="0"
+                                    alignment-baseline="hanging" font-family="zfArial" font-size="14"
+                                    class="key-top-color">@</text></g>
+                        </g>
+                        <g transform="translate(161.57478,80.78739)" id="51">
+                            <rect x="-25.8" y="-25.8" rx="1.5" width="51.85826" height="51.85826" class="key-base-color"
+                                style="stroke: none;"></rect>
+                            <use href="#keyside-1u"></use>
+                            <g clip-path="url(#dsa-top-mask-1)"><text x="-13.92913" y="13.92913" dy="0"
+                                    alignment-baseline="baseline" font-family="zfArial" font-size="15"
+                                    class="key-top-color">3</text><text x="-13.92913" y="-13.92913" dy="0"
+                                    alignment-baseline="hanging" font-family="zfArial" font-size="14"
+                                    class="key-top-color">#</text></g>
+                        </g>
+                        <g transform="translate(215.43304,80.78739)" id="52">
+                            <rect x="-25.8" y="-25.8" rx="1.5" width="51.85826" height="51.85826" class="key-base-color"
+                                style="stroke: none;"></rect>
+                            <use href="#keyside-1u"></use>
+                            <g clip-path="url(#dsa-top-mask-1)"><text x="-13.92913" y="13.92913" dy="0"
+                                    alignment-baseline="baseline" font-family="zfArial" font-size="15"
+                                    class="key-top-color">4</text><text x="-13.92913" y="-13.92913" dy="0"
+                                    alignment-baseline="hanging" font-family="zfArial" font-size="14"
+                                    class="key-top-color">$</text></g>
+                        </g>
+                        <g transform="translate(269.2913,80.78739)" id="53">
+                            <rect x="-25.8" y="-25.8" rx="1.5" width="51.85826" height="51.85826" class="key-base-color"
+                                style="stroke: none;"></rect>
+                            <use href="#keyside-1u"></use>
+                            <g clip-path="url(#dsa-top-mask-1)"><text x="-13.92913" y="13.92913" dy="0"
+                                    alignment-baseline="baseline" font-family="zfArial" font-size="15"
+                                    class="key-top-color">5</text><text x="-13.92913" y="-13.92913" dy="0"
+                                    alignment-baseline="hanging" font-family="zfArial" font-size="14"
+                                    class="key-top-color">%</text></g>
+                        </g>
+                        <g transform="translate(323.14956,80.78739)" id="54">
+                            <rect x="-25.8" y="-25.8" rx="1.5" width="51.85826" height="51.85826" class="key-base-color"
+                                style="stroke: none;"></rect>
+                            <use href="#keyside-1u"></use>
+                            <g clip-path="url(#dsa-top-mask-1)"><text x="-13.92913" y="13.92913" dy="0"
+                                    alignment-baseline="baseline" font-family="zfArial" font-size="15"
+                                    class="key-top-color">6</text><text x="-13.92913" y="-13.92913" dy="0"
+                                    alignment-baseline="hanging" font-family="zfArial" font-size="14"
+                                    class="key-top-color">^</text></g>
+                        </g>
+                        <g transform="translate(377.00782000000004,80.78739)" id="55">
+                            <rect x="-25.8" y="-25.8" rx="1.5" width="51.85826" height="51.85826" class="key-base-color"
+                                style="stroke: none;"></rect>
+                            <use href="#keyside-1u"></use>
+                            <g clip-path="url(#dsa-top-mask-1)"><text x="-13.92913" y="13.92913" dy="0"
+                                    alignment-baseline="baseline" font-family="zfArial" font-size="15"
+                                    class="key-top-color">7</text><text x="-13.92913" y="-13.92913" dy="0"
+                                    alignment-baseline="hanging" font-family="zfArial" font-size="14"
+                                    class="key-top-color">&amp;</text></g>
+                        </g>
+                        <g transform="translate(430.86608,80.78739)" id="56">
+                            <rect x="-25.8" y="-25.8" rx="1.5" width="51.85826" height="51.85826" class="key-base-color"
+                                style="stroke: none;"></rect>
+                            <use href="#keyside-1u"></use>
+                            <g clip-path="url(#dsa-top-mask-1)"><text x="-13.92913" y="13.92913" dy="0"
+                                    alignment-baseline="baseline" font-family="zfArial" font-size="15"
+                                    class="key-top-color">8</text><text x="-13.92913" y="-13.92913" dy="0"
+                                    alignment-baseline="hanging" font-family="zfArial" font-size="14"
+                                    class="key-top-color">*</text></g>
+                        </g>
+                        <g transform="translate(484.72434,80.78739)" id="57">
+                            <rect x="-25.8" y="-25.8" rx="1.5" width="51.85826" height="51.85826" class="key-base-color"
+                                style="stroke: none;"></rect>
+                            <use href="#keyside-1u"></use>
+                            <g clip-path="url(#dsa-top-mask-1)"><text x="-13.92913" y="13.92913" dy="0"
+                                    alignment-baseline="baseline" font-family="zfArial" font-size="15"
+                                    class="key-top-color">9</text><text x="-13.92913" y="-13.92913" dy="0"
+                                    alignment-baseline="hanging" font-family="zfArial" font-size="14"
+                                    class="key-top-color">(</text></g>
+                        </g>
+                        <g transform="translate(538.5826,80.78739)" id="48">
+                            <rect x="-25.8" y="-25.8" rx="1.5" width="51.85826" height="51.85826" class="key-base-color"
+                                style="stroke: none;"></rect>
+                            <use href="#keyside-1u"></use>
+                            <g clip-path="url(#dsa-top-mask-1)"><text x="-13.92913" y="13.92913" dy="0"
+                                    alignment-baseline="baseline" font-family="zfArial" font-size="15"
+                                    class="key-top-color">0</text><text x="-13.92913" y="-13.92913" dy="0"
+                                    alignment-baseline="hanging" font-family="zfArial" font-size="14"
+                                    class="key-top-color">)</text></g>
+                        </g>
+                        <g transform="translate(592.44086,80.78739)" id="45">
+                            <rect x="-25.8" y="-25.8" rx="1.5" width="51.85826" height="51.85826" class="key-base-color"
+                                style="stroke: none;"></rect>
+                            <use href="#keyside-1u"></use>
+                            <g clip-path="url(#dsa-top-mask-1)"><text x="-13.92913" y="13.92913" dy="0"
+                                    alignment-baseline="baseline" font-family="zfArial" font-size="15"
+                                    class="key-top-color">-</text><text x="-13.92913" y="-13.92913" dy="0"
+                                    alignment-baseline="hanging" font-family="zfArial" font-size="14"
+                                    class="key-top-color">_</text></g>
+                        </g>
+                        <g transform="translate(646.29912,80.78739)" id="61">
+                            <rect x="-25.8" y="-25.8" rx="1.5" width="51.85826" height="51.85826" class="key-base-color"
+                                style="stroke: none;"></rect>
+                            <use href="#keyside-1u"></use>
+                            <g clip-path="url(#dsa-top-mask-1)"><text x="-13.92913" y="13.92913" dy="0"
+                                    alignment-baseline="baseline" font-family="zfArial" font-size="15"
+                                    class="key-top-color">=</text><text x="-13.92913" y="-13.92913" dy="0"
+                                    alignment-baseline="hanging" font-family="zfArial" font-size="14"
+                                    class="key-top-color">+</text></g>
+                        </g>
+                        <g transform="translate(700.15738,80.78739)" id="-154864545">
+                            <rect x="-25.8" y="-25.8" rx="1.5" width="105.71652" height="51.85826"
+                                class="key-base-color" style="stroke: none;"></rect>
+                            <use href="#keyside-2u"></use>
+                            <g clip-path="url(#dsa-top-mask-2)"><text x="-13.92913" y="0" dy="0"
+                                    alignment-baseline="central" font-family="zfArial" font-size="10"
+                                    class="key-top-color">BACKSPACE</text></g>
+                        </g>
+                        <g transform="translate(821.338465,80.78739)" id="-2130463047">
+                            <rect x="-25.8" y="-25.8" rx="1.5" width="51.85826" height="51.85826" class="key-base-color"
+                                style="stroke: none;"></rect>
+                            <use href="#keyside-1u"></use>
+                            <g clip-path="url(#dsa-top-mask-1)"><text x="-13.92913" y="0" dy="0"
+                                    alignment-baseline="central" font-family="zfArial" font-size="10"
+                                    class="key-top-color">INS</text></g>
+                        </g>
+                        <g transform="translate(875.196725,80.78739)" id="2223327">
+                            <rect x="-25.8" y="-25.8" rx="1.5" width="51.85826" height="51.85826" class="key-base-color"
+                                style="stroke: none;"></rect>
+                            <use href="#keyside-1u"></use>
+                            <g clip-path="url(#dsa-top-mask-1)"><text x="-13.92913" y="0" dy="0"
+                                    alignment-baseline="central" font-family="zfArial" font-size="10"
+                                    class="key-top-color">HOME</text></g>
+                        </g>
+                        <g transform="translate(929.054985,80.78739)" id="2454226">
+                            <rect x="-25.8" y="-25.8" rx="1.5" width="51.85826" height="51.85826" class="key-base-color"
+                                style="stroke: none;"></rect>
+                            <use href="#keyside-1u"></use>
+                            <g clip-path="url(#dsa-top-mask-1)"><text x="-13.92913" y="0" dy="0"
+                                    alignment-baseline="central" font-family="zfArial" font-size="10"
+                                    class="key-top-color">PGUP</text></g>
+                        </g>
+                        <g transform="translate(996.3778100000001,80.78739)" id="-1282225775">
+                            <rect x="-25.8" y="-25.8" rx="1.5" width="51.85826" height="51.85826" class="key-base-color"
+                                style="stroke: none;"></rect>
+                            <use href="#keyside-1u"></use>
+                            <g clip-path="url(#dsa-top-mask-1)"><text x="-13.92913" y="0" dy="0"
+                                    alignment-baseline="central" font-family="zfArial" font-size="10"
+                                    class="key-top-color">
+                                    <tspan x="-13.92913" dy="0">NUM</tspan>
+                                    <tspan x="-13.92913" dy="1em">LOCK</tspan>
+                                </text></g>
+                        </g>
+                        <g transform="translate(1050.23607,80.78739)" id="2407817">
+                            <rect x="-25.8" y="-25.8" rx="1.5" width="51.85826" height="51.85826" class="key-base-color"
+                                style="stroke: none;"></rect>
+                            <use href="#keyside-1u"></use>
+                            <g clip-path="url(#dsa-top-mask-1)"><text x="-13.92913" y="0" dy="0"
+                                    alignment-baseline="central" font-family="zfArial" font-size="15"
+                                    class="key-top-color">/</text></g>
+                        </g>
+                        <g transform="translate(1104.0943300000001,80.78739)" id="2407812">
+                            <rect x="-25.8" y="-25.8" rx="1.5" width="51.85826" height="51.85826" class="key-base-color"
+                                style="stroke: none;"></rect>
+                            <use href="#keyside-1u"></use>
+                            <g clip-path="url(#dsa-top-mask-1)"><text x="-13.92913" y="0" dy="0"
+                                    alignment-baseline="central" font-family="zfArial" font-size="15"
+                                    class="key-top-color">*</text></g>
+                        </g>
+                        <g transform="translate(1157.95259,80.78739)" id="2407815">
+                            <rect x="-25.8" y="-25.8" rx="1.5" width="51.85826" height="51.85826" class="key-base-color"
+                                style="stroke: none;"></rect>
+                            <use href="#keyside-1u"></use>
+                            <g clip-path="url(#dsa-top-mask-1)"><text x="-13.92913" y="0" dy="0"
+                                    alignment-baseline="central" font-family="zfArial" font-size="15"
+                                    class="key-top-color">-</text></g>
+                        </g>
+                        <g transform="translate(0,134.64565)" id="82805">
+                            <rect x="-25.8" y="-25.8" rx="1.5" width="78.78739" height="51.85826" class="key-base-color"
+                                style="stroke: none;"></rect>
+                            <use href="#keyside-1u5"></use>
+                            <g clip-path="url(#dsa-top-mask-1-5)"><text x="-13.92913" y="0" dy="0"
+                                    alignment-baseline="central" font-family="zfArial" font-size="10"
+                                    class="key-top-color">TAB</text></g>
+                        </g>
+                        <g transform="translate(80.78739,134.64565)" id="81">
+                            <rect x="-25.8" y="-25.8" rx="1.5" width="51.85826" height="51.85826" class="key-base-color"
+                                style="stroke: none;"></rect>
+                            <use href="#keyside-1u"></use>
+                            <g clip-path="url(#dsa-top-mask-1)"><text x="-13.92913" y="-13.92913" dy="0"
+                                    alignment-baseline="hanging" font-family="zfArial" font-size="14"
+                                    class="key-top-color">Q</text></g>
+                        </g>
+                        <g transform="translate(134.64565,134.64565)" id="87">
+                            <rect x="-25.8" y="-25.8" rx="1.5" width="51.85826" height="51.85826" class="key-base-color"
+                                style="stroke: none;"></rect>
+                            <use href="#keyside-1u"></use>
+                            <g clip-path="url(#dsa-top-mask-1)"><text x="-13.92913" y="-13.92913" dy="0"
+                                    alignment-baseline="hanging" font-family="zfArial" font-size="14"
+                                    class="key-top-color">W</text></g>
+                        </g>
+                        <g transform="translate(188.50391000000002,134.64565)" id="69">
+                            <rect x="-25.8" y="-25.8" rx="1.5" width="51.85826" height="51.85826" class="key-base-color"
+                                style="stroke: none;"></rect>
+                            <use href="#keyside-1u"></use>
+                            <g clip-path="url(#dsa-top-mask-1)"><text x="-13.92913" y="-13.92913" dy="0"
+                                    alignment-baseline="hanging" font-family="zfArial" font-size="14"
+                                    class="key-top-color">E</text></g>
+                        </g>
+                        <g transform="translate(242.36217,134.64565)" id="82">
+                            <rect x="-25.8" y="-25.8" rx="1.5" width="51.85826" height="51.85826" class="key-base-color"
+                                style="stroke: none;"></rect>
+                            <use href="#keyside-1u"></use>
+                            <g clip-path="url(#dsa-top-mask-1)"><text x="-13.92913" y="-13.92913" dy="0"
+                                    alignment-baseline="hanging" font-family="zfArial" font-size="14"
+                                    class="key-top-color">R</text></g>
+                        </g>
+                        <g transform="translate(296.22043,134.64565)" id="84">
+                            <rect x="-25.8" y="-25.8" rx="1.5" width="51.85826" height="51.85826" class="key-base-color"
+                                style="stroke: none;"></rect>
+                            <use href="#keyside-1u"></use>
+                            <g clip-path="url(#dsa-top-mask-1)"><text x="-13.92913" y="-13.92913" dy="0"
+                                    alignment-baseline="hanging" font-family="zfArial" font-size="14"
+                                    class="key-top-color">T</text></g>
+                        </g>
+                        <g transform="translate(350.07869,134.64565)" id="89">
+                            <rect x="-25.8" y="-25.8" rx="1.5" width="51.85826" height="51.85826" class="key-base-color"
+                                style="stroke: none;"></rect>
+                            <use href="#keyside-1u"></use>
+                            <g clip-path="url(#dsa-top-mask-1)"><text x="-13.92913" y="-13.92913" dy="0"
+                                    alignment-baseline="hanging" font-family="zfArial" font-size="14"
+                                    class="key-top-color">Y</text></g>
+                        </g>
+                        <g transform="translate(403.93695,134.64565)" id="85">
+                            <rect x="-25.8" y="-25.8" rx="1.5" width="51.85826" height="51.85826" class="key-base-color"
+                                style="stroke: none;"></rect>
+                            <use href="#keyside-1u"></use>
+                            <g clip-path="url(#dsa-top-mask-1)"><text x="-13.92913" y="-13.92913" dy="0"
+                                    alignment-baseline="hanging" font-family="zfArial" font-size="14"
+                                    class="key-top-color">U</text></g>
+                        </g>
+                        <g transform="translate(457.79521,134.64565)" id="73">
+                            <rect x="-25.8" y="-25.8" rx="1.5" width="51.85826" height="51.85826" class="key-base-color"
+                                style="stroke: none;"></rect>
+                            <use href="#keyside-1u"></use>
+                            <g clip-path="url(#dsa-top-mask-1)"><text x="-13.92913" y="-13.92913" dy="0"
+                                    alignment-baseline="hanging" font-family="zfArial" font-size="14"
+                                    class="key-top-color">I</text></g>
+                        </g>
+                        <g transform="translate(511.65347,134.64565)" id="79">
+                            <rect x="-25.8" y="-25.8" rx="1.5" width="51.85826" height="51.85826" class="key-base-color"
+                                style="stroke: none;"></rect>
+                            <use href="#keyside-1u"></use>
+                            <g clip-path="url(#dsa-top-mask-1)"><text x="-13.92913" y="-13.92913" dy="0"
+                                    alignment-baseline="hanging" font-family="zfArial" font-size="14"
+                                    class="key-top-color">O</text></g>
+                        </g>
+                        <g transform="translate(565.5117300000001,134.64565)" id="80">
+                            <rect x="-25.8" y="-25.8" rx="1.5" width="51.85826" height="51.85826" class="key-base-color"
+                                style="stroke: none;"></rect>
+                            <use href="#keyside-1u"></use>
+                            <g clip-path="url(#dsa-top-mask-1)"><text x="-13.92913" y="-13.92913" dy="0"
+                                    alignment-baseline="hanging" font-family="zfArial" font-size="14"
+                                    class="key-top-color">P</text></g>
+                        </g>
+                        <g transform="translate(619.36999,134.64565)" id="91">
+                            <rect x="-25.8" y="-25.8" rx="1.5" width="51.85826" height="51.85826" class="key-base-color"
+                                style="stroke: none;"></rect>
+                            <use href="#keyside-1u"></use>
+                            <g clip-path="url(#dsa-top-mask-1)"><text x="-13.92913" y="13.92913" dy="0"
+                                    alignment-baseline="baseline" font-family="zfArial" font-size="15"
+                                    class="key-top-color">[</text><text x="-13.92913" y="-13.92913" dy="0"
+                                    alignment-baseline="hanging" font-family="zfArial" font-size="14"
+                                    class="key-top-color">{</text></g>
+                        </g>
+                        <g transform="translate(673.22825,134.64565)" id="93">
+                            <rect x="-25.8" y="-25.8" rx="1.5" width="51.85826" height="51.85826" class="key-base-color"
+                                style="stroke: none;"></rect>
+                            <use href="#keyside-1u"></use>
+                            <g clip-path="url(#dsa-top-mask-1)"><text x="-13.92913" y="13.92913" dy="0"
+                                    alignment-baseline="baseline" font-family="zfArial" font-size="15"
+                                    class="key-top-color">]</text><text x="-13.92913" y="-13.92913" dy="0"
+                                    alignment-baseline="hanging" font-family="zfArial" font-size="14"
+                                    class="key-top-color">}</text></g>
+                        </g>
+                        <g transform="translate(727.08651,134.64565)" id="92">
+                            <rect x="-25.8" y="-25.8" rx="1.5" width="78.78739" height="51.85826" class="key-base-color"
+                                style="stroke: none;"></rect>
+                            <use href="#keyside-1u5"></use>
+                            <g clip-path="url(#dsa-top-mask-1-5)"><text x="-13.92913" y="13.92913" dy="0"
+                                    alignment-baseline="baseline" font-family="zfArial" font-size="15"
+                                    class="key-top-color">\</text><text x="-13.92913" y="-13.92913" dy="0"
+                                    alignment-baseline="hanging" font-family="zfArial" font-size="14"
+                                    class="key-top-color">|</text></g>
+                        </g>
+                        <g transform="translate(821.338465,134.64565)" id="2012838315">
+                            <rect x="-25.8" y="-25.8" rx="1.5" width="51.85826" height="51.85826" class="key-base-color"
+                                style="stroke: none;"></rect>
+                            <use href="#keyside-1u"></use>
+                            <g clip-path="url(#dsa-top-mask-1)"><text x="-13.92913" y="0" dy="0"
+                                    alignment-baseline="central" font-family="zfArial" font-size="10"
+                                    class="key-top-color">DEL</text></g>
+                        </g>
+                        <g transform="translate(875.196725,134.64565)" id="68795">
+                            <rect x="-25.8" y="-25.8" rx="1.5" width="51.85826" height="51.85826" class="key-base-color"
+                                style="stroke: none;"></rect>
+                            <use href="#keyside-1u"></use>
+                            <g clip-path="url(#dsa-top-mask-1)"><text x="-13.92913" y="0" dy="0"
+                                    alignment-baseline="central" font-family="zfArial" font-size="10"
+                                    class="key-top-color">END</text></g>
+                        </g>
+                        <g transform="translate(929.054985,134.64565)" id="2453697">
+                            <rect x="-25.8" y="-25.8" rx="1.5" width="51.85826" height="51.85826" class="key-base-color"
+                                style="stroke: none;"></rect>
+                            <use href="#keyside-1u"></use>
+                            <g clip-path="url(#dsa-top-mask-1)"><text x="-13.92913" y="0" dy="0"
+                                    alignment-baseline="central" font-family="zfArial" font-size="10"
+                                    class="key-top-color">PGDN</text></g>
+                        </g>
+                        <g transform="translate(996.3778100000001,134.64565)" id="2407825">
+                            <rect x="-25.8" y="-25.8" rx="1.5" width="51.85826" height="51.85826" class="key-base-color"
+                                style="stroke: none;"></rect>
+                            <use href="#keyside-1u"></use>
+                            <g clip-path="url(#dsa-top-mask-1)"><text x="-13.92913" y="-13.92913" dy="0"
+                                    alignment-baseline="hanging" font-family="zfArial" font-size="15"
+                                    class="key-top-color">7</text></g>
+                        </g>
+                        <g transform="translate(1050.23607,134.64565)" id="2407826">
+                            <rect x="-25.8" y="-25.8" rx="1.5" width="51.85826" height="51.85826" class="key-base-color"
+                                style="stroke: none;"></rect>
+                            <use href="#keyside-1u"></use>
+                            <g clip-path="url(#dsa-top-mask-1)"><text x="-13.92913" y="-13.92913" dy="0"
+                                    alignment-baseline="hanging" font-family="zfArial" font-size="15"
+                                    class="key-top-color">8</text></g>
+                        </g>
+                        <g transform="translate(1104.0943300000001,134.64565)" id="2407827">
+                            <rect x="-25.8" y="-25.8" rx="1.5" width="51.85826" height="51.85826" class="key-base-color"
+                                style="stroke: none;"></rect>
+                            <use href="#keyside-1u"></use>
+                            <g clip-path="url(#dsa-top-mask-1)"><text x="-13.92913" y="-13.92913" dy="0"
+                                    alignment-baseline="hanging" font-family="zfArial" font-size="15"
+                                    class="key-top-color">9</text></g>
+                        </g>
+                        <g transform="translate(1157.95259,134.64565)" id="2407813">
+                            <rect x="-25.8" y="-25.8" rx="1.5" width="51.85826" height="105.71652"
+                                class="key-base-color" style="stroke: none;"></rect>
+                            <use href="#keyside-1u2h"></use>
+                            <g clip-path="url(#dsa-top-mask-2h)"><text x="0" y="26.92913" dy="0"
+                                    alignment-baseline="central" font-family="zfArial" font-size="15"
+                                    class="key-top-color">+</text></g>
+                        </g>
+                        <g transform="translate(0,188.50391000000002)" id="731699084">
+                            <rect x="-25.8" y="-25.8" rx="1.5" width="92.25195500000001" height="51.85826"
+                                class="key-base-color" style="stroke: none;"></rect>
+                            <use href="#keyside-1u75"></use>
+                            <g clip-path="url(#dsa-top-mask-1-75)"><text x="-13.92913" y="0" dy="0"
+                                    alignment-baseline="central" font-family="zfArial" font-size="10"
+                                    class="key-top-color">CAPS LOCK</text></g>
+                        </g>
+                        <g transform="translate(94.25195500000001,188.50391000000002)" id="65">
+                            <rect x="-25.8" y="-25.8" rx="1.5" width="51.85826" height="51.85826" class="key-base-color"
+                                style="stroke: none;"></rect>
+                            <use href="#keyside-1u"></use>
+                            <g clip-path="url(#dsa-top-mask-1)"><text x="-13.92913" y="-13.92913" dy="0"
+                                    alignment-baseline="hanging" font-family="zfArial" font-size="14"
+                                    class="key-top-color">A</text></g>
+                        </g>
+                        <g transform="translate(148.110215,188.50391000000002)" id="83">
+                            <rect x="-25.8" y="-25.8" rx="1.5" width="51.85826" height="51.85826" class="key-base-color"
+                                style="stroke: none;"></rect>
+                            <use href="#keyside-1u"></use>
+                            <g clip-path="url(#dsa-top-mask-1)"><text x="-13.92913" y="-13.92913" dy="0"
+                                    alignment-baseline="hanging" font-family="zfArial" font-size="14"
+                                    class="key-top-color">S</text></g>
+                        </g>
+                        <g transform="translate(201.968475,188.50391000000002)" id="68">
+                            <rect x="-25.8" y="-25.8" rx="1.5" width="51.85826" height="51.85826" class="key-base-color"
+                                style="stroke: none;"></rect>
+                            <use href="#keyside-1u"></use>
+                            <g clip-path="url(#dsa-top-mask-1)"><text x="-13.92913" y="-13.92913" dy="0"
+                                    alignment-baseline="hanging" font-family="zfArial" font-size="14"
+                                    class="key-top-color">D</text></g>
+                        </g>
+                        <g transform="translate(255.826735,188.50391000000002)" id="70">
+                            <rect x="-25.8" y="-25.8" rx="1.5" width="51.85826" height="51.85826" class="key-base-color"
+                                style="stroke: none;"></rect>
+                            <use href="#keyside-1u"></use>
+                            <g clip-path="url(#dsa-top-mask-1)"><text x="-13.92913" y="-13.92913" dy="0"
+                                    alignment-baseline="hanging" font-family="zfArial" font-size="14"
+                                    class="key-top-color">F</text></g>
+                        </g>
+                        <g transform="translate(309.684995,188.50391000000002)" id="71">
+                            <rect x="-25.8" y="-25.8" rx="1.5" width="51.85826" height="51.85826" class="key-base-color"
+                                style="stroke: none;"></rect>
+                            <use href="#keyside-1u"></use>
+                            <g clip-path="url(#dsa-top-mask-1)"><text x="-13.92913" y="-13.92913" dy="0"
+                                    alignment-baseline="hanging" font-family="zfArial" font-size="14"
+                                    class="key-top-color">G</text></g>
+                        </g>
+                        <g transform="translate(363.543255,188.50391000000002)" id="72">
+                            <rect x="-25.8" y="-25.8" rx="1.5" width="51.85826" height="51.85826" class="key-base-color"
+                                style="stroke: none;"></rect>
+                            <use href="#keyside-1u"></use>
+                            <g clip-path="url(#dsa-top-mask-1)"><text x="-13.92913" y="-13.92913" dy="0"
+                                    alignment-baseline="hanging" font-family="zfArial" font-size="14"
+                                    class="key-top-color">H</text></g>
+                        </g>
+                        <g transform="translate(417.401515,188.50391000000002)" id="74">
+                            <rect x="-25.8" y="-25.8" rx="1.5" width="51.85826" height="51.85826" class="key-base-color"
+                                style="stroke: none;"></rect>
+                            <use href="#keyside-1u"></use>
+                            <g clip-path="url(#dsa-top-mask-1)"><text x="-13.92913" y="-13.92913" dy="0"
+                                    alignment-baseline="hanging" font-family="zfArial" font-size="14"
+                                    class="key-top-color">J</text></g>
+                        </g>
+                        <g transform="translate(471.259775,188.50391000000002)" id="75">
+                            <rect x="-25.8" y="-25.8" rx="1.5" width="51.85826" height="51.85826" class="key-base-color"
+                                style="stroke: none;"></rect>
+                            <use href="#keyside-1u"></use>
+                            <g clip-path="url(#dsa-top-mask-1)"><text x="-13.92913" y="-13.92913" dy="0"
+                                    alignment-baseline="hanging" font-family="zfArial" font-size="14"
+                                    class="key-top-color">K</text></g>
+                        </g>
+                        <g transform="translate(525.118035,188.50391000000002)" id="76">
+                            <rect x="-25.8" y="-25.8" rx="1.5" width="51.85826" height="51.85826" class="key-base-color"
+                                style="stroke: none;"></rect>
+                            <use href="#keyside-1u"></use>
+                            <g clip-path="url(#dsa-top-mask-1)"><text x="-13.92913" y="-13.92913" dy="0"
+                                    alignment-baseline="hanging" font-family="zfArial" font-size="14"
+                                    class="key-top-color">L</text></g>
+                        </g>
+                        <g transform="translate(578.976295,188.50391000000002)" id="59">
+                            <rect x="-25.8" y="-25.8" rx="1.5" width="51.85826" height="51.85826" class="key-base-color"
+                                style="stroke: none;"></rect>
+                            <use href="#keyside-1u"></use>
+                            <g clip-path="url(#dsa-top-mask-1)"><text x="-13.92913" y="13.92913" dy="0"
+                                    alignment-baseline="baseline" font-family="zfArial" font-size="15"
+                                    class="key-top-color">;</text><text x="-13.92913" y="-13.92913" dy="0"
+                                    alignment-baseline="hanging" font-family="zfArial" font-size="14"
+                                    class="key-top-color">:</text></g>
+                        </g>
+                        <g transform="translate(632.834555,188.50391000000002)" id="39">
+                            <rect x="-25.8" y="-25.8" rx="1.5" width="51.85826" height="51.85826" class="key-base-color"
+                                style="stroke: none;"></rect>
+                            <use href="#keyside-1u"></use>
+                            <g clip-path="url(#dsa-top-mask-1)"><text x="-13.92913" y="13.92913" dy="0"
+                                    alignment-baseline="baseline" font-family="zfArial" font-size="15"
+                                    class="key-top-color">'</text><text x="-13.92913" y="-13.92913" dy="0"
+                                    alignment-baseline="hanging" font-family="zfArial" font-size="14"
+                                    class="key-top-color">"</text></g>
+                        </g>
+                        <g transform="translate(686.692815,188.50391000000002)" id="66129592">
+                            <rect x="-25.8" y="-25.8" rx="1.5" width="119.181085" height="51.85826"
+                                class="key-base-color" style="stroke: none;"></rect>
+                            <use href="#keyside-2u25"></use>
+                            <g clip-path="url(#dsa-top-mask-2-25)"><text x="-13.92913" y="0" dy="0"
+                                    alignment-baseline="central" font-family="zfArial" font-size="10"
+                                    class="key-top-color">ENTER</text></g>
+                        </g>
+                        <g transform="translate(996.3778100000001,188.50391000000002)" id="2407822">
+                            <rect x="-25.8" y="-25.8" rx="1.5" width="51.85826" height="51.85826" class="key-base-color"
+                                style="stroke: none;"></rect>
+                            <use href="#keyside-1u"></use>
+                            <g clip-path="url(#dsa-top-mask-1)"><text x="-13.92913" y="-13.92913" dy="0"
+                                    alignment-baseline="hanging" font-family="zfArial" font-size="15"
+                                    class="key-top-color">4</text></g>
+                        </g>
+                        <g transform="translate(1050.23607,188.50391000000002)" id="2407823">
+                            <rect x="-25.8" y="-25.8" rx="1.5" width="51.85826" height="51.85826" class="key-base-color"
+                                style="stroke: none;"></rect>
+                            <use href="#keyside-1u"></use>
+                            <g clip-path="url(#dsa-top-mask-1)"><text x="-13.92913" y="-13.92913" dy="0"
+                                    alignment-baseline="hanging" font-family="zfArial" font-size="15"
+                                    class="key-top-color">5</text></g>
+                        </g>
+                        <g transform="translate(1104.0943300000001,188.50391000000002)" id="2407824">
+                            <rect x="-25.8" y="-25.8" rx="1.5" width="51.85826" height="51.85826" class="key-base-color"
+                                style="stroke: none;"></rect>
+                            <use href="#keyside-1u"></use>
+                            <g clip-path="url(#dsa-top-mask-1)"><text x="-13.92913" y="-13.92913" dy="0"
+                                    alignment-baseline="hanging" font-family="zfArial" font-size="15"
+                                    class="key-top-color">6</text></g>
+                        </g>
+                        <g transform="translate(0,242.36217)" id="-2040282218">
+                            <rect x="-25.8" y="-25.8" rx="1.5" width="119.181085" height="51.85826"
+                                class="key-base-color" style="stroke: none;"></rect>
+                            <use href="#keyside-2u25"></use>
+                            <g clip-path="url(#dsa-top-mask-2-25)"><text x="-13.92913" y="0" dy="0"
+                                    alignment-baseline="central" font-family="zfArial" font-size="10"
+                                    class="key-top-color">SHIFT</text></g>
+                        </g>
+                        <g transform="translate(121.181085,242.36217)" id="90">
+                            <rect x="-25.8" y="-25.8" rx="1.5" width="51.85826" height="51.85826" class="key-base-color"
+                                style="stroke: none;"></rect>
+                            <use href="#keyside-1u"></use>
+                            <g clip-path="url(#dsa-top-mask-1)"><text x="-13.92913" y="-13.92913" dy="0"
+                                    alignment-baseline="hanging" font-family="zfArial" font-size="14"
+                                    class="key-top-color">Z</text></g>
+                        </g>
+                        <g transform="translate(175.039345,242.36217)" id="88">
+                            <rect x="-25.8" y="-25.8" rx="1.5" width="51.85826" height="51.85826" class="key-base-color"
+                                style="stroke: none;"></rect>
+                            <use href="#keyside-1u"></use>
+                            <g clip-path="url(#dsa-top-mask-1)"><text x="-13.92913" y="-13.92913" dy="0"
+                                    alignment-baseline="hanging" font-family="zfArial" font-size="14"
+                                    class="key-top-color">X</text></g>
+                        </g>
+                        <g transform="translate(228.897605,242.36217)" id="67">
+                            <rect x="-25.8" y="-25.8" rx="1.5" width="51.85826" height="51.85826" class="key-base-color"
+                                style="stroke: none;"></rect>
+                            <use href="#keyside-1u"></use>
+                            <g clip-path="url(#dsa-top-mask-1)"><text x="-13.92913" y="-13.92913" dy="0"
+                                    alignment-baseline="hanging" font-family="zfArial" font-size="14"
+                                    class="key-top-color">C</text></g>
+                        </g>
+                        <g transform="translate(282.75586500000003,242.36217)" id="86">
+                            <rect x="-25.8" y="-25.8" rx="1.5" width="51.85826" height="51.85826" class="key-base-color"
+                                style="stroke: none;"></rect>
+                            <use href="#keyside-1u"></use>
+                            <g clip-path="url(#dsa-top-mask-1)"><text x="-13.92913" y="-13.92913" dy="0"
+                                    alignment-baseline="hanging" font-family="zfArial" font-size="14"
+                                    class="key-top-color">V</text></g>
+                        </g>
+                        <g transform="translate(336.614125,242.36217)" id="66">
+                            <rect x="-25.8" y="-25.8" rx="1.5" width="51.85826" height="51.85826" class="key-base-color"
+                                style="stroke: none;"></rect>
+                            <use href="#keyside-1u"></use>
+                            <g clip-path="url(#dsa-top-mask-1)"><text x="-13.92913" y="-13.92913" dy="0"
+                                    alignment-baseline="hanging" font-family="zfArial" font-size="14"
+                                    class="key-top-color">B</text></g>
+                        </g>
+                        <g transform="translate(390.47238500000003,242.36217)" id="78">
+                            <rect x="-25.8" y="-25.8" rx="1.5" width="51.85826" height="51.85826" class="key-base-color"
+                                style="stroke: none;"></rect>
+                            <use href="#keyside-1u"></use>
+                            <g clip-path="url(#dsa-top-mask-1)"><text x="-13.92913" y="-13.92913" dy="0"
+                                    alignment-baseline="hanging" font-family="zfArial" font-size="14"
+                                    class="key-top-color">N</text></g>
+                        </g>
+                        <g transform="translate(444.330645,242.36217)" id="77">
+                            <rect x="-25.8" y="-25.8" rx="1.5" width="51.85826" height="51.85826" class="key-base-color"
+                                style="stroke: none;"></rect>
+                            <use href="#keyside-1u"></use>
+                            <g clip-path="url(#dsa-top-mask-1)"><text x="-13.92913" y="-13.92913" dy="0"
+                                    alignment-baseline="hanging" font-family="zfArial" font-size="14"
+                                    class="key-top-color">M</text></g>
+                        </g>
+                        <g transform="translate(498.18890500000003,242.36217)" id="44">
+                            <rect x="-25.8" y="-25.8" rx="1.5" width="51.85826" height="51.85826" class="key-base-color"
+                                style="stroke: none;"></rect>
+                            <use href="#keyside-1u"></use>
+                            <g clip-path="url(#dsa-top-mask-1)"><text x="-13.92913" y="13.92913" dy="0"
+                                    alignment-baseline="baseline" font-family="zfArial" font-size="15"
+                                    class="key-top-color">,</text><text x="-13.92913" y="-13.92913" dy="0"
+                                    alignment-baseline="hanging" font-family="zfArial" font-size="14"
+                                    class="key-top-color">&lt;</text></g>
+                        </g>
+                        <g transform="translate(552.0471650000001,242.36217)" id="46">
+                            <rect x="-25.8" y="-25.8" rx="1.5" width="51.85826" height="51.85826" class="key-base-color"
+                                style="stroke: none;"></rect>
+                            <use href="#keyside-1u"></use>
+                            <g clip-path="url(#dsa-top-mask-1)"><text x="-13.92913" y="13.92913" dy="0"
+                                    alignment-baseline="baseline" font-family="zfArial" font-size="15"
+                                    class="key-top-color">.</text><text x="-13.92913" y="-13.92913" dy="0"
+                                    alignment-baseline="hanging" font-family="zfArial" font-size="14"
+                                    class="key-top-color">&gt;</text></g>
+                        </g>
+                        <g transform="translate(605.905425,242.36217)" id="47">
+                            <rect x="-25.8" y="-25.8" rx="1.5" width="51.85826" height="51.85826" class="key-base-color"
+                                style="stroke: none;"></rect>
+                            <use href="#keyside-1u"></use>
+                            <g clip-path="url(#dsa-top-mask-1)"><text x="-13.92913" y="13.92913" dy="0"
+                                    alignment-baseline="baseline" font-family="zfArial" font-size="15"
+                                    class="key-top-color">/</text><text x="-13.92913" y="-13.92913" dy="0"
+                                    alignment-baseline="hanging" font-family="zfArial" font-size="14"
+                                    class="key-top-color">?</text></g>
+                        </g>
+                        <g transform="translate(659.763685,242.36217)" id="-1868507312">
+                            <rect x="-25.8" y="-25.8" rx="1.5" width="146.110215" height="51.85826"
+                                class="key-base-color" style="stroke: none;"></rect>
+                            <use href="#keyside-2u75"></use>
+                            <g clip-path="url(#dsa-top-mask-2-75)"><text x="-13.92913" y="0" dy="0"
+                                    alignment-baseline="central" font-family="zfArial" font-size="10"
+                                    class="key-top-color">SHIFT</text></g>
+                        </g>
+                        <g transform="translate(875.196725,242.36217)" id="2715">
+                            <rect x="-25.8" y="-25.8" rx="1.5" width="51.85826" height="51.85826" class="key-base-color"
+                                style="stroke: none;"></rect>
+                            <use href="#keyside-1u"></use>
+                            <g clip-path="url(#dsa-top-mask-1)">
+                                <g class="key-top-color">
+                                    <path class="cherry-up" d="M0.087-1.235c-0.986-2.093-2.031-4.198-3.179-6.208C-3.988-9.014-4.684-7.73-5.234-6.687
+	c-0.594,1.128-1.184,2.258-1.762,3.394C-7.44-2.417-8.488-0.997-8.253,0.013c0.438,1.885,2.808-0.842,3.382-1.354
+	c0,2.758-0.034,5.519,0,8.277c0.007,0.535,0.011,1.131,0.656,1.316c0.702,0.202,1.112-0.401,1.159-1.016c0.11-1.42,0-2.892,0-4.316
+	c0-1.42,0-2.84,0-4.261c0.66,0.587,1.411,1.501,2.21,1.886C0.322,1.107,0.54-0.408,0.087-1.235
+	C-0.898-3.325,0.246-0.943,0.087-1.235z" transform="translate(0,0)"></path>
+                                </g>
+                            </g>
+                        </g>
+                        <g transform="translate(996.3778100000001,242.36217)" id="2407819">
+                            <rect x="-25.8" y="-25.8" rx="1.5" width="51.85826" height="51.85826" class="key-base-color"
+                                style="stroke: none;"></rect>
+                            <use href="#keyside-1u"></use>
+                            <g clip-path="url(#dsa-top-mask-1)"><text x="-13.92913" y="-13.92913" dy="0"
+                                    alignment-baseline="hanging" font-family="zfArial" font-size="15"
+                                    class="key-top-color">1</text></g>
+                        </g>
+                        <g transform="translate(1050.23607,242.36217)" id="2407820">
+                            <rect x="-25.8" y="-25.8" rx="1.5" width="51.85826" height="51.85826" class="key-base-color"
+                                style="stroke: none;"></rect>
+                            <use href="#keyside-1u"></use>
+                            <g clip-path="url(#dsa-top-mask-1)"><text x="-13.92913" y="-13.92913" dy="0"
+                                    alignment-baseline="hanging" font-family="zfArial" font-size="15"
+                                    class="key-top-color">2</text></g>
+                        </g>
+                        <g transform="translate(1104.0943300000001,242.36217)" id="2407821">
+                            <rect x="-25.8" y="-25.8" rx="1.5" width="51.85826" height="51.85826" class="key-base-color"
+                                style="stroke: none;"></rect>
+                            <use href="#keyside-1u"></use>
+                            <g clip-path="url(#dsa-top-mask-1)"><text x="-13.92913" y="-13.92913" dy="0"
+                                    alignment-baseline="hanging" font-family="zfArial" font-size="15"
+                                    class="key-top-color">3</text></g>
+                        </g>
+                        <g transform="translate(1157.95259,242.36217)" id="-1100771566">
+                            <rect x="-25.8" y="-25.8" rx="1.5" width="51.85826" height="105.71652"
+                                class="key-base-color" style="stroke: none;"></rect>
+                            <use href="#keyside-1u2h"></use>
+                            <g clip-path="url(#dsa-top-mask-2h)"><text x="-13.92913" y="26.92913" dy="0"
+                                    alignment-baseline="central" font-family="zfArial" font-size="9"
+                                    class="key-top-color">ENTER</text></g>
+                        </g>
+                        <g transform="translate(0,296.22043)" id="72266935">
+                            <rect x="-25.8" y="-25.8" rx="1.5" width="65.322825" height="51.85826"
+                                class="key-base-color" style="stroke: none;"></rect>
+                            <use href="#keyside-1u25"></use>
+                            <g clip-path="url(#dsa-top-mask-1-25)"><text x="-13.92913" y="0" dy="0"
+                                    alignment-baseline="central" font-family="zfArial" font-size="10"
+                                    class="key-top-color">CTRL</text></g>
+                        </g>
+                        <g transform="translate(67.322825,296.22043)" id="2350064">
+                            <rect x="-25.8" y="-25.8" rx="1.5" width="65.322825" height="51.85826"
+                                class="key-base-color" style="stroke: none;"></rect>
+                            <use href="#keyside-1u25"></use>
+                            <g clip-path="url(#dsa-top-mask-1-25)"><text x="-13.92913" y="0" dy="0"
+                                    alignment-baseline="central" font-family="zfArial" font-size="10"
+                                    class="key-top-color">SYS</text></g>
+                        </g>
+                        <g transform="translate(134.64565,296.22043)" id="2329021">
+                            <rect x="-25.8" y="-25.8" rx="1.5" width="65.322825" height="51.85826"
+                                class="key-base-color" style="stroke: none;"></rect>
+                            <use href="#keyside-1u25"></use>
+                            <g clip-path="url(#dsa-top-mask-1-25)"><text x="-13.92913" y="0" dy="0"
+                                    alignment-baseline="central" font-family="zfArial" font-size="10"
+                                    class="key-top-color">ALT</text></g>
+                        </g>
+                        <g transform="translate(201.968475,296.22043)" id="79100134">
+                            <rect x="-25.8" y="-25.8" rx="1.5" width="334.614125" height="51.85826"
+                                class="key-base-color" style="stroke: none;"></rect>
+                            <use href="#keyside-6u25"></use>
+                            <g clip-path="url(#dsa-top-mask-6-25)"></g>
+                        </g>
+                        <g transform="translate(538.5826,296.22043)" id="2507767">
+                            <rect x="-25.8" y="-25.8" rx="1.5" width="65.322825" height="51.85826"
+                                class="key-base-color" style="stroke: none;"></rect>
+                            <use href="#keyside-1u25"></use>
+                            <g clip-path="url(#dsa-top-mask-1-25)"><text x="-13.92913" y="0" dy="0"
+                                    alignment-baseline="central" font-family="zfArial" font-size="10"
+                                    class="key-top-color">ALT</text></g>
+                        </g>
+                        <g transform="translate(605.905425,296.22043)" id="2528810">
+                            <rect x="-25.8" y="-25.8" rx="1.5" width="65.322825" height="51.85826"
+                                class="key-base-color" style="stroke: none;"></rect>
+                            <use href="#keyside-1u25"></use>
+                            <g clip-path="url(#dsa-top-mask-1-25)"><text x="-13.92913" y="0" dy="0"
+                                    alignment-baseline="central" font-family="zfArial" font-size="10"
+                                    class="key-top-color">SYS</text></g>
+                        </g>
+                        <g transform="translate(673.22825,296.22043)" id="78091441">
+                            <rect x="-25.8" y="-25.8" rx="1.5" width="65.322825" height="51.85826"
+                                class="key-base-color" style="stroke: none;"></rect>
+                            <use href="#keyside-1u25"></use>
+                            <g clip-path="url(#dsa-top-mask-1-25)"><text x="-13.92913" y="0" dy="0"
+                                    alignment-baseline="central" font-family="zfArial" font-size="10"
+                                    class="key-top-color">MENU</text></g>
+                        </g>
+                        <g transform="translate(740.551075,296.22043)" id="77808061">
+                            <rect x="-25.8" y="-25.8" rx="1.5" width="65.322825" height="51.85826"
+                                class="key-base-color" style="stroke: none;"></rect>
+                            <use href="#keyside-1u25"></use>
+                            <g clip-path="url(#dsa-top-mask-1-25)"><text x="-13.92913" y="0" dy="0"
+                                    alignment-baseline="central" font-family="zfArial" font-size="10"
+                                    class="key-top-color">CTRL</text></g>
+                        </g>
+                        <g transform="translate(821.338465,296.22043)" id="2332679">
+                            <rect x="-25.8" y="-25.8" rx="1.5" width="51.85826" height="51.85826" class="key-base-color"
+                                style="stroke: none;"></rect>
+                            <use href="#keyside-1u"></use>
+                            <g clip-path="url(#dsa-top-mask-1)">
+                                <g class="key-top-color">
+                                    <path class="cherry-left"
+                                        d="M-1.234-0.165c-2.093,0.986-4.198,2.031-6.208,3.179C-9.013,3.91-7.729,4.606-6.686,5.156
+	C-5.558,5.75-4.428,6.34-3.291,6.918c0.875,0.445,2.296,1.492,3.306,1.257C1.899,7.737-0.828,5.367-1.34,4.793
+	c2.758,0,5.519,0.034,8.277,0c0.535-0.007,1.131-0.011,1.316-0.656c0.202-0.702-0.401-1.112-1.016-1.159c-1.42-0.11-2.892,0-4.316,0
+	c-1.42,0-2.84,0-4.261,0c0.587-0.66,1.501-1.411,1.886-2.21C1.108-0.4-0.407-0.618-1.234-0.165C-3.324,0.82-0.942-0.324-1.234-0.165z"
+                                        transform="translate(0,0)"></path>
+                                </g>
+                            </g>
+                        </g>
+                        <g transform="translate(875.196725,296.22043)" id="2104482">
+                            <rect x="-25.8" y="-25.8" rx="1.5" width="51.85826" height="51.85826" class="key-base-color"
+                                style="stroke: none;"></rect>
+                            <use href="#keyside-1u"></use>
+                            <g clip-path="url(#dsa-top-mask-1)">
+                                <g class="key-top-color">
+                                    <path class="cherry-down" d="M-8.014,1.235c0.753,1.599,1.579,3.164,2.399,4.729c0.256,0.488,0.898,2.321,1.651,2.321
+	c0.699-0.074,1.133-1.335,1.405-1.854c0.776-1.475,1.549-2.952,2.283-4.448c0.315-0.642,1.286-2.986-0.325-2.632
+	c-0.847,0.186-1.821,1.424-2.456,1.989c0-2.758,0.034-5.519,0-8.277c-0.007-0.535-0.011-1.131-0.656-1.316
+	c-0.702-0.202-1.112,0.401-1.159,1.016c-0.11,1.42,0,2.892,0,4.316c0,1.42,0,2.84,0,4.261c-0.66-0.587-1.411-1.501-2.21-1.886
+	C-8.249-1.107-8.467,0.408-8.014,1.235C-7.029,3.325-8.174,0.943-8.014,1.235z" transform="translate(0,0)"></path>
+                                </g>
+                            </g>
+                        </g>
+                        <g transform="translate(929.054985,296.22043)" id="77974012">
+                            <rect x="-25.8" y="-25.8" rx="1.5" width="51.85826" height="51.85826" class="key-base-color"
+                                style="stroke: none;"></rect>
+                            <use href="#keyside-1u"></use>
+                            <g clip-path="url(#dsa-top-mask-1)">
+                                <g class="key-top-color">
+                                    <path class="cherry-right" d="M1.235,7.935c2.093-0.986,4.198-2.031,6.208-3.179C9.013,3.86,7.73,3.164,6.687,2.614
+	C5.559,2.02,4.429,1.43,3.292,0.853C2.417,0.408,0.997-0.639-0.013-0.405C-1.898,0.034,0.829,2.403,1.34,2.977
+	c-2.758,0-5.519-0.034-8.277,0c-0.535,0.007-1.131,0.011-1.316,0.656c-0.202,0.702,0.401,1.112,1.016,1.159
+	c1.42,0.11,2.892,0,4.316,0c1.42,0,2.84,0,4.261,0c-0.587,0.66-1.501,1.411-1.886,2.21C-1.107,8.171,0.408,8.388,1.235,7.935
+	C3.325,6.95,0.943,8.095,1.235,7.935z" transform="translate(0,0)"></path>
+                                </g>
+                            </g>
+                        </g>
+                        <g transform="translate(996.3778100000001,296.22043)" id="2407818">
+                            <rect x="-25.8" y="-25.8" rx="1.5" width="105.71652" height="51.85826"
+                                class="key-base-color" style="stroke: none;"></rect>
+                            <use href="#keyside-2u"></use>
+                            <g clip-path="url(#dsa-top-mask-2)"><text x="-13.92913" y="-13.92913" dy="0"
+                                    alignment-baseline="hanging" font-family="zfArial" font-size="15"
+                                    class="key-top-color">0</text></g>
+                        </g>
+                        <g transform="translate(1104.0943300000001,296.22043)" id="2407816">
+                            <rect x="-25.8" y="-25.8" rx="1.5" width="51.85826" height="51.85826" class="key-base-color"
+                                style="stroke: none;"></rect>
+                            <use href="#keyside-1u"></use>
+                            <g clip-path="url(#dsa-top-mask-1)"><text x="-13.92913" y="-13.92913" dy="0"
+                                    alignment-baseline="hanging" font-family="zfArial" font-size="15"
+                                    class="key-top-color">.</text></g>
+                        </g>
+                    </g>
+                </svg></div>
+            <div class="footer" style="position: relative">
+                <div class="status-color">
+                    <div class="color active"></div>
+                    <span>Active</span>
+                    <div class="color pressed"></div>
+                    <span>Pressed</span>
+                    <div class="color never"></div>
+                    <span>Never</span>
+                    <span class="btn reset-history">重置</span>
+                </div>
+                <div class="apm-info">
+                    <div class="left">
+                        <div><span class="bold">APM <span class="big" id="num-apm">0</span></span></div>
+                        <div>实时每分钟触发次数</div>
+                    </div>
+                    <div class="right" id="apm-canvas"
+                        style="-webkit-tap-highlight-color: transparent; user-select: none; position: relative;"
+                        _echarts_instance_="ec_1725365692408">
+                        <div
+                            style="position: relative; overflow: hidden; width: 156px; height: 176px; padding: 0px; margin: 0px; border-width: 0px;">
+                            <canvas data-zr-dom-id="zr_0" width="195" height="220"
+                                style="position: absolute; left: 0px; top: 0px; width: 156px; height: 176px; user-select: none; -webkit-tap-highlight-color: rgba(0, 0, 0, 0); padding: 0px; margin: 0px; border-width: 0px;"></canvas>
+                        </div>
+                        <div></div>
+                    </div>
+                </div>
+                <div class="help">
+                    <div style="display: flex;align-items:center;" id="voice-sel" class="voice">
+                        <div>
+                            <i class="iconfont icon-volumeoff"></i>
+                            <i class="iconfont icon-volumeup"></i>
+                        </div>
+                        键盘声音
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="key-log">
+            <div class="log-list"></div>
+            <div class="info">
+                <div style="padding: 17px 0 15px 0;">
+                    由于浏览器API的限制，可能无法测试以下按键和某些快捷键
+                </div>
+                <div><span class="btn">Menu</span><span class="btn" style="margin-left: 5px">SYS</span></div>
+            </div>
+
+        </div>
+        <div class="help" style="position: absolute;bottom: -20px;right: 22px;width: fit-content;">
+            <i class="iconfont icon-help-a" style="margin-right: 8px"></i>
+            <a href="https://www.zfrontier.com/post/detail/15347" target="_blank">建议和问题反馈</a>
+        </div>
+    </div>
+</body>

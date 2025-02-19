@@ -131,8 +131,11 @@
 		<Action name="执行" id="RenameWithModifiedTime" icon="Images/start.png"/>
 	</Page>
 
+  <Page name="键盘测试器" icon="Images/键盘.png" modulePath="KeyboardTester">
+  </Page>
 
-	<!-- 其他插件，不关联现有标签页 -->
+
+  <!-- 其他插件，不关联现有标签页 -->
 	<Plugins>
 		<Plugin path="StylePlugin"/>
 	</Plugins>

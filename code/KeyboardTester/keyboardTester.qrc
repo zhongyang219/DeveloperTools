@@ -1,0 +1,8 @@
+<RCC>
+    <qresource prefix="/">
+        <file>res/index.html</file>
+        <file>res/index_files/kb_test-09cf3d8fcd.css</file>
+        <file>res/index_files/kb_test-695ee2b450.js</file>
+        <file>res/index_files/white-icon.png</file>
+    </qresource>
+</RCC>
