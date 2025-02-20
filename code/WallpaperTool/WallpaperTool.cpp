@@ -23,14 +23,54 @@ IMainFrame* WallpaperTool::GetMainFrame()
     return m_pMainFrame;
 }
 
+CHistoryWallpaperMgr& WallpaperTool::GetHistoryWallpaperMgr()
+{
+    return m_historyWallpapers;
+}
+
+void WallpaperTool::WallpaperSaveAs(const QString& path)
+{
+    QString strDir = QFileDialog::getExistingDirectory(m_mainWidget, QString(), m_strLastSaveDir, QFileDialog::ShowDirsOnly | QFileDialog::DontResolveSymlinks);
+    if (!strDir.isEmpty())
+    {
+        m_strLastSaveDir = strDir;
+        QString strNewPath = strDir + "/" + QFileInfo(path).fileName();
+        QString strLogInfo;
+        if (!QFileInfo(strNewPath).isFile())
+        {
+            if (QFile::copy(path, strNewPath))
+            {
+                strLogInfo = QString(u8"成功将壁纸 %1 保存到 %2 目录下。").arg(path).arg(strDir);
+                QMessageBox::information(m_mainWidget, QString(), strLogInfo);
+            }
+            else
+            {
+                strLogInfo = QString(u8"保存壁纸到 %1 到 %2 目录下失败。").arg(path).arg(strDir);
+                QMessageBox::information(m_mainWidget, QString(), strLogInfo);
+            }
+        }
+        else
+        {
+            QMessageBox::warning(m_mainWidget, QString(), QString(u8"文件 %1 已存在！").arg(strNewPath));
+            strLogInfo = QString(u8"保存壁纸 %1 时，目标文件 %2 已存在。").arg(path).arg(strNewPath);
+        }
+        WriteLog(strLogInfo);
+    }
+
+}
+
 void WallpaperTool::InitInstance()
 {
+    m_mainStackedWidget.addWidget(m_mainWidget = new MainWidget());
+    m_mainStackedWidget.addWidget(m_historyWidget = new HistoryWallpaperWidget());
+
     //载入配置
     CConfig settings(QString::fromUtf8(GetModuleName()));
     m_strLastSaveDir = settings.GetValue("lastSaveDir").toString();
     m_settings.Load();
+    m_historyWallpapers.Load();
 
-    connect(&m_mainWidget, SIGNAL(widgetLayoutChanged(bool, const QString&)), this, SLOT(OnMainWindowLayoutChanged(bool, const QString&)));
+    connect(m_mainWidget, SIGNAL(widgetLayoutChanged(bool, const QString&)), this, SLOT(OnMainWindowLayoutChanged(bool, const QString&)));
 }
 
 void WallpaperTool::UnInitInstance()
@@ -38,6 +78,7 @@ void WallpaperTool::UnInitInstance()
     CConfig settings(QString::fromUtf8(GetModuleName()));
     settings.WriteValue("lastSaveDir", m_strLastSaveDir);
     m_settings.Save();
+    m_historyWallpapers.Save();
 }
 
 void WallpaperTool::UiInitComplete(IMainFrame* pMainFrame)
@@ -50,7 +91,7 @@ void WallpaperTool::UiInitComplete(IMainFrame* pMainFrame)
 
 void* WallpaperTool::GetMainWindow()
 {
-    return (void*)&m_mainWidget;
+    return (void*)&m_mainStackedWidget;
 }
 
 IModule::eMainWindowType WallpaperTool::GetMainWindowType() const
@@ -70,54 +111,29 @@ void WallpaperTool::OnCommand(const char* strCmd, bool checked)
     //返回
     if (cmd == CMD_WallpaperBack)
     {
-        m_mainWidget.ShowGridLayout();
+        m_mainWidget->ShowGridLayout();
     }
     //当前壁纸另存为
     else if (cmd == CMD_CURRENT_WALLPAPER_SAVE_AS)
     {
-        QString strDir = QFileDialog::getExistingDirectory(&m_mainWidget, QString(), m_strLastSaveDir, QFileDialog::ShowDirsOnly | QFileDialog::DontResolveSymlinks);
-        if (!strDir.isEmpty())
-        {
-            m_strLastSaveDir = strDir;
-            QString strNewPath = strDir + "/" + QFileInfo(m_strCurWallpaperPath).fileName();
-            QString strLogInfo;
-            if (!QFileInfo(strNewPath).isFile())
-            {
-                if (QFile::copy(m_strCurWallpaperPath, strNewPath))
-                {
-                    strLogInfo = QString(u8"成功将壁纸 %1 保存到 %2 目录下。").arg(m_strCurWallpaperPath).arg(strDir);
-                    QMessageBox::information(&m_mainWidget, QString(), strLogInfo);
-                }
-                else
-                {
-                    strLogInfo = QString(u8"保存壁纸到 %1 到 %2 目录下失败。").arg(m_strCurWallpaperPath).arg(strDir);
-                    QMessageBox::information(&m_mainWidget, QString(), strLogInfo);
-                }
-            }
-            else
-            {
-                QMessageBox::warning(&m_mainWidget, QString(), QString(u8"文件 %1 已存在！").arg(strNewPath));
-                strLogInfo = QString(u8"保存壁纸 %1 时，目标文件 %2 已存在。").arg(m_strCurWallpaperPath).arg(strNewPath);
-            }
-            WriteLog(strLogInfo);
-        }
+        WallpaperSaveAs(m_strCurWallpaperPath);
     }
 
     //删除当前壁纸
     else if (cmd == CMD_CURRENT_WALLPAPER_DELETE)
     {
-        if (QMessageBox::question(&m_mainWidget, QString(), QString(u8"确实要从磁盘中删除文件 %1 吗？").arg(m_strCurWallpaperPath), QMessageBox::Yes | QMessageBox::No) == QMessageBox::Yes)
+        if (QMessageBox::question(m_mainWidget, QString(), QString(u8"确实要从磁盘中删除文件 %1 吗？").arg(m_strCurWallpaperPath), QMessageBox::Yes | QMessageBox::No) == QMessageBox::Yes)
         {
             QString strLogInfo;
             if (QFile::remove(m_strCurWallpaperPath))
             {
                 strLogInfo = QString(u8"删除壁纸 %1 成功。").arg(m_strCurWallpaperPath);
-                QMessageBox::information(&m_mainWidget, QString(), u8"删除成功！");
+                QMessageBox::information(m_mainWidget, QString(), u8"删除成功！");
             }
             else
             {
                 strLogInfo = QString(u8"删除壁纸 %1 失败。").arg(m_strCurWallpaperPath);
-                QMessageBox::information(&m_mainWidget, QString(), u8"删除失败！");
+                QMessageBox::information(m_mainWidget, QString(), u8"删除失败！");
             }
             WriteLog(strLogInfo);
         }
@@ -150,6 +166,15 @@ void WallpaperTool::OnCommand(const char* strCmd, bool checked)
         if (dlg.exec() == QDialog::Accepted)
             m_settings = dlg.GetData();
     }
+
+    else if (cmd == CMD_WallpaperHistory)
+    {
+        if (checked)
+            m_mainStackedWidget.setCurrentIndex(1);
+        else
+            m_mainStackedWidget.setCurrentIndex(0);
+        EnableControls();
+    }
 }
 
 void WallpaperTool::WriteLog(const QString& strLogInfo)
@@ -166,25 +191,48 @@ void WallpaperTool::Refresh()
     auto curWallpapersPath = m_helper.GetCurrentWallpaperPath(m_settings.wallpaperAcquireMethod == SettingsDlg::Data::Registry);
     if (curWallpapersPath.size() == 1)
         m_strCurWallpaperPath = curWallpapersPath.front();
-    m_mainWidget.SetWallpapers(curWallpapersPath);
+    m_mainWidget->SetWallpapers(curWallpapersPath);
+    m_historyWallpapers.AddWallpapers(curWallpapersPath);
+    m_historyWidget->Refresh();
+}
+
+void WallpaperTool::EnableControls()
+{
+    if (m_pMainFrame != nullptr)
+    {
+        if (m_mainStackedWidget.currentWidget() == m_mainWidget)
+        {
+            //只有一张壁纸的情况
+            if (m_mainWidget->GetWallpaperNum() == 1)
+            {
+                m_pMainFrame->SetItemEnable(CMD_WallpaperBack, false);
+                m_pMainFrame->SetItemEnable(CMD_CURRENT_WALLPAPER_SAVE_AS, true);
+                m_pMainFrame->SetItemEnable(CMD_CURRENT_WALLPAPER_DELETE, true);
+            }
+            else
+            {
+                m_pMainFrame->SetItemEnable(CMD_WallpaperBack, !m_mainWidget->IsGridLayout());
+                m_pMainFrame->SetItemEnable(CMD_CURRENT_WALLPAPER_SAVE_AS, !m_mainWidget->IsGridLayout());
+                m_pMainFrame->SetItemEnable(CMD_CURRENT_WALLPAPER_DELETE, !m_mainWidget->IsGridLayout());
+            }
+
+        }
+        else
+        {
+            m_pMainFrame->SetItemEnable(CMD_WallpaperBack, false);
+            m_pMainFrame->SetItemEnable(CMD_CURRENT_WALLPAPER_SAVE_AS, false);
+            m_pMainFrame->SetItemEnable(CMD_CURRENT_WALLPAPER_DELETE, false);
+        }
+    }
 }
 
 void WallpaperTool::OnMainWindowLayoutChanged(bool bGrid, const QString& curWallpaperPath)
 {
-    //只有一张壁纸的情况
-    if (m_mainWidget.GetWallpaperNum() == 1)
-    {
-        m_pMainFrame->SetItemEnable(CMD_WallpaperBack, false);
-        m_pMainFrame->SetItemEnable(CMD_CURRENT_WALLPAPER_SAVE_AS, true);
-        m_pMainFrame->SetItemEnable(CMD_CURRENT_WALLPAPER_DELETE, true);
-    }
-    else
+    if (m_mainWidget->GetWallpaperNum() > 1)
     {
         m_strCurWallpaperPath = curWallpaperPath;
-        m_pMainFrame->SetItemEnable(CMD_WallpaperBack, !bGrid);
-        m_pMainFrame->SetItemEnable(CMD_CURRENT_WALLPAPER_SAVE_AS, !bGrid);
-        m_pMainFrame->SetItemEnable(CMD_CURRENT_WALLPAPER_DELETE, !bGrid);
     }
+    EnableControls();
 }
 
 IModule* CreateInstance()

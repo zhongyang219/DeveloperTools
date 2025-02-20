@@ -19,7 +19,7 @@ public:
             WallpaperInterface
         };
 
-        WallpaperAcquireMethod wallpaperAcquireMethod;
+        WallpaperAcquireMethod wallpaperAcquireMethod{};
 
         void Save() const;
         void Load();

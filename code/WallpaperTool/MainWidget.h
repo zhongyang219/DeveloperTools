@@ -14,6 +14,7 @@ public:
     ~MainWidget();
     //设置所有壁纸的路径
     void SetWallpapers(QList<QString>& wallpapersPath);
+    bool IsGridLayout() const { return m_isGridLayout; }
 
     //回到宫格布局
     void ShowGridLayout();

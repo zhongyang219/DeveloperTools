@@ -38,6 +38,9 @@
     <ClInclude Include="WallpaperHelper.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="HistoryWallpaperMgr.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="WallpaperHelper.cpp">
@@ -53,6 +56,12 @@
       <Filter>SettingsDlg</Filter>
     </ClCompile>
     <ClCompile Include="WallpapaerWidget.cpp">
+      <Filter>Widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="HistoryWallpaperMgr.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="HistoryWallpaperWidget.cpp">
       <Filter>Widgets</Filter>
     </ClCompile>
   </ItemGroup>
@@ -72,5 +81,13 @@
     <QtMoc Include="WallpapaerWidget.h">
       <Filter>Widgets</Filter>
     </QtMoc>
+    <QtMoc Include="HistoryWallpaperWidget.h">
+      <Filter>Widgets</Filter>
+    </QtMoc>
+  </ItemGroup>
+  <ItemGroup>
+    <QtRcc Include="WallpaperTool.qrc">
+      <Filter>Resource Files</Filter>
+    </QtRcc>
   </ItemGroup>
 </Project>

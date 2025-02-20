@@ -105,15 +105,22 @@
     <QtMoc Include="ImageLabel.h" />
     <QtMoc Include="SettingsDlg.h" />
     <QtMoc Include="WallpapaerWidget.h" />
+    <ClInclude Include="HistoryWallpaperMgr.h" />
+    <QtMoc Include="HistoryWallpaperWidget.h" />
     <ClInclude Include="WallpaperHelper.h" />
     <ClInclude Include="wallpapertool_global.h" />
     <QtMoc Include="WallpaperTool.h" />
+    <ClCompile Include="HistoryWallpaperMgr.cpp" />
+    <ClCompile Include="HistoryWallpaperWidget.cpp" />
     <ClCompile Include="ImageLabel.cpp" />
     <ClCompile Include="MainWidget.cpp" />
     <ClCompile Include="SettingsDlg.cpp" />
     <ClCompile Include="WallpapaerWidget.cpp" />
     <ClCompile Include="WallpaperHelper.cpp" />
     <ClCompile Include="WallpaperTool.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <QtRcc Include="WallpaperTool.qrc" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Condition="Exists('$(QtMsBuild)\qt.targets')">
