@@ -31,6 +31,8 @@ INCLUDEPATH += $$PWD/../../include
 FORMS +=
 
 HEADERS += \
+    HistoryWallpaperMgr.h \
+    HistoryWallpaperWidget.h \
     ImageLabel.h \
     MainWidget.h \
     SettingsDlg.h \
@@ -40,9 +42,14 @@ HEADERS += \
     wallpapertool_global.h
 
 SOURCES += \
+    HistoryWallpaperMgr.cpp \
+    HistoryWallpaperWidget.cpp \
     ImageLabel.cpp \
     MainWidget.cpp \
     SettingsDlg.cpp \
     WallpapaerWidget.cpp \
     WallpaperHelper.cpp \
     WallpaperTool.cpp
+
+RESOURCES += \
+    WallpaperTool.qrc
