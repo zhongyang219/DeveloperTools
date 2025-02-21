@@ -50,3 +50,6 @@ SOURCES += \
     WallpapaerWidget.cpp \
     WallpaperHelper.cpp \
     WallpaperTool.cpp
+
+RESOURCES += \
+    WallpaperTool.qrc

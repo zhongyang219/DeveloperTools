@@ -163,24 +163,49 @@ QList<QString> CWallpaperHelper::GetCurrentWallpaperPath(bool fromRegistry)
         return wallpapaersPath;
     }
 #else
+//    QProcess cmdProcess;
+//    //使用命令行获取当前壁纸路径
+//    QString strArg = "gsettings get org.gnome.desktop.background picture-uri";
+//    cmdProcess.start(strArg);
+//    cmdProcess.waitForReadyRead();
+//    cmdProcess.waitForFinished();
+//    QString strRet = QString::fromUtf8(cmdProcess.readAll()).trimmed();
+//    //去掉路径前后的引号和前面的file://
+//    if (strRet.startsWith('\''))
+//        strRet = strRet.mid(1);
+//    if (strRet.startsWith("file://"))
+//        strRet = strRet.mid(7);
+//    if (strRet.endsWith('\''))
+//        strRet.chop(1);
+//    return QList<QString>() << strRet;
 
-    QProcess cmdProcess;
-    //使用命令行获取当前壁纸路径
-    QString strArg = "gsettings get org.gnome.desktop.background picture-uri";
-    cmdProcess.start(strArg);
-    cmdProcess.waitForReadyRead();
-    cmdProcess.waitForFinished();
-    QString strRet = QString::fromUtf8(cmdProcess.readAll()).trimmed();
-    //去掉路径前后的引号和前面的file://
-    if (strRet.startsWith('\''))
-        strRet = strRet.mid(1);
-    if (strRet.startsWith("file://"))
-        strRet = strRet.mid(7);
-    if (strRet.endsWith('\''))
-        strRet.chop(1);
-    return QList<QString>() << strRet;
+    QStringList wallpaperPaths;
 
-//    return "/usr/share/backgrounds/1-warty-final-ubuntukylin.jpg";
+    // 启动 gsettings 命令
+    QProcess process;
+    process.start("gsettings", QStringList() << "list-recursively" << "org.gnome.desktop.background");
+    process.waitForFinished();
+
+    // 读取命令输出
+    QString output = process.readAllStandardOutput();
+    QStringList lines = output.split("\n");
+
+    // 正则表达式匹配 file:// 开头的路径
+    QRegularExpression regex(R"((file://[^\s']+))");
+
+    for (const QString& line : lines)
+    {
+        QRegularExpressionMatchIterator matchIterator = regex.globalMatch(line);
+        while (matchIterator.hasNext())
+        {
+            QRegularExpressionMatch match = matchIterator.next();
+            QString path = match.captured(0).remove("file://");
+            wallpaperPaths.append(path);
+        }
+    }
+
+    return wallpaperPaths;
+
 #endif
 
     return QList<QString>();
