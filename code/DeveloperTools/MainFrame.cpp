@@ -52,8 +52,23 @@ bool MainFrame::OnCommand(const QString& strCmd, bool checked)
         strDebug = u8"(Debug 模式)";
 #endif // DEBUG
 
-        QString strAboutInfo = QString(u8"%1 %2 %3\r\n一个各种小工具合集。\r\nCopyright(C) 2024 by ZhongYang").arg(APP_NAME).arg(APP_VERSION).arg(strDebug);
-        QMessageBox::about(this, QString(u8"关于") + APP_NAME, strAboutInfo);
+        QString strAboutInfo = QString(u8"%1 V%2 %3<br/>"
+            "一个各种小工具合集。<br/>"
+            "Copyright(C) 2024 by ZhongYang<br/>"
+            "<a href=\"https://github.com/zhongyang219/DeveloperTools\">GitHub</a>")
+            .arg(APP_NAME).arg(APP_VERSION).arg(strDebug);
+
+        QMessageBox aboutBox;
+        aboutBox.setWindowTitle(QString(u8"关于") + APP_NAME);
+        aboutBox.setTextFormat(Qt::RichText);  // 设置文本格式为富文本（HTML）
+        aboutBox.setText(strAboutInfo);
+        QIcon icon = QApplication::windowIcon();
+        if (!icon.isNull())
+        {
+            QSize size = icon.actualSize(QSize(64, 64));
+            aboutBox.setIconPixmap(icon.pixmap(size));
+        }
+        aboutBox.exec();
     }
     return RibbonFrameWindow::OnCommand(strCmd, checked);
 }
