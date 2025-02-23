@@ -18,6 +18,8 @@ private slots:
     void OnContextMenu(const QPoint& pos);
     void OnViewWallpaper();
     void OnSaveWallpaper();
+    void OnRemoveRecord();
+    void OnDeleteWallpaper();
 
 private:
     QListWidget m_listWidget;

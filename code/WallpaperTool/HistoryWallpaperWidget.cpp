@@ -5,6 +5,7 @@
 #include "WallpaperTool.h"
 #include <QFileInfo>
 #include <QDialog>
+#include <QMessageBox>
 #include "ImageLabel.h"
 
 class WalpaperViewDlg : public QDialog
@@ -51,6 +52,8 @@ HistoryWallpaperWidget::HistoryWallpaperWidget(QWidget *parent)
 
     m_menu.addAction(QIcon("://res/image.png"), u8"查看", this, SLOT(OnViewWallpaper()));
     m_menu.addAction(QIcon("://res/save.png"), u8"另存为...", this, SLOT(OnSaveWallpaper()));
+    m_menu.addAction(QIcon("://res/delete.png"), u8"删除记录...", this, SLOT(OnRemoveRecord()));
+    m_menu.addAction(QIcon("://res/delete1.png"), u8"删除文件...", this, SLOT(OnDeleteWallpaper()));
 }
 
 HistoryWallpaperWidget::~HistoryWallpaperWidget()
@@ -102,6 +105,58 @@ void HistoryWallpaperWidget::OnSaveWallpaper()
             WallpaperTool::Instance()->WallpaperSaveAs(path);
         }
     }
+}
+
+void HistoryWallpaperWidget::OnRemoveRecord()
+{
+    if (m_selectedItem != nullptr)
+    {
+        QString path = m_selectedItem->data(Qt::UserRole).toString();
+        if (!path.isEmpty())
+        {
+            if (QMessageBox::question(this, QString(), QString(u8"确实要从列表中移除选中记录 %1 吗？").arg(path), QMessageBox::Yes | QMessageBox::No) == QMessageBox::Yes)
+            {
+                WallpaperTool::Instance()->GetHistoryWallpaperMgr().RemoveRecord(path);
+                m_listWidget.removeItemWidget(m_selectedItem);
+                delete m_selectedItem;
+                m_selectedItem = nullptr;
+                m_listWidget.setCurrentItem(nullptr);
+            }
+        }
+    }
+}
+
+void HistoryWallpaperWidget::OnDeleteWallpaper()
+{
+    if (m_selectedItem != nullptr)
+    {
+        QString path = m_selectedItem->data(Qt::UserRole).toString();
+        if (!path.isEmpty())
+        {
+            if (QMessageBox::question(this, QString(), QString(u8"确实要从磁盘中删除文件 %1 吗？").arg(path), QMessageBox::Yes | QMessageBox::No) == QMessageBox::Yes)
+            {
+                QString strLogInfo;
+                if (QFile::remove(path))
+                {
+                    //删除文件后从列表中移除
+                    WallpaperTool::Instance()->GetHistoryWallpaperMgr().RemoveRecord(path);
+                    m_listWidget.removeItemWidget(m_selectedItem);
+                    delete m_selectedItem;
+                    m_selectedItem = nullptr;
+                    m_listWidget.setCurrentItem(nullptr);
+                    strLogInfo = QString(u8"删除壁纸 %1 成功。").arg(path);
+                    QMessageBox::information(this, QString(), u8"删除成功！");
+                }
+                else
+                {
+                    strLogInfo = QString(u8"删除壁纸 %1 失败。").arg(path);
+                    QMessageBox::information(this, QString(), u8"删除失败！");
+                }
+                WallpaperTool::Instance()->WriteLog(strLogInfo);
+            }
+        }
+    }
+
 }
 
 void HistoryWallpaperWidget::OnItemDoubleClicked(QListWidgetItem* item)

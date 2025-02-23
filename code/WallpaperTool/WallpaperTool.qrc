@@ -2,5 +2,7 @@
     <qresource prefix="/">
       <file>res/image.png</file>
       <file>res/save.png</file>
+      <file>res/delete.png</file>
+      <file>res/delete1.png</file>
     </qresource>
 </RCC>

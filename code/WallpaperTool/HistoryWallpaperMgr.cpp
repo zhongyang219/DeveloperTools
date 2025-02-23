@@ -32,3 +32,8 @@ const QStringList& CHistoryWallpaperMgr::GetHistoryWallpapers() const
 {
     return m_historyWallpapers;
 }
+
+void CHistoryWallpaperMgr::RemoveRecord(const QString& wallpaperPath)
+{
+    m_historyWallpapers.removeAll(wallpaperPath);
+}

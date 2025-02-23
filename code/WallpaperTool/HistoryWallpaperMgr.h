@@ -10,6 +10,7 @@ public:
     void Save() const;
 
     const QStringList& GetHistoryWallpapers() const;
+    void RemoveRecord(const QString& wallpaperPath);
 
 private:
     QStringList m_historyWallpapers;    //历史壁纸列表

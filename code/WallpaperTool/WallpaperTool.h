@@ -31,8 +31,8 @@ public:
     virtual const char* GetModuleName() override;
     virtual void OnCommand(const char* strCmd, bool checked) override;
 
-private:
     void WriteLog(const QString& strLogInfo);
+private:
     void Refresh();
     void EnableControls();
 
