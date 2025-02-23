@@ -20,6 +20,7 @@ public:
     static WallpaperTool* Instance();
     IMainFrame* GetMainFrame();
     CHistoryWallpaperMgr& GetHistoryWallpaperMgr();
+    HistoryWallpaperSearchThread& GetHistoryWallpaperThread();
     void WallpaperSaveAs(const QString& path);
 
     // 通过 IModule 继承
@@ -49,6 +50,7 @@ private:
     CWallpaperHelper m_helper;
     SettingsDlg::Data m_settings;
     CHistoryWallpaperMgr m_historyWallpapers;
+    HistoryWallpaperSearchThread m_historyWallpaperThread{ m_historyWallpapers };
 };
 
 #ifdef __cplusplus

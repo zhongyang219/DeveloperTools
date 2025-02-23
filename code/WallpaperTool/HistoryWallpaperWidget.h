@@ -11,6 +11,8 @@ class HistoryWallpaperWidget  : public QWidget
 public:
     HistoryWallpaperWidget(QWidget *parent = nullptr);
     ~HistoryWallpaperWidget();
+
+public slots:
     void Refresh();
 
 private slots:

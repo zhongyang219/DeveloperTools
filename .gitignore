@@ -361,3 +361,4 @@ win32_vc15_Release
 bin
 build
 *.pro.user.*
+*.diagsession

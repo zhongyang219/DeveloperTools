@@ -69,7 +69,8 @@ void HistoryWallpaperWidget::Refresh()
     {
         QListWidgetItem* pItem = new QListWidgetItem();
         //pItem->setText(QFileInfo(path).fileName());
-        pItem->setIcon(QIcon(path));
+        const QIcon& icon = WallpaperTool::Instance()->GetHistoryWallpaperThread().GetWallpaperIcon(path);
+        pItem->setIcon(icon);
         pItem->setData(Qt::UserRole, path);
         pItem->setData(Qt::ToolTipRole, path);
         m_listWidget.addItem(pItem);

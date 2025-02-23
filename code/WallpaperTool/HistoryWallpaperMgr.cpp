@@ -37,3 +37,45 @@ void CHistoryWallpaperMgr::RemoveRecord(const QString& wallpaperPath)
 {
     m_historyWallpapers.removeAll(wallpaperPath);
 }
+
+//////////////////////////////////////////////////////////////////////////////////////////////
+HistoryWallpaperSearchThread::HistoryWallpaperSearchThread(CHistoryWallpaperMgr& manager)
+    : m_manager(manager)
+{
+}
+
+const QIcon& HistoryWallpaperSearchThread::GetWallpaperIcon(const QString& path)
+{
+    auto iter = m_imageMap.find(path);
+    if (iter != m_imageMap.end())
+    {
+        return iter.value();
+    }
+    else
+    {
+        static QIcon emptyIcon;
+        return emptyIcon;
+    }
+}
+
+bool HistoryWallpaperSearchThread::StartThread()
+{
+    if (!isRunning())
+    {
+        start();
+        return true;
+    }
+    return false;
+}
+
+void HistoryWallpaperSearchThread::run()
+{
+    //加载历史记录中所有图片并加载到内存
+    for (const QString& path : m_manager.GetHistoryWallpapers())
+    {
+        if (!m_imageMap.contains(path))
+        {
+            m_imageMap.insert(path, QIcon(path));
+        }
+    }
+}

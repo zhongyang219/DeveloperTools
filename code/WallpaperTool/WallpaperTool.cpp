@@ -28,6 +28,11 @@ CHistoryWallpaperMgr& WallpaperTool::GetHistoryWallpaperMgr()
     return m_historyWallpapers;
 }
 
+HistoryWallpaperSearchThread& WallpaperTool::GetHistoryWallpaperThread()
+{
+    return m_historyWallpaperThread;
+}
+
 void WallpaperTool::WallpaperSaveAs(const QString& path)
 {
     QString strDir = QFileDialog::getExistingDirectory(m_mainWidget, QString(), m_strLastSaveDir, QFileDialog::ShowDirsOnly | QFileDialog::DontResolveSymlinks);
@@ -71,6 +76,8 @@ void WallpaperTool::InitInstance()
     m_historyWallpapers.Load();
 
     connect(m_mainWidget, SIGNAL(widgetLayoutChanged(bool, const QString&)), this, SLOT(OnMainWindowLayoutChanged(bool, const QString&)));
+    //线程结束时更新历史壁纸列表
+    connect(&m_historyWallpaperThread, SIGNAL(finished()), m_historyWidget, SLOT(Refresh()));
 }
 
 void WallpaperTool::UnInitInstance()
@@ -193,7 +200,7 @@ void WallpaperTool::Refresh()
         m_strCurWallpaperPath = curWallpapersPath.front();
     m_mainWidget->SetWallpapers(curWallpapersPath);
     m_historyWallpapers.AddWallpapers(curWallpapersPath);
-    m_historyWidget->Refresh();
+    m_historyWallpaperThread.StartThread();
 }
 
 void WallpaperTool::EnableControls()
