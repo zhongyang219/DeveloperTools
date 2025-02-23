@@ -24,7 +24,7 @@ private slots:
     void OnDeleteWallpaper();
 
 private:
-    QListWidget m_listWidget;
+    QListWidget* m_listWidget;
     QMenu m_menu;
     QListWidgetItem* m_selectedItem{};
 };
