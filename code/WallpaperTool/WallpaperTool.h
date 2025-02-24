@@ -36,6 +36,7 @@ public:
 private:
     void Refresh();
     void EnableControls();
+    virtual void timerEvent(QTimerEvent* event) override;
 
 private slots:
     void OnMainWindowLayoutChanged(bool bGrid, const QString& curWallpaperPath);     //响应窗口布局改变（在单席位查看和宫格布局中切换）
@@ -51,6 +52,7 @@ private:
     SettingsDlg::Data m_settings;
     CHistoryWallpaperMgr m_historyWallpapers;
     HistoryWallpaperSearchThread m_historyWallpaperThread{ m_historyWallpapers };
+    int m_autoRefreshTimerId{};
 };
 
 #ifdef __cplusplus

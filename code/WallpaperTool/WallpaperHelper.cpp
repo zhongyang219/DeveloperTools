@@ -238,6 +238,16 @@ bool CWallpaperHelper::NextWallPaper()
     return false;
 }
 
+bool CWallpaperHelper::IsWindowsWallpaperAutoSwitch()
+{
+#ifdef Q_OS_WIN
+    int backgroundType = GetRegInt(HKEY_CURRENT_USER, L"SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Wallpapers", L"BackgroundType");
+    return backgroundType == 2;
+#else
+    return false;
+#endif
+}
+
 #ifdef Q_OS_WIN
 void CWallpaperHelper::ShowResultInfo(HRESULT hr)
 {

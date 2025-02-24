@@ -18,6 +18,8 @@ public:
     bool PreviousWallPaper();
     bool NextWallPaper();
 
+    static bool IsWindowsWallpaperAutoSwitch();
+
 #ifdef Q_OS_WIN
     void ShowResultInfo(HRESULT hr);
 #endif

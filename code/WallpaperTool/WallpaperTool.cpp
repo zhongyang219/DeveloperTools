@@ -5,6 +5,7 @@
 #include "../CCommonTools/CommonTools.h"
 #include "../CCommonTools/Config.h"
 #include <QApplication>
+#include <QTimerEvent>
 #include "mainframeinterface.h"
 
 static WallpaperTool* pIns = nullptr;
@@ -78,6 +79,8 @@ void WallpaperTool::InitInstance()
     connect(m_mainWidget, SIGNAL(widgetLayoutChanged(bool, const QString&)), this, SLOT(OnMainWindowLayoutChanged(bool, const QString&)));
     //线程结束时更新历史壁纸列表
     connect(&m_historyWallpaperThread, SIGNAL(finished()), m_historyWidget, SLOT(Refresh()));
+
+    m_autoRefreshTimerId = startTimer(600000);  //设置10分钟定时器
 }
 
 void WallpaperTool::UnInitInstance()
@@ -230,6 +233,16 @@ void WallpaperTool::EnableControls()
             m_pMainFrame->SetItemEnable(CMD_CURRENT_WALLPAPER_SAVE_AS, false);
             m_pMainFrame->SetItemEnable(CMD_CURRENT_WALLPAPER_DELETE, false);
         }
+    }
+}
+
+void WallpaperTool::timerEvent(QTimerEvent* event)
+{
+    if (event->timerId() == m_autoRefreshTimerId)
+    {
+        //如果桌面背景设置为了幻灯片放映，则每隔10分钟自动刷新
+        if (CWallpaperHelper::IsWindowsWallpaperAutoSwitch())
+            Refresh();
     }
 }
 
