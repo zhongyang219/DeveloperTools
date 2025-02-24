@@ -2,6 +2,7 @@
 #include "../CCommonTools/Config.h"
 #include "WallpaperTool.h"
 #include <QFileInfo>
+#include "define.h"
 
 void CHistoryWallpaperMgr::AddWallpapers(const QStringList& wallpapers)
 {
@@ -75,7 +76,11 @@ void HistoryWallpaperSearchThread::run()
     {
         if (!m_imageMap.contains(path))
         {
-            m_imageMap.insert(path, QIcon(path));
+            QPixmap pixmap;
+            pixmap.load(path);
+            int iconSize = DPI(256);
+            pixmap = pixmap.scaled(iconSize, iconSize, Qt::KeepAspectRatio, Qt::SmoothTransformation);
+            m_imageMap.insert(path, QIcon(pixmap));
         }
     }
 }
