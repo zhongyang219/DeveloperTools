@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 
 #include <QLineEdit>
 #include "ccommontools_global.h"

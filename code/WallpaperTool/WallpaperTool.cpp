@@ -7,6 +7,7 @@
 #include <QApplication>
 #include <QTimerEvent>
 #include "mainframeinterface.h"
+#include "../CCommonTools/PathListDialog.h"
 
 static WallpaperTool* pIns = nullptr;
 
@@ -36,10 +37,21 @@ HistoryWallpaperSearchThread& WallpaperTool::GetHistoryWallpaperThread()
 
 void WallpaperTool::WallpaperSaveAs(const QString& path)
 {
-    QString strDir = QFileDialog::getExistingDirectory(m_mainWidget, QString(), m_strLastSaveDir, QFileDialog::ShowDirsOnly | QFileDialog::DontResolveSymlinks);
+    QString strDir;
+    if (m_strLastSaveDirs.isEmpty())
+    {
+        strDir = QFileDialog::getExistingDirectory(m_mainWidget, QString(), QString(), QFileDialog::ShowDirsOnly | QFileDialog::DontResolveSymlinks);
+    }
+    else
+    {
+        CPathListDialog dlg(m_strLastSaveDirs.toList());
+        if (dlg.exec() == QDialog::Accepted)
+            strDir = dlg.GetSelectedPath();
+    }
+
     if (!strDir.isEmpty())
     {
-        m_strLastSaveDir = strDir;
+        m_strLastSaveDirs.insert(strDir);
         QString strNewPath = strDir + "/" + QFileInfo(path).fileName();
         QString strLogInfo;
         if (!QFileInfo(strNewPath).isFile())
@@ -62,7 +74,6 @@ void WallpaperTool::WallpaperSaveAs(const QString& path)
         }
         WriteLog(strLogInfo);
     }
-
 }
 
 void WallpaperTool::InitInstance()
@@ -72,7 +83,12 @@ void WallpaperTool::InitInstance()
 
     //载入配置
     CConfig settings(QString::fromUtf8(GetModuleName()));
-    m_strLastSaveDir = settings.GetValue("lastSaveDir").toString();
+    QStringList dirList = settings.GetValue("lastSaveDir").toStringList();
+    for (const auto& dir : dirList)
+    {
+        if (!dir.isEmpty())
+            m_strLastSaveDirs.insert(dir);
+    }
     m_settings.Load();
     m_historyWallpapers.Load();
 
@@ -86,7 +102,8 @@ void WallpaperTool::InitInstance()
 void WallpaperTool::UnInitInstance()
 {
     CConfig settings(QString::fromUtf8(GetModuleName()));
-    settings.WriteValue("lastSaveDir", m_strLastSaveDir);
+    QStringList dirList = m_strLastSaveDirs.toList();
+    settings.WriteValue("lastSaveDir", dirList);
     m_settings.Save();
     m_historyWallpapers.Save();
 }

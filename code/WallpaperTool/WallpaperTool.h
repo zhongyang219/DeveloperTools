@@ -9,6 +9,7 @@
 #include "HistoryWallpaperMgr.h"
 #include "HistoryWallpaperWidget.h"
 #include <QStackedWidget>
+#include <QSet>
 
 class WALLPAPERTOOL_EXPORT WallpaperTool
     : public QObject, public IModule
@@ -47,7 +48,7 @@ private:
     HistoryWallpaperWidget* m_historyWidget;
     IMainFrame* m_pMainFrame{};
     QString m_strCurWallpaperPath;
-    QString m_strLastSaveDir;       //上次壁纸的保存路径
+    QSet<QString> m_strLastSaveDirs;       //上次壁纸的保存路径
     CWallpaperHelper m_helper;
     SettingsDlg::Data m_settings;
     CHistoryWallpaperMgr m_historyWallpapers;

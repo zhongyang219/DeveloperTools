@@ -70,6 +70,9 @@
     <ClCompile Include="TextEditWidget.cpp">
       <Filter>Widgets</Filter>
     </ClCompile>
+    <ClCompile Include="PathListDialog.cpp">
+      <Filter>Widgets</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtRcc Include="Resource.qrc">
@@ -81,6 +84,9 @@
       <Filter>Models</Filter>
     </QtMoc>
     <QtMoc Include="LongTextEdit.h">
+      <Filter>Widgets</Filter>
+    </QtMoc>
+    <QtMoc Include="PathListDialog.h">
       <Filter>Widgets</Filter>
     </QtMoc>
   </ItemGroup>

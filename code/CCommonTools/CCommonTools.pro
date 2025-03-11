@@ -29,6 +29,7 @@ HEADERS += \
     LongTextEdit.h \
     StringHelper.h \
     TextEditWidget.h \
+    PathListDialog.h \
     ccommontools_global.h \
     tableitemmodel.h
 
@@ -39,4 +40,5 @@ SOURCES += \
     LongTextEdit.cpp \
     StringHelper.cpp \
     TextEditWidget.cpp \
+    PathListDialog.cpp \
     tableitemmodel.cpp
