@@ -22,6 +22,9 @@ MainFrame::MainFrame(const QStringList& cmdLine, QWidget* parent) : RibbonFrameW
     int windowWidth = settings.GetValue("windowWidth", DPI(800)).toInt();
     int windowHeight = settings.GetValue("windowHeight", DPI(600)).toInt();
     resize(QSize(windowWidth, windowHeight));
+
+    //启动1秒定时器
+    m_timerId = startTimer(1000);
 }
 
 MainFrame::~MainFrame()
@@ -37,9 +40,29 @@ MainFrame::~MainFrame()
     }
 }
 
+void MainFrame::SetSharedMemory(QSharedMemory* pShared)
+{
+    m_pSharedMemory = pShared;
+}
+
 void MainFrame::closeEvent(QCloseEvent* event)
 {
     RibbonFrameWindow::closeEvent(event);
+}
+
+void MainFrame::timerEvent(QTimerEvent* timerEvent)
+{
+    if (timerEvent->timerId() == m_timerId)
+    {
+        char* strData = (char*)m_pSharedMemory->data();
+        if (strData[0] != 0)
+        {
+            show();
+            showNormal();
+            activateWindow();
+            strData[0] = 0;
+        }
+    }
 }
 
 
