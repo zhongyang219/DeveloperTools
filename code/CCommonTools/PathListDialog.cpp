@@ -8,7 +8,7 @@
 #include <QMessageBox>
 
 CPathListDialog::CPathListDialog(const QStringList& pathList, QWidget *parent)
-    : QDialog(parent)
+    : DialogBase("PathListDialog", parent)
 {
     setWindowTitle(u8"选择一个文件夹");
     //添加控件
@@ -60,7 +60,7 @@ void CPathListDialog::accept()
         QMessageBox::warning(this, QString(), u8"请选择一个路径！", QMessageBox::Ok);
         return;
     }
-    QDialog::accept();
+    DialogBase::accept();
 }
 
 void CPathListDialog::OnOpenNewFolder()
@@ -70,6 +70,6 @@ void CPathListDialog::OnOpenNewFolder()
     if (!m_newfolderPath.isEmpty())
     {
         //添加了一个新文件后直接关闭窗口
-        QDialog::accept();
+        DialogBase::accept();
     }
 }

@@ -9,12 +9,13 @@
 #include <QWheelEvent>
 #include <QScrollBar>
 #include "ImageLabel.h"
+#include "../CCommonTools/DialogBase.h"
 
-class WalpaperViewDlg : public QDialog
+class WalpaperViewDlg : public DialogBase
 {
 public:
     WalpaperViewDlg(const QString& path, QWidget* parent = nullptr)
-        : QDialog(parent)
+        : DialogBase("WalpaperViewDlg", parent)
     {
         setWindowFlags(windowFlags() | Qt::WindowMaximizeButtonHint);
         setWindowTitle(u8"查看壁纸");
@@ -25,7 +26,8 @@ public:
         pLayout->setContentsMargins(0, 0, 0, 0);
         setLayout(pLayout);
         pLayout->addWidget(&m_imgLabel);
-        resize(QSize(DPI(800), DPI(450)));
+        if (!IsDialogSizeLoadSucceed())
+            resize(QSize(DPI(800), DPI(450)));
     }
 
 private:

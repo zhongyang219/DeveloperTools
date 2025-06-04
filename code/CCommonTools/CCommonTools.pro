@@ -31,7 +31,8 @@ HEADERS += \
     TextEditWidget.h \
     PathListDialog.h \
     ccommontools_global.h \
-    tableitemmodel.h
+    tableitemmodel.h \
+    DialogBase.h
 
 SOURCES += \
     CommonTools.cpp \
@@ -41,4 +42,5 @@ SOURCES += \
     StringHelper.cpp \
     TextEditWidget.cpp \
     PathListDialog.cpp \
-    tableitemmodel.cpp
+    tableitemmodel.cpp \
+    DialogBase.cpp

@@ -95,6 +95,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Config.cpp" />
+    <ClCompile Include="DialogBase.cpp" />
     <ClCompile Include="PathListDialog.cpp" />
     <ClCompile Include="DatabaseTool.cpp" />
     <ClCompile Include="LongTextEdit.cpp" />
@@ -108,6 +109,7 @@
     <QtMoc Include="PathListDialog.h" />
     <ClInclude Include="DatabaseTool.h" />
     <QtMoc Include="LongTextEdit.h" />
+    <ClInclude Include="DialogBase.h" />
     <ClInclude Include="StringHelper.h" />
     <QtMoc Include="tableitemmodel.h" />
     <ClInclude Include="TextEditWidget.h" />

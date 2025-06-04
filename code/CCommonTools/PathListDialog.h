@@ -2,9 +2,10 @@
 
 #include <QDialog>
 #include "ccommontools_global.h"
+#include "DialogBase.h"
 
 class QListWidget;
-class CCOMMONTOOLS_EXPORT CPathListDialog  : public QDialog
+class CCOMMONTOOLS_EXPORT CPathListDialog  : public DialogBase
 {
     Q_OBJECT
 public:
