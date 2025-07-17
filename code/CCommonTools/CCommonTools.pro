@@ -30,9 +30,11 @@ HEADERS += \
     StringHelper.h \
     TextEditWidget.h \
     PathListDialog.h \
+    TreeItem.h \
     ccommontools_global.h \
     tableitemmodel.h \
-    DialogBase.h
+    DialogBase.h \
+    treeitemmodel.h
 
 SOURCES += \
     CommonTools.cpp \
@@ -42,5 +44,7 @@ SOURCES += \
     StringHelper.cpp \
     TextEditWidget.cpp \
     PathListDialog.cpp \
+    TreeItem.cpp \
     tableitemmodel.cpp \
-    DialogBase.cpp
+    DialogBase.cpp \
+    treeitemmodel.cpp

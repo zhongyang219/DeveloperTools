@@ -53,6 +53,9 @@
     <ClInclude Include="DialogBase.h">
       <Filter>Widgets</Filter>
     </ClInclude>
+    <ClInclude Include="TreeItem.h">
+      <Filter>Models</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="DatabaseTool.cpp">
@@ -79,6 +82,12 @@
     <ClCompile Include="DialogBase.cpp">
       <Filter>Widgets</Filter>
     </ClCompile>
+    <ClCompile Include="TreeItem.cpp">
+      <Filter>Models</Filter>
+    </ClCompile>
+    <ClCompile Include="treeitemmodel.cpp">
+      <Filter>Models</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtRcc Include="Resource.qrc">
@@ -94,6 +103,9 @@
     </QtMoc>
     <QtMoc Include="PathListDialog.h">
       <Filter>Widgets</Filter>
+    </QtMoc>
+    <QtMoc Include="treeitemmodel.h">
+      <Filter>Models</Filter>
     </QtMoc>
   </ItemGroup>
 </Project>
