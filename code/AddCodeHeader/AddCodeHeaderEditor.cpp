@@ -29,7 +29,11 @@ void CAddCodeHeaderEditor::ConnectWidget(CMainWidget* pWidget, IMainFrame* pMain
     pWidget->GetFolderPathEidt()->setText(settings.GetValue("folderPath").toString());
 
     QString strTypeList = settings.GetValue("fileTypeList", "*.c;*.cpp;*.h").toString();
+#if QT_VERSION >= QT_VERSION_CHECK(5, 14, 0)
+    QStringList typeList = strTypeList.split('|', Qt::SkipEmptyParts);
+#else
     QStringList typeList = strTypeList.split('|', QString::SkipEmptyParts);
+#endif
     pWidget->GetFileTypeCombo()->addItems(typeList);
 
     int outputFormat = settings.GetValue("outoputFormat", OF_UTF8).toInt();

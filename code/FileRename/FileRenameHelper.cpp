@@ -79,7 +79,7 @@ bool FileRenameHelper::IsFileNameNumbered(const QString& file_name, int& number,
 		return false;
 	if (file_name.back() != ')')
 		return false;
-	int size{ file_name.size() };
+    int size{ static_cast<int>(file_name.size()) };
 	index = file_name.lastIndexOf('(');		//往前查找右括号
 	if (index <= 0)		//左括号不能在字符串开头
 		return false;

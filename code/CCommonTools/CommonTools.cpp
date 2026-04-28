@@ -57,7 +57,11 @@ void CCommonTools::WriteLog(const QString& strLogInfo, const QString& strFilePat
     if (file.open(QIODevice::ReadWrite | QIODevice::Append))
     {
         QTextStream textOutput(&file);
+#if (QT_VERSION >= QT_VERSION_CHECK(6,0,0))
+        textOutput.setEncoding(QStringConverter::Utf8);
+#else
         textOutput.setCodec("UTF-8");
+#endif
         QString currentTime = QDateTime::currentDateTime().toString("yyyyMMdd hh:mm:ss ");
         textOutput << currentTime << strLogInfo << "\r\n";
         file.close();

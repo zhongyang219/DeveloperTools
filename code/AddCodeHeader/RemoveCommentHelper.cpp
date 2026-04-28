@@ -1,6 +1,6 @@
 ﻿#include "RemoveCommentHelper.h"
 #include <QFile>
-#include <QRegExp>
+// #include <QRegExp>
 
 CRemoveCommentHelper::CRemoveCommentHelper()
 {

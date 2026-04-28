@@ -162,6 +162,27 @@ QList<QString> CWallpaperHelper::GetCurrentWallpaperPath(bool fromRegistry)
         }
         return wallpapaersPath;
     }
+
+#elif defined Q_OS_MACOS
+    QProcess process;
+    // AppleScript：获取 Finder 当前桌面图片的 POSIX 路径
+    process.start("osascript", QStringList() << "-e" <<
+                                   "tell application \"Finder\" to get posix path of (desktop picture as alias)");
+
+    QStringList wallpaperPaths;
+    if (!process.waitForFinished(3000))
+    {
+        return wallpaperPaths;
+    }
+    if (process.exitCode() != 0)
+    {
+        // qWarning() << "获取壁纸失败:" << QString::fromUtf8(process.readAllStandardError()).trimmed();
+        return wallpaperPaths;
+    }
+
+    QString path = QString::fromUtf8(process.readAllStandardOutput()).trimmed();
+    wallpaperPaths.append(path);
+
 #else
 //    QProcess cmdProcess;
 //    //使用命令行获取当前壁纸路径

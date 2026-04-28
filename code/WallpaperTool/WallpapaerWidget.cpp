@@ -7,7 +7,7 @@ CWallpapaerWidget::CWallpapaerWidget(QWidget *parent)
     : QWidget(parent)
 {
     QVBoxLayout* pLayout = new QVBoxLayout();
-    pLayout->setMargin(0);
+    pLayout->setContentsMargins(0, 0, 0, 0);
     this->setLayout(pLayout);
     QHBoxLayout* pHLayout = new QHBoxLayout();
     pLayout->addLayout(pHLayout);

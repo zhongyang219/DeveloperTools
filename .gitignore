@@ -362,3 +362,4 @@ bin
 build
 *.pro.user.*
 *.diagsession
+.DS_Store

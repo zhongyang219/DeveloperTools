@@ -1,4 +1,4 @@
-#include "LongTextEdit.h"
+﻿#include "LongTextEdit.h"
 #include <QIcon>
 #include <QAction>
 #include "TextEditWidget.h"
@@ -17,7 +17,7 @@ CLongTextEdit::~CLongTextEdit()
 void CLongTextEdit::OnActionTriggerd()
 {
     CTextEditDialog dlg(this, true);
-    dlg.setWindowTitle(u8"�༭�ı�");
+    dlg.setWindowTitle(u8"编辑文本");
     dlg.GetEdit()->setPlainText(text());
     if (dlg.exec() == QDialog::Accepted)
     {

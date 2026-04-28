@@ -15,7 +15,7 @@ CMainWidget::CMainWidget(QWidget *parent)
     QSplitter* pSpliter = new QSplitter(this);
     pSpliter->setChildrenCollapsible(false);
     pLayout->addWidget(pSpliter);
-    pLayout->setMargin(0);
+    pLayout->setContentsMargins(0, 0, 0, 0);
     this->setLayout(pLayout);
 
     //创建左侧控件

@@ -44,7 +44,8 @@ void WallpaperTool::WallpaperSaveAs(const QString& path)
     }
     else
     {
-        CPathListDialog dlg(m_strLastSaveDirs.toList());
+        QStringList dirList = QStringList(m_strLastSaveDirs.constBegin(), m_strLastSaveDirs.constEnd());
+        CPathListDialog dlg(dirList);
         if (dlg.exec() == QDialog::Accepted)
             strDir = dlg.GetSelectedPath();
     }
@@ -102,7 +103,7 @@ void WallpaperTool::InitInstance()
 void WallpaperTool::UnInitInstance()
 {
     CConfig settings(QString::fromUtf8(GetModuleName()));
-    QStringList dirList = m_strLastSaveDirs.toList();
+    QStringList dirList = QStringList(m_strLastSaveDirs.constBegin(), m_strLastSaveDirs.constEnd());
     settings.WriteValue("lastSaveDir", dirList);
     m_settings.Save();
     m_historyWallpapers.Save();

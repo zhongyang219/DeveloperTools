@@ -128,7 +128,7 @@ QString CFileHeadHelper::GenerateFileHeadContents(const QString& filePath) const
     QString str;
     const auto& data = AddCodeHeader::GetInstance()->GetEditor().GetHeadItemTableModel().GetData();
     QTextStream contents(&str);
-    contents << FILE_HEAD_START << endl;
+    contents << FILE_HEAD_START << Qt::endl;
     //依次添加文件头
     for (const auto& headItem : data)
     {
@@ -167,21 +167,21 @@ QString CFileHeadHelper::GenerateFileHeadContents(const QString& filePath) const
 
         if (headItem.item == HI_FILE)
         {
-            contents << fileInfo.fileName() << endl;
+            contents << fileInfo.fileName() << Qt::endl;
         }
         else if (headItem.item == HI_DATE)
         {
             QDateTime fileDate = fileInfo.lastModified();
-            contents << fileDate.toString("yyyy-MM-dd") << endl;
+            contents << fileDate.toString("yyyy-MM-dd") << Qt::endl;
         }
         else
         {
             QString strValue = headItem.value;
             ProcessHeadString(strValue);
-            contents << strValue << endl;
+            contents << strValue << Qt::endl;
         }
     }
-    contents << FILE_HEAD_END << endl;
+    contents << FILE_HEAD_END << Qt::endl;
     return str;
 }
 

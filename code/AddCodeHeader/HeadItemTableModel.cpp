@@ -2,6 +2,7 @@
 #include <QComboBox>
 #include <QDataStream>
 #include "../CCommonTools/LongTextEdit.h"
+#include <QIODevice>
 
 
 CHeadItemTableModel::CHeadItemTableModel(QObject *parent)
