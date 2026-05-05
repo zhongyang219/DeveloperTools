@@ -145,7 +145,14 @@ void WallpaperTool::OnCommand(const char* strCmd, bool checked)
     //当前壁纸另存为
     else if (cmd == CMD_CURRENT_WALLPAPER_SAVE_AS)
     {
-        WallpaperSaveAs(m_strCurWallpaperPath);
+        if (m_mainStackedWidget.currentWidget() == m_bingWallpaperWidget)
+        {
+            m_bingWallpaperWidget->CurrentWallpaperSaveAs();
+        }
+        else
+        {
+            WallpaperSaveAs(m_strCurWallpaperPath);
+        }
     }
 
     //删除当前壁纸
@@ -255,7 +262,7 @@ void WallpaperTool::EnableControls()
         else
         {
             m_pMainFrame->SetItemEnable(CMD_WallpaperBack, false);
-            m_pMainFrame->SetItemEnable(CMD_CURRENT_WALLPAPER_SAVE_AS, false);
+            m_pMainFrame->SetItemEnable(CMD_CURRENT_WALLPAPER_SAVE_AS, m_mainStackedWidget.currentWidget() == m_bingWallpaperWidget);
             m_pMainFrame->SetItemEnable(CMD_CURRENT_WALLPAPER_DELETE, false);
         }
     }

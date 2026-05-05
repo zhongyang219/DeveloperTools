@@ -19,7 +19,7 @@ BingWallpaperManager::~BingWallpaperManager()
 void BingWallpaperManager::fetchTodayWallpaper()
 {
     // 1. 构建API请求
-    QUrl apiUrl("https://cn.bing.com/HPImageArchive.aspx");
+    QUrl apiUrl("http://cn.bing.com/HPImageArchive.aspx");
     QUrlQuery query;
     query.addQueryItem("format", "js");
     query.addQueryItem("idx", "0");    // 0=今天，1=昨天，以此类推
@@ -35,8 +35,13 @@ void BingWallpaperManager::fetchTodayWallpaper()
     QNetworkReply *reply = m_networkManager->get(request);
     if (reply != nullptr)
     {
-        connect(reply, SIGNAL(finished()), this, SLOT(onJsonReplyFinished));
+        connect(reply, SIGNAL(finished()), this, SLOT(onJsonReplyFinished()));
     }
+}
+
+const QByteArray& BingWallpaperManager::GetImageData()
+{
+    return m_imageData;
 }
 
 void BingWallpaperManager::onJsonReplyFinished()
@@ -57,6 +62,7 @@ void BingWallpaperManager::onJsonReplyFinished()
                 QJsonObject imageInfo = images[0].toObject();
                 QString urlPath = imageInfo["url"].toString();
                 m_copyrightInfo = imageInfo["copyright"].toString();
+                m_wallpaperDate = imageInfo["enddate"].toString();
 
                 // 3. 提取并拼接完整图片URL
                 QString imageUrl = extractImageUrl(urlPath);
@@ -76,13 +82,13 @@ void BingWallpaperManager::onJsonReplyFinished()
                 //             imgReply->deleteLater();
                 //         });
             } else {
-                emit errorOccurred("未找到图片数据");
+                emit errorOccurred(u8"未找到图片数据");
             }
         } else {
-            emit errorOccurred("JSON解析失败");
+            emit errorOccurred(u8"JSON解析失败");
         }
     } else {
-        emit errorOccurred("网络请求失败: " + reply->errorString());
+        emit errorOccurred(u8"网络请求失败: " + reply->errorString());
     }
 
     reply->deleteLater();
@@ -94,14 +100,14 @@ void BingWallpaperManager::onImageReplyFinished()
     if (!reply) return;
 
     if (reply->error() == QNetworkReply::NoError) {
-        QByteArray imageData = reply->readAll();
+        m_imageData = reply->readAll();
         QPixmap pixmap;
 
-        if (pixmap.loadFromData(imageData)) {
+        if (pixmap.loadFromData(m_imageData)) {
             // 5. 发射成功信号，传递图片和版权信息
-            emit wallpaperReady(pixmap, m_copyrightInfo);
+            emit wallpaperReady(pixmap, m_wallpaperDate + ' ' + m_copyrightInfo);
         } else {
-            emit errorOccurred("图片加载失败");
+            emit errorOccurred(u8"图片加载失败");
         }
     }
 
@@ -120,7 +126,7 @@ QString BingWallpaperManager::extractImageUrl(const QString &url)
     if (jpgIndex != -1) {
         QString path = url.left(jpgIndex + 4);  // +4 因为 ".jpg" 长度为4
         // 拼接基础域名，注意处理双斜杠问题
-        return "https://cn.bing.com" + path;
+        return "http://cn.bing.com" + path;
     }
     return url;  // 如果没找到 .jpg，返回原字符串
 }

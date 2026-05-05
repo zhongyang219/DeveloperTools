@@ -34,12 +34,12 @@
   </ImportGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'" Label="QtSettings">
     <QtInstall>5.15.2_msvc2019_64</QtInstall>
-    <QtModules>core;gui;widgets</QtModules>
+    <QtModules>core;network;gui;widgets</QtModules>
     <QtBuildConfig>debug</QtBuildConfig>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'" Label="QtSettings">
     <QtInstall>5.15.2_msvc2019_64</QtInstall>
-    <QtModules>core;gui;widgets</QtModules>
+    <QtModules>core;network;gui;widgets</QtModules>
     <QtBuildConfig>release</QtBuildConfig>
   </PropertyGroup>
   <Target Name="QtMsBuildNotFound" BeforeTargets="CustomBuild;ClCompile" Condition="!Exists('$(QtMsBuild)\qt.targets') or !Exists('$(QtMsBuild)\qt.props')">
@@ -105,11 +105,15 @@
     <QtMoc Include="ImageLabel.h" />
     <QtMoc Include="SettingsDlg.h" />
     <QtMoc Include="WallpapaerWidget.h" />
+    <QtMoc Include="BingWallpaper\bingwallpapermanager.h" />
+    <QtMoc Include="BingWallpaper\bingwallpaperwidget.h" />
     <ClInclude Include="HistoryWallpaperMgr.h" />
     <QtMoc Include="HistoryWallpaperWidget.h" />
     <ClInclude Include="WallpaperHelper.h" />
     <ClInclude Include="wallpapertool_global.h" />
     <QtMoc Include="WallpaperTool.h" />
+    <ClCompile Include="BingWallpaper\bingwallpapermanager.cpp" />
+    <ClCompile Include="BingWallpaper\bingwallpaperwidget.cpp" />
     <ClCompile Include="HistoryWallpaperMgr.cpp" />
     <ClCompile Include="HistoryWallpaperWidget.cpp" />
     <ClCompile Include="ImageLabel.cpp" />

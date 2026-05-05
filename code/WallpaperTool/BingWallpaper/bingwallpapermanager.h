@@ -19,6 +19,8 @@ public:
     // 获取今日壁纸（异步）
     void fetchTodayWallpaper();
 
+    const QByteArray& GetImageData();
+
 signals:
     // 壁纸获取成功信号
     void wallpaperReady(const QPixmap &pixmap, const QString &copyright);
@@ -34,6 +36,8 @@ private:
     QString extractImageUrl(const QString &url);
     QNetworkAccessManager *m_networkManager;
     QString m_copyrightInfo;
+    QString m_wallpaperDate;
+    QByteArray m_imageData;
 };
 
 #endif // BINGWALLPAPERMANAGER_H

@@ -1,6 +1,9 @@
 ﻿#include "bingwallpaperwidget.h"
 #include <QVBoxLayout>
 #include <QLineEdit>
+#include <QFileDialog>
+#include <QMessageBox>
+#include "../../CCommonTools/CommonTools.h"
 
 CBingWallpaperWidget::CBingWallpaperWidget()
 {
@@ -22,6 +25,32 @@ CBingWallpaperWidget::CBingWallpaperWidget()
     m_wallpaperManager->fetchTodayWallpaper();
 }
 
+void CBingWallpaperWidget::CurrentWallpaperSaveAs()
+{
+    QString wallpaperName = m_infoEdit.text();
+    CCommonTools::FileNameNormalize(wallpaperName);
+    QString strDir = QFileDialog::getExistingDirectory(this, QString(), QString(), QFileDialog::ShowDirsOnly | QFileDialog::DontResolveSymlinks);
+    if (!strDir.isEmpty())
+    {
+        QString filePath = strDir + "/BingWallpaper_" + wallpaperName + ".jpg";
+        QFile file(filePath);
+        if (file.open(QIODevice::WriteOnly))
+        {
+            qint64 written = file.write(m_wallpaperManager->GetImageData());
+            file.close();
+
+            if (written != m_wallpaperManager->GetImageData().size())
+            {
+                QMessageBox::warning(this, u8"必应壁纸另存为", u8"文件写入不完整");
+            }
+        }
+        else
+        {
+            QMessageBox::warning(this, u8"必应壁纸另存为", u8"无法打开文件: " + file.errorString());
+        }
+    }
+}
+
 void CBingWallpaperWidget::onWallpaperReady(const QPixmap &pixmap, const QString &copyright)
 {
     // 在GUI线程更新UI（信号槽机制保证线程安全）
@@ -35,6 +64,6 @@ void CBingWallpaperWidget::onWallpaperReady(const QPixmap &pixmap, const QString
 
 void CBingWallpaperWidget::onErrorOccurred(const QString &errorMsg)
 {
-    m_infoEdit.setText("加载失败: " + errorMsg);
-    qWarning() << "壁纸加载错误:" << errorMsg;
+    m_infoEdit.setText(u8"加载失败: " + errorMsg);
+    qWarning() << u8"壁纸加载错误:" << errorMsg;
 }

@@ -10,6 +10,7 @@ class CBingWallpaperWidget : public QWidget
     Q_OBJECT
 public:
     CBingWallpaperWidget();
+    void CurrentWallpaperSaveAs();
 
 private slots:
     void onWallpaperReady(const QPixmap &pixmap, const QString &copyright);

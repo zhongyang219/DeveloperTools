@@ -24,4 +24,6 @@ public:
     static bool IsUtf8Bytes(const QByteArray& data);
 
     //static int QStringFindFirstOf(const QString& str, const char* findStr, int start);
+
+    static void FileNameNormalize(QString& strFileName);
 };

@@ -27,6 +27,9 @@
     <Filter Include="SettingsDlg">
       <UniqueIdentifier>{3ddd2786-4308-4578-9307-04382bb9a1d8}</UniqueIdentifier>
     </Filter>
+    <Filter Include="BingWallpaper">
+      <UniqueIdentifier>{1e4003e0-6723-4242-9adb-03b7e84b3055}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="wallpapertool_global.h">
@@ -64,6 +67,12 @@
     <ClCompile Include="HistoryWallpaperWidget.cpp">
       <Filter>Widgets</Filter>
     </ClCompile>
+    <ClCompile Include="BingWallpaper\bingwallpapermanager.cpp">
+      <Filter>BingWallpaper</Filter>
+    </ClCompile>
+    <ClCompile Include="BingWallpaper\bingwallpaperwidget.cpp">
+      <Filter>BingWallpaper</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="WallpaperTool.h">
@@ -83,6 +92,12 @@
     </QtMoc>
     <QtMoc Include="HistoryWallpaperWidget.h">
       <Filter>Widgets</Filter>
+    </QtMoc>
+    <QtMoc Include="BingWallpaper\bingwallpapermanager.h">
+      <Filter>BingWallpaper</Filter>
+    </QtMoc>
+    <QtMoc Include="BingWallpaper\bingwallpaperwidget.h">
+      <Filter>BingWallpaper</Filter>
     </QtMoc>
   </ItemGroup>
   <ItemGroup>

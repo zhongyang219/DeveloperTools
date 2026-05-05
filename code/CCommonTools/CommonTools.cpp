@@ -121,6 +121,16 @@ bool CCommonTools::IsUtf8Bytes(const QByteArray& data)
     else return true;
 }
 
+void CCommonTools::FileNameNormalize(QString& strFileName)
+{
+    const QString& invalidChars = "\\/:*?\"<>|";
+    for (auto& ch : strFileName)
+    {
+        if (invalidChars.contains(ch))
+            ch = '_';
+    }
+}
+
 //int CCommonTools::QStringFindFirstOf(const QString& str, const char* findStr, int start)
 //{
 //
