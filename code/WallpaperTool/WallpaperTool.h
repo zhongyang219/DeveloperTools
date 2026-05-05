@@ -8,6 +8,7 @@
 #include "SettingsDlg.h"
 #include "HistoryWallpaperMgr.h"
 #include "HistoryWallpaperWidget.h"
+#include "BingWallpaper/bingwallpaperwidget.h"
 #include <QStackedWidget>
 #include <QSet>
 
@@ -46,6 +47,7 @@ private:
     QStackedWidget m_mainStackedWidget;
     MainWidget* m_mainWidget;
     HistoryWallpaperWidget* m_historyWidget;
+    CBingWallpaperWidget* m_bingWallpaperWidget;
     IMainFrame* m_pMainFrame{};
     QString m_strCurWallpaperPath;
     QSet<QString> m_strLastSaveDirs;       //上次壁纸的保存路径

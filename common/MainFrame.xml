@@ -56,7 +56,9 @@
 		<Separator/>
 		<Action name="设置" icon="Images/设置.png" id="WallpaperToolSettings"/>
 		<Separator/>
-		<Action name="历史壁纸" icon="Images/历史.png" id="WallpaperHistory" checkable="true"/>
+		<Action name="桌面壁纸" icon="Images/wallpaper.png" id="DesktopWallpaper" radioGroup="4"/>
+		<Action name="历史壁纸" icon="Images/历史.png" id="WallpaperHistory" radioGroup="4"/>
+		<Action name="必应壁纸" icon="Images/bing.png" id="BingWallpaper" radioGroup="4"/>
 	</Page>
 	<Page name="窗口调整器" icon="Images/WindowResizer.png" modulePath="WindowResizer">
 		<Action name="查找窗口" icon="Images/findWindow.png" id="FindWindow"/> 

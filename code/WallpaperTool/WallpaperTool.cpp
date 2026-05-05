@@ -81,6 +81,7 @@ void WallpaperTool::InitInstance()
 {
     m_mainStackedWidget.addWidget(m_mainWidget = new MainWidget());
     m_mainStackedWidget.addWidget(m_historyWidget = new HistoryWallpaperWidget());
+    m_mainStackedWidget.addWidget(m_bingWallpaperWidget = new CBingWallpaperWidget());
 
     //载入配置
     CConfig settings(QString::fromUtf8(GetModuleName()));
@@ -194,13 +195,19 @@ void WallpaperTool::OnCommand(const char* strCmd, bool checked)
         if (dlg.exec() == QDialog::Accepted)
             m_settings = dlg.GetData();
     }
-
+    else if (cmd == CMD_DesktopWallpaper)
+    {
+        m_mainStackedWidget.setCurrentIndex(0);
+        EnableControls();
+    }
     else if (cmd == CMD_WallpaperHistory)
     {
-        if (checked)
-            m_mainStackedWidget.setCurrentIndex(1);
-        else
-            m_mainStackedWidget.setCurrentIndex(0);
+        m_mainStackedWidget.setCurrentIndex(1);
+        EnableControls();
+    }
+    else if (cmd == CMD_BingWallpaper)
+    {
+        m_mainStackedWidget.setCurrentIndex(2);
         EnableControls();
     }
 }

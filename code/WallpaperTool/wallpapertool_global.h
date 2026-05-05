@@ -19,4 +19,6 @@
 #define CMD_NextWallpaper "NextWallpaper"
 #define CMD_WallpaperToolSettings "WallpaperToolSettings"
 #define CMD_WallpaperBack "WallpaperBack"
+#define CMD_DesktopWallpaper "DesktopWallpaper"
 #define CMD_WallpaperHistory "WallpaperHistory"
+#define CMD_BingWallpaper "BingWallpaper"
