@@ -363,3 +363,5 @@ build
 *.pro.user.*
 *.diagsession
 .DS_Store
+
+.idea

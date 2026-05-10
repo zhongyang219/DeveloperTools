@@ -5,7 +5,7 @@ FW="$APP/Contents/Frameworks"
 
 # 复制自定义库到 Frameworks
 mkdir -p "$FW"
-cp libCCommonTools.1.dylib libRibbonFrame.1.dylib "$FW/"
+cp libCCommonTools.1.dylib libRibbonFrame.1.dylib libAddCodeHeader.dylib libFileRename.dylib libPixelRuler.dylib libWallpaperTool.dylib "$FW/"
 
 # 修复库的 install_name
 for lib in CCommonTools RibbonFrame; do
