@@ -53,6 +53,9 @@ target_include_directories(${PROJECT_NAME} PRIVATE
 
 # 编译宏定义
 target_compile_definitions(${PROJECT_NAME} PRIVATE WALLPAPERTOOL_LIB)
+if(WIN32)
+    target_compile_definitions(${PROJECT_NAME} PRIVATE UNICODE _UNICODE)
+endif()
 
 # 输出目录
 set_target_properties(${PROJECT_NAME} PROPERTIES
