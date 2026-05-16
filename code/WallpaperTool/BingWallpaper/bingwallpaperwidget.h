@@ -1,7 +1,7 @@
 ﻿#ifndef BINGWALLPAPERWIDGET_H
 #define BINGWALLPAPERWIDGET_H
 #include <QLineEdit>
-#include "ImageLabel.h"
+#include "../ImageLabel.h"
 #include "bingwallpapermanager.h"
 #include <QWidget>
 
