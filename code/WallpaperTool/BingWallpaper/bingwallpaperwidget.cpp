@@ -5,6 +5,8 @@
 #include <QMessageBox>
 #include "../../CCommonTools/CommonTools.h"
 
+const int MAX_BING_WALLPAPER_COUNT = 7;
+
 CBingWallpaperWidget::CBingWallpaperWidget()
 {
     QVBoxLayout* pLayout = new QVBoxLayout();
@@ -22,14 +24,19 @@ CBingWallpaperWidget::CBingWallpaperWidget()
             this, &CBingWallpaperWidget::onErrorOccurred);
 
     // 启动获取
-    m_wallpaperManager->fetchTodayWallpaper();
+    m_wallpaperManager->fetchWallpaper();
 }
 
 void CBingWallpaperWidget::CurrentWallpaperSaveAs()
 {
     QString wallpaperName = m_infoEdit.text();
     CCommonTools::FileNameNormalize(wallpaperName);
-    QString strDir = QFileDialog::getExistingDirectory(this, QString(), QString(), QFileDialog::ShowDirsOnly | QFileDialog::DontResolveSymlinks);
+    QFileDialog::Options options = QFileDialog::ShowDirsOnly | QFileDialog::DontResolveSymlinks;
+#ifdef Q_OS_MACOS
+    // macos使用系统原生对话框会打不开
+    options |= QFileDialog::DontUseNativeDialog;
+#endif
+    QString strDir = QFileDialog::getExistingDirectory(this, QString(), QString(), options);
     if (!strDir.isEmpty())
     {
         QString filePath = strDir + "/BingWallpaper_" + wallpaperName + ".jpg";
@@ -51,15 +58,29 @@ void CBingWallpaperWidget::CurrentWallpaperSaveAs()
     }
 }
 
+void CBingWallpaperWidget::PreviousWallpaper()
+{
+    if (m_wallpaperIndex < MAX_BING_WALLPAPER_COUNT)
+    {
+        m_wallpaperIndex++;
+        m_wallpaperManager->fetchWallpaper(m_wallpaperIndex);
+    }
+}
+
+void CBingWallpaperWidget::NextWallpaper()
+{
+    if (m_wallpaperIndex > 0)
+    {
+        m_wallpaperIndex--;
+        m_wallpaperManager->fetchWallpaper(m_wallpaperIndex);
+    }
+}
+
 void CBingWallpaperWidget::onWallpaperReady(const QPixmap &pixmap, const QString &copyright)
 {
     // 在GUI线程更新UI（信号槽机制保证线程安全）
     m_mainImgLabel.SetImage(pixmap);
     m_infoEdit.setText(copyright);
-
-    // 可选：保存本地缓存
-    // pixmap.save(QStandardPaths::writableLocation(QStandardPaths::PicturesLocation)
-    //            + "/bing_wallpaper.jpg");
 }
 
 void CBingWallpaperWidget::onErrorOccurred(const QString &errorMsg)

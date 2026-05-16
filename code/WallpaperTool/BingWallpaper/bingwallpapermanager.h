@@ -16,8 +16,11 @@ public:
     explicit BingWallpaperManager(QObject *parent = nullptr);
     ~BingWallpaperManager();
 
-    // 获取今日壁纸（异步）
-    void fetchTodayWallpaper();
+    /**
+     * 获取壁纸（异步）
+     * @param idx 壁纸的索引，0=今天，1=昨天，以此类推
+     */
+    void fetchWallpaper(int idx = 0);
 
     const QByteArray& GetImageData();
 

@@ -183,16 +183,30 @@ void WallpaperTool::OnCommand(const char* strCmd, bool checked)
 
     else if (cmd == CMD_PreviousWallpaper)
     {
-        m_helper.PreviousWallPaper();
-        CCommonTools::DelayNotBlocked(200);
-        Refresh();
+        if (m_mainStackedWidget.currentWidget() == m_bingWallpaperWidget)
+        {
+            m_bingWallpaperWidget->PreviousWallpaper();
+        }
+        else if (m_mainStackedWidget.currentWidget() == m_mainWidget)
+        {
+            m_helper.PreviousWallPaper();
+            CCommonTools::DelayNotBlocked(200);
+            Refresh();
+        }
     }
 
     else if (cmd == CMD_NextWallpaper)
     {
-        m_helper.NextWallPaper();
-        CCommonTools::DelayNotBlocked(200);
-        Refresh();
+        if (m_mainStackedWidget.currentWidget() == m_bingWallpaperWidget)
+        {
+            m_bingWallpaperWidget->NextWallpaper();
+        }
+        else if (m_mainStackedWidget.currentWidget() == m_mainWidget)
+        {
+            m_helper.NextWallPaper();
+            CCommonTools::DelayNotBlocked(200);
+            Refresh();
+        }
     }
 
     else if (cmd == CMD_WallpaperToolSettings)

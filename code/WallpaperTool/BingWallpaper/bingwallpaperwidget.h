@@ -12,6 +12,9 @@ public:
     CBingWallpaperWidget();
     void CurrentWallpaperSaveAs();
 
+    void PreviousWallpaper();
+    void NextWallpaper();
+
 private slots:
     void onWallpaperReady(const QPixmap &pixmap, const QString &copyright);
     void onErrorOccurred(const QString &errorMsg);
@@ -20,6 +23,7 @@ private:
     QLineEdit m_infoEdit;
     CImageLabel m_mainImgLabel;
     BingWallpaperManager *m_wallpaperManager;
+    int m_wallpaperIndex;
 };
 
 #endif // BINGWALLPAPERWIDGET_H

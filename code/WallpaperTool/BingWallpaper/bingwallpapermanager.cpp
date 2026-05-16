@@ -16,13 +16,13 @@ BingWallpaperManager::~BingWallpaperManager()
     // QNetworkAccessManager 会被自动清理
 }
 
-void BingWallpaperManager::fetchTodayWallpaper()
+void BingWallpaperManager::fetchWallpaper(int idx)
 {
     // 1. 构建API请求
     QUrl apiUrl("http://cn.bing.com/HPImageArchive.aspx");
     QUrlQuery query;
     query.addQueryItem("format", "js");
-    query.addQueryItem("idx", "0");    // 0=今天，1=昨天，以此类推
+    query.addQueryItem("idx", QString::number(idx));
     query.addQueryItem("n", "1");      // 返回数量
     query.addQueryItem("mkt", "zh-CN");
     apiUrl.setQuery(query);
