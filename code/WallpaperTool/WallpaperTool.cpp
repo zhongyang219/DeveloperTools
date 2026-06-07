@@ -193,6 +193,7 @@ void WallpaperTool::OnCommand(const char* strCmd, bool checked)
             CCommonTools::DelayNotBlocked(200);
             Refresh();
         }
+        EnableControls();
     }
 
     else if (cmd == CMD_NextWallpaper)
@@ -207,6 +208,7 @@ void WallpaperTool::OnCommand(const char* strCmd, bool checked)
             CCommonTools::DelayNotBlocked(200);
             Refresh();
         }
+        EnableControls();
     }
 
     else if (cmd == CMD_WallpaperToolSettings)
@@ -271,13 +273,24 @@ void WallpaperTool::EnableControls()
                 m_pMainFrame->SetItemEnable(CMD_CURRENT_WALLPAPER_SAVE_AS, !m_mainWidget->IsGridLayout());
                 m_pMainFrame->SetItemEnable(CMD_CURRENT_WALLPAPER_DELETE, !m_mainWidget->IsGridLayout());
             }
-
+            m_pMainFrame->SetItemEnable(CMD_PreviousWallpaper, true);
+            m_pMainFrame->SetItemEnable(CMD_NextWallpaper, true);
+        }
+        else if (m_mainStackedWidget.currentWidget() == m_bingWallpaperWidget)
+        {
+            m_pMainFrame->SetItemEnable(CMD_WallpaperBack, false);
+            m_pMainFrame->SetItemEnable(CMD_CURRENT_WALLPAPER_SAVE_AS, true);
+            m_pMainFrame->SetItemEnable(CMD_CURRENT_WALLPAPER_DELETE, false);
+            m_pMainFrame->SetItemEnable(CMD_PreviousWallpaper, m_bingWallpaperWidget->IsCommandEnable(CMD_PreviousWallpaper));
+            m_pMainFrame->SetItemEnable(CMD_NextWallpaper, m_bingWallpaperWidget->IsCommandEnable(CMD_NextWallpaper));
         }
         else
         {
             m_pMainFrame->SetItemEnable(CMD_WallpaperBack, false);
-            m_pMainFrame->SetItemEnable(CMD_CURRENT_WALLPAPER_SAVE_AS, m_mainStackedWidget.currentWidget() == m_bingWallpaperWidget);
+            m_pMainFrame->SetItemEnable(CMD_CURRENT_WALLPAPER_SAVE_AS, false);
             m_pMainFrame->SetItemEnable(CMD_CURRENT_WALLPAPER_DELETE, false);
+            m_pMainFrame->SetItemEnable(CMD_PreviousWallpaper, false);
+            m_pMainFrame->SetItemEnable(CMD_NextWallpaper, false);
         }
     }
 }

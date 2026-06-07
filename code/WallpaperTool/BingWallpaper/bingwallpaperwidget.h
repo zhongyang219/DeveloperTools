@@ -15,6 +15,8 @@ public:
     void PreviousWallpaper();
     void NextWallpaper();
 
+    bool IsCommandEnable(const QString& strCmd) const;
+
 private slots:
     void onWallpaperReady(const QPixmap &pixmap, const QString &copyright);
     void onErrorOccurred(const QString &errorMsg);

@@ -1,4 +1,5 @@
 ﻿#include "bingwallpaperwidget.h"
+#include "../wallpapertool_global.h"
 #include <QVBoxLayout>
 #include <QLineEdit>
 #include <QFileDialog>
@@ -74,6 +75,19 @@ void CBingWallpaperWidget::NextWallpaper()
         m_wallpaperIndex--;
         m_wallpaperManager->fetchWallpaper(m_wallpaperIndex);
     }
+}
+
+bool CBingWallpaperWidget::IsCommandEnable(const QString& strCmd) const
+{
+    if (strCmd == CMD_PreviousWallpaper)
+    {
+        return m_wallpaperIndex >= 0 && m_wallpaperIndex < MAX_BING_WALLPAPER_COUNT;
+    }
+    else if (strCmd == CMD_NextWallpaper)
+    {
+        return m_wallpaperIndex > 0 && m_wallpaperIndex <= MAX_BING_WALLPAPER_COUNT;
+    }
+    return true;
 }
 
 void CBingWallpaperWidget::onWallpaperReady(const QPixmap &pixmap, const QString &copyright)

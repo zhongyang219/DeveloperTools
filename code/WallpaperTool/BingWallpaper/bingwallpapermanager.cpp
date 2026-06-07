@@ -66,6 +66,7 @@ void BingWallpaperManager::onJsonReplyFinished()
 
                 // 3. 提取并拼接完整图片URL
                 QString imageUrl = extractImageUrl(urlPath);
+                imageUrl.replace("1920x1080", "1920x1200");
 
                 // 4. 异步下载图片
                 QNetworkRequest imgRequest{ QUrl(imageUrl) };
