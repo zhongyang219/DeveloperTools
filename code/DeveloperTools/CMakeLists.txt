@@ -10,6 +10,8 @@ set(CMAKE_AUTOUIC ON)
 # 仅在 macOS 桌面平台下注入 MACOSX_BUNDLE 标志
 if(APPLE)
     set(QT_BUNDLE_FLAG MACOSX_BUNDLE)
+elseif(WIN32)
+    set(QT_BUNDLE_FLAG WIN32)
 else()
     set(QT_BUNDLE_FLAG "")
 endif()
@@ -25,6 +27,10 @@ set(APP_SOURCES
     main.cpp
     DeveloperTools.qrc
 )
+
+if(WIN32)
+    list(APPEND APP_SOURCES DeveloperTools.rc)
+endif()
 
 # macOS 平台追加 .icns 图标文件到源列表
 if(APPLE)
@@ -50,13 +56,6 @@ list(TRANSFORM QT_COMPONENTS PREPEND "Qt${QT_VERSION_MAJOR}::" OUTPUT_VARIABLE Q
 # 包含路径
 target_include_directories(${PROJECT_NAME} PRIVATE
     ${CMAKE_CURRENT_SOURCE_DIR}/../../include
-)
-
-# 输出目录
-set_target_properties(${PROJECT_NAME} PROPERTIES
-    # 可执行程序输出路径
-    RUNTIME_OUTPUT_DIRECTORY_DEBUG ${CMAKE_CURRENT_SOURCE_DIR}/../../bin/debug
-    RUNTIME_OUTPUT_DIRECTORY_RELEASE ${CMAKE_CURRENT_SOURCE_DIR}/../../bin/release
 )
 
 # macOS 平台配置 Bundle 图标与资源打包路径
