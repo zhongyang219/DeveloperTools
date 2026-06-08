@@ -1,4 +1,5 @@
 cmake_minimum_required(VERSION 3.16)
+set(CMAKE_OSX_DEPLOYMENT_TARGET "12.0" CACHE STRING "Minimum OS X deployment version")
 project(DeveloperTools LANGUAGES CXX)
 
 # 设置全局的 Debug 和 Release 输出目录
