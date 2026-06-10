@@ -33,10 +33,6 @@ void CBingWallpaperWidget::CurrentWallpaperSaveAs()
     QString wallpaperName = m_infoEdit.text();
     CCommonTools::FileNameNormalize(wallpaperName);
     QFileDialog::Options options = QFileDialog::ShowDirsOnly | QFileDialog::DontResolveSymlinks;
-#ifdef Q_OS_MACOS
-    // macos使用系统原生对话框会打不开
-    options |= QFileDialog::DontUseNativeDialog;
-#endif
     QString strDir = QFileDialog::getExistingDirectory(this, QString(), QString(), options);
     if (!strDir.isEmpty())
     {

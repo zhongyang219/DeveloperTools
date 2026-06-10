@@ -182,6 +182,7 @@ QList<QString> CWallpaperHelper::GetCurrentWallpaperPath(bool fromRegistry)
 
     QString path = QString::fromUtf8(process.readAllStandardOutput()).trimmed();
     wallpaperPaths.append(path);
+    return wallpaperPaths;
 
 #else
 //    QProcess cmdProcess;
