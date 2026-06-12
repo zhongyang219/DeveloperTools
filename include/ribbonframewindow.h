@@ -7,6 +7,7 @@
 #include "moduleinterface.h"
 #include "mainframeinterface.h"
 #include "mainframe_global.h"
+#include "styleinterface.h"
 
 class QDomElement;
 class QToolBar;
@@ -85,8 +86,8 @@ protected:
      * @brief       响应一个命令。
      * @note        当点击工具栏中的Action、CheckBox或RadioButton时会触发此函数。重写此函数用于响应需要在主窗口中响应的命令，
      *              需要在模块中响应的命令请在对应模块的OnCommand函数中响应。如果派生类重写了此函数，请在重写的函数中调用基类的函数。
-     * @param[in]	strCmd：命令的ID
-     * @param[in]	checked：命令是否选中（如果命令具有可选中属性时）
+     * @param[in]	strCmd 命令的ID
+     * @param[in]	checked 命令是否选中（如果命令具有可选中属性时）
      * @return      返回true表示命令已经被响应。如果命令需要在模块中响应，请返回false。
      */
     virtual bool OnCommand(const QString& strCmd, bool checked);
@@ -125,12 +126,18 @@ protected:
      */
     virtual QWidget* CreateUserWidget(const QString& strId, QWidget* pParent = nullptr) { return nullptr; }
 
+    /**
+     * @brief       更新窗口边框（仅使用自绘标题栏时有效）
+     */
+    void UpdateWindowFrame(bool force);
+
 private:
     RibbonFramePrivate* d;        //私有成员变量
 
     // QWidget interface
 protected:
     virtual void closeEvent(QCloseEvent*) override;
+    void changeEvent(QEvent *) override;
 
     // IMainFrame interface
 public:
@@ -149,6 +156,7 @@ public:
     virtual void SetStatusBarText(const char* text, int timeOut) override;
     virtual int GetItemCurIndex(const char* strId) override;
     virtual void SetItemCurIIndex(const char* strId, int index) override;
+    virtual IRibbonStyle* GetRibbonStyle() override;
 };
 
 #endif // RIBBONFRAMEWINDOW_H
