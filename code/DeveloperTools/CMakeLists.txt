@@ -62,12 +62,7 @@ target_include_directories(${PROJECT_NAME} PRIVATE
 if(APPLE)
     set_target_properties(${PROJECT_NAME} PROPERTIES
         MACOSX_BUNDLE TRUE
-        MACOSX_BUNDLE_IDENTIFIER "com.zhongyang219.developertools"  # 替换为你的反向域名标识符
-        MACOSX_BUNDLE_BUNDLE_NAME "DeveloperTools"             # 替换为你的应用名称
-        MACOSX_BUNDLE_BUNDLE_VERSION "1.0.0"
-        MACOSX_BUNDLE_SHORT_VERSION_STRING "1.0"
-        MACOSX_BUNDLE_ICON_FILE ${MACOS_APP_ICON_NAME}
-        MACOSX_BUNDLE_INFO_PLIST ""
+        MACOSX_BUNDLE_INFO_PLIST "${CMAKE_CURRENT_SOURCE_DIR}/res/Info.plist"
     )
     set_source_files_properties(${MACOS_APP_ICON_PATH} PROPERTIES
         MACOSX_PACKAGE_LOCATION Resources
