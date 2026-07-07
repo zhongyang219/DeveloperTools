@@ -46,7 +46,7 @@ void ColorPickerOverlay::paintEvent(QPaintEvent *event)
 // 拦截鼠标移动，实时获取颜色
 void ColorPickerOverlay::mouseMoveEvent(QMouseEvent *event)
 {
-    QPoint pos = event->globalPosition().toPoint();
+    QPoint pos = event->globalPos();
     if (pos != m_picking_pos)
     {
         m_picking_pos = pos;
@@ -61,7 +61,7 @@ void ColorPickerOverlay::mousePressEvent(QMouseEvent *event)
     if (event->button() == Qt::LeftButton)
     {
         // 左键：确认取色
-        QColor color = getColorAtPos(event->globalPosition().toPoint());
+        QColor color = getColorAtPos(event->globalPos());
         emit colorPicked(color);
         this->close(); // 关闭覆盖窗口，退出取色模式
     }
