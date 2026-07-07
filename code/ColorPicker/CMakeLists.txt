@@ -11,9 +11,14 @@ add_library(${PROJECT_NAME} SHARED
     ColorPicker_global.h
     ColorPicker.h
     ColorPicker.cpp
+    ColorPicker.qrc
     widgets/colorpickerwindow.cpp
     widgets/colorpickerwindow.h
     widgets/colorpickerwindow.ui
+    common/ColorConvert.cpp
+    common/ColorConvert.h
+    widgets/ColorPickerOverlay.cpp
+    widgets/ColorPickerOverlay.h
 )
 
 # 依赖的Qt组件
@@ -32,6 +37,7 @@ list(TRANSFORM QT_COMPONENTS PREPEND "Qt${QT_VERSION_MAJOR}::" OUTPUT_VARIABLE Q
 
 # 包含路径
 target_include_directories(${PROJECT_NAME} PRIVATE
+    ${CMAKE_CURRENT_SOURCE_DIR}
     ${CMAKE_CURRENT_SOURCE_DIR}/../../include
 )
 
