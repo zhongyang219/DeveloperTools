@@ -366,3 +366,7 @@ build
 
 .idea
 .vscode
+CMakePresets.json
+CMakeUserPresets.json
+enc_temp_folder/
+CMakeLists.txt.user.*
