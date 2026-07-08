@@ -1,4 +1,5 @@
 ﻿#include "ColorPicker.h"
+#include "../CCommonTools/Config.h"
 
 static ColorPicker* pIns = nullptr;
 ColorPicker::ColorPicker()
@@ -17,21 +18,29 @@ IMainFrame* ColorPicker::GetMainFrame()
 
 void ColorPicker::InitInstance()
 {
+    CConfig settings(QString::fromUtf8(GetModuleName()));
+    m_main_window.SetUseHex(settings.GetValue("use_hex", false).toBool());
+    m_main_window.SetHexLowerCase(settings.GetValue("hex_lower_case", true).toBool());
+    m_main_window.SetColor(settings.GetValue("color").toString());
+
     m_main_window.LoadConfig();
 }
 
 void ColorPicker::UiInitComplete(IMainFrame* pMainFrame)
 {
     m_pMainFrame = pMainFrame;
-
-    //QWidget* pMainWindow = dynamic_cast<QWidget*>(pMainFrame);
-    //if (pMainWindow != nullptr)
-    //    pMainWindow->setAcceptDrops(true);
+    pMainFrame->SetItemChecked(CMD_UseHex, m_main_window.GetUseHex());
+    pMainFrame->SetItemChecked(CMD_HexLowerCase, m_main_window.GetHexLowerCase());
 }
 
 void ColorPicker::UnInitInstance()
 {
     m_main_window.SaveConfig();
+
+    CConfig settings(QString::fromUtf8(GetModuleName()));
+    settings.WriteValue("use_hex", m_main_window.GetUseHex());
+    settings.WriteValue("hex_lower_case", m_main_window.GetHexLowerCase());
+    settings.WriteValue("color", m_main_window.GetColor().name());
 }
 
 void* ColorPicker::GetMainWindow()
@@ -58,19 +67,19 @@ void ColorPicker::OnCommand(const char* strCmd, bool checked)
     }
     else if (cmd == CMD_CopyRgbValue)
     {
-
+        m_main_window.CopyRgbValue();
     }
     else if (cmd == CMD_CopyGexValue)
     {
-
+        m_main_window.CopyHexValue();
     }
     else if (cmd == CMD_PasteRgbValue)
     {
-
+        m_main_window.PasteRgbValue();
     }
     else if (cmd == CMD_PasteHexValue)
     {
-
+        m_main_window.PasteHexValue();
     }
     else if (cmd == CMD_UseHex)
     {

@@ -54,5 +54,6 @@ target_link_directories(${PROJECT_NAME} PRIVATE
 
 # 链接库
 target_link_libraries(${PROJECT_NAME} PRIVATE
+    CCommonTools
     ${QT_LINK_TARGETS}
 )

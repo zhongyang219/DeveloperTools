@@ -1,4 +1,4 @@
-#include "Config.h"
+ï»¿#include "Config.h"
 #include "define.h"
 
 CConfig::CConfig(const QString& strModuleName)
@@ -15,7 +15,8 @@ CConfig::CConfig(const QString& strModuleName)
     }
     m_settings = new QSettings(strConfigPath, QSettings::NativeFormat);
 #else
-    m_settings = new QSettings("Apps By ZhongYang", qApp->applicationName());
+    m_settings = new QSettings("Apps By ZhongYang", APP_NAME);
+    m_module_name = strModuleName;
 #endif
 }
 
@@ -24,15 +25,27 @@ CConfig::~CConfig()
     SAFE_DELETE(m_settings);
 }
 
+QString CConfig::GetKeyName(const QString strKeyName) const
+{
+    if (!m_module_name.isEmpty())
+    {
+        return m_module_name + '/' + strKeyName;
+    }
+    else
+    {
+        return strKeyName;
+    }
+}
+
 void CConfig::WriteValue(const QString& strKeyName, const QVariant& value)
 {
-    if (value.type() == QVariant::Bool)     //ÓÉÓÚboolÀàÐÍ±£´æµ½×¢²á±í»á×ª»»³É×Ö·û´®£¬ÕâÀï½«Ëü×ª»»³Éint
-        m_settings->setValue(strKeyName, value.toInt());
+    if (value.type() == QVariant::Bool)     //ç”±äºŽboolç±»åž‹ä¿å­˜åˆ°æ³¨å†Œè¡¨ä¼šè½¬æ¢æˆå­—ç¬¦ä¸²ï¼Œè¿™é‡Œå°†å®ƒè½¬æ¢æˆint
+        m_settings->setValue(GetKeyName(strKeyName), value.toInt());
     else
-        m_settings->setValue(strKeyName, value);
+        m_settings->setValue(GetKeyName(strKeyName), value);
 }
 
 QVariant CConfig::GetValue(const QString& strKeyName, const QVariant& defaultValue) const
 {
-    return m_settings->value(strKeyName, defaultValue);
+    return m_settings->value(GetKeyName(strKeyName), defaultValue);
 }

@@ -7,9 +7,31 @@
 #include "colorpickerwindow.h"
 #include "ui_ColorPickerWindow.h"
 #include <QScreen>
+#include <QClipboard>
 #include "ColorPicker.h"
 #include "common/ColorConvert.h"
 
+bool IsCharHex(char ch)
+{
+    return (ch >= '0' && ch <= '9') || (ch >= 'a' && ch <= 'f') || (ch >= 'A' && ch <= 'F');
+}
+
+bool IsStringHex(const QString& strHex)
+{
+    QString strHex1 = strHex.trimmed();
+    if (strHex1.isEmpty())
+        return false;
+    if (strHex1[0] == L'#')
+        strHex1 = strHex1.mid(1);
+    for (auto& ch : strHex1)
+    {
+        if (!IsCharHex(ch.toLatin1()))
+            return false;
+    }
+    return true;
+}
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ColorPickerWindow::ColorPickerWindow(QWidget* parent) : QWidget(parent), ui(new Ui::ColorPickerWindow)
 {
     ui->setupUi(this);
@@ -43,6 +65,11 @@ void ColorPickerWindow::SetColor(const QColor& color)
     //设置当前颜色
     ui->selectColorWidget->SetColor(color);
     UpdateColorValue();
+}
+
+const QColor& ColorPickerWindow::GetColor() const
+{
+    return ui->selectColorWidget->GetColor();
 }
 
 void ColorPickerWindow::UpdateColorValue()
@@ -97,10 +124,73 @@ void ColorPickerWindow::SetUseHex(bool use_hex)
     UpdateColorValue();
 }
 
+bool ColorPickerWindow::GetUseHex() const
+{
+    return m_use_hex;
+}
+
 void ColorPickerWindow::SetHexLowerCase(bool hex_lower_case)
 {
     m_hex_lower_case = hex_lower_case;
     UpdateColorValue();
+}
+
+bool ColorPickerWindow::GetHexLowerCase()
+{
+    return m_hex_lower_case;
+}
+
+void ColorPickerWindow::CopyRgbValue()
+{
+    const QColor& color = ui->selectColorWidget->GetColor();
+    QString strRgb = ColorConvert::GetRgbString(color);
+    QClipboard* clipboard = QApplication::clipboard();
+    clipboard->setText(strRgb);
+}
+
+void ColorPickerWindow::CopyHexValue()
+{
+    QClipboard* clipboard = QApplication::clipboard();
+    clipboard->setText(ui->colorValueHexEdit->text());
+}
+
+void ColorPickerWindow::PasteRgbValue()
+{
+    QClipboard* clipboard = QApplication::clipboard();
+    QString strRgb = clipboard->text();
+    QStringList strRgbList = strRgb.split(',', Qt::SkipEmptyParts);
+    if (strRgbList.size() >= 3)
+    {
+        int r = strRgbList[0].toInt(nullptr, 0);
+        int g = strRgbList[1].toInt(nullptr, 0);
+        int b = strRgbList[2].toInt(nullptr, 0);
+        ui->selectColorWidget->SetColor(QColor(r, g, b));
+        UpdateColorValue();
+        ColorPicker::Instance()->GetMainFrame()->SetStatusBarText(u8"RGB值粘贴成功。", 2000);
+    }
+    else
+    {
+        ColorPicker::Instance()->GetMainFrame()->SetStatusBarText(u8"RGB值粘贴失败！", 2000);
+    }
+}
+
+void ColorPickerWindow::PasteHexValue()
+{
+    QClipboard* clipboard = QApplication::clipboard();
+    QString strHex = clipboard->text();
+    if (IsStringHex(strHex))
+    {
+        if (strHex[0] != '#')
+            strHex = '#' + strHex;
+        ui->selectColorWidget->SetColor(QColor(strHex));
+        UpdateColorValue();
+        ColorPicker::Instance()->GetMainFrame()->SetStatusBarText(u8"十六进制值粘贴成功。", 2000);
+    }
+    else
+    {
+        ColorPicker::Instance()->GetMainFrame()->SetStatusBarText(u8"十六进制值粘贴失败！", 2000);
+    }
+
 }
 
 void ColorPickerWindow::on_selectColorBtn_clicked()

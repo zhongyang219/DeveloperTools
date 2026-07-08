@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include "ccommontools_global.h"
 #include <QSettings>
 
@@ -12,6 +12,10 @@ public:
     QVariant GetValue(const QString& strKeyName, const QVariant& defaultValue = QVariant()) const;
 
 private:
+    QString GetKeyName(const QString strKeyName) const;
+
+private:
     QSettings* m_settings{};
+    QString m_module_name;
 };
 

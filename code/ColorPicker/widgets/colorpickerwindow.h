@@ -33,9 +33,17 @@ public:
     void StartPicking();
 
     void SetColor(const QColor& color);
+    const QColor& GetColor() const;
 
     void SetUseHex(bool use_hex);
+    bool GetUseHex() const;
     void SetHexLowerCase(bool hex_lower_case);
+    bool GetHexLowerCase();
+
+    void CopyRgbValue();
+    void CopyHexValue();
+    void PasteRgbValue();
+    void PasteHexValue();
 
 private slots:
     void on_selectColorBtn_clicked();
