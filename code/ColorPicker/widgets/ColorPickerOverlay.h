@@ -1,4 +1,4 @@
-//
+﻿//
 // Created by zhongyang219 on 2026/7/7.
 //
 
@@ -8,6 +8,7 @@
 #include <QWidget>
 #include <QColor>
 
+//取色时的全屏覆盖窗口
 class ColorPickerOverlay : public QWidget
 {
     Q_OBJECT
@@ -27,8 +28,8 @@ protected:
     void paintEvent(QPaintEvent *event) override; // 关键：防止绘制背景
 
 private:
-    static QColor getColorAtPos(const QPoint &pos);
     QPoint m_picking_pos;
+    QColor m_color;
 };
 
 #endif //DEVELOPERTOOLS_COLORPICKEROVERLAY_H

@@ -23,7 +23,6 @@ void ColorPicker::InitInstance()
 void ColorPicker::UiInitComplete(IMainFrame* pMainFrame)
 {
     m_pMainFrame = pMainFrame;
-    m_pMainFrame->SetItemEnable(CMD_ColorPickerDelete, false);
 
     //QWidget* pMainWindow = dynamic_cast<QWidget*>(pMainFrame);
     //if (pMainWindow != nullptr)
@@ -53,6 +52,42 @@ const char* ColorPicker::GetModuleName()
 void ColorPicker::OnCommand(const char* strCmd, bool checked)
 {
     QString cmd(QString::fromUtf8(strCmd));
+    if (cmd == CMD_PickColor)
+    {
+        m_main_window.StartPicking();
+    }
+    else if (cmd == CMD_CopyRgbValue)
+    {
+
+    }
+    else if (cmd == CMD_CopyGexValue)
+    {
+
+    }
+    else if (cmd == CMD_PasteRgbValue)
+    {
+
+    }
+    else if (cmd == CMD_PasteHexValue)
+    {
+
+    }
+    else if (cmd == CMD_UseHex)
+    {
+
+    }
+    else if (cmd == CMD_HexLowerCase)
+    {
+
+    }
+    else if (cmd == CMD_SelectThemeColor)
+    {
+
+    }
+    else if (cmd == CMD_AddGetSysColorTable)
+    {
+
+    }
 }
 
 

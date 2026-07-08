@@ -79,12 +79,6 @@
 			<Action name="选择系统主题色" id="SelectThemeColor"/>
 			<Action name="添加GetSysColor颜色表" id="AddGetSysColorTable"/>
 		</Menu>
-		<Menu name="语言" id="Language" icon="Images/language.png">
-			<Action name="跟随系统" id="LanguageFollowingSystem" radioGroup="1"/>
-			<Action name="English" id="LanguageEnglish" radioGroup="1"/>
-			<Action name="简体中文" id="LanguageSimplifiedChinese" radioGroup="1"/>
-		</Menu>
-		<Action name="关于" id="ColorPickerAppAbout" icon="Images/help.png"/>
 	</Page>
 	<Page name="密码生成器" icon="Images/password.png" modulePath="PasswordGeneratorApi">
 		<ActionGroup name="密码位数">

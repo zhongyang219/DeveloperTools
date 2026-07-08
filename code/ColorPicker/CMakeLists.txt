@@ -19,6 +19,8 @@ add_library(${PROJECT_NAME} SHARED
     common/ColorConvert.h
     widgets/ColorPickerOverlay.cpp
     widgets/ColorPickerOverlay.h
+    widgets/ColorWidget.h
+    widgets/ColorWidget.cpp
 )
 
 # 依赖的Qt组件

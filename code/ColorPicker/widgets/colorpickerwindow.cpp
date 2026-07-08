@@ -1,4 +1,4 @@
-//
+﻿//
 // Created by zhongyang219 on 2026/7/4.
 //
 
@@ -45,12 +45,14 @@ void ColorPickerWindow::on_selectColorBtn_clicked()
 
 void ColorPickerWindow::OnColorPicked(const QColor& color)
 {
+    ui->selectColorWidget->SetColor(color);
 }
 
 void ColorPickerWindow::OnColorHovered(const QColor& color)
 {
-    ui->labelCurColorRgb->setText(ColorConvert::GetRgbString(color));
-    ui->labelCurColorHex->setText(color.name());
+    ui->labelCurColorRgb->setText("RGB: " + ColorConvert::GetRgbString(color));
+    ui->labelCurColorHex->setText("HEX: " + color.name());
+    ui->curColorWidget->SetColor(color);
 
     if (m_overlay != nullptr)
     {

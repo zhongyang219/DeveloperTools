@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>501</width>
+    <width>572</width>
     <height>341</height>
    </rect>
   </property>
@@ -16,13 +16,19 @@
   <layout class="QHBoxLayout" name="horizontalLayout_7">
    <item>
     <widget class="QWidget" name="widget" native="true">
+     <property name="minimumSize">
+      <size>
+       <width>250</width>
+       <height>0</height>
+      </size>
+     </property>
      <property name="maximumSize">
       <size>
-       <width>230</width>
+       <width>250</width>
        <height>16777215</height>
       </size>
      </property>
-     <layout class="QVBoxLayout" name="verticalLayout">
+     <layout class="QVBoxLayout" name="verticalLayout" stretch="0,0,1">
       <property name="leftMargin">
        <number>0</number>
       </property>
@@ -44,11 +50,17 @@
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_3">
            <item>
-            <widget class="QWidget" name="selectColorWidget" native="true">
+            <widget class="ColorWidget" name="selectColorWidget" native="true">
+             <property name="minimumSize">
+              <size>
+               <width>48</width>
+               <height>32</height>
+              </size>
+             </property>
              <property name="maximumSize">
               <size>
-               <width>40</width>
-               <height>30</height>
+               <width>48</width>
+               <height>32</height>
               </size>
              </property>
             </widget>
@@ -69,10 +81,27 @@
                <property name="text">
                 <string>取色...</string>
                </property>
+               <property name="icon">
+                <iconset resource="../ColorPicker.qrc">
+                 <normaloff>:/res/pickColor.png</normaloff>:/res/pickColor.png</iconset>
+               </property>
               </widget>
              </item>
              <item>
-              <widget class="QWidget" name="curColorWidget" native="true"/>
+              <widget class="ColorWidget" name="curColorWidget" native="true">
+               <property name="minimumSize">
+                <size>
+                 <width>30</width>
+                 <height>26</height>
+                </size>
+               </property>
+               <property name="maximumSize">
+                <size>
+                 <width>30</width>
+                 <height>26</height>
+                </size>
+               </property>
+              </widget>
              </item>
             </layout>
            </item>
@@ -169,7 +198,7 @@
       <item>
        <spacer name="verticalSpacer">
         <property name="orientation">
-         <enum>Qt::Orientation::Vertical</enum>
+         <enum>Qt::Vertical</enum>
         </property>
         <property name="sizeHint" stdset="0">
          <size>
@@ -203,7 +232,7 @@
        <item>
         <spacer name="horizontalSpacer">
          <property name="orientation">
-          <enum>Qt::Orientation::Horizontal</enum>
+          <enum>Qt::Horizontal</enum>
          </property>
          <property name="sizeHint" stdset="0">
           <size>
@@ -233,6 +262,16 @@
    </item>
   </layout>
  </widget>
- <resources/>
+ <customwidgets>
+  <customwidget>
+   <class>ColorWidget</class>
+   <extends>QWidget</extends>
+   <header>widgets/ColorWidget.h</header>
+   <container>1</container>
+  </customwidget>
+ </customwidgets>
+ <resources>
+  <include location="../ColorPicker.qrc"/>
+ </resources>
  <connections/>
 </ui>

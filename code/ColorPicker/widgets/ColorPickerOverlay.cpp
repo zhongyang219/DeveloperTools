@@ -1,4 +1,4 @@
-//
+﻿//
 // Created by zhongyang219 on 2026/7/7.
 //
 
@@ -8,26 +8,42 @@
 #include <QScreen>
 #include <QGuiApplication>
 #include <QPainter>
+#include "define.h"
+
+//由于取色时有1/256不透明度的窗口，因此需要对取到的颜色进行校准
+QColor VerifyPickedColor(const QColor& color)
+{
+    //将0~254映射到0~255
+    int r = qRound(color.red() * 255.0 / 254.0);
+    int g = qRound(color.green() * 255.0 / 254.0);
+    int b = qRound(color.blue() * 255.0 / 254.0);
+    // 限制在 0~255 范围内，防止溢出
+    r = qBound(0, r, 255);
+    g = qBound(0, g, 255);
+    b = qBound(0, b, 255);
+    return QColor(r, g, b);
+}
 
 ColorPickerOverlay::ColorPickerOverlay(QWidget *parent) : QWidget(parent)
 {
-    // 1. 设置窗口属性：无边框、置顶、不在任务栏显示
+    // 设置窗口属性：无边框、置顶、不在任务栏显示
     setWindowFlags(Qt::FramelessWindowHint | Qt::WindowStaysOnTopHint | Qt::Tool);
 
-    // 2. 设置背景完全透明
-    setAttribute(Qt::WA_TranslucentBackground);
-    setStyleSheet("background-color: transparent;");
+    // 设置背景透明（设置为不透明度1/256，完全不透明会导致窗口直接消失无法响应鼠标事件）
+    setWindowOpacity(0.004);
+    setStyleSheet("background-color: rgba(0, 0, 0);");
 
-    // 3. 计算所有显示器的虚拟总区域（完美支持多显示器）
+    // 计算所有显示器的虚拟总区域
     QRect virtualRect;
     for (QScreen *screen : QGuiApplication::screens()) {
         virtualRect = virtualRect.united(screen->geometry());
     }
     setGeometry(virtualRect);
 
-    // 4. 设置自定义吸管光标 (假设吸管尖端在图片左下角)
-    QPixmap pipettePixmap(":/res/pickColor.png");
-    setCursor(QCursor(pipettePixmap, 0, pipettePixmap.height()));
+    // 设置自定义吸管光标 (吸管尖端在图片左下角)
+    QPixmap pipettePixmap(":res/pickCursor.png");
+    int cursor_size = DPI(16);
+    setCursor(QCursor(pipettePixmap.scaled(cursor_size, cursor_size, Qt::IgnoreAspectRatio, Qt::SmoothTransformation), 0, cursor_size));
 
     setMouseTracking(true);
 }
@@ -37,7 +53,6 @@ const QPoint& ColorPickerOverlay::GetPickingPos()
     return m_picking_pos;
 }
 
-// 关键：重写 paintEvent 且什么都不画，确保窗口绝对透明，不干扰截屏
 void ColorPickerOverlay::paintEvent(QPaintEvent *event)
 {
     Q_UNUSED(event);
@@ -50,8 +65,15 @@ void ColorPickerOverlay::mouseMoveEvent(QMouseEvent *event)
     if (pos != m_picking_pos)
     {
         m_picking_pos = pos;
-        QColor color = getColorAtPos(pos);
-        emit colorHovered(color);
+        QScreen* screen = QGuiApplication::screenAt(pos);
+        if (!screen)
+            screen = QGuiApplication::primaryScreen();
+
+        // 截取 1x1 像素
+        QPixmap pixmap = screen->grabWindow(0, pos.x(), pos.y(), 1, 1);
+        m_color = pixmap.toImage().pixelColor(0, 0);
+        m_color = VerifyPickedColor(m_color);
+        emit colorHovered(m_color);
     }
 }
 
@@ -61,8 +83,7 @@ void ColorPickerOverlay::mousePressEvent(QMouseEvent *event)
     if (event->button() == Qt::LeftButton)
     {
         // 左键：确认取色
-        QColor color = getColorAtPos(event->globalPos());
-        emit colorPicked(color);
+        emit colorPicked(m_color);
         this->close(); // 关闭覆盖窗口，退出取色模式
     }
     else if (event->button() == Qt::RightButton)
@@ -71,10 +92,10 @@ void ColorPickerOverlay::mousePressEvent(QMouseEvent *event)
         emit canceled();
         this->close();
     }
-    // 注意：这里没有调用 QWidget::mousePressEvent，事件被“吞噬”了
+    // 不调用 QWidget::mousePressEvent
 }
 
-// 拦截键盘事件，支持 ESC 取消
+// ESC取消取色
 void ColorPickerOverlay::keyPressEvent(QKeyEvent *event)
 {
     if (event->key() == Qt::Key_Escape)
@@ -82,15 +103,4 @@ void ColorPickerOverlay::keyPressEvent(QKeyEvent *event)
         emit canceled();
         this->close();
     }
-}
-
-// 核心取色逻辑
-QColor ColorPickerOverlay::getColorAtPos(const QPoint &pos)
-{
-    QScreen *screen = QGuiApplication::screenAt(pos);
-    if (!screen) screen = QGuiApplication::primaryScreen();
-
-    // 截取 1x1 像素
-    QPixmap pixmap = screen->grabWindow(0, pos.x(), pos.y(), 1, 1);
-    return pixmap.toImage().pixelColor(0, 0);
 }
