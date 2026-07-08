@@ -38,6 +38,71 @@ void ColorPickerWindow::StartPicking()
     m_overlay->show();
 }
 
+void ColorPickerWindow::SetColor(const QColor& color)
+{
+    //设置当前颜色
+    ui->selectColorWidget->SetColor(color);
+    UpdateColorValue();
+}
+
+void ColorPickerWindow::UpdateColorValue()
+{
+    //设置COLORREF值
+    UpdateColorRefValue();
+    //设置RGB值
+    UpdateRValue();
+    UpdateGValue();
+    UpdateBValue();
+    //设置十六进制值
+    UpdateHexValue();
+}
+
+void ColorPickerWindow::UpdateColorRefValue()
+{
+    const QColor& color = ui->selectColorWidget->GetColor();
+    auto colorrefValue = ColorConvert::GetColorrefValue(color);
+    ui->colorValueColorRefEdit->setText(ValueToString(colorrefValue));
+}
+
+void ColorPickerWindow::UpdateRValue()
+{
+    const QColor& color = ui->selectColorWidget->GetColor();
+    ui->colorValueREdit->setText(ValueToString(color.red()));
+}
+
+void ColorPickerWindow::UpdateGValue()
+{
+    const QColor& color = ui->selectColorWidget->GetColor();
+    ui->colorValueGEdit->setText(ValueToString(color.green()));
+}
+
+void ColorPickerWindow::UpdateBValue()
+{
+    const QColor& color = ui->selectColorWidget->GetColor();
+    ui->colorValueBEdit->setText(ValueToString(color.blue()));
+}
+
+void ColorPickerWindow::UpdateHexValue()
+{
+    const QColor& color = ui->selectColorWidget->GetColor();
+    QString strHex = color.name();
+    if (!m_hex_lower_case)
+        strHex = strHex.toUpper();
+    ui->colorValueHexEdit->setText(strHex);
+}
+
+void ColorPickerWindow::SetUseHex(bool use_hex)
+{
+    m_use_hex = use_hex;
+    UpdateColorValue();
+}
+
+void ColorPickerWindow::SetHexLowerCase(bool hex_lower_case)
+{
+    m_hex_lower_case = hex_lower_case;
+    UpdateColorValue();
+}
+
 void ColorPickerWindow::on_selectColorBtn_clicked()
 {
     StartPicking();
@@ -45,13 +110,13 @@ void ColorPickerWindow::on_selectColorBtn_clicked()
 
 void ColorPickerWindow::OnColorPicked(const QColor& color)
 {
-    ui->selectColorWidget->SetColor(color);
+    SetColor(color);
 }
 
 void ColorPickerWindow::OnColorHovered(const QColor& color)
 {
-    ui->labelCurColorRgb->setText("RGB: " + ColorConvert::GetRgbString(color));
-    ui->labelCurColorHex->setText("HEX: " + color.name());
+    ui->labelCurColorRgb->setText(ColorConvert::GetRgbString(color));
+    ui->labelCurColorHex->setText(color.name());
     ui->curColorWidget->SetColor(color);
 
     if (m_overlay != nullptr)
@@ -64,4 +129,85 @@ void ColorPickerWindow::OnColorHovered(const QColor& color)
 
 void ColorPickerWindow::OnColorCanceled()
 {
+}
+
+void ColorPickerWindow::on_colorValueColorRefEdit_textEdited(const QString& text)
+{
+    bool ok{};
+    auto colorRefValue = text.toInt(&ok, 0);
+    if (ok)
+    {
+        QColor color = ColorConvert::ColorrefToColor(colorRefValue);
+        ui->selectColorWidget->SetColor(color);
+        UpdateRValue();
+        UpdateGValue();
+        UpdateBValue();
+        UpdateHexValue();
+    }
+}
+
+void ColorPickerWindow::on_colorValueREdit_textEdited(const QString& text)
+{
+    bool ok{};
+    auto rValue = text.toInt(&ok, 0);
+    if (ok)
+    {
+        QColor color = ui->selectColorWidget->GetColor();
+        color.setRed(rValue);
+        ui->selectColorWidget->SetColor(color);
+        UpdateColorRefValue();
+        UpdateHexValue();
+    }
+}
+
+void ColorPickerWindow::on_colorValueGEdit_textEdited(const QString& text)
+{
+    bool ok{};
+    auto gValue = text.toInt(&ok, 0);
+    if (ok)
+    {
+        QColor color = ui->selectColorWidget->GetColor();
+        color.setGreen(gValue);
+        ui->selectColorWidget->SetColor(color);
+        UpdateColorRefValue();
+        UpdateHexValue();
+    }
+}
+
+void ColorPickerWindow::on_colorValueBEdit_textEdited(const QString& text)
+{
+    bool ok{};
+    auto bValue = text.toInt(&ok, 0);
+    if (ok)
+    {
+        QColor color = ui->selectColorWidget->GetColor();
+        color.setBlue(bValue);
+        ui->selectColorWidget->SetColor(color);
+        UpdateColorRefValue();
+        UpdateHexValue();
+    }
+}
+
+void ColorPickerWindow::on_colorValueHexEdit_textEdited(const QString& text)
+{
+    bool ok{};
+    QString strHex = text;
+    if (!strHex.isEmpty() && strHex[0] != '#')
+        strHex = "#" + strHex;
+    QColor color = QColor(strHex);
+    ui->selectColorWidget->SetColor(color);
+    UpdateColorRefValue();
+    UpdateRValue();
+    UpdateGValue();
+    UpdateBValue();
+}
+
+QString ColorPickerWindow::ValueToString(unsigned int value)
+{
+    QString strValue = QString::number(value, m_use_hex ? 16 : 10);
+    if (m_use_hex && !m_hex_lower_case)
+        strValue = strValue.toUpper();
+    if (m_use_hex)
+        strValue = "0x" + strValue;
+    return strValue;
 }

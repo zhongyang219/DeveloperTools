@@ -12,6 +12,11 @@ void ColorWidget::SetColor(const QColor& color)
     update();
 }
 
+const QColor& ColorWidget::GetColor() const
+{
+    return m_color;
+}
+
 void ColorWidget::paintEvent(QPaintEvent* event)
 {
     QPainter painter(this);

@@ -14,6 +14,8 @@ public:
     static unsigned char Hex2R(unsigned int hex);	//从颜色十六进制获取RGB中的红色值
     static unsigned char Hex2G(unsigned int hex);	//从颜色十六进制获取RGB中的绿色值
     static unsigned char Hex2B(unsigned int hex);	//从颜色十六进制获取RGB中的蓝色值
+    static unsigned int GetColorrefValue(const QColor& color);
+    static QColor ColorrefToColor(unsigned int colorref);
 
     static QString GetRgbString(const QColor& color);
 };

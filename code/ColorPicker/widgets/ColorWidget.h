@@ -8,6 +8,7 @@ class ColorWidget : public QWidget
 public:
     ColorWidget(QWidget* pParent = nullptr);
     void SetColor(const QColor& color);
+    const QColor& GetColor() const;
 
 protected:
     virtual void paintEvent(QPaintEvent* event) override;

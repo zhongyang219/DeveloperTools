@@ -48,6 +48,9 @@
           <property name="title">
            <string>选择颜色</string>
           </property>
+          <property name="alignment">
+           <set>Qt::AlignCenter</set>
+          </property>
           <layout class="QVBoxLayout" name="verticalLayout_3">
            <item>
             <widget class="ColorWidget" name="selectColorWidget" native="true">
@@ -274,4 +277,11 @@
   <include location="../ColorPicker.qrc"/>
  </resources>
  <connections/>
+ <slots>
+  <slot>OnColorrefTextEdited(QString)</slot>
+  <slot>OnRTextEdited(QString)</slot>
+  <slot>OnGTextEdited(QString)</slot>
+  <slot>OnBTextEdited(QString)</slot>
+  <slot>OnHexTextEdited(QString)</slot>
+ </slots>
 </ui>

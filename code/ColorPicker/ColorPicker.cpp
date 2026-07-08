@@ -74,11 +74,11 @@ void ColorPicker::OnCommand(const char* strCmd, bool checked)
     }
     else if (cmd == CMD_UseHex)
     {
-
+        m_main_window.SetUseHex(checked);
     }
     else if (cmd == CMD_HexLowerCase)
     {
-
+        m_main_window.SetHexLowerCase(checked);
     }
     else if (cmd == CMD_SelectThemeColor)
     {
