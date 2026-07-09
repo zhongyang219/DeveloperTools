@@ -21,10 +21,12 @@ add_library(${PROJECT_NAME} SHARED
     widgets/ColorPickerOverlay.h
     widgets/ColorWidget.h
     widgets/ColorWidget.cpp
+    ColorTableHelper.h
+    ColorTableHelper.cpp
 )
 
 # 依赖的Qt组件
-set(QT_COMPONENTS Core Gui Widgets)
+set(QT_COMPONENTS Core Gui Widgets Xml)
 # 尝试先找到Qt6，如果找不到再尝试Qt5
 find_package(Qt6 COMPONENTS ${QT_COMPONENTS} QUIET)
 if(Qt6_FOUND)

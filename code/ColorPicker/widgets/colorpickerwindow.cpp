@@ -8,6 +8,8 @@
 #include "ui_ColorPickerWindow.h"
 #include <QScreen>
 #include <QClipboard>
+#include <QFile>
+#include <QMessageBox>
 #include "ColorPicker.h"
 #include "common/ColorConvert.h"
 
@@ -38,6 +40,20 @@ ColorPickerWindow::ColorPickerWindow(QWidget* parent) : QWidget(parent), ui(new 
     // connect(&m_picker_timer, SIGNAL(timeout()), this, SLOT(OnPickerTimeout()));
     ui->selectColorWidget->SetClickable(true);
     connect(ui->selectColorWidget, SIGNAL(colorEdited()), this, SLOT(UpdateColorValue()));
+
+    m_color_table_helper = std::make_unique<ColorTableHelper>(ui->treeWidget);
+
+    m_context_menu.addAction(ui->actionAddGroup);
+    m_context_menu.addAction(ui->actionAddCurColor);
+    m_context_menu.addAction(ui->actionDelete);
+    ui->treeWidget->setContextMenuPolicy(Qt::CustomContextMenu);
+    connect(ui->treeWidget, SIGNAL(customContextMenuRequested(const QPoint&)), this, SLOT(onTreeContextMenu(const QPoint&)));
+
+#ifdef QT_DEBUG
+    QFile file("D:/Temp/color_table.xml");
+    if (!file.open(QFile::ReadOnly)) return;
+    m_color_table_helper->LoadFromXml(QString::fromUtf8(file.readAll()));
+#endif
 }
 
 ColorPickerWindow::~ColorPickerWindow()
@@ -216,6 +232,11 @@ void ColorPickerWindow::PasteHexValue()
 
 }
 
+ColorTableHelper* ColorPickerWindow::GetColorTableHelper()
+{
+    return m_color_table_helper.get();
+}
+
 void ColorPickerWindow::on_selectColorBtn_clicked()
 {
     StartPicking();
@@ -385,4 +406,53 @@ QString ColorPickerWindow::ValueToString(unsigned int value)
     if (m_use_hex)
         strValue = "0x" + strValue;
     return strValue;
+}
+
+
+void ColorPickerWindow::onTreeContextMenu(const QPoint& pos)
+{
+    auto* sel_item = ui->treeWidget->itemAt(pos);
+    ui->actionAddGroup->setEnabled(true);
+    ui->actionAddCurColor->setEnabled(true);
+    ui->actionDelete->setEnabled(true);
+    if (sel_item != nullptr)
+    {
+        //设置菜单项的可用状态
+        ColorTableHelper::ItemType item_type = static_cast<ColorTableHelper::ItemType>(sel_item->data(0, ColorTableHelper::ItemTypeRole).toInt());
+        ui->actionAddGroup->setEnabled(item_type != ColorTableHelper::ColorType);
+        ui->actionDelete->setEnabled(!ui->treeWidget->selectedItems().isEmpty());
+    }
+    else
+    {
+        ui->actionDelete->setEnabled(false);
+    }
+    m_context_menu.exec(ui->treeWidget->viewport()->mapToGlobal(pos));
+}
+
+void ColorPickerWindow::on_actionAddGroup_triggered()
+{
+    m_color_table_helper->AddGroup();
+}
+
+void ColorPickerWindow::on_actionAddCurColor_triggered()
+{
+    m_color_table_helper->AddCurColor(ui->selectColorWidget->GetColor());
+}
+
+void ColorPickerWindow::on_actionDelete_triggered()
+{
+    if (QMessageBox::question(this, u8"删除", u8"确实要删除选中颜色吗？", QMessageBox::Yes | QMessageBox::No) == QMessageBox::Yes)
+    {
+        m_color_table_helper->DeleteSel();
+    }
+}
+
+void ColorPickerWindow::on_addToColorTableBtn_clicked()
+{
+    on_actionAddCurColor_triggered();
+}
+
+void ColorPickerWindow::on_delectSelColorBtn_clicked()
+{
+    on_actionDelete_triggered();
 }

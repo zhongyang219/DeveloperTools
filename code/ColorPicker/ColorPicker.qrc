@@ -2,5 +2,9 @@
     <qresource prefix="/">
         <file>res/pickColor.png</file>
         <file>res/pickCursor.png</file>
+        <file>res/folder.png</file>
+        <file>res/new_folder.png</file>
+        <file>res/color.png</file>
+        <file>res/delete.png</file>
     </qresource>
 </RCC>

@@ -306,7 +306,11 @@
        <item>
         <widget class="QPushButton" name="addToColorTableBtn">
          <property name="text">
-          <string>添加到颜色表</string>
+          <string>添加当前颜色</string>
+         </property>
+         <property name="icon">
+          <iconset resource="../ColorPicker.qrc">
+           <normaloff>:/res/color.png</normaloff>:/res/color.png</iconset>
          </property>
         </widget>
        </item>
@@ -314,6 +318,10 @@
         <widget class="QPushButton" name="delectSelColorBtn">
          <property name="text">
           <string>删除选中</string>
+         </property>
+         <property name="icon">
+          <iconset resource="../ColorPicker.qrc">
+           <normaloff>:/res/delete.png</normaloff>:/res/delete.png</iconset>
          </property>
         </widget>
        </item>
@@ -334,14 +342,22 @@
      </item>
      <item>
       <widget class="QTreeWidget" name="treeWidget">
+       <property name="selectionMode">
+        <enum>QAbstractItemView::ExtendedSelection</enum>
+       </property>
        <column>
         <property name="text">
-         <string>名称</string>
+         <string>颜色</string>
         </property>
        </column>
        <column>
         <property name="text">
-         <string>颜色</string>
+         <string>RGB</string>
+        </property>
+       </column>
+       <column>
+        <property name="text">
+         <string>HEX</string>
         </property>
        </column>
       </widget>
@@ -349,6 +365,33 @@
     </layout>
    </item>
   </layout>
+  <action name="actionAddGroup">
+   <property name="icon">
+    <iconset resource="../ColorPicker.qrc">
+     <normaloff>:/res/new_folder.png</normaloff>:/res/new_folder.png</iconset>
+   </property>
+   <property name="text">
+    <string>添加组</string>
+   </property>
+  </action>
+  <action name="actionDelete">
+   <property name="icon">
+    <iconset resource="../ColorPicker.qrc">
+     <normaloff>:/res/delete.png</normaloff>:/res/delete.png</iconset>
+   </property>
+   <property name="text">
+    <string>删除</string>
+   </property>
+  </action>
+  <action name="actionAddCurColor">
+   <property name="icon">
+    <iconset resource="../ColorPicker.qrc">
+     <normaloff>:/res/color.png</normaloff>:/res/color.png</iconset>
+   </property>
+   <property name="text">
+    <string>添加当前颜色</string>
+   </property>
+  </action>
  </widget>
  <customwidgets>
   <customwidget>
