@@ -251,6 +251,7 @@ QTreeWidgetItem* ColorTableHelper::CreateGroupItem(const QString& name)
     group_item->setText(COL_NAME, name);
     group_item->setFlags(group_item->flags() | Qt::ItemIsEditable);
     group_item->setData(0, ItemTypeRole, GroupType);
+    group_item->setIcon(COL_NAME, QIcon(":res/folder.png"));
     return group_item;
 }
 
