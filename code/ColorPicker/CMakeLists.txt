@@ -23,6 +23,8 @@ add_library(${PROJECT_NAME} SHARED
     widgets/ColorWidget.cpp
     ColorTableHelper.h
     ColorTableHelper.cpp
+    common/Common.h
+    common/Common.cpp
 )
 
 # 依赖的Qt组件

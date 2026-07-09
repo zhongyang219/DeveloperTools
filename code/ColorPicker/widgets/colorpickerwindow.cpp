@@ -270,7 +270,7 @@ void ColorPickerWindow::OnColorHovered(const QColor& color)
     if (m_overlay != nullptr)
     {
         QPoint pos = m_overlay->GetPickingPos();
-        QString strPos = QString("取色中 x: %1, y: %2").arg(pos.x()).arg(pos.y());
+        QString strPos = QString(u8"取色中 x: %1, y: %2").arg(pos.x()).arg(pos.y());
         ColorPicker::Instance()->GetMainFrame()->SetStatusBarText(strPos.toUtf8().constData(), 2000);
     }
 }

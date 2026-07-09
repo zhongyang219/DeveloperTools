@@ -1,5 +1,6 @@
 ﻿#include "ColorPicker.h"
 #include "../CCommonTools/Config.h"
+#include "common/Common.h"
 
 static ColorPicker* pIns = nullptr;
 ColorPicker::ColorPicker()
@@ -91,7 +92,8 @@ void ColorPicker::OnCommand(const char* strCmd, bool checked)
     }
     else if (cmd == CMD_SelectThemeColor)
     {
-
+        QColor theme_color = Common::GetSystemThemeColor();
+        m_main_window.SetColor(theme_color);
     }
     else if (cmd == CMD_AddGetSysColorTable)
     {
