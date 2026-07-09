@@ -49,22 +49,28 @@ private slots:
     void on_selectColorBtn_clicked();
     void OnColorPicked(const QColor &color);
     void OnColorHovered(const QColor &color);
-    void OnColorCanceled();
 
     void on_colorValueColorRefEdit_textEdited(const QString& text);
     void on_colorValueREdit_textEdited(const QString& text);
     void on_colorValueGEdit_textEdited(const QString& text);
     void on_colorValueBEdit_textEdited(const QString& text);
     void on_colorValueHexEdit_textEdited(const QString& text);
+    void on_colorValueHEdit_valueChanged(int i);
+    void on_colorValueSEdit_valueChanged(int i);
+    void on_colorValueLEdit_valueChanged(int i);
 
-private:
-    QString ValueToString(unsigned int value);
     void UpdateColorValue();
     void UpdateColorRefValue();
     void UpdateRValue();
     void UpdateGValue();
     void UpdateBValue();
     void UpdateHexValue();
+    void UpdateHValue();
+    void UpdateSValue();
+    void UpdateLValue();
+
+private:
+    QString ValueToString(unsigned int value);
 
 private:
     Ui::ColorPickerWindow* ui;

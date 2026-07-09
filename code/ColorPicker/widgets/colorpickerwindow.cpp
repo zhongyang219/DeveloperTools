@@ -36,6 +36,8 @@ ColorPickerWindow::ColorPickerWindow(QWidget* parent) : QWidget(parent), ui(new 
 {
     ui->setupUi(this);
     // connect(&m_picker_timer, SIGNAL(timeout()), this, SLOT(OnPickerTimeout()));
+    ui->selectColorWidget->SetClickable(true);
+    connect(ui->selectColorWidget, SIGNAL(colorEdited()), this, SLOT(UpdateColorValue()));
 }
 
 ColorPickerWindow::~ColorPickerWindow()
@@ -56,7 +58,6 @@ void ColorPickerWindow::StartPicking()
     m_overlay = std::make_unique<ColorPickerOverlay>(this);
     connect(m_overlay.get(), SIGNAL(colorPicked(const QColor&)), SLOT(OnColorPicked(const QColor&)));
     connect(m_overlay.get(), SIGNAL(colorHovered(const QColor&)), SLOT(OnColorHovered(const QColor&)));
-    connect(m_overlay.get(), SIGNAL(canceled()), SLOT(OnColorCanceled()));
     m_overlay->show();
 }
 
@@ -82,6 +83,10 @@ void ColorPickerWindow::UpdateColorValue()
     UpdateBValue();
     //设置十六进制值
     UpdateHexValue();
+    //设置HSL值
+    UpdateHValue();
+    UpdateSValue();
+    UpdateLValue();
 }
 
 void ColorPickerWindow::UpdateColorRefValue()
@@ -116,6 +121,24 @@ void ColorPickerWindow::UpdateHexValue()
     if (!m_hex_lower_case)
         strHex = strHex.toUpper();
     ui->colorValueHexEdit->setText(strHex);
+}
+
+void ColorPickerWindow::UpdateHValue()
+{
+    const QColor& color = ui->selectColorWidget->GetColor();
+    ui->colorValueHEdit->setValue(color.hslHue());
+}
+
+void ColorPickerWindow::UpdateSValue()
+{
+    const QColor& color = ui->selectColorWidget->GetColor();
+    ui->colorValueSEdit->setValue(color.hslSaturation());
+}
+
+void ColorPickerWindow::UpdateLValue()
+{
+    const QColor& color = ui->selectColorWidget->GetColor();
+    ui->colorValueLEdit->setValue(color.lightness());
 }
 
 void ColorPickerWindow::SetUseHex(bool use_hex)
@@ -217,10 +240,6 @@ void ColorPickerWindow::OnColorHovered(const QColor& color)
     }
 }
 
-void ColorPickerWindow::OnColorCanceled()
-{
-}
-
 void ColorPickerWindow::on_colorValueColorRefEdit_textEdited(const QString& text)
 {
     bool ok{};
@@ -233,6 +252,9 @@ void ColorPickerWindow::on_colorValueColorRefEdit_textEdited(const QString& text
         UpdateGValue();
         UpdateBValue();
         UpdateHexValue();
+        UpdateHValue();
+        UpdateSValue();
+        UpdateLValue();
     }
 }
 
@@ -247,6 +269,9 @@ void ColorPickerWindow::on_colorValueREdit_textEdited(const QString& text)
         ui->selectColorWidget->SetColor(color);
         UpdateColorRefValue();
         UpdateHexValue();
+        UpdateHValue();
+        UpdateSValue();
+        UpdateLValue();
     }
 }
 
@@ -261,6 +286,9 @@ void ColorPickerWindow::on_colorValueGEdit_textEdited(const QString& text)
         ui->selectColorWidget->SetColor(color);
         UpdateColorRefValue();
         UpdateHexValue();
+        UpdateHValue();
+        UpdateSValue();
+        UpdateLValue();
     }
 }
 
@@ -275,6 +303,9 @@ void ColorPickerWindow::on_colorValueBEdit_textEdited(const QString& text)
         ui->selectColorWidget->SetColor(color);
         UpdateColorRefValue();
         UpdateHexValue();
+        UpdateHValue();
+        UpdateSValue();
+        UpdateLValue();
     }
 }
 
@@ -290,6 +321,60 @@ void ColorPickerWindow::on_colorValueHexEdit_textEdited(const QString& text)
     UpdateRValue();
     UpdateGValue();
     UpdateBValue();
+    UpdateHValue();
+    UpdateSValue();
+    UpdateLValue();
+}
+
+void ColorPickerWindow::on_colorValueHEdit_valueChanged(int i)
+{
+    QColor color = ui->selectColorWidget->GetColor();
+    int h, s, l;
+    color.getHsl(&h, &s, &l);
+    h = i;
+    color.setHsl(h, s, l);
+    ui->selectColorWidget->SetColor(color);
+    UpdateColorRefValue();
+    UpdateRValue();
+    UpdateGValue();
+    UpdateBValue();
+    UpdateHexValue();
+    UpdateSValue();
+    UpdateLValue();
+}
+
+void ColorPickerWindow::on_colorValueSEdit_valueChanged(int i)
+{
+    QColor color = ui->selectColorWidget->GetColor();
+    int h, s, l;
+    color.getHsl(&h, &s, &l);
+    s = i;
+    color.setHsl(h, s, l);
+    ui->selectColorWidget->SetColor(color);
+    UpdateColorRefValue();
+    UpdateRValue();
+    UpdateGValue();
+    UpdateBValue();
+    UpdateHexValue();
+    UpdateHValue();
+    UpdateLValue();
+}
+
+void ColorPickerWindow::on_colorValueLEdit_valueChanged(int i)
+{
+    QColor color = ui->selectColorWidget->GetColor();
+    int h, s, l;
+    color.getHsl(&h, &s, &l);
+    l = i;
+    color.setHsl(h, s, l);
+    ui->selectColorWidget->SetColor(color);
+    UpdateColorRefValue();
+    UpdateRValue();
+    UpdateGValue();
+    UpdateBValue();
+    UpdateHexValue();
+    UpdateHValue();
+    UpdateSValue();
 }
 
 QString ColorPickerWindow::ValueToString(unsigned int value)
