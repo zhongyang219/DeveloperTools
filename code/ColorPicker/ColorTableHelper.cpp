@@ -61,34 +61,59 @@ void ColorTableHelper::LoadFromXml(const QString& strXml)
     m_tree_widget->clear();
 
     QDomDocument doc;
-    if (!doc.setContent(strXml))
-        return;
-    //加载分组
-    auto folderNodes = doc.documentElement().childNodes();
-    for (int i = 0; i < folderNodes.count(); i++)
+    if (doc.setContent(strXml))
     {
-        auto folderNode = folderNodes.at(i).toElement();
-        QString strName = folderNode.attribute("name");
-        QTreeWidgetItem * folderItem = CreateGroupItem(strName);
-        m_tree_widget->addTopLevelItem(folderItem);
-        //加载颜色
-        auto colorNodes = folderNode.childNodes();
-        for (int j = 0; j < colorNodes.count(); j++)
+        //加载分组
+        auto groupNodes = doc.documentElement().childNodes();
+        for (int i = 0; i < groupNodes.count(); i++)
         {
-            auto colorNode = colorNodes.at(j).toElement();
-            QString strColorName = colorNode.attribute("name");
-            QString strColor = colorNode.attribute("color");
-            QTreeWidgetItem* subItem = CreateColorItem(strColorName, strColor, folderItem);
-            folderItem->addChild(subItem);
+            auto groupNode = groupNodes.at(i).toElement();
+            QString strName = groupNode.attribute("name");
+            QTreeWidgetItem* group_item = CreateGroupItem(strName);
+            m_tree_widget->addTopLevelItem(group_item);
+            //加载颜色
+            auto colorNodes = groupNode.childNodes();
+            for (int j = 0; j < colorNodes.count(); j++)
+            {
+                auto colorNode = colorNodes.at(j).toElement();
+                QString strColorName = colorNode.attribute("name");
+                QString strColor = colorNode.attribute("color");
+                QTreeWidgetItem* subItem = CreateColorItem(strColorName, strColor, group_item);
+                group_item->addChild(subItem);
+            }
         }
     }
 
+    if (m_tree_widget->topLevelItemCount() == 0)
+    {
+        QTreeWidgetItem* group_item = CreateGroupItem(u8"默认");
+        m_tree_widget->addTopLevelItem(group_item);
+    }
     m_tree_widget->expandAll();
 }
 
 QString ColorTableHelper::SaveToXml() const
 {
-    return QString();
+    QDomDocument doc;
+    auto root = doc.createElement("color_table");
+    doc.appendChild(root);
+    for (int i = 0; i < m_tree_widget->topLevelItemCount(); i++)
+    {
+        auto* group_item = m_tree_widget->topLevelItem(i);
+        QDomElement group_node = doc.createElement("group");
+        group_node.setAttribute("name", group_item->text(COL_NAME));
+        root.appendChild(group_node);
+
+        for (int j = 0; j < group_item->childCount(); j++)
+        {
+            auto* color_item = group_item->child(j);
+            QDomElement color_node = doc.createElement("color");
+            color_node.setAttribute("name", color_item->text(COL_NAME));
+            color_node.setAttribute("color", color_item->data(0, ColorRole).toString());
+            group_node.appendChild(color_node);
+        }
+    }
+    return doc.toString();
 }
 
 void ColorTableHelper::AddGroup()

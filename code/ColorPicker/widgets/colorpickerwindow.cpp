@@ -12,6 +12,7 @@
 #include <QMessageBox>
 #include "ColorPicker.h"
 #include "common/ColorConvert.h"
+#include "../CCommonTools/Config.h"
 
 bool IsCharHex(char ch)
 {
@@ -48,12 +49,6 @@ ColorPickerWindow::ColorPickerWindow(QWidget* parent) : QWidget(parent), ui(new 
     m_context_menu.addAction(ui->actionDelete);
     ui->treeWidget->setContextMenuPolicy(Qt::CustomContextMenu);
     connect(ui->treeWidget, SIGNAL(customContextMenuRequested(const QPoint&)), this, SLOT(onTreeContextMenu(const QPoint&)));
-
-#ifdef QT_DEBUG
-    QFile file("D:/Temp/color_table.xml");
-    if (!file.open(QFile::ReadOnly)) return;
-    m_color_table_helper->LoadFromXml(QString::fromUtf8(file.readAll()));
-#endif
 }
 
 ColorPickerWindow::~ColorPickerWindow()
@@ -63,10 +58,27 @@ ColorPickerWindow::~ColorPickerWindow()
 
 void ColorPickerWindow::LoadConfig()
 {
+//#ifdef QT_DEBUG
+//    QFile file("D:/Temp/color_table.xml");
+//    if (!file.open(QFile::ReadOnly)) return;
+//    m_color_table_helper->LoadFromXml(QString::fromUtf8(file.readAll()));
+//#endif
+    CConfig settings(QString::fromUtf8(ColorPicker::Instance()->GetModuleName()));
+    QString strColorTable = settings.GetValue("color_table").toString();
+    m_color_table_helper->LoadFromXml(strColorTable);
 }
 
 void ColorPickerWindow::SaveConfig() const
 {
+//#ifdef QT_DEBUG
+//    QFile file("D:/Temp/color_table.xml");
+//    if (!file.open(QFile::WriteOnly)) return;
+//    QString strXml = m_color_table_helper->SaveToXml();
+//    file.write(strXml.toUtf8());
+//#endif
+    QString strColorTable = m_color_table_helper->SaveToXml();
+    CConfig settings(QString::fromUtf8(ColorPicker::Instance()->GetModuleName()));
+    settings.WriteValue("color_table", strColorTable);
 }
 
 void ColorPickerWindow::StartPicking()
