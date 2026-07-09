@@ -10,28 +10,33 @@
 #include <QPainter>
 #include "define.h"
 
-//由于取色时有1/256不透明度的窗口，因此需要对取到的颜色进行校准
-QColor VerifyPickedColor(const QColor& color)
-{
-    //将0~254映射到0~255
-    int r = qRound(color.red() * 255.0 / 254.0);
-    int g = qRound(color.green() * 255.0 / 254.0);
-    int b = qRound(color.blue() * 255.0 / 254.0);
-    // 限制在 0~255 范围内，防止溢出
-    r = qBound(0, r, 255);
-    g = qBound(0, g, 255);
-    b = qBound(0, b, 255);
-    return QColor(r, g, b);
-}
+// //由于取色时有1/256不透明度的窗口，因此需要对取到的颜色进行校准
+// QColor VerifyPickedColor(const QColor& color)
+// {
+//     //将0~254映射到0~255
+//     int r = qRound(color.red() * 255.0 / 254.0);
+//     int g = qRound(color.green() * 255.0 / 254.0);
+//     int b = qRound(color.blue() * 255.0 / 254.0);
+//     // 限制在 0~255 范围内，防止溢出
+//     r = qBound(0, r, 255);
+//     g = qBound(0, g, 255);
+//     b = qBound(0, b, 255);
+//     return QColor(r, g, b);
+// }
 
 ColorPickerOverlay::ColorPickerOverlay(QWidget *parent) : QWidget(parent)
 {
+
     // 设置窗口属性：无边框、置顶、不在任务栏显示
     setWindowFlags(Qt::FramelessWindowHint | Qt::WindowStaysOnTopHint | Qt::Tool);
 
     // 设置背景透明（设置为不透明度1/256，完全不透明会导致窗口直接消失无法响应鼠标事件）
-    setWindowOpacity(0.004);
-    setStyleSheet("background-color: rgba(0, 0, 0);");
+    // setWindowOpacity(0);
+    // setStyleSheet("background-color: rgb(0, 0, 0);");
+
+    setAttribute(Qt::WA_TransparentForMouseEvents, false);
+    setAttribute(Qt::WA_TranslucentBackground);
+    setStyleSheet("background-color: transparent;");
 
     // 计算所有显示器的虚拟总区域
     QRect virtualRect;
@@ -72,7 +77,7 @@ void ColorPickerOverlay::mouseMoveEvent(QMouseEvent *event)
         // 截取 1x1 像素
         QPixmap pixmap = screen->grabWindow(0, pos.x(), pos.y(), 1, 1);
         m_color = pixmap.toImage().pixelColor(0, 0);
-        m_color = VerifyPickedColor(m_color);
+        // m_color = VerifyPickedColor(m_color);
         emit colorHovered(m_color);
     }
 }

@@ -24,7 +24,7 @@ bool IsStringHex(const QString& strHex)
     QString strHex1 = strHex.trimmed();
     if (strHex1.isEmpty())
         return false;
-    if (strHex1[0] == L'#')
+    if (strHex1[0] == '#')
         strHex1 = strHex1.mid(1);
     for (auto& ch : strHex1)
     {
