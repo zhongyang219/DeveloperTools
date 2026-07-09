@@ -86,6 +86,7 @@ void ColorPickerWindow::StartPicking()
     m_overlay = std::make_unique<ColorPickerOverlay>(this);
     connect(m_overlay.get(), SIGNAL(colorPicked(const QColor&)), SLOT(OnColorPicked(const QColor&)));
     connect(m_overlay.get(), SIGNAL(colorHovered(const QColor&)), SLOT(OnColorHovered(const QColor&)));
+    connect(m_overlay.get(), SIGNAL(canceled()), SLOT(OnPickCanceled()));
     m_overlay->show();
 }
 
@@ -257,6 +258,7 @@ void ColorPickerWindow::on_selectColorBtn_clicked()
 void ColorPickerWindow::OnColorPicked(const QColor& color)
 {
     SetColor(color);
+    ColorPicker::Instance()->GetMainFrame()->SetStatusBarText(u8"取色完成。", 2000);
 }
 
 void ColorPickerWindow::OnColorHovered(const QColor& color)
@@ -268,9 +270,14 @@ void ColorPickerWindow::OnColorHovered(const QColor& color)
     if (m_overlay != nullptr)
     {
         QPoint pos = m_overlay->GetPickingPos();
-        QString strPos = QString("x: %1, y: %2").arg(pos.x()).arg(pos.y());
+        QString strPos = QString("取色中 x: %1, y: %2").arg(pos.x()).arg(pos.y());
         ColorPicker::Instance()->GetMainFrame()->SetStatusBarText(strPos.toUtf8().constData(), 2000);
     }
+}
+
+void ColorPickerWindow::OnPickCanceled()
+{
+    ColorPicker::Instance()->GetMainFrame()->SetStatusBarText(u8"取色取消。", 2000);
 }
 
 void ColorPickerWindow::on_colorValueColorRefEdit_textEdited(const QString& text)

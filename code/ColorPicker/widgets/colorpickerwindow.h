@@ -53,6 +53,7 @@ private slots:
     void on_selectColorBtn_clicked();
     void OnColorPicked(const QColor &color);
     void OnColorHovered(const QColor &color);
+    void OnPickCanceled();
 
     void on_colorValueColorRefEdit_textEdited(const QString& text);
     void on_colorValueREdit_textEdited(const QString& text);
