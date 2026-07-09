@@ -32,6 +32,9 @@ void ColorPicker::UiInitComplete(IMainFrame* pMainFrame)
     m_pMainFrame = pMainFrame;
     pMainFrame->SetItemChecked(CMD_UseHex, m_main_window.GetUseHex());
     pMainFrame->SetItemChecked(CMD_HexLowerCase, m_main_window.GetHexLowerCase());
+#ifndef Q_OS_WIN
+    pMainFrame->SetItemEnable(CMD_AddGetSysColorTable, false);
+#endif
 }
 
 void ColorPicker::UnInitInstance()
@@ -97,7 +100,7 @@ void ColorPicker::OnCommand(const char* strCmd, bool checked)
     }
     else if (cmd == CMD_AddGetSysColorTable)
     {
-
+        m_main_window.AddGetSysColorTable();
     }
 }
 

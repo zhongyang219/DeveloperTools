@@ -23,8 +23,8 @@ public:
     void AddGroup();
     void AddCurColor(const QColor& color);
     void DeleteSel();
+    QTreeWidgetItem* GetOrAddGroup(const QString& group_name);      //获取一个组，如果不存在则添加
 
-protected:
     QTreeWidgetItem* CreateGroupItem(const QString& name);
     QTreeWidgetItem* CreateColorItem(const QString& name, const QString& str_color, QTreeWidgetItem* parent_item);
 

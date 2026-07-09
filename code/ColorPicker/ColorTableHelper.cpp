@@ -229,6 +229,22 @@ void ColorTableHelper::DeleteSel()
     }
 }
 
+QTreeWidgetItem* ColorTableHelper::GetOrAddGroup(const QString& group_name)
+{
+    //查找组
+    for (int i = 0; i < m_tree_widget->topLevelItemCount(); i++)
+    {
+        QTreeWidgetItem* cur_group_item = m_tree_widget->topLevelItem(i);
+        QString cur_group_name = cur_group_item->text(COL_NAME);
+        if (cur_group_name == group_name)
+            return cur_group_item;
+    }
+    //添加组
+    QTreeWidgetItem* group_item = CreateGroupItem(group_name);
+    m_tree_widget->addTopLevelItem(group_item);
+    return group_item;
+}
+
 QTreeWidgetItem* ColorTableHelper::CreateGroupItem(const QString& name)
 {
     QTreeWidgetItem* group_item = new QTreeWidgetItem(m_tree_widget);

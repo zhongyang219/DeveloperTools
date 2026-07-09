@@ -13,6 +13,7 @@
 #include "ColorPicker.h"
 #include "common/ColorConvert.h"
 #include "../CCommonTools/Config.h"
+#include "common/Common.h"
 
 bool IsCharHex(char ch)
 {
@@ -248,6 +249,21 @@ void ColorPickerWindow::PasteHexValue()
 ColorTableHelper* ColorPickerWindow::GetColorTableHelper()
 {
     return m_color_table_helper.get();
+}
+
+void ColorPickerWindow::AddGetSysColorTable()
+{
+#ifdef Q_OS_WIN
+    QTreeWidgetItem* sys_color_group = m_color_table_helper->GetOrAddGroup(u8"GetSysColor颜色表");
+    auto color_list = Common::GetWindowsSysColorList();
+    for (const auto& color_item : color_list)
+    {
+        QString name = color_item.name;
+        //移除已存在的颜色
+        Common::RemoveChildTreeItemByName(sys_color_group, name);
+        m_color_table_helper->CreateColorItem(name, color_item.color.name(), sys_color_group);
+    }
+#endif
 }
 
 void ColorPickerWindow::on_selectColorBtn_clicked()
