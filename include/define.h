@@ -4,7 +4,11 @@
 
 inline int DPI(int x)
 {
+#if (QT_VERSION >= QT_VERSION_CHECK(6,0,0))
+    return x;
+#else
     return QGuiApplication::primaryScreen()->logicalDotsPerInch() * x / 96;
+#endif
 }
 
 #define APP_NAME "DeveloperTools"
