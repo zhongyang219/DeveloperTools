@@ -491,3 +491,14 @@ void ColorPickerWindow::on_delectSelColorBtn_clicked()
 {
     on_actionDelete_triggered();
 }
+
+void ColorPickerWindow::on_treeWidget_itemDoubleClicked(QTreeWidgetItem* item, int column)
+{
+    //双击表格时将设置为选中颜色
+    ColorTableHelper::ItemType item_type = static_cast<ColorTableHelper::ItemType>(item->data(0, ColorTableHelper::ItemTypeRole).toInt());
+    if (item_type == ColorTableHelper::ColorType)
+    {
+        QColor color = item->data(0, ColorTableHelper::ColorRole).toString();
+        SetColor(color);
+    }
+}

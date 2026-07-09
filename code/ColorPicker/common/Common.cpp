@@ -2,6 +2,7 @@
 #include <QtGlobal>
 #include <QMap>
 #include <QTreeWidgetItem>
+#include <QGuiApplication>
 #include "ColorConvert.h"
 
 #ifdef Q_OS_WIN
@@ -26,8 +27,10 @@ QColor Common::GetSystemThemeColor()
     }
     return theme_color;
 
+#else
+    QColor highlightColor = QGuiApplication::palette().color(QPalette::Active, QPalette::Highlight);
+    return highlightColor;
 #endif
-    return QColor();
 }
 
 QList<Common::ColorItem> Common::GetWindowsSysColorList()

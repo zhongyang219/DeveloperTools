@@ -84,6 +84,7 @@ private slots:
     void on_actionDelete_triggered();
     void on_addToColorTableBtn_clicked();
     void on_delectSelColorBtn_clicked();
+    void on_treeWidget_itemDoubleClicked(QTreeWidgetItem *item, int column);
 
 private:
     QString ValueToString(unsigned int value);
