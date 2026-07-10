@@ -185,23 +185,23 @@ void ColorTableHelper::DeleteSel()
             int childCount = item->childCount();
             if (childCount == 0)
             {
-                // 情况1：父节点没有子节点，直接删除
+                // 父节点没有子节点，直接删除
                 parentsToDelete.insert(item);
             }
             else
             {
-                // 情况2：父节点有子节点，检查是否“所有”子节点都被选中
-                bool allChildrenSelected = true;
+                // 父节点有子节点，且当所有子节点都被选中或都未被选中时，要删除父节点
+                bool hasChildSelected = false;
+                bool hasChildUnSelected = false;
                 for (int i = 0; i < childCount; ++i)
                 {
-                    if (!selectedSet.contains(item->child(i)))
-                    {
-                        allChildrenSelected = false; // 只要有一个子节点没被选中，就打破循环
-                        break;
-                    }
+                    if (selectedSet.contains(item->child(i)))
+                        hasChildSelected = true;
+                    else
+                        hasChildUnSelected = true;
                 }
-                // 只有当所有子节点都被选中时，父节点才加入删除列表
-                if (allChildrenSelected)
+                // 子节点都被选中或都未被选中时，父节点才加入删除列表
+                if (!hasChildSelected || !hasChildUnSelected)
                     parentsToDelete.insert(item);
             }
         }
