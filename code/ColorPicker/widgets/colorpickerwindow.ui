@@ -357,7 +357,7 @@
        </column>
        <column>
         <property name="text">
-         <string>HEX</string>
+         <string>十六进制</string>
         </property>
        </column>
       </widget>

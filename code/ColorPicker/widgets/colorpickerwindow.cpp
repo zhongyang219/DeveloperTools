@@ -202,12 +202,14 @@ void ColorPickerWindow::CopyRgbValue()
     QString strRgb = ColorConvert::GetRgbString(color);
     QClipboard* clipboard = QApplication::clipboard();
     clipboard->setText(strRgb);
+    ColorPicker::Instance()->GetMainFrame()->SetStatusBarText(u8"RGB值已复制。", 2000);
 }
 
 void ColorPickerWindow::CopyHexValue()
 {
     QClipboard* clipboard = QApplication::clipboard();
     clipboard->setText(ui->colorValueHexEdit->text());
+    ColorPicker::Instance()->GetMainFrame()->SetStatusBarText(u8"十六进制值已复制。", 2000);
 }
 
 void ColorPickerWindow::PasteRgbValue()
