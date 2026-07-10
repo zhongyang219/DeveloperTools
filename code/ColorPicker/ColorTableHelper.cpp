@@ -3,6 +3,7 @@
 #include <QPainter>
 #include <QStyledItemDelegate>
 #include <QSet>
+#include <QSettings>
 #include "define.h"
 #include "common/ColorConvert.h"
 
@@ -28,7 +29,19 @@ static QIcon CreateSingleColorIcon(const QColor& color)
     return QIcon(pixmap);
 }
 
+bool IsColorItemExist(QTreeWidgetItem* parent_item, const QColor& color)
+{
+    for (int i = 0; i < parent_item->childCount(); i++)
+    {
+        QString str_child_color = parent_item->child(i)->data(0, ColorTableHelper::ColorRole).toString();
+        QColor child_color(str_child_color);
+        if (color == child_color)
+            return true;
+    }
+    return false;
+}
 
+///////////////////////////////////////////////////////////////////////////////////////////////
 class ColorItemDelegate : public QStyledItemDelegate
 {
 public:
@@ -58,8 +71,6 @@ ColorTableHelper::ColorTableHelper(QTreeWidget* tree_widget)
 
 void ColorTableHelper::LoadFromXml(const QString& strXml)
 {
-    m_tree_widget->clear();
-
     QDomDocument doc;
     if (doc.setContent(strXml))
     {
@@ -69,7 +80,7 @@ void ColorTableHelper::LoadFromXml(const QString& strXml)
         {
             auto groupNode = groupNodes.at(i).toElement();
             QString strName = groupNode.attribute("name");
-            QTreeWidgetItem* group_item = CreateGroupItem(strName);
+            QTreeWidgetItem* group_item = GetOrAddGroup(strName);
             m_tree_widget->addTopLevelItem(group_item);
             //加载颜色
             auto colorNodes = groupNode.childNodes();
@@ -116,6 +127,20 @@ QString ColorTableHelper::SaveToXml() const
     return doc.toString();
 }
 
+void ColorTableHelper::LoadFromIniFile(const QString& ini_file_path)
+{
+    auto* group = GetOrAddGroup(ini_file_path);
+    QSettings settings(ini_file_path, QSettings::IniFormat);
+    int color_num = settings.value("Color_table/color_num").toInt();
+    for (int i = 0; i < color_num; i++)
+    {
+        unsigned int colorref = settings.value(QString("Color_table/color%1").arg(i)).toUInt();
+        QColor color = ColorConvert::ColorrefToColor(colorref);
+        QString name = settings.value(QString("Color_table/name%1").arg(i)).toString();
+        QTreeWidgetItem* color_item = CreateColorItem(name, color.name(), group);
+    }
+}
+
 void ColorTableHelper::AddGroup()
 {
     auto* cur_item = m_tree_widget->currentItem();
@@ -129,18 +154,6 @@ void ColorTableHelper::AddGroup()
         m_tree_widget->addTopLevelItem(new_item);
     m_tree_widget->editItem(new_item);
 
-}
-
-bool IsColorItemExist(QTreeWidgetItem* parent_item, const QColor& color)
-{
-    for (int i = 0; i < parent_item->childCount(); i++)
-    {
-        QString str_child_color = parent_item->child(i)->data(0, ColorTableHelper::ColorRole).toString();
-        QColor child_color(str_child_color);
-        if (color == child_color)
-            return true;
-    }
-    return false;
 }
 
 bool ColorTableHelper::AddCurColor(const QColor& color)

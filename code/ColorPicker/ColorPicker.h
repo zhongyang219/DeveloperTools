@@ -14,6 +14,8 @@
 #define CMD_HexLowerCase "HexLowerCase"
 #define CMD_SelectThemeColor "SelectThemeColor"
 #define CMD_AddGetSysColorTable "AddGetSysColorTable"
+#define CMD_ImportColorTable "ImportColorTable"
+#define CMD_ExportColorTable "ExportColorTable"
 
 class COLOR_PICKER_EXPORT ColorPicker : public IModule
 {

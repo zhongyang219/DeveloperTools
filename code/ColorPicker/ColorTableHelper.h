@@ -19,6 +19,7 @@ public:
 
     void LoadFromXml(const QString& strXml);
     QString SaveToXml() const;
+    void LoadFromIniFile(const QString& ini_file_path);
 
     void AddGroup();
     bool AddCurColor(const QColor& color);

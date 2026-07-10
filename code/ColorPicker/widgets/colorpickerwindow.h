@@ -52,6 +52,9 @@ public:
     //添加GetSysColor颜色表（仅Windows）
     void AddGetSysColorTable();
 
+    void ImportColorTable();
+    void ExportColorTable();
+
 private slots:
     void on_selectColorBtn_clicked();
     void OnColorPicked(const QColor &color);

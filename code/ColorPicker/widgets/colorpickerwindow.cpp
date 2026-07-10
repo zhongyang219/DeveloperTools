@@ -10,6 +10,7 @@
 #include <QClipboard>
 #include <QFile>
 #include <QMessageBox>
+#include <QFileDialog>
 #include "ColorPicker.h"
 #include "common/ColorConvert.h"
 #include "../CCommonTools/Config.h"
@@ -269,6 +270,47 @@ void ColorPickerWindow::AddGetSysColorTable()
         m_color_table_helper->CreateColorItem(name, color_item.color.name(), sys_color_group);
     }
 #endif
+}
+
+void ColorPickerWindow::ImportColorTable()
+{
+    QString file_path = QFileDialog::getOpenFileName(this, QString(), QString(), u8"xml 文件 (*.xml);;ini 文件 (*.ini)");
+    if (!file_path.isEmpty())
+    {
+        QString extension_name = QFileInfo(file_path).suffix().toLower();
+        if (extension_name == "xml")
+        {
+            QFile file(file_path);
+            if (file.open(QFile::ReadOnly))
+            {
+                m_color_table_helper->LoadFromXml(QString::fromUtf8(file.readAll()));
+            }
+        }
+        else if (extension_name == "ini")
+        {
+            m_color_table_helper->LoadFromIniFile(file_path);
+        }
+    }
+}
+
+void ColorPickerWindow::ExportColorTable()
+{
+    QString file_path = QFileDialog::getSaveFileName(this, QString(), QString(), u8"xml 文件 (*.xml)");
+    if (!file_path.isEmpty())
+    {
+        QFile file(file_path);
+        if (file.open(QFile::WriteOnly));
+        {
+            QString strXml = m_color_table_helper->SaveToXml();
+            auto byte_count = file.write(strXml.toUtf8());
+            if (byte_count > 0)
+            {
+                ColorPicker::Instance()->GetMainFrame()->SetStatusBarText(u8"导出成功。", 5000);
+                return;
+            }
+        }
+        ColorPicker::Instance()->GetMainFrame()->SetStatusBarText(u8"导出失败！", 5000);
+    }
 }
 
 void ColorPickerWindow::on_selectColorBtn_clicked()

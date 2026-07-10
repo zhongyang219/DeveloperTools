@@ -102,6 +102,14 @@ void ColorPicker::OnCommand(const char* strCmd, bool checked)
     {
         m_main_window.AddGetSysColorTable();
     }
+    else if (cmd == CMD_ImportColorTable)
+    {
+        m_main_window.ImportColorTable();
+    }
+    else if (cmd == CMD_ExportColorTable)
+    {
+        m_main_window.ExportColorTable();
+    }
 }
 
 
