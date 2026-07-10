@@ -156,18 +156,21 @@ void ColorPickerWindow::UpdateHexValue()
 void ColorPickerWindow::UpdateHValue()
 {
     const QColor& color = ui->selectColorWidget->GetColor();
+    QSignalBlocker blocker(ui->colorValueHEdit);
     ui->colorValueHEdit->setValue(color.hslHue());
 }
 
 void ColorPickerWindow::UpdateSValue()
 {
     const QColor& color = ui->selectColorWidget->GetColor();
+    QSignalBlocker blocker(ui->colorValueSEdit);
     ui->colorValueSEdit->setValue(color.hslSaturation());
 }
 
 void ColorPickerWindow::UpdateLValue()
 {
     const QColor& color = ui->selectColorWidget->GetColor();
+    QSignalBlocker blocker(ui->colorValueLEdit);
     ui->colorValueLEdit->setValue(color.lightness());
 }
 
