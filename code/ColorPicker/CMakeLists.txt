@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.16)
+﻿cmake_minimum_required(VERSION 3.16)
 project(ColorPicker LANGUAGES CXX)
 
 # 设置C++标准和Qt自动处理
@@ -14,7 +14,7 @@ add_library(${PROJECT_NAME} SHARED
     ColorPicker.qrc
     widgets/colorpickerwindow.cpp
     widgets/colorpickerwindow.h
-    widgets/colorpickerwindow.ui
+    widgets/ColorPickerWindow.ui
     common/ColorConvert.cpp
     common/ColorConvert.h
     widgets/ColorPickerOverlay.cpp
