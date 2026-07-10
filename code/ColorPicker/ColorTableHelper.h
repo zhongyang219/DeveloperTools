@@ -21,7 +21,7 @@ public:
     QString SaveToXml() const;
 
     void AddGroup();
-    void AddCurColor(const QColor& color);
+    bool AddCurColor(const QColor& color);
     void DeleteSel();
     QTreeWidgetItem* GetOrAddGroup(const QString& group_name);      //获取一个组，如果不存在则添加
 

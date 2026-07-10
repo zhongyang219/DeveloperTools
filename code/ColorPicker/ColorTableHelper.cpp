@@ -131,7 +131,19 @@ void ColorTableHelper::AddGroup()
 
 }
 
-void ColorTableHelper::AddCurColor(const QColor& color)
+bool IsColorItemExist(QTreeWidgetItem* parent_item, const QColor& color)
+{
+    for (int i = 0; i < parent_item->childCount(); i++)
+    {
+        QString str_child_color = parent_item->child(i)->data(0, ColorTableHelper::ColorRole).toString();
+        QColor child_color(str_child_color);
+        if (color == child_color)
+            return true;
+    }
+    return false;
+}
+
+bool ColorTableHelper::AddCurColor(const QColor& color)
 {
     auto* cur_item = m_tree_widget->currentItem();
     if (cur_item == nullptr)
@@ -140,19 +152,27 @@ void ColorTableHelper::AddCurColor(const QColor& color)
             cur_item = m_tree_widget->topLevelItem(0);
     }
     if (cur_item == nullptr)
-        return;
+    {
+        cur_item = GetOrAddGroup(u8"默认");
+    }
 
     ItemType item_type = static_cast<ItemType>(cur_item->data(0, ItemTypeRole).toInt());
     QTreeWidgetItem* color_item = nullptr;
     QString color_name = u8"颜色 " + color.name().toUpper();
     if (item_type == GroupType)
     {
+        if (IsColorItemExist(cur_item, color))
+            return false;
         color_item = CreateColorItem(color_name, color.name(), cur_item);
         cur_item->addChild(color_item);
+        cur_item->setExpanded(true);
     }
     else
     {
         QTreeWidgetItem* parent_item = cur_item->parent();
+        if (IsColorItemExist(parent_item, color))
+            return false;
+
         color_item = CreateColorItem(color_name, color.name(), nullptr);
         int index = parent_item->indexOfChild(cur_item) + 1;
         if (index >= 0 && index < parent_item->childCount())
@@ -160,6 +180,7 @@ void ColorTableHelper::AddCurColor(const QColor& color)
         else
             parent_item->addChild(color_item);
     }
+    return true;
 }
 
 void ColorTableHelper::DeleteSel()

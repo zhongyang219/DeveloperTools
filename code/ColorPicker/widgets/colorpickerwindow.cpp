@@ -476,7 +476,8 @@ void ColorPickerWindow::on_actionAddGroup_triggered()
 
 void ColorPickerWindow::on_actionAddCurColor_triggered()
 {
-    m_color_table_helper->AddCurColor(ui->selectColorWidget->GetColor());
+    if (!m_color_table_helper->AddCurColor(ui->selectColorWidget->GetColor()))
+        QMessageBox::warning(this, u8"添加", QString(u8"颜色 %1 已存在于颜色表中！").arg(ui->selectColorWidget->GetColor().name()));
 }
 
 void ColorPickerWindow::on_actionDelete_triggered()
