@@ -39,7 +39,7 @@ find_package(Qt6 COMPONENTS ${QT_COMPONENTS} QUIET)
 if(Qt6_FOUND)
     set(QT_VERSION_MAJOR 6)
 else()
-    find_package(Qt5 5.15 COMPONENTS ${QT_COMPONENTS} REQUIRED)
+    find_package(Qt5 5 COMPONENTS ${QT_COMPONENTS} REQUIRED)
     set(QT_VERSION_MAJOR 5)
 endif()
 
