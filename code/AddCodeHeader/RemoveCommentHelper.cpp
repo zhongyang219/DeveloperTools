@@ -17,7 +17,7 @@ bool CRemoveCommentHelper::CodeFileFormat(const QString& file_path, FormatPara p
     RemoveComment(file_contents, para.removeComment, para.removeSpace, para.removeReturn, para.keepReturnNum, result);
 
     if (!para.removeComment && para.commonToIndividualLine)
-        CommonToIndividualLine(file_contents);
+        CommentToIndividualLine(file_contents, result);
 
     file.setFileName(file_path);
     if (!file.open(QFile::WriteOnly))
@@ -107,10 +107,8 @@ void CRemoveCommentHelper::RemoveComment(QByteArray& file_contents, bool removeC
     }
 }
 
-int CRemoveCommentHelper::CommonToIndividualLine(QByteArray& file_contents)
+void CRemoveCommentHelper::CommentToIndividualLine(QByteArray& file_contents, RemoveResult& result)
 {
-    int count = 0;
-
     //查找“//”
     int index1 = -1, index2 = -1;
     while (true)
@@ -153,13 +151,11 @@ int CRemoveCommentHelper::CommonToIndividualLine(QByteArray& file_contents)
             int inserPos = file_contents.lastIndexOf('\n', removeStart) + 1;
             file_contents.insert(inserPos, strComment);
 
-            count++;
+            result.comment_num_moved++;
         }
 
-        index1 += 2;
+        index1 = index2;
     }
-
-    return count;
 }
 
 int CRemoveCommentHelper::FindFirstOf(const QByteArray& contents, const QByteArray& strFind, int index)
@@ -180,6 +176,13 @@ int CRemoveCommentHelper::FindStringNotInQuotation(const QByteArray& contents, c
         index = contents.indexOf(strFind, index + 1);
         if (index < 0)
             break;
+
+        //如果查找的是“//”，但是“//”的前面是一个“*”，则说明第一个“/”和前面的“*”是一个整体
+        if (QString(strFind) == "//")
+        {
+            if (index > 0 && contents[index - 1] == '*')
+                continue;
+        }
 
         int indexPreviousReturn = contents.lastIndexOf('\n', index);
         //QByteArray curLine(contents.mid(indexPreviousReturn + 1, indexReturn));		//当前行

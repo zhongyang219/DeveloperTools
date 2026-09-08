@@ -163,7 +163,7 @@ void AddCodeHeader::OnRemoveCommentsComplete()
     }
     if (commonToIndividualLine)
     {
-        info += QString(u8"\r\n已将 %1 行注释改为独占行。").arg(commonToIndividualLine);
+        info += QString(u8"\r\n已将 %1 行注释改为独占行。").arg(result.comment_num_moved);
     }
     QMessageBox::information(&m_mainWidget, nullptr, info, QMessageBox::Ok);
 }

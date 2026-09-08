@@ -14,8 +14,9 @@ CMainWidget::CMainWidget(QWidget *parent)
     QVBoxLayout* pLayout = new QVBoxLayout();
     QSplitter* pSpliter = new QSplitter(this);
     pSpliter->setChildrenCollapsible(false);
-    pLayout->addWidget(pSpliter);
+    pLayout->addWidget(pSpliter, 1);
     pLayout->setContentsMargins(0, 0, 0, 0);
+    pLayout->addWidget(new QLabel(u8"注意，在少数情况下，此工具处理过的注释格式会出现问题，在执行前请做好备份！", this));
     this->setLayout(pLayout);
 
     //创建左侧控件

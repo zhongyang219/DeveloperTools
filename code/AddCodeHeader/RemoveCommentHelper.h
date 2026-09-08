@@ -13,6 +13,7 @@ public:
         int multi_line_comment_removed{};
         int space_removed{};
         int return_removed{};
+        int comment_num_moved{};
 
         void operator+=(const RemoveResult result)
         {
@@ -20,6 +21,7 @@ public:
             multi_line_comment_removed += result.multi_line_comment_removed;
             space_removed += result.space_removed;
             return_removed += result.return_removed;
+            comment_num_moved += result.comment_num_moved;
         }
     };
 
@@ -36,7 +38,7 @@ public:
     static void RemoveComment(QByteArray& file_contents, bool removeComment, bool bRemoveSpace, bool bRemoveReturn, int keepReturnNum, RemoveResult& result);
 
     //将注释移动到单独的行
-    static int CommonToIndividualLine(QByteArray& file_contents);
+    static void CommentToIndividualLine(QByteArray& file_contents, RemoveResult& result);
 
 
 private:
