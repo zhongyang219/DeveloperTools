@@ -148,11 +148,13 @@ int CAddCodeHeaderEditor::RemoveComments(CRemoveCommentHelper::RemoveResult& rem
     {
         QString strFilePath = m_fileListModel.GetItemText(i, COL_FILEPATH);
         CRemoveCommentHelper::RemoveResult cur_result;
-        bool removeComment = m_pMainFrame->IsItemChecked(CMD_RemoveCommentCheck);
-        bool removeSpace = m_pMainFrame->IsItemChecked(CMD_RemoveSpaceCheck);
-        bool removeEmptyLine = m_pMainFrame->IsItemChecked(CMD_RemoveEmptyLineCheck);
-        int keepEmptyLineNum = QString(m_pMainFrame->GetItemText(CMD_KeepEmptyLineNum)).toInt();
-        if (CRemoveCommentHelper::RemoveFileComment(strFilePath, removeComment, removeSpace, removeEmptyLine, keepEmptyLineNum, cur_result))
+        CRemoveCommentHelper::FormatPara para;
+        para.removeComment = m_pMainFrame->IsItemChecked(CMD_RemoveCommentCheck);
+        para.removeSpace = m_pMainFrame->IsItemChecked(CMD_RemoveSpaceCheck);
+        para.removeReturn = m_pMainFrame->IsItemChecked(CMD_RemoveEmptyLineCheck);
+        para.keepReturnNum = QString(m_pMainFrame->GetItemText(CMD_KeepEmptyLineNum)).toInt();
+        para.commonToIndividualLine = m_pMainFrame->IsItemChecked(CMD_CommonToIndividualLineCheck);
+        if (CRemoveCommentHelper::CodeFileFormat(strFilePath, para, cur_result))
         {
             file_count++;
             remove_result += cur_result;

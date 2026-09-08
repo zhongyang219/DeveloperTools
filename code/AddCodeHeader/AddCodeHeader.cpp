@@ -71,9 +71,10 @@ void AddCodeHeader::OnCommand(const char* cmd, bool checked)
         bool removeComment = m_pMainFrame->IsItemChecked(CMD_RemoveCommentCheck);
         bool removeSpace = m_pMainFrame->IsItemChecked(CMD_RemoveSpaceCheck);
         bool removeEmptyLine = m_pMainFrame->IsItemChecked(CMD_RemoveEmptyLineCheck);
-        if (!removeComment && !removeSpace && !removeEmptyLine)
+        bool commonToIndividualLine = m_pMainFrame->IsItemChecked(CMD_CommonToIndividualLineCheck);
+        if (!removeComment && !removeSpace && !removeEmptyLine && !commonToIndividualLine)
         {
-            QMessageBox::warning(&m_mainWidget, nullptr, u8"你至少应该选中“删除注释”、“移除多余的空格”和“移除多余的回车”中的一项！", QMessageBox::Ok);
+            QMessageBox::warning(&m_mainWidget, nullptr, u8"你至少应该选中“删除注释”、“将注释移动到单独的行”、“移除多余的空格”和“移除多余的回车”中的一项！", QMessageBox::Ok);
             return;
         }
 
@@ -143,16 +144,27 @@ void AddCodeHeader::EnableControl(bool enable)
 void AddCodeHeader::OnRemoveCommentsComplete()
 {
     EnableControl(true);
+    bool removeComment = m_pMainFrame->IsItemChecked(CMD_RemoveCommentCheck);
+    bool removeSpace = m_pMainFrame->IsItemChecked(CMD_RemoveSpaceCheck);
+    bool removeEmptyLine = m_pMainFrame->IsItemChecked(CMD_RemoveEmptyLineCheck);
+    bool commonToIndividualLine = m_pMainFrame->IsItemChecked(CMD_CommonToIndividualLineCheck);
 
-    QString info;
+    QString info = QString(u8"完成，已处理 %1 个文件。").arg(m_removeCommentThread.m_fileCount);
     const auto& result{ m_removeCommentThread.m_removeResult };
-    info = QString(u8"完成，已处理 %1 个文件。已移除：").arg(m_removeCommentThread.m_fileCount);
-    if (m_pMainFrame->IsItemChecked(CMD_RemoveCommentCheck))
-        info += QString(u8"\r\n%1 个单行注释，%2 个多行注释").arg(result.single_line_comment_removed).arg(result.multi_line_comment_removed);
-    if (m_pMainFrame->IsItemChecked(CMD_RemoveSpaceCheck))
-        info += QString(u8"\r\n%1 个空格").arg(result.space_removed);
-    if (m_pMainFrame->IsItemChecked(CMD_RemoveEmptyLineCheck))
-        info += QString(u8"\r\n%1 个空白行").arg(result.return_removed);
+    if (removeComment || removeSpace || removeEmptyLine)
+    {
+        info += u8"\r\n已移除：";
+        if (removeComment)
+            info += QString(u8"\r\n%1 个单行注释，%2 个多行注释").arg(result.single_line_comment_removed).arg(result.multi_line_comment_removed);
+        if (removeSpace)
+            info += QString(u8"\r\n%1 个空格").arg(result.space_removed);
+        if (removeEmptyLine)
+            info += QString(u8"\r\n%1 个空白行").arg(result.return_removed);
+    }
+    if (commonToIndividualLine)
+    {
+        info += QString(u8"\r\n已将 %1 行注释改为独占行。").arg(commonToIndividualLine);
+    }
     QMessageBox::information(&m_mainWidget, nullptr, info, QMessageBox::Ok);
 }
 

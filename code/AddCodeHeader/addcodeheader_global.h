@@ -24,3 +24,4 @@
 #define CMD_RemoveSpaceCheck "RemoveSpaceCheck"
 #define CMD_RemoveEmptyLineCheck "RemoveEmptyLineCheck"
 #define CMD_KeepEmptyLineNum "KeepEmptyLineNum"
+#define CMD_CommonToIndividualLineCheck "CommonToIndividualLineCheck"

@@ -6,7 +6,7 @@ CRemoveCommentHelper::CRemoveCommentHelper()
 {
 }
 
-bool CRemoveCommentHelper::RemoveFileComment(const QString& file_path, bool removeComment, bool bRemoveSpace, bool bRemoveReturn, int keepReturnNum, RemoveResult& result)
+bool CRemoveCommentHelper::CodeFileFormat(const QString& file_path, FormatPara para, RemoveResult& result)
 {
     QFile file(file_path);
     if (!file.open(QFile::ReadOnly))
@@ -14,7 +14,10 @@ bool CRemoveCommentHelper::RemoveFileComment(const QString& file_path, bool remo
     QByteArray file_contents(file.readAll());
     file.close();
 
-    RemoveComment(file_contents, removeComment, bRemoveSpace, bRemoveReturn, keepReturnNum, result);
+    RemoveComment(file_contents, para.removeComment, para.removeSpace, para.removeReturn, para.keepReturnNum, result);
+
+    if (!para.removeComment && para.commonToIndividualLine)
+        CommonToIndividualLine(file_contents);
 
     file.setFileName(file_path);
     if (!file.open(QFile::WriteOnly))
@@ -102,6 +105,61 @@ void CRemoveCommentHelper::RemoveComment(QByteArray& file_contents, bool removeC
             result.return_removed++;
         }
     }
+}
+
+int CRemoveCommentHelper::CommonToIndividualLine(QByteArray& file_contents)
+{
+    int count = 0;
+
+    //查找“//”
+    int index1 = -1, index2 = -1;
+    while (true)
+    {
+        index1 = FindStringNotInQuotation(file_contents, "//", index1 + 1);
+        index2 = FindFirstOf(file_contents, "\r\n", index1 + 1);
+        if (index1 < 0 || index2 < 0)
+            break;
+
+        //判断注释是否独占一行
+        bool isIndividualLine = false;
+
+        //提取注释部分
+        QByteArray strComment = file_contents.mid(index1, index2 - index1);
+        strComment += "\r\n";
+
+        //从注释位置向前查找第一个非空字符
+        int removeStart = index1 - 1;
+        while (removeStart >= 0)
+        {
+            char ch = file_contents[removeStart];
+            if (ch == '\n')
+            {
+                //在没有找到空字符的情况下找到了换行符，说明当前注释独占一行
+                isIndividualLine = true;
+                break;
+            }
+
+            if (ch != ' ' && ch != '\t')
+                break;
+
+            removeStart--;
+        }
+
+        if (!isIndividualLine)
+        {
+            //移除非独占行的注释
+            file_contents.remove(removeStart + 1, index2 - removeStart - 1);
+            //将注释插入到该行前面作为独占行
+            int inserPos = file_contents.lastIndexOf('\n', removeStart) + 1;
+            file_contents.insert(inserPos, strComment);
+
+            count++;
+        }
+
+        index1 += 2;
+    }
+
+    return count;
 }
 
 int CRemoveCommentHelper::FindFirstOf(const QByteArray& contents, const QByteArray& strFind, int index)

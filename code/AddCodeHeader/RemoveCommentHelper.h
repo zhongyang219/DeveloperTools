@@ -23,8 +23,21 @@ public:
         }
     };
 
-    static bool RemoveFileComment(const QString& file_path, bool removeComment, bool bRemoveSpace, bool bRemoveReturn, int keepReturnNum, RemoveResult& result);
+    struct FormatPara
+    {
+        bool removeComment = false;
+        bool removeSpace = false;
+        bool removeReturn = false;
+        int keepReturnNum = 0;
+        bool commonToIndividualLine = false;
+    };
+
+    static bool CodeFileFormat(const QString& file_path, FormatPara para, RemoveResult& result);
     static void RemoveComment(QByteArray& file_contents, bool removeComment, bool bRemoveSpace, bool bRemoveReturn, int keepReturnNum, RemoveResult& result);
+
+    //将注释移动到单独的行
+    static int CommonToIndividualLine(QByteArray& file_contents);
+
 
 private:
     static int FindFirstOf(const QByteArray& contents, const QByteArray& strFind, int index);
