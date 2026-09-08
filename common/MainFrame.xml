@@ -84,7 +84,7 @@
 			<Action name="导出颜色表..." id="ExportColorTable"/>
 		</Menu>
 	</Page>
-	<Page name="密码生成器" icon="Images/password.png" modulePath="PasswordGeneratorApi">
+	<Page name="密码生成器" icon="Images/password.png" modulePath="PasswordGenerator">
 		<ActionGroup name="密码位数">
 			<Action name="8位" id="PasswordGenerator8Num" radioGroup="2" />
 			<Action name="16位" id="PasswordGenerator16Num" radioGroup="2" />
