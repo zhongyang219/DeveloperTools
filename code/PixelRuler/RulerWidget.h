@@ -16,6 +16,8 @@ protected:
     virtual void mousePressEvent(QMouseEvent* event) override;
     virtual void mouseReleaseEvent(QMouseEvent* event) override;
     virtual void keyReleaseEvent(QKeyEvent* event) override;
+    void mouseDoubleClickEvent(QMouseEvent* event) override;
+    void closeEvent(QCloseEvent* event) override;
 
 private:
     Qt::Orientation m_orientation;

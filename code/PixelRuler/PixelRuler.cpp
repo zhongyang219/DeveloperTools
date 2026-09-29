@@ -52,6 +52,11 @@ void PixelRuler::Repaint()
     m_verticalRuler.update();
 }
 
+IMainFrame* PixelRuler::GetMainFrame() const
+{
+    return m_pMainFrame;
+}
+
 void PixelRuler::InitInstance()
 {
 

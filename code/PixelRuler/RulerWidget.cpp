@@ -6,6 +6,7 @@
 #include "define.h"
 #include <QScreen>
 #include <QKeyEvent>
+#include "PixelRuler.h"
 
 CRulerWidget::CRulerWidget(Qt::Orientation orientation, QWidget *parent)
     : QWidget(parent), m_orientation(orientation)
@@ -110,4 +111,19 @@ void CRulerWidget::keyReleaseEvent(QKeyEvent* event)
     }
 
     QWidget::keyReleaseEvent(event);
+}
+
+void CRulerWidget::mouseDoubleClickEvent(QMouseEvent* event)
+{
+    //双击尺子关闭
+    close();
+}
+
+void CRulerWidget::closeEvent(QCloseEvent* event)
+{
+    //关闭时更新主界面Ribbon菜单按钮选中状态
+    const char* strShowRuleCmd = m_orientation == Qt::Horizontal ? CMD_ShowHorizontalRuler : CMD_ShowVerticalRuler;
+    PixelRuler::Instance()->GetMainFrame()->SetItemChecked(strShowRuleCmd, false);
+
+    QWidget::closeEvent(event);
 }

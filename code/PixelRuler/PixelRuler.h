@@ -22,6 +22,7 @@ public:
     int GetScalePercent();
     int GetScaleUnitSize();
     void Repaint();
+    IMainFrame* GetMainFrame() const;
 
     // 通过 IModule 继承
     virtual void InitInstance() override;
