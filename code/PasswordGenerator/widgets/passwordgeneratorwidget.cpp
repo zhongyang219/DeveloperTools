@@ -1,4 +1,4 @@
-#include "passwordgeneratorwidget.h"
+ï»¿#include "passwordgeneratorwidget.h"
 #include "ui_passwordgeneratorwidget.h"
 #include "define.h"
 #include "../CCommonTools/Config.h"
@@ -90,7 +90,7 @@ void PasswordGeneratorWidget::onGenerateClicked()
 {
     if (ui->generateGUID->isChecked())
     {
-        // Éú³É GUID (²»´ø´óÀ¨ºÅ)
+        // ç”Ÿæˆ GUID (ä¸å¸¦å¤§æ‹¬å·)
         ui->passwordBox->setText(QUuid::createUuid().toString(QUuid::WithoutBraces));
         return;
     }
@@ -99,18 +99,18 @@ void PasswordGeneratorWidget::onGenerateClicked()
 
     if (ui->passwordLengthBox->text().isEmpty())
     {
-        QMessageBox::warning(this, u8"¾¯¸æ", u8"ÇëÊäÈëÒªÉú³ÉµÄÃÜÂë³¤¶È£¡");
+        QMessageBox::warning(this, u8"è­¦å‘Š", u8"è¯·è¾“å…¥è¦ç”Ÿæˆçš„å¯†ç é•¿åº¦ï¼");
         return;
     }
 
     int passwordLength = ui->passwordLengthBox->text().toInt();
     if (passwordLength == 0)
     {
-        QMessageBox::warning(this, u8"¾¯¸æ", u8"ÃÜÂë³¤¶È²»ÄÜÎª0£¡");
+        QMessageBox::warning(this, u8"è­¦å‘Š", u8"å¯†ç é•¿åº¦ä¸èƒ½ä¸º0ï¼");
         return;
     }
 
-    // ÊÕ¼¯Ñ¡ÖĞµÄ×Ö·û¼¯
+    // æ”¶é›†é€‰ä¸­çš„å­—ç¬¦é›†
     QList<QString> charSets;
     if (ui->includeNums->isChecked()) charSets << "0123456789";
     if (ui->includeCapital->isChecked()) charSets << "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
@@ -120,14 +120,14 @@ void PasswordGeneratorWidget::onGenerateClicked()
 
     if (charSets.isEmpty())
     {
-        QMessageBox::warning(this, u8"¾¯¸æ", u8"ÇëÑ¡ÔñÒ»ÖÖÒª°üº¬µÄ×Ö·ûÀàĞÍ£¡");
+        QMessageBox::warning(this, u8"è­¦å‘Š", u8"è¯·é€‰æ‹©ä¸€ç§è¦åŒ…å«çš„å­—ç¬¦ç±»å‹ï¼");
         return;
     }
 
     QString result;
     if (ui->charTypeProbEqual->isChecked())
     {
-        // Ã¿Ò»ÖÖ×Ö·û³öÏÖµÄ¸ÅÂÊ¾ùµÈ
+        // æ¯ä¸€ç§å­—ç¬¦å‡ºç°çš„æ¦‚ç‡å‡ç­‰
         for (int i = 0; i < passwordLength; ++i)
         {
             int typeIndex = QRandomGenerator::global()->bounded(charSets.size());
@@ -138,7 +138,7 @@ void PasswordGeneratorWidget::onGenerateClicked()
     }
     else
     {
-        // Ã¿¸ö×Ö·û³öÏÖµÄ¸ÅÂÊ¾ùµÈ
+        // æ¯ä¸ªå­—ç¬¦å‡ºç°çš„æ¦‚ç‡å‡ç­‰
         QString allChars = "";
         for (const QString& set : charSets)
         {
@@ -159,7 +159,7 @@ void PasswordGeneratorWidget::onCopyClicked()
     if (!ui->passwordBox->text().isEmpty())
     {
         QApplication::clipboard()->setText(ui->passwordBox->text());
-        PasswordGenerator::Instance()->GetMainFrame()->SetStatusBarText(u8"ÃÜÂëÒÑ¸´ÖÆµ½¼ôÌù°å¡£", 10000);
+        PasswordGenerator::Instance()->GetMainFrame()->SetStatusBarText(u8"å¯†ç å·²å¤åˆ¶åˆ°å‰ªè´´æ¿ã€‚", 10000);
     }
 }
 
@@ -172,16 +172,16 @@ void PasswordGeneratorWidget::onSaveClicked()
         if (file.open(QIODevice::Append | QIODevice::Text))
         {
             QTextStream out(&file);
-            // Ğ´Èë¸ñÊ½£ºÊ±¼ä£ºÃÜÂë
+            // å†™å…¥æ ¼å¼ï¼šæ—¶é—´ï¼šå¯†ç 
             out << QDateTime::currentDateTime().toString("yyyy-MM-dd HH:mm:ss")
-                << u8"£º" << currentPwd << "\n";
+                << u8"ï¼š" << currentPwd << "\n";
             file.close();
             m_lastPassword = currentPwd;
-            PasswordGenerator::Instance()->GetMainFrame()->SetStatusBarText(u8"ÃÜÂëÒÑ±£´æµ½password.logÖĞ¡£", 10000);
+            PasswordGenerator::Instance()->GetMainFrame()->SetStatusBarText(u8"å¯†ç å·²ä¿å­˜åˆ°password.logä¸­ã€‚", 10000);
         }
         else
         {
-            QMessageBox::warning(this, u8"´íÎó", u8"ÎŞ·¨´ò¿ªÎÄ¼ş½øĞĞĞ´Èë£¡");
+            QMessageBox::warning(this, u8"é”™è¯¯", u8"æ— æ³•æ‰“å¼€æ–‡ä»¶è¿›è¡Œå†™å…¥ï¼");
         }
     }
 }
